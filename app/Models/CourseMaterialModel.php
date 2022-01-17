@@ -44,4 +44,9 @@ class CourseMaterialModel extends BaseModel{
     {
         return $this->belongsTo(User::class);
     }
+
+    public function courseMaterial()
+    {
+        return $this->belongsTo(CourseMaterialModel::class);
+    }
 }

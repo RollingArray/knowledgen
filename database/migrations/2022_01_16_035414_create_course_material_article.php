@@ -17,9 +17,9 @@ class CreateCourseMaterialArticle extends Migration
             $table->string('article_id')->primary();
             $table->string('course_material_id');
             $table->string('article_title');
-            $table->integer('article_feedback_delightful');
-            $table->integer('article_feedback_neutral');
-            $table->integer('article_feedback_sad');
+            $table->integer('article_feedback_delightful')->nullable();;
+            $table->integer('article_feedback_neutral')->nullable();;
+            $table->integer('article_feedback_sad')->nullable();;
             $table->timestamps();
             $table->index([
                 'article_id',

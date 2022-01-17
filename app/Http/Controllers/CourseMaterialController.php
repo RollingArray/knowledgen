@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\CourseMaterialServiceInterface;
-use App\Jobs\SendEmailJob;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;

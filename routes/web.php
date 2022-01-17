@@ -87,5 +87,38 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
                 'uses' => 'CourseMaterialController@deleteCourseMaterials'
             ]
         );
+
+        $router->group([
+            'prefix' => 'article',
+            'middleware' => 'auth'
+        ], function () use ($router) {
+            $router->get(
+                'all',
+                [
+                    'uses' => 'CourseMaterialArticleController@all'
+                ]
+            );
+            $router->post(
+                'add',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialArticleController@add'
+                ]
+            );
+            $router->post(
+                'edit',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialArticleController@edit'
+                ]
+            );
+            $router->post(
+                'delete',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialArticleController@delete'
+                ]
+            );
+        });
     });
 });

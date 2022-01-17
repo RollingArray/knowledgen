@@ -148,6 +148,7 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\JWTAuthServiceProvider::class);
 $app->register(App\Providers\UsersServiceProvider::class);
 $app->register(App\Providers\CourseMaterialProvider::class);
+$app->register(App\Providers\CourseMaterialArticleProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
