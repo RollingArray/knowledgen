@@ -11,4 +11,8 @@ Interface UsersServiceInterface
     public function generateUserVerificationCode();
 
     public function getUserByEmailAndCode($userEmail, $userVerificationCode);
+
+    public function getUserTypeId($userId);
+
+    public function checkIfUserIsTeacher($userId);
 }

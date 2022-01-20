@@ -17,5 +17,6 @@ return [
         'activationCode' => 'We have send you the activation code in your registered email, please check',
         'activateAccount' => 'We have send you the activation code in your registered email, please use the code to activate your account',
         'restrictedAccessCourse' => 'Restricted access !! you are not the owner of this course material',
+        'restrictedAccessTeacher' => 'Restricted access !! you must be a teacher to access this',
     ],
 ];

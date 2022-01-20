@@ -44,6 +44,26 @@ class UsersService implements UsersServiceInterface
         return User::where('user_id', $userId)
                ->first();
     }
+
+    /**
+     * Get user by id
+     *
+     * @param  mixed $userId
+     * @return void
+     */
+    public function getUserTypeId($userId)
+    {
+        return User::select('user_type')
+            ->where('user_id', $userId)
+            ->first();
+    }
+
+    public function checkIfUserIsTeacher($userId)
+    {
+        return User::where('user_id', '=', $userId)
+                ->where('user_type', '=', 'TEACHER')
+                ->exists();
+    }
     
     /**
      * Generate user verification code

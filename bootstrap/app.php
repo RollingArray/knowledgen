@@ -129,6 +129,7 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\AuthenticateMiddleware::class,
     'age' => App\Http\Middleware\AgeMiddleware::class,
     'courseMaterialOwner' => App\Http\Middleware\CourseMaterialOwnerMiddleware::class,
+    'roleTeacher' => App\Http\Middleware\RoleTeacherMiddleware::class,
 ]);
 
 /*
