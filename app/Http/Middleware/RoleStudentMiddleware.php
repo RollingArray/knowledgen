@@ -6,7 +6,7 @@ use App\Http\Interfaces\CourseMaterialServiceInterface;
 use App\Http\Interfaces\UsersServiceInterface;
 use Closure;
 
-class RoleTeacherMiddleware
+class RoleStudentMiddleware
 {
     protected $usersServiceInterface;
 
@@ -60,14 +60,14 @@ class RoleTeacherMiddleware
         $userId = $request->header('UserId');
         
         if ($userId) {
-            $checkIfUserIsTeacher = $this->usersServiceInterface->checkIfUserIsTeacher($userId);
+            $checkIfUserIsStudent = $this->usersServiceInterface->checkIfUserIsStudent($userId);
 
-            if(!$checkIfUserIsTeacher){
+            if(!$checkIfUserIsStudent){
                 return response(
                     array(
                         'error' => true,
                         "message" => array(
-                            config('messages.apiValidation.restrictedAccessTeacher')
+                            config('messages.apiValidation.restrictedAccessStudent')
                         )
                     ),
                     401

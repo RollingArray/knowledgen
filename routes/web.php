@@ -157,4 +157,37 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             );
         });
     });
+
+    $router->post(
+        'match',
+        [
+            'uses' => 'MatchSkillController@all'
+        ]
+    );
+
+    $router->group([
+        'prefix' => 'teacher/availability/planner',
+        'middleware' => 'auth'
+    ], function () use ($router) {
+        $router->post(
+            'add',
+            [
+                'middleware' => 'roleTeacher',
+                'uses' => 'TeacherAvailabilityPlannerController@add'
+            ]
+        );
+    });
+
+    $router->group([
+        'prefix' => 'student/availability/planner',
+        'middleware' => 'auth'
+    ], function () use ($router) {
+        $router->post(
+            'add',
+            [
+                'middleware' => 'roleStudent',
+                'uses' => 'StudentAvailabilityPlannerController@add'
+            ]
+        );
+    });
 });

@@ -130,6 +130,7 @@ $app->routeMiddleware([
     'age' => App\Http\Middleware\AgeMiddleware::class,
     'courseMaterialOwner' => App\Http\Middleware\CourseMaterialOwnerMiddleware::class,
     'roleTeacher' => App\Http\Middleware\RoleTeacherMiddleware::class,
+    'roleStudent' => App\Http\Middleware\RoleStudentMiddleware::class,
 ]);
 
 /*

@@ -64,6 +64,13 @@ class UsersService implements UsersServiceInterface
                 ->where('user_type', '=', 'TEACHER')
                 ->exists();
     }
+
+    public function checkIfUserIsStudent($userId)
+    {
+        return User::where('user_id', '=', $userId)
+                ->where('user_type', '=', 'STUDENT')
+                ->exists();
+    }
     
     /**
      * Generate user verification code
