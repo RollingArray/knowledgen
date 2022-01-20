@@ -120,5 +120,41 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
                 ]
             );
         });
+
+        $router->group([
+            'prefix' => 'menu',
+            
+        ], function () use ($router) {
+            
+            $router->post(
+                'all',
+                [
+                    'uses' => 'CourseMaterialMenuController@all'
+                ]
+            );
+
+            $router->post(
+                'add',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialMenuController@add'
+                ]
+            );
+
+            $router->post(
+                'child/add',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialChildMenuController@add'
+                ]
+            );
+            $router->post(
+                'child/sub/add',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialSubChildMenuController@add'
+                ]
+            );
+        });
     });
 });
