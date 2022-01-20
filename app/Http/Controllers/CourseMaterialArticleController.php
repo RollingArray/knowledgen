@@ -47,8 +47,8 @@ class CourseMaterialArticleController extends Controller
 	public function rules()
 	{
 		return [
-			'operation_type' => 'required|in:ADD,EDIT,DELETE',
-            'article_id' => 'exclude_if:operation_type,ADD|required|alpha_num',
+			'operation_type' => 'required|in:CREATE,EDIT,DELETE',
+            'article_id' => 'exclude_if:operation_type,CREATE|required|alpha_num',
             'course_material_id' => 'required|alpha_num',
             'article_title' => 'exclude_if:operation_type,DELETE|required|max:255',
 		];
