@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\AvailabilityPlannerServiceInterface;
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class MatchSkillController extends Controller
 	 *
 	 * @var mixed
 	 */
-	protected $courseMaterialArticleServiceInterface;
+	protected $availabilityPlannerServiceInterface;
 
 	/**
 	 * __construct
@@ -33,9 +34,11 @@ class MatchSkillController extends Controller
 	 * @return void
 	 */
 	public function __construct(
-		JWTAuthServiceInterface $jwtAuthServiceInterface
+		JWTAuthServiceInterface $jwtAuthServiceInterface,
+		AvailabilityPlannerServiceInterface $availabilityPlannerServiceInterface
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
+		$this->availabilityPlannerServiceInterface = $availabilityPlannerServiceInterface;
 	}
 
 	/**
@@ -46,7 +49,11 @@ class MatchSkillController extends Controller
 	public function rules()
 	{
 		return [
-			
+			'planner_id' => 'required|alpha_num',
+            'availability_date' => 'required|date',
+            'availability_from' => 'required|date_format:H:i:s',
+			'availability_to' => 'required|date_format:H:i:s',
+			'availability_context' => 'required'
 		];
 	}
 
@@ -74,13 +81,11 @@ class MatchSkillController extends Controller
         $userId = $request->header('UserId');
 
 		//$model = new CourseMaterialArticleModel();
-		$searchKey = $request->input('search_key');
+		$availabilityContext = $request->input('availability_context');
+		$availabilityDate = $request->input('availability_date');
 
-		$data = User::where('user_type', 'TEACHER')
-					->whereRaw("MATCH(user_skills) AGAINST('$searchKey' IN BOOLEAN MODE)")->get();
+		$data =  $this->availabilityPlannerServiceInterface->matchSkillWithAvailability($availabilityContext, $availabilityDate);
 		
-		//dd($data);
-
 		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $data);
     }
