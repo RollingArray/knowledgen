@@ -58,6 +58,12 @@ class UsersService implements UsersServiceInterface
             ->first();
     }
 
+    public function getUser($userId)
+    {
+        return User::where('user_id', $userId)
+            ->first();
+    }
+
     public function checkIfUserIsTeacher($userId)
     {
         return User::where('user_id', '=', $userId)

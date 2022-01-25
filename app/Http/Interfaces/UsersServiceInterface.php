@@ -17,4 +17,6 @@ Interface UsersServiceInterface
     public function checkIfUserIsTeacher($userId);
 
     public function checkIfUserIsStudent($userId);
+
+    public function getUser($userId);
 }

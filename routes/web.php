@@ -49,13 +49,34 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         ]
     );
 
-    $router->post(
-        'user/details',
-        [
-            'middleware' => 'auth',
-            'uses' => 'UserDetailController@boot'
-        ]
-    );
+    // $router->post(
+    //     'user/details',
+    //     [
+    //         'middleware' => 'auth',
+    //         'uses' => 'UserDetailController@boot'
+    //     ]
+    // );
+
+    $router->group([
+        'prefix' => 'user',
+        'middleware' => 'auth',
+        
+    ], function () use ($router) {
+        
+        $router->post(
+            'details',
+            [
+                'uses' => 'UserDetailController@boot'
+            ]
+        );
+
+        $router->post(
+            'edit',
+            [
+                'uses' => 'UserDetailController@edit'
+            ]
+        );
+    });
 
     $router->group([
         'prefix' => 'course/material',
@@ -170,6 +191,13 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'middleware' => 'auth'
     ], function () use ($router) {
         $router->post(
+            'all',
+            [
+                'middleware' => 'roleTeacher',
+                'uses' => 'TeacherAvailabilityPlannerController@all'
+            ]
+        );
+        $router->post(
             'add',
             [
                 'middleware' => 'roleTeacher',
@@ -182,6 +210,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         'prefix' => 'student/availability/planner',
         'middleware' => 'auth'
     ], function () use ($router) {
+        $router->post(
+            'all',
+            [
+                'middleware' => 'roleStudent',
+                'uses' => 'StudentAvailabilityPlannerController@all'
+            ]
+        );
+
         $router->post(
             'add',
             [
