@@ -46,7 +46,7 @@ class UserDetailController extends Controller
 	public function rules()
 	{
 		return [
-			'user_id' => 'required'
+			'user_id' => 'required',
 		];
 	}
 
@@ -109,4 +109,32 @@ class UserDetailController extends Controller
 			);
 		}
 	}
+
+	/**
+	 * add
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function edit(Request $request)
+    {
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+		//creating a new model
+        $model = $this->usersServiceInterface->getUser($userId);
+
+		//dd($model);
+		//adding values to the model
+        $model->user_first_name = $request->input('user_first_name');
+        $model->user_last_name = $request->input('user_last_name');
+        $model->user_email = $request->input('user_email');
+        $model->user_skills = $request->input('user_skills');
+        
+        //saving the model to database
+        $model->save();
+
+        // return to client
+		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
+    }
 }
