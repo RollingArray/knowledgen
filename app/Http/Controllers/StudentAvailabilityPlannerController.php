@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\AvailabilityPlannerServiceInterface;
 use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -37,11 +38,13 @@ class StudentAvailabilityPlannerController extends Controller
 	public function __construct(
 		UsersServiceInterface $usersServiceInterface,
 		JWTAuthServiceInterface $jwtAuthServiceInterface,
-		CourseMaterialServiceInterface $courseMaterialServiceInterface
+		CourseMaterialServiceInterface $courseMaterialServiceInterface,
+		AvailabilityPlannerServiceInterface $availabilityPlannerServiceInterface
 	) {
 		$this->usersServiceInterface = $usersServiceInterface;
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
 		$this->courseMaterialServiceInterface = $courseMaterialServiceInterface;
+		$this->availabilityPlannerServiceInterface = $availabilityPlannerServiceInterface;
 	}
 
 	/**
@@ -62,6 +65,18 @@ class StudentAvailabilityPlannerController extends Controller
 	}
 
 	/**
+	 * rules
+	 *
+	 * @return void
+	 */
+	public function getRules()
+	{
+		return [
+			'availability_date' => 'required|date'
+		];
+	}
+
+	/**
 	 * custom messages
 	 *
 	 * @return void
@@ -71,6 +86,41 @@ class StudentAvailabilityPlannerController extends Controller
 		return [
 			//
 		];
+	}
+
+	/**
+	 * all
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function all(Request $request)
+	{
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+        //creating a validator
+        $validator = Validator::make($request->all(), $this->getRules(), $this->customMessages());
+
+        //if validation fails 
+        if ($validator->fails()) {
+            return response(
+                array(
+                    'error' => true,
+                    'message' => $validator->errors()->all()
+                ),
+                400
+            );
+        }
+
+		$data = $this->availabilityPlannerServiceInterface->getAllStudentAvailabilityByDate($userId, $request->input('availability_date'));
+
+		return $this->jwtAuthServiceInterface->sendBackToClient(
+			$token, 
+			$userId, 
+			'data', 
+			$data
+		);
 	}
 
 	/**
@@ -112,7 +162,9 @@ class StudentAvailabilityPlannerController extends Controller
         //saving the model to database
         $model->save();
 
+		$studentPlanner = $this->availabilityPlannerServiceInterface->getStudentPlannerDetails($userId, $model->planner_id);
+
         // return to client
-		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
+		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $studentPlanner);
     }
 }
