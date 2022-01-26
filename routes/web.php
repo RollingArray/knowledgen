@@ -88,6 +88,12 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
                 'uses' => 'CourseMaterialController@getAllCourseMaterials'
             ]
         );
+        $router->get(
+            'recommended/all',
+            [
+                'uses' => 'CourseMaterialRecommendationController@all'
+            ]
+        );
         $router->post(
             'add',
             [
@@ -138,6 +144,25 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
                 [
                     'middleware' => 'courseMaterialOwner',
                     'uses' => 'CourseMaterialArticleController@delete'
+                ]
+            );
+        });
+
+        $router->group([
+            'prefix' => 'article/component',
+            'middleware' => 'auth'
+        ], function () use ($router) {
+            $router->post(
+                'all',
+                [
+                    'uses' => 'ArticleComponentController@all'
+                ]
+            );
+            $router->post(
+                'add',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'ArticleComponentCrudController@add'
                 ]
             );
         });

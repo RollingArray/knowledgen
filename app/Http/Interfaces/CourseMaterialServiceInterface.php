@@ -11,4 +11,6 @@ Interface CourseMaterialServiceInterface
     public function deleteCourseMaterialById($courseMaterialId);
 
     public function checkIfUserIsCourseOwner($userId, $courseMaterialId);
+
+    public function findRecommendedCourses($availabilityContext);
 }
