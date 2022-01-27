@@ -78,7 +78,7 @@ class ActivationCodeController extends Controller
         $user = $this->usersServiceInterface->getUserByEmail($request->input('user_email'));
         
         // update the verification code
-        $user->user_verification_code = $this->usersServiceInterface->generateUserVerificationCode();
+        $user->user_verification_code = 'A2Za2z09';//$this->usersServiceInterface->generateUserVerificationCode();
         
         // save
         $user->save();
