@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewUserRegister extends Mailable
+class SignInOTP extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,9 +30,7 @@ class NewUserRegister extends Mailable
      */
     public function build()
     {
-        return $this->subject('KnowledgeN - Email Verification')
-            ->view('emails.newUserRegister');
-            //->with($this->details);
-        
+        return $this->subject('KnowledgeN - Verify your Identity')
+            ->view('emails.signInOTP');
     }
 }

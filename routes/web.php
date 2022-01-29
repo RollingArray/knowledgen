@@ -26,7 +26,7 @@ $router->get('/', function () use ($router) {
 //     );
 // });
 
-$router->group(['prefix' => 'api/v1'], function () use ($router) {
+$router->group(['prefix' => 'v1'], function () use ($router) {
 
     $router->post(
         'user/sign/up',

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\UsersServiceInterface;
 use App\Jobs\SendEmailJob;
+use App\Mail\NewUserRegister;
+use App\Mail\SignInOTP;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ActivationCodeController extends Controller
@@ -78,7 +81,7 @@ class ActivationCodeController extends Controller
         $user = $this->usersServiceInterface->getUserByEmail($request->input('user_email'));
         
         // update the verification code
-        $user->user_verification_code = 'A2Za2z09';//$this->usersServiceInterface->generateUserVerificationCode();
+        $user->user_verification_code = $this->usersServiceInterface->generateUserVerificationCode();
         
         // save
         $user->save();
@@ -88,7 +91,8 @@ class ActivationCodeController extends Controller
 
         // send user verification code email
         try {
-            dispatch(new SendEmailJob($user));
+            $email = new SignInOTP($user);
+            Mail::to($user['user_email'])->send($email);
         } catch (\Exception $th) {
             //throw $th;
             echo $th;

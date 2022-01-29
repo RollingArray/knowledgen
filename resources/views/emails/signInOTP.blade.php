@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>KnowledgeN - Email Verification</title>
+	<title>KnowledgeN - Verify your Identity</title>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 											line-height: 24px;
 											color: #323433;
 										">
-										You are just a step away from using your account in <b>KnowledgeN</b>
+										You are just a step away from Signing in to your account in <b>KnowledgeN</b>
 									</div>
 								</td>
 							</tr>
@@ -104,7 +104,7 @@
 											margin: 0;
 											padding: 0 0 20px;
 										" valign="top">
-										You or someone with your email id signed up at <b>KnowledgeN</b>. Your account is almost ready, but before you login you need to confirm your email by applying below verification code in the app.
+										You or someone with your email id signed in at <b>KnowledgeN</b>. But before you login you need to confirm your email by applying below verification code in the app.
 										<br><br>
 										<table border=0 style="font-family:Helvetica,Arial,sans-serif;font-size:5em;vertical-align:top;margin:0;margin:0 0 20px; background: #e9e8e8;
 		border: 1px solid #d1cdcd;

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\UsersServiceInterface;
 use App\Jobs\SendEmailJob;
+use App\Mail\NewUserRegister;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class SignUpController extends Controller
@@ -86,7 +88,7 @@ class SignUpController extends Controller
         $user->user_email = $request->input('user_email');
         $user->user_type = $request->input('user_type');
         $user->user_verification_code = $this->usersServiceInterface->generateUserVerificationCode();
-
+        
         //saving the user to database
         $user->save();
 
@@ -95,7 +97,9 @@ class SignUpController extends Controller
 
         // send user verification code email
         try {
-            dispatch(new SendEmailJob($user));
+            $email = new NewUserRegister($user);
+            Mail::to($user['user_email'])->send($email);
+            //dispatch(new SendEmailJob($user));
         } catch (\Exception $th) {
             //throw $th;
             echo $th;

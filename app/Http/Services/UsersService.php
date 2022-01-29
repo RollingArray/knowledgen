@@ -85,6 +85,7 @@ class UsersService implements UsersServiceInterface
      */
     public function generateUserVerificationCode()
     {
-        return bin2hex(openssl_random_pseudo_bytes(4));
+        return 'A2Za2z09';
+        //return bin2hex(openssl_random_pseudo_bytes(4));
     }
 }
