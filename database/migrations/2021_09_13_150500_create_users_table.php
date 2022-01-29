@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('user_email');
             $table->string('user_type');
             $table->string('user_type');
-            $table->string('user_skills');
+            $table->string('user_skills')->nullable();
             $table->string('user_verification_code');
             $table->timestamps();
         });
