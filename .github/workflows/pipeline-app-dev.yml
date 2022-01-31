@@ -34,6 +34,9 @@ jobs:
     - name: Get latest code
       uses: actions/checkout@v2.3.2
 
+    - name: cd app
+      run: cd app
+
     - name: Use Node.js 14 LTS
       uses: actions/setup-node@v2
       with:
@@ -43,7 +46,7 @@ jobs:
     #   run: ls && cd app && ls && pwd
 
     - name: Install NPM Modules
-      run: cd app & npm install
+      run: npm install
 
     - name: Build Project
       run: npm run build-dev
