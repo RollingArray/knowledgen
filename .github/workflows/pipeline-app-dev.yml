@@ -14,8 +14,8 @@ on:
   push:
     branches: 
       - dev
-    paths:
-      - 'app/**'
+    # paths:
+    #   - 'app/**'
       
 jobs:
   web-deploy:
