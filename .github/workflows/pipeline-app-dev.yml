@@ -43,9 +43,9 @@ jobs:
     # - name: cd app && ls && pwd
     #   run: ls && cd app && ls && pwd
 
-    - name: Install NPM Modules
-      run: npm install
-      working-directory: ./app
+    # - name: Install NPM Modules
+    #   run: npm install
+    #   working-directory: ./app
 
     - name: Build Project
       run: npm run build-dev
