@@ -14,8 +14,8 @@ on:
   push:
     branches: 
       - playground
-    paths:
-      - 'app/**'
+    # paths:
+    #   - 'app/**'
       
 jobs:
   web-deploy:
@@ -49,7 +49,7 @@ jobs:
 
     - name: Build Project
       run: npm run build-dev
-      working-directory: ./app
+      # working-directory: ./app
 
     - name: Directory Permissions
       run: chmod -R 777 ./www/
