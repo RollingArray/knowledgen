@@ -34,8 +34,6 @@ jobs:
     - name: Get latest code
       uses: actions/checkout@v2.3.2
 
-    - name: cd app
-      run: cd app
 
     - name: Use Node.js 14 LTS
       uses: actions/setup-node@v2
@@ -47,12 +45,15 @@ jobs:
 
     - name: Install NPM Modules
       run: npm install
+      working-directory: ./app
 
     - name: Build Project
       run: npm run build-dev
+      working-directory: ./app
 
     - name: Directory Permissions
-      run: chmod -R 777 ./app/www/
+      run: chmod -R 777 ./www/
+      working-directory: ./app
     
     - name: Sync Files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
