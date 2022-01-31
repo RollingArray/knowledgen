@@ -1,5 +1,5 @@
 
-
+ 
 ![KnowledgeN logo](https://he-s3.s3.ap-southeast-1.amazonaws.com/media/sprint/ctrl-alt-debt/team/1350587/80e7c4fslide1.png)
 
 Forced to stay indoors with schools being shut down, children became one of the worst sufferers of the pandemic. While many children shifted to digital mode of learning, the less privileged children did not have similar access to technology and their education came to a halt.
