@@ -39,11 +39,8 @@ jobs:
       with:
         node-version: '14'
     
-    - name: Change to app directory 
-      run: cd app
-
-    - name: Ls
-      run: cd app && ls 
+    - name: cd app && ls && pwd
+      run: cd app && ls && pwd
 
     - name: Install NPM Modules
       run: npm install
