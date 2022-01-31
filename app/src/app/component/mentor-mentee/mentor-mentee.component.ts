@@ -27,8 +27,7 @@ import { MentorMatchModel } from 'src/app/shared/model/mentor-match.model';
 
 @Component({
 	selector: "mentor-mentee",
-	templateUrl: "./mentor-mentee.component.html",
-	styleUrls: ["./mentor-mentee.component.scss"]
+	templateUrl: "./mentor-mentee.component.html"
 })
 export class MentorMenteeComponent extends BaseViewComponent implements OnInit, OnDestroy
 {
