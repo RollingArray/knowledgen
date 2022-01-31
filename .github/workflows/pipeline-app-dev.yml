@@ -39,6 +39,9 @@ jobs:
       with:
         node-version: '14'
     
+    - name: Change to app directory 
+      run: cd app
+
     - name: Install NPM Modules
       run: npm install
 
