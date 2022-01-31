@@ -43,7 +43,7 @@ jobs:
     #   run: ls && cd app && ls && pwd
 
     - name: Install NPM Modules
-      run: npm install
+      run: cd app & npm install
 
     - name: Build Project
       run: npm run build-dev
