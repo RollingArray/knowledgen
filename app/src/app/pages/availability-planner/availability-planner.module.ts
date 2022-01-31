@@ -18,7 +18,7 @@ import { CalenderModule } from "src/app/component/calender/calender.component.mo
 import { CrudAvailabilityPlannerModule } from "src/app/component/crud-availability-planner/crud-availability-planner.module";
 import { CustomFieldsModule } from "src/app/component/custom-fields/custom-fields-fields.component.module";
 import { KeywordModule } from "src/app/component/keyword/keyword.component.module";
-import { MentorMenteeComponentModule } from "src/app/component/mentor-mentee/mentor-Mentee.component.module";
+import { MentorMenteeComponentModule } from "src/app/component/mentor-mentee/mentor-mentee.component.module";
 import { NoDataModule } from "src/app/component/no-data/no-data.component.module";
 import { PageInfoTitleModule } from "src/app/component/page-info-title/page-info-title.component.module";
 import { PanelHeaderModule } from "src/app/component/panel-header/panel-header.component.module";
