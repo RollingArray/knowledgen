@@ -8,7 +8,7 @@
 # Last modified  : 2021-11-02 18:26:06
 #
 
-name: Deploy C2 API DEV api on DEV branch push
+name: Deploy KnowledgeN Server api on DEV branch push
 
 on: 
   push:
@@ -20,7 +20,7 @@ on:
 jobs:
   web-deploy:
 
-    name: Deploy C2 Api Dev
+    name: Deploy KnowledgeN Server api
     runs-on: ubuntu-latest
     environment:
       name: dev
