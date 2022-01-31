@@ -1,5 +1,5 @@
 /**
- * © Rolling Array https://rollingarray.co.in/  
+ * © Rolling Array https://rollingarray.co.in/   
  *
  * long description for the file
  *
