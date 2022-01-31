@@ -40,7 +40,7 @@ jobs:
         node-version: '14'
     
     - name: cd app && ls && pwd
-      run: cd app && ls && pwd
+      run: ls && cd app && ls && pwd
 
     - name: Install NPM Modules
       run: npm install
