@@ -43,7 +43,7 @@ jobs:
       run: pwd
 
     - name: Change to app directory 
-      run: pwd
+      run: ls
 
     - name: Install NPM Modules
       run: npm install
