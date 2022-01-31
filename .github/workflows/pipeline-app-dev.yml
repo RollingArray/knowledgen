@@ -13,7 +13,7 @@ name: Deploy KnowledgeN Client app on DEV branch push
 on: 
   push:
     branches: 
-      - dev
+      - playground
     # paths:
     #   - 'app/**'
       
@@ -40,7 +40,10 @@ jobs:
         node-version: '14'
     
     - name: Change to app directory 
-      run: cd app
+      run: pwd
+
+    - name: Change to app directory 
+      run: pwd
 
     - name: Install NPM Modules
       run: npm install
