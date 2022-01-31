@@ -13,7 +13,7 @@ name: Deploy KnowledgeN Client app on DEV branch push
 on: 
   push:
     branches: 
-      - dev
+      - playground
     paths:
       - 'app/**'
       
