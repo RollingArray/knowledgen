@@ -43,7 +43,7 @@ jobs:
       run: cd app
 
     - name: Ls
-      run: ls
+      run: cd app && ls 
 
     - name: Install NPM Modules
       run: npm install
