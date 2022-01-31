@@ -14,8 +14,8 @@ on:
   push:
     branches: 
       - playground
-    # paths:
-    #   - 'app/**'
+    paths:
+      - './app/**'
       
 jobs:
   web-deploy:
