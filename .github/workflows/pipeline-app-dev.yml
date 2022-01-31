@@ -15,7 +15,7 @@ on:
     branches: 
       - playground
     paths:
-      - '/app/**'
+      - 'app/**'
       
 jobs:
   web-deploy:
