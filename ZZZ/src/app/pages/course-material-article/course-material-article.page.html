@@ -1,0 +1,27 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Articles page template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2021-11-15 21:34:14 
+ * Last modified  : 2022-01-20 01:37:05
+ */
+ -->
+<!-- header -->
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+<ion-content>
+	<!-- no data -->
+	<app-no-data [courseMaterial]="true" *ngIf="noTopic" [text]="'noData.noTopic' | translate"></app-no-data>
+	<!-- no data -->
+	<!-- page title -->
+</ion-content>

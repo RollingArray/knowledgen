@@ -1,0 +1,69 @@
+<!-- 
+/**
+* © Rolling Array https://rollingarray.co.in/
+*
+* long description for the file
+*
+* @summary Course material page template
+* @author code@rollingarray.co.in
+*
+* Created at     : 2022-01-16 08:18:18 
+ * Last modified  : 2022-01-26 22:31:43
+*/	
+ -->
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ 'pageTitle.availableMentorSession' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.close' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title [title]="'pageTitle.availableMentorSession' | translate " [info]="'pageSubTitle.availableMentorSession' | translate "></app-page-info-title>
+
+	<!-- data container -->
+	<ion-grid>
+		<ion-row *ngFor="let eachMatch of (availabilityMatch$ | async)">
+			<ion-col>
+				<!-- each container -->
+				<ion-card color="secondary">
+					<ion-grid class="margin-10-px">
+						<ion-row>
+							<ion-col color="secondary" size="3">
+								<ion-icon class="font-size-100-px" [src]="stringKey.ICON_TEACHER" color="light">
+								</ion-icon>
+							</ion-col>
+							<ion-col>
+								<ion-card-header>
+									<ion-card-subtitle>{{eachMatch.userEmail}}</ion-card-subtitle>
+									<ion-card-title>
+										<b>{{eachMatch.userFirstName}} {{eachMatch.userLastName}}</b>
+									</ion-card-title>
+								</ion-card-header>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+
+					<ion-card-content>
+						{{eachMatch.userSkills}}
+					</ion-card-content>
+					<ion-card *ngFor="let eachMatchSession of eachMatch.matchedSessions.data">
+						<availability [availabilityPlanner]="eachMatchSession"></availability>
+					</ion-card>
+				</ion-card>
+				<!-- each container -->
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- </ng-container> -->
+	<!-- data container -->
+</ion-content>
+<!-- body -->

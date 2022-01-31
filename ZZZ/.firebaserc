@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "knowledgen": {
+      "hosting": {
+        "app": [
+          "knowledgen"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "knowledgen"
+  }
+}

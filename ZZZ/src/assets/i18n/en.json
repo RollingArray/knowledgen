@@ -1,0 +1,138 @@
+{
+	"appCore": {
+		"appName": "KnowledgeN",
+		"tag": "Connecting educator & learner",
+		"born": "Designed & Crafted in India 🇮🇳 with ❤️"
+	},
+	"button": {
+		"signUp": "Sign Up",
+		"enrollStudent": "Enroll As Student",
+		"enrollTeacher": "Enroll As Teacher",
+		"changeLanguage": "Change Language",
+		"alreadyAccount": "Already have an account?",
+		"signIn": "Sign In",
+		"signOut": "Sign Out",
+		"ok": "Okay",
+		"discard": "Discard",
+		"cancel": "Cancel",
+		"confirm": "Confirm",
+		"close": "Close",
+		"add": "Add",
+		"addSubChildMenu": "Add Topic [Level 3]",
+		"addChildMenu": "Add Topic [Level 2]",
+		"addMenu": "Add Topic [Level 1]"
+	},
+	"pageTitle": {
+		"profile":"Profile",
+		"myProfile": "My Profile",
+		"mySpace":"My Space",
+		"settings":"Settings",
+		"selectlanguage": "Change Language",
+		"selectLanguage": "Select your preferred Language",
+		"addCourse": "Add New Course Material",
+		"editCourse": "Edit Course Material",
+		"deleteCourse": "Delete Course Material",
+		"recommendedCourseMaterials": "Recommended Course Materials",
+		"myCourseMaterials": "My Course Materials",
+		"courseMaterials": "Course Materials",
+		"availabilityPlanner": "Availability Planner",
+		"availableMentorSession": "Available Mentor Session",
+		"availabilitySchedule": "Schedule",
+		"addSchedule": "Add New Schedule",
+		"editSchedule": "Edit Schedule",
+		"deleteSchedule": "Delete Schedule",
+		"from": "From",
+		"to": "To",
+		"attending": "Attending",
+		"participants": "Participants",
+		"found": "Found",
+		"mentor": "Mentor",
+		"mentee": "Mentee",
+		"schedule": "Schedule",
+		"meet": "Online Meet Url",
+		"no": "No",
+		"interest":"Interest",
+		"education": "Education"
+	},
+	"pageSubTitle": {
+		"myProfile": "You may wish to update any of your personal details",
+		"selectlanguage": "Your selected language will be applicable across the app.",
+		"addCourse": "Provide details of the material to create a new Course Material. Save the changes once you are satisfied with the content",
+		"editCourse": "Provide updated details of the material. Save the changes once you are satisfied with the content",
+		"deleteCourse": "Deleting course content",
+		"myCourseMaterials": "Course Materials are courses, documentation, educational materials, and other written information and any other materials. My Course Material shows the list of courses you have created",
+		"recommendedCourseMaterials": "Course Materials are courses, documentation, educational materials, and other written information and any other materials. Recommended Course Material shows the list of courses based of your interest you have set in your profile. Keep the interest updated to get relevant recommendations",
+		"availabilityPlannerMentor": "Plan you availability for a mentorship session by adding a day in a week when you can spend some time. We will find manatees who needs mentorship",
+		"availabilityPlannerMentee": "If you need help or guidance in a specific subject, plan you availability for a mentorship session by adding a day in a week when you can spend some time. We will find Mentor(s) who can guide you in those subjects",
+		"addSchedule": "Provide details of the Schedule to create a new Schedule. Save the changes once you are satisfied with the content",
+		"editSchedule": "Provide updated details of the Schedule. Save the changes once you are satisfied with the content",
+		"deleteSchedule": "Deleting Schedule",
+		"availableMentorSession": "Based on your requirement and availability, below session are found"
+	},
+	"formInfo":{
+		"intarest": "What are subjects / topics you are interested in to.",
+		"yourCred": "Your credential, you use this email to sign in",
+		"firstName": "First Name",
+		"lastName": "First Name",
+		"email": "Email",
+		"subjects": "CBSC, Maths, Goal settings, mentorship",
+		"personalDetails": "Your personal details",
+		"courseName": "Provide a suitable name to the Course you want to create",
+		"courseDescription": "Provide a suitable description describing your course",
+		"availability": "Availability",
+		"from": "From",
+		"to": "To",
+		"for": "For",
+		"teacherAvailabilityContext": "What is the context of your mentorship session. Your session can be on any topic. For ex, any school subject, mentorship on goal session etc",
+		"studentAvailabilityContext": "What is the area you need guidance. You can add topics like, any school subject, mentorship on goal session etc",
+		"onlineMeetingUrl": "Provide a online sessions url. You can add Zoom / Google Hangouts / Skype / Slack / Facebook Live / YouTube Live / MS Teams or any other meeting url"
+	},
+	"noData": {
+		"noNWAData": "No Network Activities Found",
+		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",
+		"noRecommendedCourseMaterialData": "We have not found any course material based on interest. Keep the interest updated to get relevant recommendations !! ",
+		"noAvailabilityPlannerData": "No schedules found, plan a new schedule !!",
+		"noTopic" : "No Topic has been found. Create your first topic !!"
+	},
+	"loading": {
+		"wait": "Loading ... Please wait",
+		"holdTight": "Hold tight, we are looking for your data",
+		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
+		"editCourseMaterial" : "Updating Course Material ... Please wait" ,
+		"deleteCourseMaterial" : "Deleting Course Material ... Please wait",
+		"newAvailabilityPlanner" : "Adding New Schedule ... Please wait" ,
+		"editAvailabilityPlanner" : "Updating Schedule ... Please wait" ,
+		"deleteAvailabilityPlanner" : "Deleting Schedule ... Please wait" 
+	},
+	"errorMessage":{
+		"notAllowed": "Review Your Action !!",
+		"mandatory": "All fields are mandatory"
+	},
+	"actionAlert": {
+		"noChange": "No change!!",
+		"confirm": "Confirm Your Action!!",
+		"delete": "Are you sure you want to Delete"
+	},
+	"response":{
+		"newCourseMaterial" : "Your Course Material has been saved, you can update any time!!",
+		"editCourseMaterial" : "Your Course Material has been updated successfully!!",
+		"deleteCourseMaterial" : "Your Course Material has been deleted successfully!!",
+		"feedbackSubmitted": "Thank you for taking time to share your feedback!!",
+		"teacherNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentee who would like to join your session",
+		"studentNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
+		"editAvailabilityPlanner" : "Your Schedule has been updated successfully!!",
+		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!"
+	},
+	
+	"validation" : {
+		"required" : "Please provide the details"
+	},
+	"categoryModal": {
+		"addTitle": "Add New Category",
+		"editTitle": "Edit Category",
+		"deleteTitle": "Delete Category",
+		"info": "Provide category details which can help to attach the category while adding a new skill",
+		"categoryName": "What is the category",
+		"categoryDescription": "Provide a brief description"
+	}
+}

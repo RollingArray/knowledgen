@@ -1,0 +1,137 @@
+<!-- 
+/**
+* © Rolling Array https://rollingarray.co.in/
+*
+* long description for the file
+*
+* @summary Course material page template
+* @author code@rollingarray.co.in
+*
+* Created at     : 2022-01-16 08:18:18 
+ * Last modified  : 2022-01-26 22:29:36
+*/	
+ -->
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{pageTitle}}
+		</ion-title>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-buttons slot="end" (click)="loadData()">
+			<ion-icon slot="start" [src]="stringKey.ICON_REFRESH"></ion-icon>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+<ion-content #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title [title]="pageTitle" [info]="pageSubTitle">
+	</app-page-info-title>
+	<!-- page title -->
+
+	<!-- refresh btn -->
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<!-- refresh btn -->
+
+	<!-- add btn -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="createNewAvailabilityPlanner()" *ngIf="todayOrFuture">
+		<ion-fab-button color="primary">
+			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- add btn -->
+
+	<!-- calender -->
+	<calender (emitAvailabilityDate)="loadAvailabilityPlannerData($event)"></calender>
+	<!-- calender -->
+
+	<ion-item color="tertiary" class="cursor-pointer">
+		<ion-icon [src]="stringKey.ICON_CALENDER" size="large"></ion-icon>
+		&nbsp;&nbsp;<h2><b>{{'pageTitle.availabilitySchedule' | translate}} - {{selectedDate}}</b></h2>
+	</ion-item>
+
+	<!-- no data -->
+	<app-no-data [courseMaterial]="true" *ngIf="!(hasData$ | async)" [text]="errorMessage"></app-no-data>
+	<!-- no data -->
+
+	<!-- data container -->
+	<ng-container *ngIf="(hasData$ | async)">
+		<ion-grid>
+			<ion-row *ngFor="let eachAvailabilityPlanner of (availabilityPlanners$ | async)">
+				<ion-col align-self-center size="12" size-xl="8" size-lg="8" size-md="8" size-sm="8" offset-lg="2"
+					offset-md="2" offset-sm="2" lines="none">
+					<!-- each container -->
+					<ion-card color="light" class="padding-bottom-10-px">
+						<img [src]="stringKey.IMAGE_PLANNER_HEADER">
+						<!-- operation icon -->
+						<ion-card-content>
+							<ion-grid>
+								<ion-row>
+									<ion-col class="text-right">
+										<ion-button mode="ios">
+											<ion-icon class="ion-panel-icon" [src]="stringKey.ICON_EDIT"></ion-icon>
+										</ion-button>
+										<ion-button mode="ios">
+											<ion-icon class="ion-panel-icon" [src]="stringKey.ICON_DELETE"></ion-icon>
+										</ion-button>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-card-content>
+
+						<!-- operation icon -->
+
+						<availability [availabilityPlanner]="eachAvailabilityPlanner"></availability>
+
+						<!-- no of attendees / mentors -->
+						<ion-card-content>
+							<ion-grid>
+								<ion-row>
+									<ion-col class="text-right">
+										<ion-button mode="ios" *ngIf="isUserTypeTeacher">
+											<ion-icon class="ion-panel-icon" [src]="stringKey.ICON_STUDENT"></ion-icon>
+											&nbsp;&nbsp;{{'pageTitle.attending' | translate}}
+											&nbsp;&nbsp;<ion-text color="tertiary"><b>0</b></ion-text>&nbsp;&nbsp;
+											{{'pageTitle.participants' | translate}}
+										</ion-button>
+
+										<ion-button mode="ios"
+											*ngIf="isUserTypeStudent && eachAvailabilityPlanner.mentorMatch.success"
+											(click)="openMentorMenteeList(eachAvailabilityPlanner)">
+											<ion-icon class="ion-panel-icon" [src]="stringKey.ICON_TEACHER"></ion-icon>
+											&nbsp;&nbsp;{{'pageTitle.found' | translate}}
+											&nbsp;&nbsp;<ion-text color="tertiary">
+												<b>
+													{{eachAvailabilityPlanner.mentorMatch.data.length}}
+												</b>
+											</ion-text>&nbsp;&nbsp;
+											{{'pageTitle.mentor' | translate}}
+										</ion-button>
+
+										<ion-button mode="ios"
+											*ngIf="isUserTypeStudent && !eachAvailabilityPlanner.mentorMatch.success">
+											<ion-icon class="ion-panel-icon" [src]="stringKey.ICON_INFO"></ion-icon>
+											&nbsp;&nbsp;{{'pageTitle.no' | translate}}
+											{{'pageTitle.mentor' | translate}}
+											{{'pageTitle.found' | translate}}
+										</ion-button>
+
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-card-content>
+						<!-- no of attendees / mentors -->
+
+					</ion-card>
+					<!-- each container -->
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ng-container>
+	<!-- data container -->
+</ion-content>

@@ -1,0 +1,29 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Page info title component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2021-12-26 11:22:36 
+ * Last modified  : 2022-01-27 10:06:36
+ */
+ -->
+<ion-list lines="none" color="primary" class="ion-no-padding">
+  <ion-item color="primary" lines="none">
+    <h3>
+      {{title}}
+    </h3>
+  </ion-item>
+  <ion-item color="primary" lines="none">
+    <ion-icon color="info" slot="start" [src]="stringKey.ICON_INFO"></ion-icon>
+    <h6>
+      {{info}}
+      <!-- <a class="link" [href]="helpArticle" target="_blank">
+        {{stringKey.LEARN_MORE}}
+      </a>  -->
+    </h6>
+  </ion-item>
+</ion-list>
