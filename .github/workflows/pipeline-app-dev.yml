@@ -13,9 +13,9 @@ name: Deploy KnowledgeN Client app on DEV branch push
 on: 
   push:
     branches: 
-      - playground
-    # paths:
-    #   - 'app/**'
+      - dev
+    paths:
+      - 'app/**'
       
 jobs:
   web-deploy:
@@ -45,10 +45,6 @@ jobs:
 
     - name: Install NPM Modules
       run: npm install
-      working-directory: ./app
-
-    - name: ls
-      run: ls
       working-directory: ./app
 
     - name: Build Project
