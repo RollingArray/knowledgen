@@ -14,8 +14,8 @@ on:
   push:
     branches: 
       - playground
-    # paths:
-    #   - '/api/**'
+    paths:
+      - '/api/**'
       
 jobs:
   web-deploy:

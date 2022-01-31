@@ -14,7 +14,7 @@ use App\Models\ArticleComponentModel;
 class ArticleComponentController extends Controller
 {
     /**
-	 * jwtAuthServiceInterface
+	 * jwtAuthServiceInterface 
 	 *
 	 * @var mixed
 	 */
