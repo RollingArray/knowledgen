@@ -1,7 +1,0 @@
-{
-  "name": "knowledgen",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
