@@ -15,7 +15,7 @@ on:
     branches: 
       - playground
     paths:
-      - 'knowledgen/app/*'
+      - '**.html'
       
 jobs:
   web-deploy:
