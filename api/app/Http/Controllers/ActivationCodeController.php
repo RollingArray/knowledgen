@@ -50,7 +50,7 @@ class ActivationCodeController extends Controller
     public function customMessages()
     {
         return [
-           //
+           // 
         ];
     }
 
