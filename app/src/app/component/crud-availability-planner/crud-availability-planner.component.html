@@ -1,0 +1,149 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary short description for the file
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-01-26 18:42:00
+ */
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ pageTitle | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
+	<!-- fab -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+		<ion-fab-button color="tertiary" (click)="submit()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- fab -->
+
+	<!-- form -->
+	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
+		<!-- course name -->
+		<ion-card color="secondary">
+			<ion-item color="secondary" lines="none">
+				<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+				<p>{{ 'formInfo.availability' | translate }} {{ 'pageTitle.schedule' | translate }} {{ 'formInfo.for' | translate }} - <b>{{availabilityPlanner.availabilityDate}}</b></p>
+			</ion-item>
+		</ion-card>
+		<!-- course name -->
+
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-grid>
+						<ion-row>
+							<ion-col>
+								<!-- course name -->
+								<ion-card color="secondary">
+									<ion-item color="secondary" lines="none">
+										<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+										<p>{{ 'formInfo.availability' | translate }} {{ 'formInfo.from' | translate }}</p>
+										<ion-text slot="end"><b>{{from}}</b></ion-text>
+									</ion-item>
+									<ion-card lines="none">
+										<ion-item lines="none" class="text-center">
+											<ion-datetime #availabilityFrom value="00:00:00" presentation="time" hour-cycle="h24" (ionChange)="formatDate(availabilityFrom.value, 'availabilityFrom')"></ion-datetime>
+										</ion-item>
+									</ion-card>
+								</ion-card>
+								<!-- course name -->
+							</ion-col>
+							<ion-col>
+								<!-- course description -->
+								<ion-card color="secondary">
+									<ion-item color="secondary" lines="none">
+										<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+										<p>{{ 'formInfo.availability' | translate }} {{ 'formInfo.to' | translate }}</p>
+										<ion-text slot="end"><b>{{to}}</b></ion-text>
+									</ion-item>
+									<ion-card lines="none">
+										<ion-item lines="none">
+											<ion-datetime #availabilityTo value="00:00:00" presentation="time" hour-cycle="h24" (ionChange)="formatDate(availabilityTo.value, 'availabilityTo')"></ion-datetime>
+										</ion-item>
+									</ion-card>
+								</ion-card>
+								<!-- course description -->
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				
+					<!-- course description -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p *ngIf="isUserTypeTeacher">{{ 'formInfo.teacherAvailabilityContext' | translate }}</p>
+							<p *ngIf="isUserTypeStudent">{{ 'formInfo.studentAvailabilityContext' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-textarea debounce="1000" (ionChange)="extractKeyWords()" rows="6" cols="20" autocomplete="off"
+									formControlName="availabilityContext" type="text">
+								</ion-textarea>
+							</ion-item>
+							<ion-card *ngIf="availabilityContext.invalid && availabilityContext.touched"
+								color="warning">
+								<ion-item color="warning">
+									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
+									{{'validation.required'|translate}}
+								</ion-item>
+							</ion-card>
+
+							<!-- keyword -->
+							<keyword [context]="keyWordContext"></keyword>
+							<!-- keyword -->
+							
+						</ion-card>
+					</ion-card>
+					<!-- course description -->
+
+					<!-- course description -->
+					<ion-card color="secondary" *ngIf="isUserTypeTeacher">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.onlineMeetingUrl' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-input rows="6" cols="20" autocomplete="off"
+									formControlName="onlineMeetingUrl" type="text">
+								</ion-input>
+							</ion-item>
+							<ion-card *ngIf="onlineMeetingUrl.invalid && onlineMeetingUrl.touched"
+								color="warning">
+								<ion-item color="warning">
+									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
+									{{'validation.required'|translate}}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+					<!-- course description -->
+					
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</form>
+	<!-- form -->
+</ion-content>
+<!-- body -->

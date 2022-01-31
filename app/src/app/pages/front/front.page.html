@@ -1,0 +1,97 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Front page template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2021-12-26 11:16:28 
+ * Last modified  : 2022-01-26 19:44:24
+ */
+ -->
+<ion-content lines="none" color="primary">
+    <ion-grid lines="none">
+        <ion-row justify-content-center lines="none">
+            <!-- landing image -->
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none" class="text-center">
+                <ion-img class="app-logo" [src]="stringKey.IMAGE_ICON"></ion-img>
+            </ion-col>
+            <!-- landing image -->
+        </ion-row>
+        <ion-row>
+            <!-- app tag -->
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none">
+                <h1>{{'appCore.tag' | translate}}</h1>
+            </ion-col>
+            <!-- app tag -->
+        </ion-row>
+        <ion-row>
+            <!-- sign up -->
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none">
+                <ion-button class="margin-top-100-px" expand="block" color="secondary" [routerLink]="['/sign-up']">
+                    <ion-icon [src]="stringKey.ICON_SIGN_UP"></ion-icon>
+                    &nbsp; {{'button.signUp' | translate}}
+                </ion-button>
+            </ion-col>
+            <!-- sign up -->
+        </ion-row>
+        <ion-row>
+            <!-- hav account -->
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none">
+                <h3>{{stringKey.HAVE_ACCOUNT}}</h3>
+            </ion-col>
+            <!-- hav account -->
+        </ion-row>
+        <ion-row>
+            <!-- sign in -->
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none">
+                <ion-button expand="block" color="tertiary" [routerLink]="['/sign-in']">
+                    <ion-icon [src]="stringKey.ICON_LOGIN"></ion-icon>
+                    <ion-label>&nbsp; {{stringKey.SIGN_IN}} </ion-label>
+                </ion-button>
+            </ion-col>
+            <!-- sign in -->
+        </ion-row>
+        <ion-row>
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none">
+                <ion-button expand="block" color="secondary" (click)="changeLanguage()">
+                    <ion-icon [src]="stringKey.ICON_LANGUAGE"></ion-icon>
+                    <ion-label>&nbsp; {{'button.changeLanguage' | translate}} </ion-label>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        
+    </ion-grid>
+    
+</ion-content>
+<ion-footer color="primary">
+    <ion-grid color="primary">
+        <ion-row color="primary">
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none" class="text-center">
+                <span color="primary-gradient" size="small">
+                    {{stringKey.BORN}}
+                </span>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+                offset-sm="4" lines="none" class="text-center">
+                <a color="primary-gradient" class="link" size="small" [href]="apiUrls.RA" target="_blank">
+                    {{stringKey.COPY}} {{year}}
+                </a>
+                <a color="primary-gradient" class="link" size="small" [href]="apiUrls.RA" target="_blank">
+                    {{stringKey.RA}}
+                </a>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
