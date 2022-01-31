@@ -14,8 +14,8 @@ on:
   push:
     branches: 
       - playground
-    paths:
-      - '/knowledgen/api/**'
+    # paths:
+    #   - '/api/**'
       
 jobs:
   web-deploy:
