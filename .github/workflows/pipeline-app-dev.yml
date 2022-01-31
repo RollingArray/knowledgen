@@ -49,6 +49,7 @@ jobs:
 
     - name: ls
       run: ls
+      working-directory: ./app
 
     - name: Build Project
       run: npm run build-dev
