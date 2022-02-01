@@ -12,12 +12,11 @@
  */
  -->
 
- <ion-header>
+<ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="end">
-			<ion-button mode="ios" fill="outline" color="tertiary" (click)="goBack()"> 
-				{{ 'button.discard' |
-				translate }}
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="goBack()">
+				{{ 'button.discard' | translate }}
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
@@ -33,7 +32,7 @@
 					<!-- app icon -->
 
 					<!-- page title -->
-					<app-page-info-title [title]="stringKey.SIGN_IN" [info]="stringKey.SIGN_IN_INFO">
+					<app-page-info-title [title]="'button.signIn' | translate" [info]="'pageSubTitle.signInInfo' | translate">
 					</app-page-info-title>
 					<!-- page title -->
 
@@ -41,20 +40,20 @@
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
 							<ion-icon [src]="stringKey.ICON_FORM"></ion-icon>
-							<p>{{stringKey.FORM_INFO_CREDENTIAL_EMAIL}}</p>
+							<p>{{'formInfo.yourEmail' | translate}}</p>
 						</ion-item>
 
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-label position="floating">{{stringKey.EMAIL}}</ion-label>
-								<ion-input autocomplete="off" [placeholder]="stringKey.FORM_PLACEHOLDER_PROFILE_EMAIL"
+								<ion-label position="floating">{{'formInfo.email' | translate}}</ion-label>
+								<ion-input autocomplete="off" [placeholder]="'formInfo.placeholderEmail' | translate"
 									formControlName="userEmail" type="text" value="">
 								</ion-input>
 							</ion-item>
 							<ion-card *ngIf="userEmail.invalid && userEmail.touched" color="warning">
 								<ion-item color="warning">
 									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
-									{{stringKey.FORM_VALIDATION_EMAIL}}
+									{{'errorMessage.email' | translate}}
 								</ion-item>
 							</ion-card>
 						</ion-card>
@@ -62,7 +61,7 @@
 					<ion-button class="footer-button" size="default" expand="block" color="tertiary" (click)="submit()"
 						[disabled]="formGroup.invalid">
 						<ion-icon [src]="stringKey.ICON_LOGIN"></ion-icon>
-						<ion-label>&nbsp; {{stringKey.SIGN_IN}} </ion-label>
+						<ion-label>&nbsp; {{ 'button.signIn' | translate }} </ion-label>
 					</ion-button>
 					<!-- email -->
 				</ion-col>

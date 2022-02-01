@@ -11,6 +11,7 @@
 
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { UserModel } from 'src/app/shared/model/user.model';
 import { ROOT_ACTIONS } from './root.state.actions';
 import { RootStateModel } from './root.state.model';
 import { ROOT_QUERY_SELECTOR } from './root.state.selectors';
@@ -29,6 +30,11 @@ export class RootStateFacade {
 	 */
 	preferredLanguage$ = this.store.select(ROOT_QUERY_SELECTOR.selectPreferredLanguage);
 
+	/**
+	 * Select user logged in status$ of root state facade
+	 */
+	selectUserLoggedInStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectUserLoggedInStatus);
+	
 	/**
 	 * Creates an instance of auth state facade.
 	 * @param store 
@@ -57,7 +63,19 @@ export class RootStateFacade {
 		this.store.dispatch(ROOT_ACTIONS.SELECT_PREFERRED_LANGUAGE({payload: languageMode}));
 	}
 
+	/**
+	 * Hydrates in browser data
+	 */
 	public hydrateInBrowserData() {
 		this.store.dispatch(ROOT_ACTIONS.HYDRATE_INITIAL_BROWSER_DATA());
 	}
+
+	/**
+	 * Signs in
+	 * @param user 
+	 */
+	public signIn(user: UserModel) {
+		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_SIGN_IN({payload: user}));
+	}
+
 }

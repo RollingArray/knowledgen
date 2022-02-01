@@ -19,7 +19,6 @@ import { LocalStorageService } from 'src/app/shared/service/local-storage.servic
 import { IntroComponent } from 'src/app/component/intro/intro.component';
 import { AnalyticsService } from 'src/app/shared/service/analytics.service';
 import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
-import { ApiUrls } from 'src/app/shared/constant/api-urls.constant';
 import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
 
 @Component({

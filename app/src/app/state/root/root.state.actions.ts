@@ -10,6 +10,7 @@
  */
 
 import { createAction, props } from '@ngrx/store';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { RootOperationsEnum } from './root-operations.enum';
 
@@ -18,7 +19,7 @@ import { RootOperationsEnum } from './root-operations.enum';
  */
 export const LOADING_INDICATOR_START = createAction(
 	RootOperationsEnum.LOADING_INDICATOR_START,
-	props<{payload: string}>()
+	props<{ payload: string }>()
 );
 
 /**
@@ -31,9 +32,9 @@ export const LOADING_INDICATOR_STOP = createAction(
 /**
  * @description Root action - Select Preferred Language
  */
- export const SELECT_PREFERRED_LANGUAGE = createAction(
+export const SELECT_PREFERRED_LANGUAGE = createAction(
 	RootOperationsEnum.SELECT_PREFERRED_LANGUAGE,
-	props<{payload: string}>()
+	props<{ payload: string }>()
 );
 
 
@@ -42,7 +43,7 @@ export const LOADING_INDICATOR_STOP = createAction(
  */
 export const STORE_PREFERRED_LANGUAGE = createAction(
 	RootOperationsEnum.STORE_PREFERRED_LANGUAGE,
-	props<{payload: string}>()
+	props<{ payload: string }>()
 );
 
 /**
@@ -50,7 +51,7 @@ export const STORE_PREFERRED_LANGUAGE = createAction(
  */
 export const STORE_LOGGED_IN_USER_DETAILS = createAction(
 	RootOperationsEnum.STORE_LOGGED_IN_USER_DETAILS,
-	props<{payload: UserModel}>()
+	props<{ payload: UserModel }>()
 );
 
 /**
@@ -60,7 +61,31 @@ export const HYDRATE_INITIAL_BROWSER_DATA = createAction(
 	RootOperationsEnum.HYDRATE_INITIAL_BROWSER_DATA
 );
 
+/**
+ * @description Root action - Api Request Sign In
+ */
+ export const API_REQUEST_SIGN_IN = createAction(
+	 RootOperationsEnum.API_REQUEST_SIGN_IN,
+	 props<{ payload: UserModel }>()
+ );
 
+ /**
+ * @description Root action - Api Sign In Fail
+ */
+ export const API_SIGN_IN_FAIL = createAction(
+	RootOperationsEnum.API_SIGN_IN_FAIL
+ );
+
+  /**
+ * @description Root action - Update User Logged In Status
+ */
+ export const UPDATE_USER_LOGGED_IN_STATUS = createAction(
+	 RootOperationsEnum.UPDATE_USER_LOGGED_IN_STATUS,
+	 props<{ payload: OperationsEnum }>()
+);
+
+
+ 
 
 /**
  * @description Root action - No Operation
@@ -79,5 +104,8 @@ export const ROOT_ACTIONS = {
 	STORE_PREFERRED_LANGUAGE,
 	HYDRATE_INITIAL_BROWSER_DATA,
 	STORE_LOGGED_IN_USER_DETAILS,
+	API_REQUEST_SIGN_IN,
+	API_SIGN_IN_FAIL,
+	UPDATE_USER_LOGGED_IN_STATUS,
 	NOOP
 };

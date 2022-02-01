@@ -61,6 +61,14 @@ const reducer = createReducer(
 		...state,
 		loggedInUser: action.payload
 	 })),
+
+	  /**
+	 * Reducer for action - Update user logged in status
+	 */
+	 on(ROOT_ACTIONS.UPDATE_USER_LOGGED_IN_STATUS, (state, action) => ({
+		...state,
+		userLoggedInStatus: action.payload
+	 })),
 	 
 	 
 );

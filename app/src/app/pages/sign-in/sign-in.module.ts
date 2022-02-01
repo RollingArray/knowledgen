@@ -20,23 +20,25 @@ import { SignInPage } from './sign-in.page';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { AccountVerificationModule } from 'src/app/component/account-verification/account-verification.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SignInPage
-  }
+	{
+		path: '',
+		component: SignInPage
+	}
 ];
 
 @NgModule({
-  imports: [
-    IonicModule,
-    RouterModule.forChild(routes),
-    SharedModule,
-    PageInfoTitleModule,
-    I18nModule,
-    AccountVerificationModule
-  ],
-  declarations: [SignInPage]
+	imports: [
+		IonicModule,
+		RouterModule.forChild(routes),
+		SharedModule,
+		PageInfoTitleModule,
+		I18nModule,
+		RootStateModule,
+		AccountVerificationModule
+	],
+	declarations: [SignInPage]
 })
-export class SignInPageModule {}
+export class SignInPageModule { }

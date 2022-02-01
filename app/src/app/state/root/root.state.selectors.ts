@@ -12,6 +12,7 @@
 
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { RootStateModel } from './root.state.model';
 import { ROOT_FEATURE_KEY } from './root.state.reducer';
 
@@ -36,10 +37,16 @@ export const selectPreferredLanguage: MemoizedSelector<RootStateModel, string> =
 	(rootStateModel: RootStateModel): string => rootStateModel.preferredLanguage
 );
 
+export const selectUserLoggedInStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): OperationsEnum => rootStateModel.userLoggedInStatus
+);
+
 /**
  * export root state query to access all selectors
  */
 export const ROOT_QUERY_SELECTOR = {
 	selectLoadingIndicatorStatus,
-	selectPreferredLanguage
+	selectPreferredLanguage,
+	selectUserLoggedInStatus
 };

@@ -10,7 +10,12 @@
  */
 
 
-export enum OperationsEnum {
+export enum OperationsEnum
+{
+	NOT_LOGGED_IN = 'NOT LOGGED IN',
+	SIGNED_UP = 'SIGNED UP',
+	SIGNED_IN_NOT_VERIFIED = 'SIGNED IN NOT VERIFIED',
+	SIGNED_IN_VERIFIED = 'SIGNED IN VERIFIED',
 	CREATE = 'CREATE',
 	EDIT = 'EDIT',
 	DELETE = 'DELETE',

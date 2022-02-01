@@ -20,7 +20,8 @@
 		"add": "Add",
 		"addSubChildMenu": "Add Topic [Level 3]",
 		"addChildMenu": "Add Topic [Level 2]",
-		"addMenu": "Add Topic [Level 1]"
+		"addMenu": "Add Topic [Level 1]",
+		"haveAccount": "Already have an account?"
 	},
 	"pageTitle": {
 		"profile":"Profile",
@@ -67,7 +68,8 @@
 		"addSchedule": "Provide details of the Schedule to create a new Schedule. Save the changes once you are satisfied with the content",
 		"editSchedule": "Provide updated details of the Schedule. Save the changes once you are satisfied with the content",
 		"deleteSchedule": "Deleting Schedule",
-		"availableMentorSession": "Based on your requirement and availability, below session are found"
+		"availableMentorSession": "Based on your requirement and availability, below session are found",
+		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in"
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -85,7 +87,9 @@
 		"for": "For",
 		"teacherAvailabilityContext": "What is the context of your mentorship session. Your session can be on any topic. For ex, any school subject, mentorship on goal session etc",
 		"studentAvailabilityContext": "What is the area you need guidance. You can add topics like, any school subject, mentorship on goal session etc",
-		"onlineMeetingUrl": "Provide a online sessions url. You can add Zoom / Google Hangouts / Skype / Slack / Facebook Live / YouTube Live / MS Teams or any other meeting url"
+		"onlineMeetingUrl": "Provide a online sessions url. You can add Zoom / Google Hangouts / Skype / Slack / Facebook Live / YouTube Live / MS Teams or any other meeting url",
+		"yourEmail": "Provide your registered email",
+		"placeholderEmail": "your.email@domain.com"
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
@@ -96,6 +100,7 @@
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
+		"signIngIn": "Signing In  .. Please Wait",
 		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
 		"editCourseMaterial" : "Updating Course Material ... Please wait" ,
@@ -106,7 +111,8 @@
 	},
 	"errorMessage":{
 		"notAllowed": "Review Your Action !!",
-		"mandatory": "All fields are mandatory"
+		"mandatory": "All fields are mandatory",
+		"email": "Should be a valid email"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
