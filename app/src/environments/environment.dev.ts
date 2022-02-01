@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
 	domain: '/',
-	apiEndpoint: 'https://knowledgen.api.rollingarray.co.in/',
+	apiEndpoint: 'https://knowledgen.dev.api.rollingarray.co.in/',
 	version: "1.0.5.1",
 	level: 'Dev',
 	firebaseConfig: {

@@ -5,7 +5,7 @@
 export const environment = {
 	production: false,
 	domain: '/',
-	apiEndpoint: 'http://localhost:8000/api/',
+	apiEndpoint: 'http://localhost:8000/',
 	version: "15.104.134.12112",
 	level: 'Local',
 	firebaseConfig: {
