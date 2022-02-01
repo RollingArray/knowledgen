@@ -10,6 +10,7 @@
  */
 
 import { createAction, props } from '@ngrx/store';
+import { UserModel } from 'src/app/shared/model/user.model';
 import { RootOperationsEnum } from './root-operations.enum';
 
 /**
@@ -28,6 +29,40 @@ export const LOADING_INDICATOR_STOP = createAction(
 );
 
 /**
+ * @description Root action - Select Preferred Language
+ */
+ export const SELECT_PREFERRED_LANGUAGE = createAction(
+	RootOperationsEnum.SELECT_PREFERRED_LANGUAGE,
+	props<{payload: string}>()
+);
+
+
+/**
+ * @description Root action - Store Preferred Language
+ */
+export const STORE_PREFERRED_LANGUAGE = createAction(
+	RootOperationsEnum.STORE_PREFERRED_LANGUAGE,
+	props<{payload: string}>()
+);
+
+/**
+ * @description Root action - Store Logged In User Details
+ */
+export const STORE_LOGGED_IN_USER_DETAILS = createAction(
+	RootOperationsEnum.STORE_LOGGED_IN_USER_DETAILS,
+	props<{payload: UserModel}>()
+);
+
+/**
+ * @description Root action - Hydrate Initial Browser data
+ */
+export const HYDRATE_INITIAL_BROWSER_DATA = createAction(
+	RootOperationsEnum.HYDRATE_INITIAL_BROWSER_DATA
+);
+
+
+
+/**
  * @description Root action - No Operation
  */
 export const NOOP = createAction(
@@ -40,5 +75,9 @@ export const NOOP = createAction(
 export const ROOT_ACTIONS = {
 	LOADING_INDICATOR_START,
 	LOADING_INDICATOR_STOP,
+	SELECT_PREFERRED_LANGUAGE,
+	STORE_PREFERRED_LANGUAGE,
+	HYDRATE_INITIAL_BROWSER_DATA,
+	STORE_LOGGED_IN_USER_DETAILS,
 	NOOP
 };

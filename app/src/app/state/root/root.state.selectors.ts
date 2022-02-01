@@ -16,11 +16,6 @@ import { RootStateModel } from './root.state.model';
 import { ROOT_FEATURE_KEY } from './root.state.reducer';
 
 /**
- * @description Get loading indicator status
- */
-const getLoadingIndicatorStatus = (rootStateModel: RootStateModel): boolean => rootStateModel.loadingIndicatorStatus;
-
-/**
  * @description Selector - Root state
  */
 export const selectRootState: MemoizedSelector<RootStateModel, RootStateModel> = createFeatureSelector<RootStateModel>(ROOT_FEATURE_KEY);
@@ -30,12 +25,21 @@ export const selectRootState: MemoizedSelector<RootStateModel, RootStateModel> =
  */
 export const selectLoadingIndicatorStatus: MemoizedSelector<RootStateModel, boolean> = createSelector(
 	selectRootState,
-	getLoadingIndicatorStatus
+	(rootStateModel: RootStateModel): boolean => rootStateModel.loadingIndicatorStatus
+);
+
+/**
+ * @description Selector - Preferred Language
+ */
+export const selectPreferredLanguage: MemoizedSelector<RootStateModel, string> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): string => rootStateModel.preferredLanguage
 );
 
 /**
  * export root state query to access all selectors
  */
 export const ROOT_QUERY_SELECTOR = {
-	selectLoadingIndicatorStatus
+	selectLoadingIndicatorStatus,
+	selectPreferredLanguage
 };

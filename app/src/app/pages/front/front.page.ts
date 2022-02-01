@@ -127,7 +127,7 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 
 		modal.onDidDismiss().then((data) => {
 			//if app, initiate push notificaiton
-			
+			window.location.reload();
 		});
 
 		return await modal.present();

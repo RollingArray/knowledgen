@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { EventPageEnum } from './shared/enum/event-page.enum';
 import { AnalyticsService } from './shared/service/analytics.service';
+import { RootStateFacade } from './state/root/root.state.facade';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class AppComponent
 	 */
 	constructor(
 		private platform: Platform,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		/*
@@ -40,6 +42,7 @@ export class AppComponent
 				'data': ''
 			}
 		);
+
 		this.initializeApp();
 	}
 
@@ -50,6 +53,10 @@ export class AppComponent
 	{
 		this.platform.ready().then(() =>
 		{
+			// hydrate store with any previous data
+			this.rootStateFacade.hydrateInBrowserData();
+			
+			// store back button
 			this.platform.backButton.subscribeWithPriority(9999, () =>
 			{
 				document.addEventListener('backbutton', function (event)

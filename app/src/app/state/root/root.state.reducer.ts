@@ -45,6 +45,24 @@ const reducer = createReducer(
 		...state,
 		loadingIndicatorStatus: false
 	})),
+
+	/**
+	 * Reducer for action - Store Preferred Language
+	 */
+	 on(ROOT_ACTIONS.STORE_PREFERRED_LANGUAGE, (state, action) => ({
+		...state,
+		preferredLanguage: action.payload
+	 })),
+
+	 /**
+	 * Reducer for action - Store Logged in user details
+	 */
+	 on(ROOT_ACTIONS.STORE_LOGGED_IN_USER_DETAILS, (state, action) => ({
+		...state,
+		loggedInUser: action.payload
+	 })),
+	 
+	 
 );
 
 /**

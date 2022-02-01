@@ -26,20 +26,27 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		HttpClientModule,
+		
 		// store
 		StoreModule.forRoot({}),
 		EffectsModule.forRoot([]),
 		StoreDevtoolsModule.instrument({
 			name: 'Knowledgen',
 		}),
+		
+		//PWA
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production,
 			// Register the ServiceWorker as soon as the app is stable
 			// or after 30 seconds (whichever comes first).
 			registrationStrategy: 'registerWhenStable:30000',
 		}),
+		
+		// firebase analytics
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAnalyticsModule,
+		
+		// language translation
 		I18nModule
 	],
 	providers: [

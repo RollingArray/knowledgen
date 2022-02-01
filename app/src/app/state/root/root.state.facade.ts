@@ -25,6 +25,11 @@ export class RootStateFacade {
 	loadingIndicatorStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoadingIndicatorStatus);
 
 	/**
+	 * Preferred language$ of root state facade
+	 */
+	preferredLanguage$ = this.store.select(ROOT_QUERY_SELECTOR.selectPreferredLanguage);
+
+	/**
 	 * Creates an instance of auth state facade.
 	 * @param store 
 	 */
@@ -42,5 +47,17 @@ export class RootStateFacade {
 	 */
 	public stopLoading() {
 		this.store.dispatch(ROOT_ACTIONS.LOADING_INDICATOR_STOP());
+	}
+
+	/**
+	 * Sets preferred language
+	 * @param languageMode 
+	 */
+	public setPreferredLanguage(languageMode: string) {
+		this.store.dispatch(ROOT_ACTIONS.SELECT_PREFERRED_LANGUAGE({payload: languageMode}));
+	}
+
+	public hydrateInBrowserData() {
+		this.store.dispatch(ROOT_ACTIONS.HYDRATE_INITIAL_BROWSER_DATA());
 	}
 }

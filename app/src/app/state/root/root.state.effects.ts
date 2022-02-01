@@ -13,13 +13,17 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { CookieService } from 'ngx-cookie-service';
 import { mergeMap } from 'rxjs/operators';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { UserModel } from 'src/app/shared/model/user.model';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ROOT_ACTIONS } from './root.state.actions';
 
 
 @Injectable()
-export class RootStateEffects {
+export class RootStateEffects
+{
 
 	/**
 	 * Creates an instance of root state effects.
@@ -30,8 +34,42 @@ export class RootStateEffects {
 	 */
 	constructor(
 		private actions$: Actions,
-		private loadingService: LoadingService
+		private loadingService: LoadingService,
+		private cookieService: CookieService
 	) { }
+
+
+	/**
+	 * Hydrate in browser data$ of root state effects
+	 */
+	hydrateInBrowserData$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.HYDRATE_INITIAL_BROWSER_DATA
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					// preferred language
+					const preferredLanguage = this.cookieService.get(LocalStoreKey.LANGUAGE);
+
+					// logged in user
+					const loggedInUser: UserModel = {
+						userId: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID),
+						userFirstName: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME),
+						userLastName: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_LAST_NAME),
+						userEmail: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_EMAIL),
+						userSkills: this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_SKILLS)
+					};
+
+					return [
+						ROOT_ACTIONS.STORE_PREFERRED_LANGUAGE({ payload: preferredLanguage }),
+						ROOT_ACTIONS.STORE_LOGGED_IN_USER_DETAILS({ payload: loggedInUser })
+					];
+				}),
+			),
+	);
 
 	/**
 	 * @description Start loading indicator$ of root state effects
@@ -43,7 +81,8 @@ export class RootStateEffects {
 					ROOT_ACTIONS.LOADING_INDICATOR_START
 				),
 				// merge all
-				mergeMap((action) => {
+				mergeMap((action) =>
+				{
 					this.loadingService.present(action.payload);
 					return [
 						ROOT_ACTIONS.NOOP()
@@ -55,17 +94,39 @@ export class RootStateEffects {
 	/**
 	 * @description Start loading indicator$ of root state effects
 	 */
-	 stopLoadingIndicator$ = createEffect(
+	stopLoadingIndicator$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
 					ROOT_ACTIONS.LOADING_INDICATOR_STOP
 				),
 				// merge all
-				mergeMap((action) => {
+				mergeMap((action) =>
+				{
 					this.loadingService.dismiss();
 					return [
 						ROOT_ACTIONS.NOOP()
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Select preferred language$ of root state effects
+	 */
+	selectPreferredLanguage$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.SELECT_PREFERRED_LANGUAGE
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					this.cookieService.set(LocalStoreKey.LANGUAGE, action.payload);
+
+					return [
+						ROOT_ACTIONS.STORE_PREFERRED_LANGUAGE({ payload: action.payload })
 					];
 				}),
 			),

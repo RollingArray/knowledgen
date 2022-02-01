@@ -17,11 +17,12 @@ import { IonicModule } from "@ionic/angular";
 import { SelectLanguageComponent } from './select-language.component';
 import { I18nModule } from "src/app/shared/module/i18n.module";
 import { PageInfoTitleModule } from "../page-info-title/page-info-title.component.module";
+import { RootStateModule } from "src/app/state/root/root.state.module";
 @NgModule({
-  imports: [CommonModule, SharedModule, IonicModule, I18nModule, PageInfoTitleModule],
+	imports: [CommonModule, SharedModule, IonicModule, I18nModule, PageInfoTitleModule, RootStateModule],
 
-  declarations: [SelectLanguageComponent],
-  exports: [SelectLanguageComponent],
-  entryComponents: [SelectLanguageComponent]
+	declarations: [SelectLanguageComponent],
+	exports: [SelectLanguageComponent],
+	entryComponents: [SelectLanguageComponent]
 })
-export class SelectLanguageModule {}
+export class SelectLanguageModule { }

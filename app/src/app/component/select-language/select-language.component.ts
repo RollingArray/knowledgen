@@ -13,9 +13,8 @@
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
 import { Component, OnInit, Injector } from "@angular/core";
 import { TranslateService } from '@ngx-translate/core';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { ArrayKey } from 'src/app/shared/constant/array.constant';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 
 @Component({
 	selector: "app-select-language",
@@ -30,7 +29,7 @@ export class SelectLanguageComponent extends BaseViewComponent implements OnInit
 	constructor(
 		injector: Injector,
 		public translateService: TranslateService,
-		private cookieService: CookieService
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);
@@ -48,9 +47,9 @@ export class SelectLanguageComponent extends BaseViewComponent implements OnInit
 	 * Selects lang
 	 * @param language 
 	 */
-	async selectLang(language)
+	async selectLang(language: string)
 	{
-		this.cookieService.set(LocalStoreKey.LANGUAGE, language);
+		this.rootStateFacade.setPreferredLanguage(language);
 		this.translateService.use(language);
 		this.dismissModal();
 	}
