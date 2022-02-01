@@ -17,6 +17,7 @@ import { IonicModule } from '@ionic/angular';
 import { AccountVerificationComponent } from './account-verification.component';
 import { PageInfoTitleModule } from 'src/app/component/page-info-title/page-info-title.component.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 @NgModule({
 	imports: [
@@ -24,6 +25,7 @@ import { I18nModule } from 'src/app/shared/module/i18n.module';
 		SharedModule,
 		IonicModule,
 		I18nModule,
+		RootStateModule,
 		PageInfoTitleModule
 	],
 

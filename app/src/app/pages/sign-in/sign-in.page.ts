@@ -164,7 +164,7 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 
 		// loader
 		this.translateService
-			.get('loading.signIngIn')
+			.get('loading.activationCode')
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(async (data: string) =>
 			{
@@ -221,9 +221,13 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 	{
 		if (this.formGroup.invalid)
 		{
-			await this.alertService.presentBasicAlert(
-				`${this.stringKey.MANDATORY_FIELDS}`
-			);
+			this.translateService
+				.get('errorMessage.mandatory')
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe(async (data: string) =>
+				{
+					await this.alertService.presentBasicAlert(data);
+				});
 		} else
 		{
 			await this.submitData();

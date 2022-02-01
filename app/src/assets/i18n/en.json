@@ -21,7 +21,10 @@
 		"addSubChildMenu": "Add Topic [Level 3]",
 		"addChildMenu": "Add Topic [Level 2]",
 		"addMenu": "Add Topic [Level 1]",
-		"haveAccount": "Already have an account?"
+		"haveAccount": "Already have an account?",
+		"lostCode" : "Lost verification code",
+		"resend": "Resend",
+		"activate": "Activate"
 	},
 	"pageTitle": {
 		"profile":"Profile",
@@ -53,7 +56,8 @@
 		"meet": "Online Meet Url",
 		"no": "No",
 		"interest":"Interest",
-		"education": "Education"
+		"education": "Education",
+		"accVerification": "Account Verification"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -69,7 +73,8 @@
 		"editSchedule": "Provide updated details of the Schedule. Save the changes once you are satisfied with the content",
 		"deleteSchedule": "Deleting Schedule",
 		"availableMentorSession": "Based on your requirement and availability, below session are found",
-		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in"
+		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in",
+		"accVerification": "We have send you a verification code in your registered email. Use the code to verify your account"
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -89,7 +94,10 @@
 		"studentAvailabilityContext": "What is the area you need guidance. You can add topics like, any school subject, mentorship on goal session etc",
 		"onlineMeetingUrl": "Provide a online sessions url. You can add Zoom / Google Hangouts / Skype / Slack / Facebook Live / YouTube Live / MS Teams or any other meeting url",
 		"yourEmail": "Provide your registered email",
-		"placeholderEmail": "your.email@domain.com"
+		"placeholderEmail": "your.email@domain.com",
+		"accVerification": "Provide the verification code you have received in your email",
+		"veriCode" : "Account Verification Code",
+		"placeholderCode": "A2Za2z09"
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
@@ -100,6 +108,7 @@
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
+		"activationCode": "Sending activation code ... Please wait",
 		"signIngIn": "Signing In  .. Please Wait",
 		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,

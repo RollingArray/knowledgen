@@ -1,67 +1,96 @@
 /**
- * © Rolling Array https://rollingarray.co.in/   
+ * © Rolling Array https://rollingarray.co.in/
  *
  * long description for the file
  *
  * @summary Account verification page
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-10-31 14:25:52 
+ * Created at     : 2021-10-31 14:25:52
  * Last modified  : 2022-01-25 20:16:56
  */
 
-
-import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
-import { BaseFormComponent } from 'src/app/component/base/base-form.component';
-import { ModalData } from 'src/app/shared/model/modal-data.model';
-import { UserModel } from 'src/app/shared/model/user.model';
-import { AlertService } from 'src/app/shared/service/alert.service';
-import { LoadingService } from 'src/app/shared/service/loading.service';
-import { UserService } from 'src/app/shared/service/user.service';
-import { Router } from '@angular/router';
-import { BaseModel } from 'src/app/shared/model/base.model';
-import { takeUntil } from 'rxjs/operators';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import { PlatformHelper } from 'src/app/shared/helper/platform.helper';
-import { NavParams } from '@ionic/angular';
-import { AnalyticsService } from 'src/app/shared/service/analytics.service';
-import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
-
+import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
+import { Router } from "@angular/router";
+import { NavParams } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { EventPageEnum } from "src/app/shared/enum/event-page.enum";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { PlatformHelper } from "src/app/shared/helper/platform.helper";
+import { ModalData } from "src/app/shared/model/modal-data.model";
+import { UserModel } from "src/app/shared/model/user.model";
+import { AlertService } from "src/app/shared/service/alert.service";
+import { AnalyticsService } from "src/app/shared/service/analytics.service";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { BaseFormComponent } from "../base/base-form.component";
 
 @Component({
-	selector: "app-account-verification",
-	templateUrl: "./account-verification.component.html",
-	styleUrls: ["./account-verification.component.scss"],
+	selector: 'app-account-verification',
+	templateUrl: './account-verification.component.html',
+	styleUrls: ['./account-verification.component.scss'],
 })
-export class AccountVerificationComponent extends BaseFormComponent
+export class AccountVerificationComponent
+	extends BaseFormComponent
 	implements OnInit, OnDestroy
 {
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @readonly properties                             |
+	 * -------------------------------------------------|
+	 */
+
 
 	/**
-	 * Modal data of create edit project activity component
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @private Instance variable                               |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Description  of account verification component
+	 */
+	private loggedInUser$: Observable<UserModel>;
+
+	/**
+	 * Modal data of account verification component
 	 */
 	private _modalData: ModalData;
-	
+
 	/**
 	 * Passed user of account verification component
 	 */
 	private _passedUser: UserModel;
 
 	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @public Instance variable                                |
+	 * -------------------------------------------------|
+	 */
+
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Getter & Setters                                 |
+	 * -------------------------------------------------|
+	 */
+
+	/**
 	 * Gets active user email
 	 */
 	get activeUserEmail()
 	{
-		let activeUserEmail = "";
-		this.localStorageService
-			.getActiveUserEmail()
+		let activeUserEmail = '';
+		this.loggedInUser$
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) =>
+			.subscribe((user: UserModel) =>
 			{
-				activeUserEmail = data;
+				activeUserEmail = user.userEmail;
 			});
 
 		return activeUserEmail;
@@ -72,7 +101,7 @@ export class AccountVerificationComponent extends BaseFormComponent
 	 */
 	get userEmail()
 	{
-		return this.formGroup.get("userEmail");
+		return this.formGroup.get('userEmail');
 	}
 
 	/**
@@ -80,43 +109,49 @@ export class AccountVerificationComponent extends BaseFormComponent
 	 */
 	get userVerificationCode()
 	{
-		return this.formGroup.get("userVerificationCode");
+		return this.formGroup.get('userVerificationCode');
 	}
 
 	/**
-	 * Creates an instance of account activation page.
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Life cycle hook                                  |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Creates an instance of account verification component.
 	 * @param injector 
 	 * @param alertService 
-	 * @param loadingService 
-	 * @param userService 
 	 * @param router 
-	 * @param localStorageService 
+	 * @param platformHelper 
+	 * @param navParams 
+	 * @param analyticsService 
+	 * @param translateService 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		injector: Injector,
 		private alertService: AlertService,
-		private loadingService: LoadingService,
-		private userService: UserService,
 		private router: Router,
-		private localStorageService: LocalStorageService,
 		private platformHelper: PlatformHelper,
 		public navParams: NavParams,
 		private analyticsService: AnalyticsService,
-		private cookieService: CookieService
+		private translateService: TranslateService,
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);
-		this._passedUser = this.navParams.get("data");
+		this._passedUser = this.navParams.get('data');
+		this.loggedInUser$ = this.rootStateFacade.selectLoggedInUser$;
 		this.buildFrom();
 
 		/*
-		Log event
-		*/
-		this.analyticsService.log('', EventPageEnum.ACTIVATE,
-			{
-				'data': ''
-			}
-		);
+			Log event
+			*/
+		this.analyticsService.log('', EventPageEnum.ACTIVATE, {
+			data: '',
+		});
 	}
 
 	/**
@@ -133,6 +168,13 @@ export class AccountVerificationComponent extends BaseFormComponent
 	}
 
 	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Private methods                                 |
+	 * -------------------------------------------------|
+	 */
+
+	/**
 	 * Builds from
 	 */
 	private async buildFrom()
@@ -146,12 +188,10 @@ export class AccountVerificationComponent extends BaseFormComponent
 				]),
 			],
 			userVerificationCode: [
-				"",
+				'',
 				this.validators().compose([
 					this.validators().required,
-					this.validators().pattern(
-						this.regex.VERIFICATION_CODE_PATTERN
-					),
+					this.validators().pattern(this.regex.VERIFICATION_CODE_PATTERN),
 				]),
 			],
 		});
@@ -166,7 +206,7 @@ export class AccountVerificationComponent extends BaseFormComponent
 	{
 		const form = this.formGroup.value;
 		form.userEmail = this._passedUser.userEmail;
-		form.userVerificationCode = "";
+		form.userVerificationCode = '';
 	}
 
 	/**
@@ -174,59 +214,55 @@ export class AccountVerificationComponent extends BaseFormComponent
 	 */
 	private async submitData()
 	{
-		this.loadingService.present(`${this.stringKey.API_REQUEST_MESSAGE_2}`);
-
 		// build data userModel
 		const form = this.formGroup.value;
 		const userModel: UserModel = {
 			userEmail: form.userEmail,
 			userVerificationCode: form.userVerificationCode,
-			userLoginType: "FRESH_LOGIN",
+			userLoginType: 'FRESH_LOGIN',
 			userPlatform: this.platformHelper.getDevicePlatform(),
 		};
 
-		this.userService
-			.signIn(userModel)
+		// loader
+		this.translateService
+			.get('loading.signIngIn')
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(
-				async (baseModel: BaseModel) =>
-				{
-					await this.loadingService.dismiss();
-					// build
-					if (baseModel.success)
-					{
+			.subscribe(async (data: string) =>
+			{
+				await this.rootStateFacade.startLoading(data);
+			});
 
-						if (baseModel.success)
-						{
-							const userModel: UserModel = {
-								userType: baseModel.data.userType,
-								userId: baseModel.data.userId,
-								token: baseModel.token,
-								userEmail: baseModel.data.userEmail,
-								userFirstName: baseModel.data.userFirstName,
-								userLastName: baseModel.data.userLastName,
-								userSkills: baseModel.data.userSkills,
-							};
+		// sign in
+		this.rootStateFacade.accountVerification(userModel);
 
-							await this.localStorageService
-								.setActiveUser(userModel)
-								.pipe(takeUntil(this.unsubscribe))
-								.subscribe(async () =>
-								{
-									this.dismissModal();
-									this.router.navigate(["/go/course/material"]);
-								});
-						}
-
-						//await this.presentToast(baseModel.message);
-					}
-				},
-				(error) =>
-				{
-					this.loadingService.dismiss();
-				}
-			);
+		// track user status
+		this.rootStateFacade.selectUserLoggedInStatus$.subscribe(status =>
+		{
+			if (status === OperationsEnum.SIGNED_IN_VERIFIED)
+			{
+				this.dismissModal();
+				this.router.navigate(['/go/course/material']);
+			}
+		});
 	}
+
+	/**
+	 * Dismiss modal
+	 */
+	private dismissModal()
+	{
+		this.modalController.dismiss(this._modalData).then(() =>
+		{
+			this.formGroup.reset();
+		});
+	}
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Public methods                                  |
+	 * -------------------------------------------------|
+	 */
 
 	/**
 	 * Submits account activation page
@@ -235,9 +271,13 @@ export class AccountVerificationComponent extends BaseFormComponent
 	{
 		if (this.formGroup.invalid)
 		{
-			await this.alertService.presentBasicAlert(
-				`${this.stringKey.MANDATORY_FIELDS}`
-			);
+			this.translateService
+				.get('errorMessage.mandatory')
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe(async (data: string) =>
+				{
+					await this.alertService.presentBasicAlert(data);
+				});
 		} else
 		{
 			await this.submitData();
@@ -245,68 +285,39 @@ export class AccountVerificationComponent extends BaseFormComponent
 	}
 
 	/**
-	 * Resends verification code
-	 */
-	public async resendVerificationCode()
-	{
-		if (!this.userEmail.value)
-		{
-			await this.alertService.presentBasicAlert(
-				`${this.stringKey.RESEND_ACTIVATION_CODE}`
-			);
-		} else
-		{
-			this.loadingService.present(`${this.stringKey.API_REQUEST_MESSAGE_2}`);
-
-			// build data userModel
-			const form = this.formGroup.value;
-			const userModel: UserModel = {
-				userEmail: form.userEmail,
-				userVerificationCode: form.userVerificationCode,
-				userLoginType: "FRESH_LOGIN",
-
-			};
-
-			this.userService
-				.resendActivationCode(userModel)
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(
-					async (baseModel: BaseModel) =>
-					{
-						await this.loadingService.dismiss();
-						// build
-						if (baseModel.success)
-						{
-							await this.presentToast(baseModel.message);
-						}
-					},
-					(error) =>
-					{
-						this.loadingService.dismiss();
-					}
-				);
-		}
-	}
-
-	/**
-	 * Dismiss modal
-	 */
-	 dismissModal() {
-		this.modalController.dismiss(this._modalData).then(() => {
-			this.formGroup.reset();
-		});
-	}
-
-	/**
 	 * Cancels modal
 	 */
-	cancelModal() {
-
+	cancelModal()
+	{
 		this._modalData = {
 			cancelled: true,
 			operationSubmitted: false,
 		};
 		// store active user
 		this.dismissModal();
+	}
+
+	/**
+	 * Resends verification code
+	 */
+	public async resendVerificationCode()
+	{
+		// build data userModel
+		const form = this.formGroup.value;
+		const userModel: UserModel = {
+			userEmail: form.userEmail
+		};
+
+		// loader
+		this.translateService
+			.get('loading.activationCode')
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data: string) =>
+			{
+				await this.rootStateFacade.startLoading(data);
+			});
+
+		// sign in
+		this.rootStateFacade.signIn(userModel);
 	}
 }

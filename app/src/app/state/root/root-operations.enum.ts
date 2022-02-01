@@ -17,10 +17,12 @@ export enum RootOperationsEnum {
 	SELECT_PREFERRED_LANGUAGE = '[Root] Select Preferred Language',
 	STORE_PREFERRED_LANGUAGE = '[Root] Store Preferred Language',
 	STORE_LOGGED_IN_USER_DETAILS = '[Root] Store Logged In User Details',
+	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = '[Root] Store Logged In User Details To Cookie',
 
 	UPDATE_USER_LOGGED_IN_STATUS = '[Root] Update User Logged In Status',
 	API_REQUEST_SIGN_IN = '[Root] Api Request Sign In',
 	API_SIGN_IN_FAIL = '[Root] Api Sign In Fail',
+	API_REQUEST_ACCOUNT_VERIFICATION = '[Root] Api Request Account Verification',
 
 	NOOP = '[Root] No Operation',
 }

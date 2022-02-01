@@ -76,12 +76,28 @@ export const HYDRATE_INITIAL_BROWSER_DATA = createAction(
 	RootOperationsEnum.API_SIGN_IN_FAIL
  );
 
-  /**
+/**
  * @description Root action - Update User Logged In Status
  */
  export const UPDATE_USER_LOGGED_IN_STATUS = createAction(
 	 RootOperationsEnum.UPDATE_USER_LOGGED_IN_STATUS,
 	 props<{ payload: OperationsEnum }>()
+);
+
+/**
+ * @description Root action - Api Request Account Verification
+ */
+export const API_REQUEST_ACCOUNT_VERIFICATION = createAction(
+	RootOperationsEnum.API_REQUEST_ACCOUNT_VERIFICATION,
+	props<{ payload: UserModel }>()
+);
+
+/**
+ * @description Root action - Store Logged In User Details To Cookie
+ */
+export const STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = createAction(
+	RootOperationsEnum.STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE,
+	props<{ payload: UserModel }>()
 );
 
 
@@ -107,5 +123,7 @@ export const ROOT_ACTIONS = {
 	API_REQUEST_SIGN_IN,
 	API_SIGN_IN_FAIL,
 	UPDATE_USER_LOGGED_IN_STATUS,
+	API_REQUEST_ACCOUNT_VERIFICATION,
+	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE,
 	NOOP
 };

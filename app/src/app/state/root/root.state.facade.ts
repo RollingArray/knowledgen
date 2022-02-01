@@ -36,6 +36,11 @@ export class RootStateFacade {
 	selectUserLoggedInStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectUserLoggedInStatus);
 	
 	/**
+	 * Select logged in user$ of root state facade
+	 */
+	selectLoggedInUser$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUser);
+	
+	/**
 	 * Creates an instance of auth state facade.
 	 * @param store 
 	 */
@@ -76,6 +81,14 @@ export class RootStateFacade {
 	 */
 	public signIn(user: UserModel) {
 		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_SIGN_IN({payload: user}));
+	}
+
+	/**
+	 * Accounts verification
+	 * @param user 
+	 */
+	public accountVerification(user: UserModel) {
+		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_ACCOUNT_VERIFICATION({payload: user}));
 	}
 
 }
