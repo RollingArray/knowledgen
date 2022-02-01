@@ -165,6 +165,14 @@ td:last-child {
   float: left; 
 }
 
+/*toast*/
+.custom-toast {
+	--background: var(--ion-color-success) !important;
+	--color: var(--ion-color-secondary) !important;
+	font-weight: 300 !important;
+	font-size: 16px !important;
+	text-align: center;
+}
 
 /* Variable width */
 @for $i from 1 through 100 {

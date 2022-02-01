@@ -128,21 +128,32 @@ export abstract class BaseService<T extends BaseModel> {
 						const errorMessages: string[] = response.message;
 						errorMessages.map(async responseMessage =>
 						{
-							if (this.toastController) {
+							if (this.toastController)
+							{
 								this.toastController.dismiss();
 							}
-					
+
 							const toast = await this.toastController.create({
 								message: responseMessage,
-								duration: 3000
+								cssClass: 'custom-toast',
+								duration: 2000,
+								buttons: [
+									{
+										side: 'start',
+										icon: 'information-circle',
+										handler: () =>
+										{
+											//
+										}
+									}
+								]
 							});
-							await toast.present();
-	
-							
+							toast.present();
+
 						})
-						
-										
-						
+
+
+
 					} else
 					{
 						//this.errorAlert(JSON.stringify(response.error.message));
