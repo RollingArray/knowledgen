@@ -100,6 +100,14 @@ export const STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = createAction(
 	props<{ payload: UserModel }>()
 );
 
+/**
+ * @description Root action - Api Request Sign Up
+ */
+ export const API_REQUEST_SIGN_UP = createAction(
+	RootOperationsEnum.API_REQUEST_SIGN_UP,
+	props<{ payload: UserModel }>()
+);
+
 
  
 
@@ -125,5 +133,6 @@ export const ROOT_ACTIONS = {
 	UPDATE_USER_LOGGED_IN_STATUS,
 	API_REQUEST_ACCOUNT_VERIFICATION,
 	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE,
+	API_REQUEST_SIGN_UP,
 	NOOP
 };

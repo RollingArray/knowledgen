@@ -24,7 +24,10 @@
 		"haveAccount": "Already have an account?",
 		"lostCode" : "Lost verification code",
 		"resend": "Resend",
-		"activate": "Activate"
+		"activate": "Activate",
+		"enrollMentor":"Enroll As Mentor",
+		"enrollMentee":"Enroll As Mentee"
+
 	},
 	"pageTitle": {
 		"profile":"Profile",
@@ -74,7 +77,8 @@
 		"deleteSchedule": "Deleting Schedule",
 		"availableMentorSession": "Based on your requirement and availability, below session are found",
 		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in",
-		"accVerification": "We have send you a verification code in your registered email. Use the code to verify your account"
+		"accVerification": "We have send you a verification code in your registered email. Use the code to verify your account",
+		"signUp":"Provide details to create your free account"
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -110,6 +114,7 @@
 		"wait": "Loading ... Please wait",
 		"activationCode": "Sending activation code ... Please wait",
 		"signIngIn": "Signing In  .. Please Wait",
+		"signIngUp": "Signing Up  .. Please Wait",
 		"holdTight": "Hold tight, we are looking for your data",
 		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
 		"editCourseMaterial" : "Updating Course Material ... Please wait" ,

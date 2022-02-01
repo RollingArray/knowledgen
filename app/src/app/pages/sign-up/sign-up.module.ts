@@ -21,6 +21,7 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 import { PageInfoTitleModule } from 'src/app/component/page-info-title/page-info-title.component.module';
 import { AccountVerificationModule } from 'src/app/component/account-verification/account-verification.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
     PageInfoTitleModule,
     AccountVerificationModule,
     I18nModule,
+    RootStateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [SignUpPage]

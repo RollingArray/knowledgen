@@ -24,6 +24,9 @@ import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
 import { AccountVerificationComponent } from 'src/app/component/account-verification/account-verification.component';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { TranslateService } from '@ngx-translate/core';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 
 
 @Component({
@@ -50,7 +53,9 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy {
 		private userService: UserService,
 		private router: Router,
 		private localStorageService: LocalStorageService,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		private rootStateFacade: RootStateFacade,
+		private translateService: TranslateService
 	) {
 		super(injector);
 		this.buildFrom();
@@ -143,9 +148,8 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy {
 	/**
 	 * Submits data
 	 */
-	async submitData(userTypeEnum: UserTypeEnum) {
-		this.loadingService.present(`${this.stringKey.API_REQUEST_MESSAGE_5}`);
-
+	async submitData(userTypeEnum: UserTypeEnum)
+	{
 		// build data userModel
 		const form = this.formGroup.value;
 		const userModel = {
@@ -155,30 +159,26 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy {
 			userType: userTypeEnum
 		};
 
-		this.userService
-			.signUp(userModel)
+		// loader
+		this.translateService
+			.get('loading.signIngUp')
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(
-				async (baseModel: BaseModel) => {
-					await this.loadingService.dismiss();
-					// build
-					if (baseModel.success)
-					{
-						await this.presentToast(baseModel.message);
-						
-						await this.localStorageService
-							.setSignUpUserDetails(userModel)
-							.pipe(takeUntil(this.unsubscribe))
-							.subscribe(async () => {
-								// store active user
-								this.loadAccountVerification(userModel);
-							});
-					}
-				},
-				(error) => {
-					this.loadingService.dismiss();
-				}
-			);
+			.subscribe(async (data: string) =>
+			{
+				await this.rootStateFacade.startLoading(data);
+			});
+
+		// sign in
+		this.rootStateFacade.signUp(userModel);
+
+		// track user status
+		this.rootStateFacade.selectUserLoggedInStatus$.subscribe(status =>
+		{
+			if (status === OperationsEnum.SIGNED_UP)
+			{
+				this.loadAccountVerification(userModel);
+			}
+		});
 	}
 
 	/**

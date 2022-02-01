@@ -91,4 +91,12 @@ export class RootStateFacade {
 		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_ACCOUNT_VERIFICATION({payload: user}));
 	}
 
+	/**
+	 * Signs up
+	 * @param user 
+	 */
+	public signUp(user: UserModel) {
+		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_SIGN_UP({payload: user}));
+	}
+
 }

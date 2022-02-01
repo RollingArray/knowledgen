@@ -280,4 +280,52 @@ export class RootStateEffects
 				}),
 			),
 	);
+
+	/**
+	 * Api request sign in$ of root state effects
+	 */
+	 apiRequestSignUp$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.API_REQUEST_SIGN_UP
+				),
+				mergeMap(action =>
+					this.userService.signUp(action.payload).pipe(
+						mergeMap((data) => {
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success) {
+
+								this.toastService.presentToast(data.message[0]);
+
+								// store newly added skill
+								return [
+									ROOT_ACTIONS.UPDATE_USER_LOGGED_IN_STATUS({ payload: OperationsEnum.SIGNED_UP }),
+									ROOT_ACTIONS.STORE_LOGGED_IN_USER_DETAILS({ payload: action.payload })
+								];
+							}
+							// response fail
+							else {
+
+								// if error message
+								if (data.message)
+								{
+									data.message.map(eachMessage =>
+									{
+										this.toastService.presentToast(eachMessage);	
+									})
+								}
+
+								return [ROOT_ACTIONS.API_SIGN_IN_FAIL()];
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
 }

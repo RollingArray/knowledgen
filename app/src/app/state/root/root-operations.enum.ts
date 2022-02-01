@@ -21,6 +21,7 @@ export enum RootOperationsEnum {
 
 	UPDATE_USER_LOGGED_IN_STATUS = '[Root] Update User Logged In Status',
 	API_REQUEST_SIGN_IN = '[Root] Api Request Sign In',
+	API_REQUEST_SIGN_UP = '[Root] Api Request Sign Up',
 	API_SIGN_IN_FAIL = '[Root] Api Sign In Fail',
 	API_REQUEST_ACCOUNT_VERIFICATION = '[Root] Api Request Account Verification',
 
