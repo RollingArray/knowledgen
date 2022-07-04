@@ -1,15 +1,14 @@
-<!--
+<!-- 
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary short description for the file
+ * @summary Crud course material component template
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-01-26 18:44:45
- */
+ * Created at     : 2022-07-04 19:38:45 
+ * Last modified  : 2022-07-04 19:40:22
+ */ 
 -->
 
 <!-- header -->
@@ -29,13 +28,14 @@
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
 	<!-- page title -->
 	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
-	<!-- fab -->
+	
+	<!-- save btn -->
 	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
 		<ion-fab-button color="tertiary" (click)="submit()">
 			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
 		</ion-fab-button>
 	</ion-fab>
-	<!-- fab -->
+	<!-- save btn -->
 
 	<!-- form -->
 	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
@@ -50,7 +50,7 @@
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-input autocomplete="off" formControlName="courseMaterialName" type="text">
+								<ion-input [disabled]="isOperationDelete" autocomplete="off" formControlName="courseMaterialName" type="text">
 								</ion-input>
 							</ion-item>
 							<ion-card *ngIf="courseMaterialName.invalid && courseMaterialName.touched" color="warning">
@@ -71,7 +71,7 @@
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-textarea debounce="1000" (ionChange)="extractKeyWords()" rows="6" cols="20" autocomplete="off"
+								<ion-textarea [disabled]="isOperationDelete" debounce="1000" (ionChange)="extractKeyWords()" rows="6" cols="20" autocomplete="off"
 									formControlName="courseMaterialDescription" type="text">
 								</ion-textarea>
 							</ion-item>
