@@ -1,0 +1,92 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud course material type component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-06-30 12:28:23 
+ * Last modified  : 2022-06-30 14:54:42
+ */
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ pageTitle | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
+	<!-- fab -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+		<ion-fab-button color="tertiary" (click)="submit()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- fab -->
+
+	<!-- form -->
+	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<!-- menu title -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.articleTitle' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-input [disabled]="isOperationDelete" autocomplete="off" formControlName="articleTitle" type="text">
+								</ion-input>
+							</ion-item>
+							<ion-card *ngIf="articleTitle.invalid && articleTitle.touched" color="warning">
+								<ion-item color="warning">
+									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
+									{{'validation.required'|translate}}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+					<!-- menu title -->
+
+					<!-- content type -->
+					<ion-card color="secondary" *ngIf="allowEditableFields">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.contentType' | translate }}</p>
+						</ion-item>
+						<ion-grid color="secondary">
+							<ion-row>
+								<ion-col size="6"  *ngFor="let courseMaterialType of arrayKey.COURSE_MATERIAL_TYPE">
+									<ion-card class="padding-10-px cursor-pointer" [color]="selectedCourseMaterialType(courseMaterialType)"
+										(click)="selectMaterialTypeId(courseMaterialType.id)">
+										<ion-icon size="large" [src]="courseMaterialType.icon"></ion-icon><br><br>
+										<ion-label class="segment">{{courseMaterialType.type | translate}}
+										</ion-label>
+									</ion-card>
+								</ion-col>
+							</ion-row>
+							
+						</ion-grid>
+					</ion-card>
+					<!-- content type -->
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</form>
+	<!-- form -->
+</ion-content>
+<!-- body -->
