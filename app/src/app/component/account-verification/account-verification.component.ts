@@ -143,7 +143,7 @@ export class AccountVerificationComponent
 	{
 		super(injector);
 		this._passedUser = this.navParams.get('data');
-		this.loggedInUser$ = this.rootStateFacade.selectLoggedInUser$;
+		this.loggedInUser$ = this.rootStateFacade.loggedInUser$;
 		this.buildFrom();
 
 		/*
