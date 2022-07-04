@@ -1,34 +1,29 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary ParentMenu component
+ * @summary Parent Menu component
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-26 16:12:11
+ * Created at     : 2022-07-04 20:00:41 
+ * Last modified  : 2022-07-04 20:03:21
  */
 
-
-import { takeUntil } from 'rxjs/operators';
-import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, ViewChild, Injector, Output, EventEmitter } from "@angular/core";
-import { IonSlides, ModalController } from "@ionic/angular";
-import { StringKey } from "src/app/shared/constant/string.constant";
-import { SlideModel } from "src/app/shared/model/slide.model";
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import { ArrayKey } from 'src/app/shared/constant/array.constant';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
-import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
-import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
-import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
-import { RootStateFacade } from 'src/app/state/root/root.state.facade';
-import { CookieService } from 'ngx-cookie-service';
-import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { Component, OnInit, Injector } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { CookieService } from "ngx-cookie-service";
+import { Observable } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { ParentMenuModel } from "src/app/shared/model/parent-menu.model";
+import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { BaseViewComponent } from "../base/base-view.component";
+import { CrudCourseMaterialTypeComponent } from "../crud-course-material-type/crud-course-material-type.component";
 
 @Component({
 	selector: "parent-menu",
@@ -44,8 +39,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 	readonly operationsEnum = OperationsEnum;
-
-	@Output() emitSelectedArticle = new EventEmitter<string>();
 
 	/**
 	 * -------------------------------------------------|
@@ -65,10 +58,24 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	parentMenuMenu$!: Observable<ParentMenuModel[]>;
 
+	/**
+	 * Course material owner$ of parent menu component
+	 */
 	courseMaterialOwner$!: Observable<string>;
 
+	/**
+	 * Logged in user id$ of parent menu component
+	 */
+	loggedInUserId$: Observable<string>;
+
+	/**
+	 * Course material$ of parent menu component
+	 */
 	courseMaterial$!: Observable<CourseMaterialModel>;
 
+	/**
+	 * Course material id of parent menu component
+	 */
 	private _courseMaterialId: string;
 
 	/**
@@ -83,21 +90,12 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Gets description
+	 */
 	get courseMaterialId()
 	{
 		return this._courseMaterialId;
-	}
-
-	get isMaterialOwner()
-	{
-		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
-
-		return isMaterialOwner;
 	}
 
 
@@ -120,7 +118,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -139,17 +136,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 				this.errorMessage = data;
 			});
 		this.loadData();
-
-		// this.parentMenuMenu$.subscribe(data =>
-		// 	{
-		// 		this.router.navigate([
-		// 			'go/course/material',
-		// 			this.courseMaterialId,
-		// 			'details',
-		// 			'article',
-		// 			data[0].parentArticleId
-		// 		]);
-		// 	})
 	}
 
 	/**
@@ -164,7 +150,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	async getCourseMaterialMenu()
 	{
-
 		const courseMaterialModel: CourseMaterialModel = {
 			courseMaterialId: this._courseMaterialId
 		};
@@ -181,6 +166,24 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	}
 
 	/**
+	 * Opens crud course material type
+	 */
+	private async openCrudCourseMaterialType()
+	{
+		const modal = await this.modalController.create({
+			component: CrudCourseMaterialTypeComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+			componentProps: {
+				menuType: MenuTypeEnum.PARENT_MENU
+			}
+		});
+
+		// present modal
+		await modal.present();
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Public methods									|
@@ -192,80 +195,118 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	public loadData()
 	{
-		console.log("a");
 		this._courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.getCourseMaterialMenu();
 		this.parentMenuMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
 		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);
+		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._courseMaterialId);
 	}
 
-	async addNewParentMenu()
+	/**
+	 * Adds new parent menu
+	 */
+	public async addNewParentMenu()
 	{
 		let totalNumberOfMenu = 0;
 		this.parentMenuMenu$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(data => totalNumberOfMenu = data.length)
 
-		this.translateService
-			.get([
-				'button.addMenu',
-				'button.cancel',
-				'button.add',
-				'loading.wait'
-			])
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string[]) =>
-			{
-				const alert = await this.alertController.create({
-					header: data['button.addMenu'],
-					inputs: [
-						{
-							name: 'articleTitle',
-							type: 'text'
-						},
-					],
-					buttons: [
-						{
-							text: data['button.cancel'],
-							handler: () =>
-							{
-								console.log('Confirm Cancel');
-							}
-						}, {
-							text: data['button.add'],
-							handler: async (data) =>
-							{
-								const parentMenuModel: ParentMenuModel = {
-									parentArticleOrder: totalNumberOfMenu + 1,
-									courseMaterialId: this.courseMaterialId,
-									articleTitle: data.articleTitle,
-									operationType: OperationsEnum.CREATE
-								}
+		const parentMenuModel: ParentMenuModel = {
+			parentArticleOrder: totalNumberOfMenu + 1,
+			courseMaterialId: this.courseMaterialId,
+			articleTitle: '',
+			operationType: OperationsEnum.CREATE
+		}
+	
+		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.CREATE);
 
-								await this.rootStateFacade.startLoading(data['loading.wait']);
-
-								this.courseMaterialMenuStateFacade.addNewParentMenu(parentMenuModel);
-							}
-						}
-					]
-				});
-
-				await alert.present();
-			}
-			);
+		this.openCrudCourseMaterialType();
 	}
 
+	/**
+	 * Navigates to course material article
+	 * @param articleId 
+	 */
 	public navigateToCourseMaterialArticle(articleId: string)
 	{
-		this.emitSelectedArticle.emit(articleId);
-		this.cookieService.set('_selArt', articleId);
-		// this.router.navigate([
-		// 	'go/course/material',
-		// 	this.courseMaterialId,
-		// 	'details',
-		// 	'article',
-		// 	articleId
-		// ]);
+		this.courseMaterialMenuStateFacade.storeSelectedMenu(articleId);
+	}
+
+	/**
+	 * Gets menu icon
+	 * @param eachMenu 
+	 * @returns  
+	 */
+	public getMenuIcon(eachMenu: ParentMenuModel)
+	{
+		return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === eachMenu.courseMaterialTypeId)[0].icon;
+	}
+
+	/**
+	 * Edits parent menu
+	 * @param eachMenu 
+	 */
+	public editParentMenu(eachMenu: ParentMenuModel)
+	{
+		const parentMenuModel: ParentMenuModel = {
+			...eachMenu,
+			operationType: OperationsEnum.EDIT
+		}
+	
+		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.EDIT);
+
+		this.openCrudCourseMaterialType();
+	}
+
+	/**
+	 * Deletes parent menu
+	 * @param eachMenu 
+	 */
+	public deleteParentMenu(eachMenu: ParentMenuModel)
+	{
+		this.translateService
+			 .get([
+				 'actionAlert.delete',
+				 'actionAlert.deleteMenu',
+				 'option.yes',
+				 'option.no',
+			 ]).pipe(takeUntil(this.unsubscribe))
+			 .subscribe(async data =>
+			 {
+ 
+				 const alert = await this.alertController.create({
+					 header: `${data['actionAlert.delete']}`,
+					 subHeader: data['actionAlert.deleteMenu'],
+					 cssClass: 'custom-alert',
+					 mode: 'md',
+					 buttons: [
+						 {
+							 cssClass: 'ok-button ',
+							 text: data['option.yes'],
+							 handler: (_) =>
+							 {
+								const parentMenuModel: ParentMenuModel = {
+									...eachMenu,
+									operationType: OperationsEnum.DELETE
+								}
+							
+								this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.DELETE);
+						
+								this.openCrudCourseMaterialType();
+							 }
+						 },
+						 {
+							 cssClass: 'cancel-button',
+							 text: data['option.no'],
+							 handler: () =>
+							 {
+							 }
+						 }
+					 ]
+				 });
+				 await alert.present();
+			 });
 	}
 }

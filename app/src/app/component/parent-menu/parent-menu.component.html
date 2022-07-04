@@ -2,29 +2,45 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary Intro component template
+ * @summary Parent Menu component template
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-26 16:12:24
+ * Created at     : 2022-07-04 20:00:41 
+ * Last modified  : 2022-07-04 20:01:11
  */
  -->
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (parentMenuMenu$ | async)" >
+	<!-- article title -->
 	<ion-item lines="none" (click)="navigateToCourseMaterialArticle(eachMenu.parentArticleId)">
-		<ion-icon color="primary" [src]="stringKey.ICON_MORE" slot="start"></ion-icon>
+		<ion-icon color="primary" [src]="getMenuIcon(eachMenu)" slot="start"></ion-icon>
 		<ion-label class="font-size-17-px">
 			{{ eachMenu.articleTitle }}
 		</ion-label>
 	</ion-item>
-	<!-- ss -->
-	<child-menu [parentArticleId]="eachMenu.parentArticleId" [courseMaterialId]="courseMaterialId" (emitChildSelectedArticle)="navigateToCourseMaterialArticle($event)"></child-menu>
+	<!-- article title -->
+
+	<!-- toolbar -->
+	<ion-toolbar>
+		<ion-buttons slot="end">
+			<ion-button color="primary" (click)="editParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
+			</ion-button>
+			<ion-button color="primary" (click)="deleteParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+				<ion-icon [src]="stringKey.ICON_DELETE"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<!-- toolbar -->
+	
+	<!-- all child menu -->
+	<child-menu [parentArticleId]="eachMenu.parentArticleId" [courseMaterialId]="courseMaterialId"></child-menu>
+	<!-- all child menu -->
 </ion-card>
 
-<div>
-	<ion-button (click)="addNewParentMenu()" expand="block" *ngIf="isMaterialOwner">
-		<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
-		{{'button.addMenu' | translate}}
-	</ion-button>
-</div>
+<!-- add new menu -->
+<ion-button class="card-button" mode="ios" (click)="addNewParentMenu()" expand="block" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+	<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
+	{{'button.addMenu' | translate}}
+</ion-button>
+<!-- add new menu -->

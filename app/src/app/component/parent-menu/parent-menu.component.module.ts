@@ -1,13 +1,12 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
  *
- * @summary ParentMenu module
+ * @summary Parent Menu module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48
- * Last modified  : 2022-01-26 14:47:31
+ * Created at     : 2022-07-04 20:00:41 
+ * Last modified  : 2022-07-04 20:00:41 
  */
 
 import { NgModule } from '@angular/core';
@@ -20,20 +19,22 @@ import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { ChildMenuModule } from '../child-menu/child-menu.component.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
 import { CourseMaterialStateModule } from 'src/app/state/course-material/course-material.state.module';
+import { CrudCourseMaterialTypeModule } from '../crud-course-material-type/crud-course-material-type.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    IonicModule,
-	CourseMaterialMenuStateModule,
-	CourseMaterialStateModule,
-    RootStateModule,
-    ChildMenuModule,
-    I18nModule,
-  ],
+	imports: [
+		CommonModule,
+		SharedModule,
+		IonicModule,
+		CourseMaterialMenuStateModule,
+		CourseMaterialStateModule,
+		CrudCourseMaterialTypeModule,
+		RootStateModule,
+		ChildMenuModule,
+		I18nModule,
+	],
 
-  declarations: [ParentMenuComponent],
-  exports: [ParentMenuComponent],
-  entryComponents: [ParentMenuComponent],
+	declarations: [ParentMenuComponent],
+	exports: [ParentMenuComponent],
+	entryComponents: [ParentMenuComponent],
 })
-export class ParentMenuModule {}
+export class ParentMenuModule { }
