@@ -3,12 +3,12 @@
  *
  * long description for the file
  *
- * @summary SubChildMenu module
+ * @summary Sub child menu component module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-19 20:51:16
- */
+ * Created at     : 2022-07-04 20:05:19 
+ * Last modified  : 2022-07-04 20:05:50
+ */ 
 
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
@@ -18,9 +18,10 @@ import { SubChildMenuComponent } from './sub-child-menu.component';
 import { CourseMaterialMenuStateModule } from "src/app/state/course-material-menu/course-material-menu.state.module";
 import { RootStateModule } from "src/app/state/root/root.state.module";
 import { I18nModule } from "src/app/shared/module/i18n.module";
+import { CrudCourseMaterialTypeModule } from "../crud-course-material-type/crud-course-material-type.module";
 @NgModule({
 	imports: [CommonModule, SharedModule, IonicModule, CourseMaterialMenuStateModule,
-		RootStateModule,I18nModule],
+		RootStateModule, CrudCourseMaterialTypeModule, I18nModule],
 
 	declarations: [SubChildMenuComponent],
 	exports: [SubChildMenuComponent],
