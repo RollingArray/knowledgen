@@ -6,12 +6,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-07-04 19:50:42
+ * Last modified  : 2022-07-04 19:53:17
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
-import { EventEmitter } from "protractor";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -22,7 +21,6 @@ import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
-import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseViewComponent } from "../base/base-view.component";
 import { CrudCourseMaterialTypeComponent } from "../crud-course-material-type/crud-course-material-type.component";
 
@@ -191,7 +189,6 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 
 		this.courseMaterialMenuStateFacade.actUponChildMenu(childMenuModel, OperationsEnum.CREATE);
 
-		//  //load crud modal
 		this.openCrudCourseMaterialType();
 	}
 
