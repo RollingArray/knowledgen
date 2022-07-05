@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-25 18:13:39
+ * Last modified  : 2022-07-05 14:54:40
  */
 
 import {
@@ -74,7 +74,9 @@ const selectChildMenuById = (parentArticleId: string) =>
 	createSelector(selectChildMenuState, (state) => state[parentArticleId]);
   
 	
-
+/**
+ * @description Selectors - Child menu by parent id
+ */
 export const selectChildMenuByParentId = (parentArticleId: string) => createSelector(
 	selectChildMenuState,
 	//selectEntities,
@@ -97,10 +99,8 @@ export const selectChildMenuByParentId = (parentArticleId: string) => createSele
 	}
 );
 
-
-
 /**
- * @description export User skill categories query to access all selectors
+ * @description export Child menu query to access all selectors
  */
 export const CHILD_MENU_QUERY_SELECTOR = {
 	selectAllChildMenu,
