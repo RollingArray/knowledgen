@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
 use App\Models\CourseMaterialArticleModel;
 use App\Models\CourseMaterialChildMenuModel;
-use App\Models\CourseMaterialMenuModel;
-use App\Models\CourseMaterialSubChildMenuModel;
 
 class CourseMaterialChildMenuController extends Controller
 {
