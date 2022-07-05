@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material service
+ * @summary Course material menu service
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:27:57 
- * Last modified  : 2022-01-19 21:13:24
+ * Last modified  : 2022-07-05 11:31:55
  */
 
 
@@ -15,6 +15,7 @@ import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
 import { Observable } from "rxjs";
 import { ApiUrls } from "../constant/api-urls.constant";
+import { OperationsEnum } from "../enum/operations.enum";
 import { BaseModel } from "../model/base.model";
 import { ChildMenuModel } from "../model/child-menu.model";
 import { CourseMaterialModel } from "../model/course-material.model";
@@ -71,28 +72,68 @@ export class CourseMaterialMenuService extends BaseService<BaseModel> {
 	 */
 	addNewMenu(parentMenuModel: ParentMenuModel): Observable<BaseModel>
 	{
-		return this.post(ApiUrls.COURSE_MATERIAL_MENU_ADD, parentMenuModel);
+		return this.post(ApiUrls.COURSE_MATERIAL_PARENT_MENU_ADD, parentMenuModel);
+	}
+	/**
+	 * Cruds parent menu
+	 * @param parentMenuModel 
+	 * @returns parent menu 
+	 */
+	crudParentMenu(parentMenuModel: ParentMenuModel): Observable<ParentMenuModel>{
+		switch (parentMenuModel.operationType) {
+			case OperationsEnum.CREATE:
+				return this.post(ApiUrls.COURSE_MATERIAL_PARENT_MENU_ADD, parentMenuModel);
+				break;
+			case OperationsEnum.EDIT:
+				return this.post(ApiUrls.COURSE_MATERIAL_PARENT_MENU_EDIT, parentMenuModel);
+				break;
+			case OperationsEnum.DELETE:
+				return this.post(ApiUrls.COURSE_MATERIAL_PARENT_MENU_DELETE, parentMenuModel);
+				break;
+			default:
+				break;
+		}
 	}
 
 	/**
-	 * Adds new sub child menu
-	 * @param subChildMenuModel 
-	 * @returns new sub child menu 
+	 * Cruds child menu
+	 * @param childMenuModel 
+	 * @returns child menu 
 	 */
-	addNewChildMenu(childMenuModel: ChildMenuModel): Observable<BaseModel>
-	{
-		return this.post(ApiUrls.COURSE_MATERIAL_CHILD_MENU_ADD, childMenuModel);
+	crudChildMenu(childMenuModel: ChildMenuModel): Observable<ChildMenuModel>{
+		switch (childMenuModel.operationType) {
+			case OperationsEnum.CREATE:
+				return this.post(ApiUrls.COURSE_MATERIAL_CHILD_MENU_ADD, childMenuModel);
+				break;
+			case OperationsEnum.EDIT:
+				return this.post(ApiUrls.COURSE_MATERIAL_CHILD_MENU_EDIT, childMenuModel);
+				break;
+			case OperationsEnum.DELETE:
+				return this.post(ApiUrls.COURSE_MATERIAL_CHILD_MENU_DELETE, childMenuModel);
+				break;
+			default:
+				break;
+		}
 	}
 
 	/**
-	 * Adds new sub child menu
+	 * Cruds sub child menu
 	 * @param subChildMenuModel 
-	 * @returns new sub child menu 
+	 * @returns sub child menu 
 	 */
-	addNewSubChildMenu(subChildMenuModel: SubChildMenuModel): Observable<BaseModel>
-	{
-		return this.post(ApiUrls.COURSE_MATERIAL_SUB_CHILD_MENU_ADD, subChildMenuModel);
+	crudSubChildMenu(subChildMenuModel: SubChildMenuModel): Observable<SubChildMenuModel>{
+		switch (subChildMenuModel.operationType) {
+			case OperationsEnum.CREATE:
+				return this.post(ApiUrls.COURSE_MATERIAL_SUB_CHILD_MENU_ADD, subChildMenuModel);
+				break;
+			case OperationsEnum.EDIT:
+				return this.post(ApiUrls.COURSE_MATERIAL_SUB_CHILD_MENU_EDIT, subChildMenuModel);
+				break;
+			case OperationsEnum.DELETE:
+				return this.post(ApiUrls.COURSE_MATERIAL_SUB_CHILD_MENU_DELETE, subChildMenuModel);
+				break;
+			default:
+				break;
+		}
 	}
-
-
 }
