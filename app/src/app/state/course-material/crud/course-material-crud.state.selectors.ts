@@ -16,7 +16,7 @@ import {
 import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
 import { OperationsEnum } from '../../../shared/enum/operations.enum';
 import { CourseMaterialCrudStateModel } from './course-material-crud.state.model';
-import { SKILL_CRUD_FEATURE_KEY } from './course-material-crud.state.reducer';
+import { COURSE_MATERIAL_CRUD_FEATURE_KEY } from './course-material-crud.state.reducer';
 
 /**
  * @description get operation status
@@ -29,9 +29,9 @@ const getOperationStatus = (courseMaterialCrudStateModel: CourseMaterialCrudStat
 const getOperationCourseMaterial = (courseMaterialCrudStateModel: CourseMaterialCrudStateModel): CourseMaterialModel => courseMaterialCrudStateModel.operationCourseMaterial;
 
 /**
- * @description Selector - CourseMaterial crud state
+ * @description Selector - Course Material crud state
  */
-export const selectCourseMaterialCrudState: MemoizedSelector<CourseMaterialCrudStateModel, CourseMaterialCrudStateModel>  = createFeatureSelector<CourseMaterialCrudStateModel>(SKILL_CRUD_FEATURE_KEY);
+export const selectCourseMaterialCrudState: MemoizedSelector<CourseMaterialCrudStateModel, CourseMaterialCrudStateModel>  = createFeatureSelector<CourseMaterialCrudStateModel>(COURSE_MATERIAL_CRUD_FEATURE_KEY);
 
 /**
  * @description Selector - Operation status
@@ -42,7 +42,7 @@ export const selectOperationStatus: MemoizedSelector<CourseMaterialCrudStateMode
 );
 
 /**
- * @description Selector - Operation CourseMaterial
+ * @description Selector - Operation Course Material
  */
 export const selectOperationCourseMaterial: MemoizedSelector<CourseMaterialCrudStateModel, CourseMaterialModel> = createSelector(
 	selectCourseMaterialCrudState,

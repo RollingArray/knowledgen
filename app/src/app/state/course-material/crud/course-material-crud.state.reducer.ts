@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:32:01 
- * Last modified  : 2022-01-14 19:34:17
+ * Last modified  : 2022-07-05 13:23:41
  */
 
 
@@ -16,22 +16,22 @@ import { COURSE_MATERIAL_ACTIONS } from '../course-material.state.actions';
 import { CourseMaterialCrudStateModel, COURSE_MATERIAL_CRUD_INITIAL_STATE } from './course-material-crud.state.model';
 
 /**
- * @description CourseMaterial crud feature key
+ * @description Object crud feature key
  */
-export const SKILL_CRUD_FEATURE_KEY = 'courseMaterialCrudState';
+export const COURSE_MATERIAL_CRUD_FEATURE_KEY = 'courseMaterialCrudState';
 
 /**
- * @description CourseMaterial crud reducer
+ * @description Object crud reducer
  */
 const reducer = createReducer(
 
 	/**
-	 * @description CourseMaterial crud reducer initial state
+	 * @description Object crud reducer initial state
 	 */
 	COURSE_MATERIAL_CRUD_INITIAL_STATE,
 
 	/**
-	 * @description Reducer for action - act upon CourseMaterial
+	 * @description Reducer for action - act upon object
 	 */
 	on(COURSE_MATERIAL_ACTIONS.ACT_UPON_COURSE_MATERIAL, (state, action) => ({
 		...state,
@@ -40,7 +40,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request new courseMaterial
+	 * @description Reducer for action - Request new object
 	 */
 	on(COURSE_MATERIAL_ACTIONS.API_REQUEST_ADD_NEW_COURSE_MATERIAL, (state, action) => ({
 		...state,
@@ -48,7 +48,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request edit courseMaterial
+	 * @description Reducer for action - Request edit object
 	 */
 	on(COURSE_MATERIAL_ACTIONS.API_REQUEST_EDIT_COURSE_MATERIAL, (state, action) => ({
 		...state,
@@ -56,7 +56,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request delete courseMaterial
+	 * @description Reducer for action - Request delete object
 	 */
 	on(COURSE_MATERIAL_ACTIONS.API_REQUEST_DELETE_COURSE_MATERIAL, (state, action) => ({
 		...state,
@@ -64,7 +64,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - CourseMaterial added success
+	 * @description Reducer for action - Object added success
 	 */
 	on(COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_ADDED_SUCCESS, (state, action) => ({
 		...state,
@@ -72,7 +72,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - CourseMaterial update success
+	 * @description Reducer for action - Object update success
 	 */
 	on(COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_UPDATED_SUCCESS, (state, action) => ({
 		...state,
@@ -80,7 +80,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - CourseMaterial delete success
+	 * @description Reducer for action - Object delete success
 	 */
 	on(COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_DELETED_SUCCESS, (state, action) => ({
 		...state,
@@ -88,7 +88,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - CourseMaterial crud success
+	 * @description Reducer for action - Object crud success
 	 */
 	on(COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_CRUD_SUCCESS, (state, action) => ({
 		...state,
@@ -96,7 +96,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - CourseMaterial crud fail
+	 * @description Reducer for action - Object crud fail
 	 */
 	on(COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_CRUD_FAIL, (state, action) => ({
 		...state,
@@ -106,7 +106,7 @@ const reducer = createReducer(
 
 
 /**
- * @description Categories crud state reducer
+ * Courses material crud state reducer
  * @param state 
  * @param action 
  * @returns  
