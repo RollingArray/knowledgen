@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-01-27 09:52:32
+ * Last modified  : 2022-02-03 23:51:54
  */
 
 
@@ -631,6 +631,34 @@ export class StringKey {
 	public static readonly ICON_CHECK: string = StringKey.ICON_BASE_PATH + "check.svg";
 	public static readonly ICON_SUMMERY: string = StringKey.ICON_BASE_PATH + "summery.svg";
 
+	public static readonly ICON_H1: string = StringKey.ICON_BASE_PATH + "h1.svg";
+	public static readonly ICON_H2: string = StringKey.ICON_BASE_PATH + "h2.svg";
+	public static readonly ICON_BLOCK: string = StringKey.ICON_BASE_PATH + "block.svg";
+	public static readonly ICON_CONTENT: string = StringKey.ICON_BASE_PATH + "content.svg";
+	public static readonly ICON_IMAGE: string = StringKey.ICON_BASE_PATH + "image.svg";
+	public static readonly ICON_VIDEO: string = StringKey.ICON_BASE_PATH + "video.svg";
+
+	public static readonly ICON_BOLD: string = StringKey.ICON_BASE_PATH + "bold.svg";
+	public static readonly ICON_ITALIC: string = StringKey.ICON_BASE_PATH + "italic.svg";
+	public static readonly ICON_UNDERSCORE: string = StringKey.ICON_BASE_PATH + "underscore.svg";
+	public static readonly ICON_OL: string = StringKey.ICON_BASE_PATH + "ol.svg";
+	public static readonly ICON_UL: string = StringKey.ICON_BASE_PATH + "ul.svg";
+	public static readonly ICON_SUBSCRIPT: string = StringKey.ICON_BASE_PATH + "subscript.svg";
+	public static readonly ICON_SUPERSCRIPT: string = StringKey.ICON_BASE_PATH + "superscript.svg";
+	public static readonly ICON_J_L: string = StringKey.ICON_BASE_PATH + "j-left.svg";
+	public static readonly ICON_J_C: string = StringKey.ICON_BASE_PATH + "j-center.svg";
+	public static readonly ICON_J_R: string = StringKey.ICON_BASE_PATH + "j-right.svg";
+	public static readonly ICON_J_F: string = StringKey.ICON_BASE_PATH + "j-full.svg";
+	public static readonly ICON_TEXT_DOC: string = StringKey.ICON_BASE_PATH + "text-doc.svg";
+	public static readonly ICON_QUIZ: string = StringKey.ICON_BASE_PATH + "quiz.svg";
+	public static readonly ICON_CROSSWORD: string = StringKey.ICON_BASE_PATH + "crossword.svg";
+	public static readonly ICON_SLIDES: string = StringKey.ICON_BASE_PATH + "slides.svg";
+	public static readonly ICON_DRAG_CONTENT: string = StringKey.ICON_BASE_PATH + "drag-content.svg";
+	public static readonly ICON_FLASH_CARD: string = StringKey.ICON_BASE_PATH + "flash-card.svg";
+	public static readonly ICON_POLL: string = StringKey.ICON_BASE_PATH + "poll.svg";
+	public static readonly ICON_PUZZLE: string = StringKey.ICON_BASE_PATH + "puzzle.svg";
+	public static readonly ICON_WORD_CLOUD: string = StringKey.ICON_BASE_PATH + "word-cloud.svg";
+
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
@@ -645,6 +673,7 @@ export class StringKey {
 	public static readonly IMAGE_PASSWORD_LESS: string = StringKey.IMAGE_BASE_PATH + "password_less.svg";
 	public static readonly IMAGE_PANEL_HEADER: string = StringKey.IMAGE_BASE_PATH + "panel-header.svg";
 	public static readonly IMAGE_PLANNER_HEADER: string = StringKey.IMAGE_BASE_PATH + "planner-header.svg";
+
 	
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	
