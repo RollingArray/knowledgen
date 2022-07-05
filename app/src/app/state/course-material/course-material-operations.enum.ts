@@ -6,10 +6,8 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-01-26 18:08:19
+ * Last modified  : 2022-07-05 13:26:01
  */
-
-
 
 export enum CourseMaterialOperationsEnum {
   API_REQUEST_COURSE_MATERIAL = '[Course Material] Api Request Course Material',
@@ -22,8 +20,10 @@ export enum CourseMaterialOperationsEnum {
   STORE_NEWLY_ADDED_COURSE_MATERIAL = '[Course Material] Store Newly Added Course Material',
   STORE_UPDATED_COURSE_MATERIAL = '[Course Material] Store Updated Course Material',
   REMOVE_COURSE_MATERIAL_FROM_STORE = '[Course Material] Remove Course Material From Store',
+  
   COURSE_MATERIAL_CRUD_SUCCESS = '[Course Material] Course Material CRUD Successfully',
   COURSE_MATERIAL_CRUD_FAIL = '[Course Material] Skill CRUD Fail',
+  
   COURSE_MATERIAL_ADDED_SUCCESS = '[Course Material] Course Material Added Successfully',
   COURSE_MATERIAL_UPDATED_SUCCESS = '[Course Material] Course Material Updated Successfully',
   COURSE_MATERIAL_DELETED_SUCCESS = '[Course Material] Course Material Deleted Successfully',
