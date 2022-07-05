@@ -15,16 +15,25 @@ class CourseMaterialArticleModel extends BaseModel{
      */
     protected $table = 'tbl_course_material_article';
 
-    
     /**
      * $primaryKey
      *
      * @var string
      */
     protected $primaryKey = 'article_id';
-
+    
+    /**
+     * keyType
+     *
+     * @var string
+     */
     protected $keyType = 'string';
-
+    
+    /**
+     * incrementing
+     *
+     * @var bool
+     */
     public $incrementing = false;
 
     /**
@@ -39,7 +48,7 @@ class CourseMaterialArticleModel extends BaseModel{
     ];
 
     /**
-     * courseMaterielArticles
+     * Course Materiel Articles
      *
      * @return void
      */
