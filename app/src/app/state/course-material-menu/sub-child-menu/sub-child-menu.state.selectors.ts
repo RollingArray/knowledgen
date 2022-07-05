@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material state selector
+ * @summary Sub child menu state selector
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-25 18:16:03
+ * Created at     : 2022-07-05 16:49:38 
+ * Last modified  : 2022-07-05 16:54:24
  */
 
 import {
@@ -21,7 +21,7 @@ import { SUB_CHILD_MENU_FEATURE_KEY } from './sub-child-menu.state.reducer';
 
 
 /**
- * @description Selectors - Course material adapter
+ * @description Selectors - Sub child menu adapter
  */
 const {
 	selectIds,
@@ -31,12 +31,12 @@ const {
 } = subChildMenuAdapter.getSelectors();
 
 /**
- * @description  Selectors - Course material State
+ * @description  Selectors - Sub child menu State
  */
 export const selectSubChildMenuState: MemoizedSelector<SubChildMenuStateModel, SubChildMenuStateModel> = createFeatureSelector<SubChildMenuStateModel>(SUB_CHILD_MENU_FEATURE_KEY);
 
 /**
- * @description Selectors - All Course material
+ * @description Selectors - All Sub child menu
  */
 export const selectAllSubChildMenu = createSelector(
 	selectSubChildMenuState,
@@ -44,7 +44,7 @@ export const selectAllSubChildMenu = createSelector(
 );
 
 /**
- * @description Selectors - All Course material Ids
+ * @description Selectors - All Sub child menu Ids
  */
 export const selectAllSubChildMenuIds = createSelector(
 	selectSubChildMenuState,
@@ -52,13 +52,16 @@ export const selectAllSubChildMenuIds = createSelector(
 );
 
 /**
- * @description Selectors - Course material total number
+ * @description Selectors - Sub child menu total number
  */
 export const selectSubChildMenuTotalNumber = createSelector(
 	selectSubChildMenuState,
 	selectTotal,
 );
 
+/**
+ * @description Selectors - Sub child menu has data
+ */
 export const selectSubChildMenuHasData = createSelector(
 	selectEntities,
 	selectSubChildMenuTotalNumber,
@@ -66,13 +69,15 @@ export const selectSubChildMenuHasData = createSelector(
 );
 
 /**
- * @description Selectors - Course material has subChildMenu
+ * @description Selectors - Sub child menu by id
  */
  const selectSubChildMenuById = (subChildArticleId: string) => 
  createSelector(selectSubChildMenuState, (state) => state[subChildArticleId]);
 
  
-
+/**
+ * @description Selectors - Sub child menu by child id
+ */
 export const selectSubChildMenuByChildId = (childArticleId: string) => createSelector(
 	selectSubChildMenuState,
  //selectEntities,
@@ -95,10 +100,8 @@ export const selectSubChildMenuByChildId = (childArticleId: string) => createSel
  }
 );
 
-
-
 /**
- * @description export User skill categories query to access all selectors
+ * @description export sub child menu query to access all selectors
  */
 export const SUB_CHILD_MENU_QUERY_SELECTOR = {
 	selectAllSubChildMenu,
