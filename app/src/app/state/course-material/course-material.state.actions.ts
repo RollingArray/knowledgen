@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course Material Actions
+ * @summary Course Material State Actions
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:16:13 
- * Last modified  : 2022-01-26 18:08:34
+ * Last modified  : 2022-07-05 14:43:55
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -22,6 +22,9 @@ export const API_REQUEST_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_COURSE_MATERIAL
 );
 
+/**
+ * @description Course Material Action - Api Request Recommended Course Material
+ */
 export const API_REQUEST_RECOMMENDED_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_RECOMMENDED_COURSE_MATERIAL
 );
@@ -35,7 +38,7 @@ export const LOADED_REQUEST_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Act Upon Category
+ * @description Course Material Action - Act Upon Course Material
  */
 export const ACT_UPON_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.ACT_UPON_COURSE_MATERIAL,
@@ -43,7 +46,7 @@ export const ACT_UPON_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Send Api Request To Add New Category
+ * @description Course Material Action - Send Api Request To Add New Course Material
  */
 export const API_REQUEST_ADD_NEW_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_ADD_NEW_COURSE_MATERIAL,
@@ -51,7 +54,7 @@ export const API_REQUEST_ADD_NEW_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Send Api Request To Edit Category
+ * @description Course Material Action - Send Api Request To Edit Course Material
  */
 export const API_REQUEST_EDIT_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_EDIT_COURSE_MATERIAL,
@@ -59,7 +62,7 @@ export const API_REQUEST_EDIT_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Send Api Request To Delete Category
+ * @description Course Material Action - Send Api Request To Delete Course Material
  */
 export const API_REQUEST_DELETE_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.API_REQUEST_DELETE_COURSE_MATERIAL,
@@ -67,7 +70,7 @@ export const API_REQUEST_DELETE_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Store Newly Added Category
+ * @description Course Material Action - Store Newly Added Course Material
  */
 export const STORE_NEWLY_ADDED_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.STORE_NEWLY_ADDED_COURSE_MATERIAL,
@@ -75,7 +78,7 @@ export const STORE_NEWLY_ADDED_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Store Updated Category
+ * @description Course Material Action - Store Updated Course Material
  */
 export const STORE_UPDATED_COURSE_MATERIAL = createAction(
 	CourseMaterialOperationsEnum.STORE_UPDATED_COURSE_MATERIAL,
@@ -83,7 +86,7 @@ export const STORE_UPDATED_COURSE_MATERIAL = createAction(
 );
 
 /**
- * @description Course Material Action - Store Deleted Category
+ * @description Course Material Action - Remove Course Material From Store
  */
 export const REMOVE_COURSE_MATERIAL_FROM_STORE = createAction(
 	CourseMaterialOperationsEnum.REMOVE_COURSE_MATERIAL_FROM_STORE,
@@ -91,35 +94,35 @@ export const REMOVE_COURSE_MATERIAL_FROM_STORE = createAction(
 );
 
 /**
- * @description Course Material Action - Category Crud Successfully
+ * @description Course Material Action - Course Material CRUD Successfully
  */
 export const COURSE_MATERIAL_CRUD_SUCCESS = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_CRUD_SUCCESS
 );
 
 /**
- * @description Course Material Action - Category crud fail
+ * @description Course Material Action - Course Material CRUD Fail
  */
 export const COURSE_MATERIAL_CRUD_FAIL = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_CRUD_FAIL
 );
 
 /**
- * @description Course Material Action - Category Updated Successfully
+ * @description Course Material Action - Course Material Updated Successfully
  */
 export const COURSE_MATERIAL_UPDATED_SUCCESS = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_UPDATED_SUCCESS
 );
 
 /**
- * @description Course Material Action - Category Deleted Successfully
+ * @description Course Material Action - Course Material Deleted Successfully
  */
 export const COURSE_MATERIAL_DELETED_SUCCESS = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_DELETED_SUCCESS
 );
 
 /**
- * @description Course Material Action - Skill Added Successfully
+ * @description Course Material Action - Course Material Added Successfully
  */
 export const COURSE_MATERIAL_ADDED_SUCCESS = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_ADDED_SUCCESS

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 13:26:01
+ * Last modified  : 2022-07-05 14:43:17
  */
 
 export enum CourseMaterialOperationsEnum {
@@ -22,7 +22,7 @@ export enum CourseMaterialOperationsEnum {
   REMOVE_COURSE_MATERIAL_FROM_STORE = '[Course Material] Remove Course Material From Store',
   
   COURSE_MATERIAL_CRUD_SUCCESS = '[Course Material] Course Material CRUD Successfully',
-  COURSE_MATERIAL_CRUD_FAIL = '[Course Material] Skill CRUD Fail',
+  COURSE_MATERIAL_CRUD_FAIL = '[Course Material] Course Material CRUD Fail',
   
   COURSE_MATERIAL_ADDED_SUCCESS = '[Course Material] Course Material Added Successfully',
   COURSE_MATERIAL_UPDATED_SUCCESS = '[Course Material] Course Material Updated Successfully',

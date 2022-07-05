@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-26 18:35:53
+ * Last modified  : 2022-07-05 14:47:03
  */
 
 import { Injectable } from "@angular/core";
@@ -21,8 +21,14 @@ import { RootStateFacade } from "../root/root.state.facade";
 
 @Injectable()
 export class CourseMaterialStateEffects {
+	/**
+	 * Categories service of course material state effects
+	 */
 	categoriesService: any;
-	//rootStateFacade: any;
+	
+	/**
+	 * Category service of course material state effects
+	 */
 	categoryService: any;
 
 	/**
@@ -41,7 +47,7 @@ export class CourseMaterialStateEffects {
 
 
 	/**
-	 * @description Api request global skill categories$ of global skill category state effects
+	 * Api request course material$ of course material state effects
 	 */
 	apiRequestCourseMaterial$ = createEffect(
 		() =>
@@ -59,7 +65,8 @@ export class CourseMaterialStateEffects {
 							this.rootStateFacade.stopLoading();
 
 							// if success response
-							if (data.success) {
+							if (data.success)
+							{
 								// store retrieved categories
 								return COURSE_MATERIAL_ACTIONS.LOADED_REQUEST_COURSE_MATERIAL({ payload: data.data });
 							}
@@ -77,6 +84,9 @@ export class CourseMaterialStateEffects {
 			),
 	);
 
+	/**
+	 * Api request recommended course material$ of course material state effects
+	 */
 	apiRequestRecommendedCourseMaterial$ = createEffect(
 		() =>
 			this.actions$.pipe(
@@ -114,7 +124,7 @@ export class CourseMaterialStateEffects {
 	
 
 	/**
-	 * @description Add new category$ of global skill category state effects
+	 * Add new course material$ of course material state effects
 	 */
 	addNewCourseMaterial$ = createEffect(
 		() =>
@@ -160,7 +170,7 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Edit category$ of global skill category state effects
+	 * Edit course material$ of course material state effects
 	 */
 	editCourseMaterial$ = createEffect(
 		() =>
@@ -199,7 +209,7 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Delete skill$ of user skill state effects
+	 * Delete skill$ of course material state effects
 	 */
 	deleteSkill$ = createEffect(
 		() =>
@@ -238,7 +248,7 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Complete category add operation$ of global skill category state effects
+	 * Complete course material add operation$ of course material state effects
 	 */
 	completeCourseMaterialAddOperation$ = createEffect(
 		() =>
@@ -251,7 +261,7 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Complete category update operation$ of global skill category state effects
+	 * Complete course material update operation$ of course material state effects
 	 */
 	completeCourseMaterialUpdateOperation$ = createEffect(
 		() =>
@@ -264,7 +274,7 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Complete category delete operation$ of global skill category state effects
+	 * Complete course material delete operation$ of course material state effects
 	 */
 	completeCourseMaterialDeleteOperation$ = createEffect(
 		() =>
@@ -277,9 +287,9 @@ export class CourseMaterialStateEffects {
 	);
 
 	/**
-	 * @description Complete new skill curd operation$ of global skill category state effects
+	 * Complete course martial curd operation$ of course material state effects
 	 */
-	completeNewSkillCurdOperation$ = createEffect(
+	completeCourseMartialCurdOperation$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-26 18:35:08
+ * Last modified  : 2022-07-05 14:49:57
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -24,39 +24,41 @@ import { Injectable } from "@angular/core";
  */
 @Injectable()
 
-export class CourseMaterialStateFacade {
+export class CourseMaterialStateFacade
+{
 
 	/**
-	 * Creates an instance of user skill state facade.
-	 * @param courseMaterialStore 
+	 * Creates an instance of course material state facade.
 	 * @param courseMaterialStore 
 	 * @param courseMaterialCrudStore 
 	 */
-	 constructor(
+	constructor(
 		private courseMaterialStore: Store<CourseMaterialStateModel>,
 		private courseMaterialCrudStore: Store<CourseMaterialCrudStateModel>
 	) { }
 
 	/**
-	 * All course material model$ of course material model state facade
+	 * All course material$ of course material state facade
 	 */
 	public allCourseMaterial$ = this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectAllCourseMaterial);
 
 	/**
-	 * Course material has data$ of course material model state facade
+	 * Course material has data$ of course material state facade
 	 */
 	public courseMaterialHasData$ = this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialHasData);
 
 	/**
-	 * Course material by course material id$ of course material model state facade
+	 * Course material by course material id$ of course material state facade
 	 */
 	public courseMaterialByCourseMaterialId$ = (courseMaterialId: string) => this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialByCourseMaterialId(courseMaterialId));
-	
+
+	/**
+	 * Course material owner$ of course material state facade
+	 */
 	public courseMaterialOwner$ = (courseMaterialId: string) => this.courseMaterialStore.select(COURSE_MATERIAL_QUERY_SELECTOR.selectCourseMaterialOwner(courseMaterialId));
 
-	 
 	/**
-	 * Course material curd operation status$ of course material model state facade
+	 * Course material curd operation status$ of course material state facade
 	 */
 	public courseMaterialCurdOperationStatus$ = this.courseMaterialCrudStore.select(COURSE_MATERIAL_CRUD_QUERY_SELECTOR.selectOperationStatus);
 
@@ -68,36 +70,44 @@ export class CourseMaterialStateFacade {
 	/**
 	 * Requests course material
 	 */
-	public requestCourseMaterial() {
-		 this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_COURSE_MATERIAL());
+	public requestCourseMaterial()
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_COURSE_MATERIAL());
 	}
-	
-	public requestRecommendedCourseMaterial() {
+
+	/**
+	 * Requests recommended course material
+	 */
+	public requestRecommendedCourseMaterial()
+	{
 		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_RECOMMENDED_COURSE_MATERIAL());
 	}
 
 	/**
-	 * Adds new global skill course material
+	 * Adds new course material
 	 * @param courseMaterial 
 	 */
-	public addNewCourseMaterial(courseMaterial: CourseMaterialModel) {
-		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_ADD_NEW_COURSE_MATERIAL({payload: courseMaterial}));
+	public addNewCourseMaterial(courseMaterial: CourseMaterialModel)
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_ADD_NEW_COURSE_MATERIAL({ payload: courseMaterial }));
 	}
 
 	/**
-	 * Edits global skill course material
+	 * Edits course material
 	 * @param courseMaterial 
 	 */
-	public editCourseMaterial(courseMaterial: CourseMaterialModel) {
-		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_EDIT_COURSE_MATERIAL({payload: courseMaterial}));
+	public editCourseMaterial(courseMaterial: CourseMaterialModel)
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_EDIT_COURSE_MATERIAL({ payload: courseMaterial }));
 	}
 
 	/**
-	 * Deletes global skill course material
+	 * Deletes course material
 	 * @param courseMaterial 
 	 */
-	public deleteCourseMaterial(courseMaterial: CourseMaterialModel) {
-		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_DELETE_COURSE_MATERIAL({payload: courseMaterial}));
+	public deleteCourseMaterial(courseMaterial: CourseMaterialModel)
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.API_REQUEST_DELETE_COURSE_MATERIAL({ payload: courseMaterial }));
 	}
 
 	/**
@@ -105,7 +115,8 @@ export class CourseMaterialStateFacade {
 	 * @param courseMaterial 
 	 * @param operation 
 	 */
-	public actUponCourseMaterial(courseMaterial: CourseMaterialModel, operation: OperationsEnum) {
-		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.ACT_UPON_COURSE_MATERIAL({payload: courseMaterial, operation: operation}));
-	}	
+	public actUponCourseMaterial(courseMaterial: CourseMaterialModel, operation: OperationsEnum)
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.ACT_UPON_COURSE_MATERIAL({ payload: courseMaterial, operation: operation }));
+	}
 }
