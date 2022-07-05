@@ -188,19 +188,71 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             );
 
             $router->post(
-                'child/add',
+                'edit',
                 [
                     'middleware' => 'courseMaterialOwner',
-                    'uses' => 'CourseMaterialChildMenuController@add'
+                    'uses' => 'CourseMaterialMenuController@edit'
                 ]
             );
+
             $router->post(
-                'child/sub/add',
+                'delete',
                 [
                     'middleware' => 'courseMaterialOwner',
-                    'uses' => 'CourseMaterialSubChildMenuController@add'
+                    'uses' => 'CourseMaterialMenuController@delete'
                 ]
             );
+
+            $router->group([
+                'prefix' => 'child',
+                'middleware' => 'courseMaterialOwner',
+            ], function () use ($router) {
+                $router->post(
+                    'add',
+                    [
+                        'uses' => 'CourseMaterialChildMenuController@add'
+                    ]
+                );
+
+                $router->post(
+                    'edit',
+                    [
+                        'uses' => 'CourseMaterialChildMenuController@edit'
+                    ]
+                );
+
+                $router->post(
+                    'delete',
+                    [
+                        'uses' => 'CourseMaterialChildMenuController@delete'
+                    ]
+                );
+
+                $router->group([
+                    'prefix' => 'sub',
+                ], function () use ($router) {
+                    $router->post(
+                        'add',
+                        [
+                            'uses' => 'CourseMaterialSubChildMenuController@add'
+                        ]
+                    );
+    
+                    $router->post(
+                        'edit',
+                        [
+                            'uses' => 'CourseMaterialSubChildMenuController@edit'
+                        ]
+                    );
+    
+                    $router->post(
+                        'delete',
+                        [
+                            'uses' => 'CourseMaterialSubChildMenuController@delete'
+                        ]
+                    );
+                });
+            });
         });
     });
 
