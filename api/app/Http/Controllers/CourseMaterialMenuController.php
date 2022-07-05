@@ -85,21 +85,6 @@ class CourseMaterialMenuController extends Controller
 	 */
 	public function all(Request $request)
 	{
-		//creating a validator
-        // $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
-
-        // //if validation fails 
-        // if ($validator->fails()) {
-        //     return response(
-        //         array(
-        //             'error' => true,
-        //             'message' => $validator->errors()->all()
-        //         ),
-        //         400
-        //     );
-        // }
-		
-		
 		$courseMaterial = $this->courseMaterialServiceInterface->getCourseMaterialById($request->input('course_material_id'));
 
 		$courseMaterialMenu = $this->courseMaterialMenuServiceInterface->getAllMenuForMaterial(
