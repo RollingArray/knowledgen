@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material crud state reducer
+ * @summary Availability planner crud state reducer
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:32:01 
- * Last modified  : 2022-01-21 20:56:27
+ * Created at     : 2022-07-05 11:51:12 
+ * Last modified  : 2022-07-05 11:51:12 
  */
 
 
@@ -16,22 +16,22 @@ import { AVAILABILITY_PLANNER_ACTIONS } from '../availability-planner.state.acti
 import { AvailabilityPlannerCrudStateModel, AVAILABILITY_PLANNER_CRUD_INITIAL_STATE } from './availability-planner-crud.state.model';
 
 /**
- * @description AvailabilityPlanner crud feature key
+ * @description feature key
  */
-export const SKILL_CRUD_FEATURE_KEY = 'availabilityPlannerCrudState';
+export const AVAILABILITY_PLANNER_CRUD_FEATURE_KEY = 'availabilityPlannerCrudState';
 
 /**
- * @description AvailabilityPlanner crud reducer
+ * @description create reducer
  */
 const reducer = createReducer(
 
 	/**
-	 * @description AvailabilityPlanner crud reducer initial state
+	 * @description reducer initial state
 	 */
 	AVAILABILITY_PLANNER_CRUD_INITIAL_STATE,
 
 	/**
-	 * @description Reducer for action - act upon AvailabilityPlanner
+	 * @description Reducer for action - act upon object
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.ACT_UPON_AVAILABILITY_PLANNER, (state, action) => ({
 		...state,
@@ -40,7 +40,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request new availabilityPlanner
+	 * @description Reducer for action - Request new object
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_ADD_NEW_AVAILABILITY_PLANNER, (state, action) => ({
 		...state,
@@ -48,7 +48,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request edit availabilityPlanner
+	 * @description Reducer for action - Request edit object
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_EDIT_AVAILABILITY_PLANNER, (state, action) => ({
 		...state,
@@ -56,7 +56,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - Request delete availabilityPlanner
+	 * @description Reducer for action - Request delete object
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_DELETE_AVAILABILITY_PLANNER, (state, action) => ({
 		...state,
@@ -64,7 +64,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - AvailabilityPlanner added success
+	 * @description Reducer for action - object added success
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.AVAILABILITY_PLANNER_ADDED_SUCCESS, (state, action) => ({
 		...state,
@@ -72,7 +72,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - AvailabilityPlanner update success
+	 * @description Reducer for action - object update success
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.AVAILABILITY_PLANNER_UPDATED_SUCCESS, (state, action) => ({
 		...state,
@@ -80,7 +80,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - AvailabilityPlanner delete success
+	 * @description Reducer for action - object delete success
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.AVAILABILITY_PLANNER_DELETED_SUCCESS, (state, action) => ({
 		...state,
@@ -88,7 +88,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - AvailabilityPlanner crud success
+	 * @description Reducer for action - object crud success
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.AVAILABILITY_PLANNER_CRUD_SUCCESS, (state, action) => ({
 		...state,
@@ -96,7 +96,7 @@ const reducer = createReducer(
 	})),
 
 	/**
-	 * @description Reducer for action - AvailabilityPlanner crud fail
+	 * @description Reducer for action - object crud fail
 	 */
 	on(AVAILABILITY_PLANNER_ACTIONS.AVAILABILITY_PLANNER_CRUD_FAIL, (state, action) => ({
 		...state,
@@ -106,7 +106,7 @@ const reducer = createReducer(
 
 
 /**
- * @description Categories crud state reducer
+ * Availabilitys planner crud state reducer
  * @param state 
  * @param action 
  * @returns  

@@ -2,12 +2,13 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material crud state selector
+ * @summary Availability planner crud state selector
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:32:01 
- * Last modified  : 2022-01-21 20:57:11
+ * Created at     : 2022-07-05 11:50:57 
+ * Last modified  : 2022-07-05 11:50:57 
  */
+
 import {
 	createFeatureSelector,
 	createSelector,
@@ -16,7 +17,7 @@ import {
 import { AvailabilityPlannerModel } from 'src/app/shared/model/availability-planner.model';
 import { OperationsEnum } from '../../../shared/enum/operations.enum';
 import { AvailabilityPlannerCrudStateModel } from './availability-planner-crud.state.model';
-import { SKILL_CRUD_FEATURE_KEY } from './availability-planner-crud.state.reducer';
+import { AVAILABILITY_PLANNER_CRUD_FEATURE_KEY } from './availability-planner-crud.state.reducer';
 
 /**
  * @description get operation status
@@ -31,7 +32,7 @@ const getOperationAvailabilityPlanner = (availabilityPlannerCrudStateModel: Avai
 /**
  * @description Selector - AvailabilityPlanner crud state
  */
-export const selectAvailabilityPlannerCrudState: MemoizedSelector<AvailabilityPlannerCrudStateModel, AvailabilityPlannerCrudStateModel>  = createFeatureSelector<AvailabilityPlannerCrudStateModel>(SKILL_CRUD_FEATURE_KEY);
+export const selectAvailabilityPlannerCrudState: MemoizedSelector<AvailabilityPlannerCrudStateModel, AvailabilityPlannerCrudStateModel>  = createFeatureSelector<AvailabilityPlannerCrudStateModel>(AVAILABILITY_PLANNER_CRUD_FEATURE_KEY);
 
 /**
  * @description Selector - Operation status
