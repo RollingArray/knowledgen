@@ -60,7 +60,12 @@
 		"no": "No",
 		"interest":"Interest",
 		"education": "Education",
-		"accVerification": "Account Verification"
+		"accVerification": "Account Verification",
+		"addContent": "Add Content",
+		"editContent": "Edit Content",
+		"addCourseMenu": "Add New Course Material Menu",
+		"editCourseMenu": "Edit Course Material Menu",
+		"deleteCourseMenu": "Delete Course Material Menu"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -78,7 +83,10 @@
 		"availableMentorSession": "Based on your requirement and availability, below session are found",
 		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in",
 		"accVerification": "We have send you a verification code in your registered email. Use the code to verify your account",
-		"signUp":"Provide details to create your free account"
+		"signUp":"Provide details to create your free account",
+		"addCourseMenu": "Provide the content title and select the content type of the course material. Save the changes once you are satisfied with the content",
+		"editCourseMenu": "Provide updated details of the title. Save the changes once you are satisfied with the content",
+		"deleteCourseMenu": "Deleting menu"
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -88,7 +96,7 @@
 		"email": "Email",
 		"subjects": "CBSC, Maths, Goal settings, mentorship",
 		"personalDetails": "Your personal details",
-		"courseName": "Provide a suitable name to the Course you want to create",
+		"courseName": "Provide a suitable name to the course you want to create",
 		"courseDescription": "Provide a suitable description describing your course",
 		"availability": "Availability",
 		"from": "From",
@@ -101,7 +109,20 @@
 		"placeholderEmail": "your.email@domain.com",
 		"accVerification": "Provide the verification code you have received in your email",
 		"veriCode" : "Account Verification Code",
-		"placeholderCode": "A2Za2z09"
+		"placeholderCode": "A2Za2z09",
+		"articleTitle": "Provide a suitable title to the course menu",
+		"contentType": "Select what type of content you want to create"
+	},
+	"courseMaterialType":{
+		"textDocument": "Text Document",
+		"quiz": "Quiz",
+		"crossword": "Crossword",
+		"silds": "Presentation Silds",
+		"dragContent": "Drag Correct Label",
+		"flashCard": "Flash Card",
+		"poll": "Create a Poll",
+		"puzzle": "Puzzle",
+		"wordCloud": "Word Cloud"
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
@@ -121,7 +142,12 @@
 		"deleteCourseMaterial" : "Deleting Course Material ... Please wait",
 		"newAvailabilityPlanner" : "Adding New Schedule ... Please wait" ,
 		"editAvailabilityPlanner" : "Updating Schedule ... Please wait" ,
-		"deleteAvailabilityPlanner" : "Deleting Schedule ... Please wait" 
+		"deleteAvailabilityPlanner" : "Deleting Schedule ... Please wait",
+		"settingContent" : "Setting Content ... Please wait",
+		"deletingContent" : "Deleting Content ... Please wait",
+		"newCourseMaterialMenu" : "Adding New Course Material Menu ... Please wait" ,
+		"editCourseMaterialMenu" : "Updating Course Material Menu ... Please wait" ,
+		"deleteCourseMaterialMenu" : "Deleting Course Material Menu ... Please wait"
 	},
 	"errorMessage":{
 		"notAllowed": "Review Your Action !!",
@@ -131,7 +157,9 @@
 	"actionAlert": {
 		"noChange": "No change!!",
 		"confirm": "Confirm Your Action!!",
-		"delete": "Are you sure you want to Delete"
+		"delete": "Are you sure you want to Delete",
+		"link": "Insert URL link",
+		"deleteMenu": "All sub menus will be deleted, are you sure you want to Delete"
 	},
 	"response":{
 		"newCourseMaterial" : "Your Course Material has been saved, you can update any time!!",
@@ -141,7 +169,12 @@
 		"teacherNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentee who would like to join your session",
 		"studentNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
 		"editAvailabilityPlanner" : "Your Schedule has been updated successfully!!",
-		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!"
+		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!",
+		"settingContent" : "Content added successfully!!",
+		"deletingContent" : "Content deleted successfully",
+		"newCourseMaterialMenu" : "Your Course Material Menu has been saved. Its time to add content to it!!",
+		"editCourseMaterialMenu" : "Your Course Material Menu has been updated successfully!!",
+		"deleteCourseMaterialMenu" : "Your Course Material Menu has been deleted successfully!!"
 	},
 	
 	"validation" : {
@@ -154,5 +187,9 @@
 		"info": "Provide category details which can help to attach the category while adding a new skill",
 		"categoryName": "What is the category",
 		"categoryDescription": "Provide a brief description"
+	},
+	"option": {
+		"yes": "Yes",
+		"no": "No"
 	}
 }
