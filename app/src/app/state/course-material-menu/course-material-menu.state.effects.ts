@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material state effects
+ * @summary Course material menu state effect
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-19 23:22:23
+ * Created at     : 2022-01-14 18:11:59 
+ * Last modified  : 2022-07-05 16:45:52
  */
 
 import { Injectable } from "@angular/core";
@@ -58,9 +58,10 @@ export class CourseMaterialMenuStateEffects
 				mergeMap(action =>
 
 					this.courseMaterialMenuService.getCourseMaterialMenu(action.payload).pipe(
-						map((data) =>
+						mergeMap((data) =>
 						{
-							
+							let firstArticleId: string = '';
+
 							let parentMenus: ParentMenuModel[] = [];
 
 							let childMenus: ChildMenuModel[] = [];
@@ -80,13 +81,19 @@ export class CourseMaterialMenuStateEffects
 								if (courseMaterialMenu.success)
 								{
 
-									courseMaterialMenu.data.map(eachParentMenu =>
+									courseMaterialMenu.data.map((eachParentMenu, index) =>
 									{
+										// get first article from the top parent menu list
+										if(index == 0){
+											firstArticleId = eachParentMenu.parentArticleId;
+										}
+										
 										const courseMaterialParentMenuModel: ParentMenuModel = {
 											parentArticleId: eachParentMenu.parentArticleId,
 											parentArticleOrder: eachParentMenu.parentArticleOrder,
 											courseMaterialId: eachParentMenu.courseMaterialId,
-											articleTitle: eachParentMenu.articleTitle
+											articleTitle: eachParentMenu.articleTitle,
+											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId
 										};
 
 										parentMenus = [
@@ -102,9 +109,10 @@ export class CourseMaterialMenuStateEffects
 												const childMenuModel: ChildMenuModel = {
 													parentArticleId: eachChildMenu.parentArticleId,
 													childArticleId: eachChildMenu.childArticleId,
-													childArticleOrder: eachChildMenu.parentArticleOrder,
+													childArticleOrder: eachChildMenu.childArticleOrder,
 													courseMaterialId: eachChildMenu.courseMaterialId,
-													articleTitle: eachChildMenu.articleTitle
+													articleTitle: eachChildMenu.articleTitle,
+													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId
 												};
 
 												childMenus = [
@@ -123,7 +131,8 @@ export class CourseMaterialMenuStateEffects
 															subChildArticleId: eachSubChildMenu.subChildArticleId,
 															subChildArticleOrder: eachSubChildMenu.subChildArticleOrder,
 															courseMaterialId: eachSubChildMenu.courseMaterialId,
-															articleTitle: eachSubChildMenu.articleTitle
+															articleTitle: eachSubChildMenu.articleTitle,
+															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId
 														};
 
 														subChildMenus = [
@@ -137,21 +146,26 @@ export class CourseMaterialMenuStateEffects
 									});
 								}
 
-								return COURSE_MATERIAL_MENU_ACTIONS.LOADING_GENERATED_MENU(
-									{
-										payloadCourseMaterial: courseMaterial,
-										payloadParentMenu: parentMenus,
-										payloadChildMenu: childMenus,
-										payloadSubChildMenu: subChildMenus
-
-									});
+								return [
+									COURSE_MATERIAL_MENU_ACTIONS.LOADING_GENERATED_MENU(
+										{
+											payloadCourseMaterial: courseMaterial,
+											payloadParentMenu: parentMenus,
+											payloadChildMenu: childMenus,
+											payloadSubChildMenu: subChildMenus
+	
+										}),
+									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: firstArticleId})
+								]; 
 							}
 
 
 							// response fail
 							else
 							{
-								return COURSE_MATERIAL_MENU_ACTIONS.NOOP();
+								return [
+									COURSE_MATERIAL_MENU_ACTIONS.NOOP()
+								];
 							}
 
 						}),
@@ -186,10 +200,10 @@ export class CourseMaterialMenuStateEffects
 		() =>
 			this.actions$.pipe(
 				ofType(
-					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_MENU
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_PARENT_MENU
 				),
 				mergeMap(action =>
-					this.courseMaterialMenuService.addNewMenu(action.payload).pipe(
+					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
 						map((data) =>
 						{
 							// stop loader
@@ -207,7 +221,7 @@ export class CourseMaterialMenuStateEffects
 								};
 
 								// store newly added object
-								return COURSE_MATERIAL_MENU_ACTIONS.STORE_NEWLY_ADDED_MENU({ payload: newParentMenu });
+								return COURSE_MATERIAL_MENU_ACTIONS.STORE_NEWLY_ADDED_PARENT_MENU({ payload: newParentMenu });
 							}
 							// response fail
 							else
@@ -219,7 +233,93 @@ export class CourseMaterialMenuStateEffects
 									this.toastService.presentToast(data.message);
 								}
 
-								return COURSE_MATERIAL_MENU_ACTIONS.COURSE_MATERIAL_MENU_CRUD_FAIL;
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_PARENT_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
+
+	/**
+	 * @description Add new category$ of global skill category state effects
+	 */
+	 editParentMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_PARENT_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_PARENT_MENU({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_PARENT_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	 );
+	
+	/**
+	 * @description Add new category$ of global skill category state effects
+	 */
+	 deleteParentMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_PARENT_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.REMOVE_PARENT_MENU_FROM_STORE({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_PARENT_MENU;
 							}
 
 						}),
@@ -239,7 +339,7 @@ export class CourseMaterialMenuStateEffects
 					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_CHILD_MENU
 				),
 				mergeMap(action =>
-					this.courseMaterialMenuService.addNewChildMenu(action.payload).pipe(
+					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
 						map((data) =>
 						{
 							// stop loader
@@ -269,7 +369,7 @@ export class CourseMaterialMenuStateEffects
 									this.toastService.presentToast(data.message);
 								}
 
-								return COURSE_MATERIAL_MENU_ACTIONS.COURSE_MATERIAL_CHILD_MENU_CRUD_FAIL;
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_CHILD_MENU;
 							}
 
 						}),
@@ -278,6 +378,92 @@ export class CourseMaterialMenuStateEffects
 				),
 			),
 	 );
+	
+	/**
+	 * Edit child menu$ of course material menu state effects
+	 */
+	editChildMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_CHILD_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_CHILD_MENU({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_CHILD_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	 );
+	
+	/**
+	 * Delete child menu$ of course material menu state effects
+	 */
+	deleteChildMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_CHILD_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.REMOVE_CHILD_MENU_FROM_STORE({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_CHILD_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
 	
 	/**
 	 * Add new sub child menu$ of course material menu state effects
@@ -289,7 +475,7 @@ export class CourseMaterialMenuStateEffects
 					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_SUB_CHILD_MENU
 				),
 				mergeMap(action =>
-					this.courseMaterialMenuService.addNewSubChildMenu(action.payload).pipe(
+					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
 						map((data) =>
 						{
 							// stop loader
@@ -319,13 +505,263 @@ export class CourseMaterialMenuStateEffects
 									this.toastService.presentToast(data.message);
 								}
 
-								return COURSE_MATERIAL_MENU_ACTIONS.COURSE_MATERIAL_SUB_CHILD_MENU_CRUD_FAIL;
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_SUB_CHILD_MENU;
 							}
 
 						}),
 						catchError(() => EMPTY)
 					),
 				),
+			),
+	);
+
+	/**
+	 * Edit child menu$ of course material menu state effects
+	 */
+	 editSubChildMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_SUB_CHILD_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_SUB_CHILD_MENU({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_SUB_CHILD_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	 );
+	
+	/**
+	 * Delete child menu$ of course material menu state effects
+	 */
+	deleteSubChildMenu$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_SUB_CHILD_MENU
+				),
+				mergeMap(action =>
+					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopLoading();
+
+							// if success response
+							if (data.success)
+							{
+
+								// store newly added object
+								return COURSE_MATERIAL_MENU_ACTIONS.REMOVE_SUB_CHILD_MENU_FROM_STORE({ payload: action.payload });
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									this.toastService.presentToast(data.message);
+								}
+
+								return COURSE_MATERIAL_MENU_ACTIONS.CRUD_FAIL_SUB_CHILD_MENU;
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
+
+	/**
+	 * Complete parent menu add operation$ of course material menu state effects
+	 */
+	completeParentMenuAddOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_NEWLY_ADDED_PARENT_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_ADDED_SUCCESS()),
+			),
+	);
+
+	/**
+	 * Complete parent menu update operation$ of course material menu state effects
+	 */
+	completeParentMenuUpdateOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_PARENT_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_UPDATED_SUCCESS()),
+			),
+	);
+
+	/**
+	 * Complete parent menu delete operation$ of course material menu state effects
+	 */
+	completeParentMenuDeleteOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.REMOVE_PARENT_MENU_FROM_STORE
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_DELETED_SUCCESS()),
+			),
+	);
+
+	
+
+	/**
+	 * Complete child menu add operation$ of course material menu state effects
+	 */
+	completeChildMenuAddOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_NEWLY_ADDED_CHILD_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_ADDED_SUCCESS()),
+			),
+	);
+
+	/**
+	 * Complete child menu update operation$ of course material menu state effects
+	 */
+	completeChildMenuUpdateOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_CHILD_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_UPDATED_SUCCESS()),
+			),
+	 );
+	
+	/**
+	 * Complete child menu delete operation$ of course material menu state effects
+	 */
+	completeChildMenuDeleteOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.REMOVE_CHILD_MENU_FROM_STORE
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_DELETED_SUCCESS()),
+			),
+	);
+
+	/**
+	 * Complete child menu add operation$ of course material menu state effects
+	 */
+	 completeSubChildMenuAddOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_NEWLY_ADDED_SUB_CHILD_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_ADDED_SUCCESS()),
+			),
+	 );
+	
+	/**
+	 * Complete sub child menu update operation$ of course material menu state effects
+	 */
+	completeSubChildMenuUpdateOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.STORE_UPDATED_SUB_CHILD_MENU
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_UPDATED_SUCCESS()),
+			),
+	 );
+	
+	/**
+	 * Complete sub child menu delete operation$ of course material menu state effects
+	 */
+	completeSubChildMenuDeleteOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.REMOVE_SUB_CHILD_MENU_FROM_STORE
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_DELETED_SUCCESS()),
+			),
+	);
+
+	/**
+	 * Complete parent menu curd operation$ of course material menu state effects
+	 */
+	completeParentMenuCurdOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_ADDED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_UPDATED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.PARENT_MENU_DELETED_SUCCESS
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CRUD_SUCCESS_PARENT_MENU()),
+			),
+	);
+
+	/**
+	 * Complete child menu curd operation$ of course material menu state effects
+	 */
+	completeChildMenuCurdOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_ADDED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_UPDATED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_DELETED_SUCCESS
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CRUD_SUCCESS_CHILD_MENU()),
+			),
+	);
+
+	/**
+	 * Complete sub child menu curd operation$ of course material menu state effects
+	 */
+	completeSubChildMenuCurdOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_ADDED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_UPDATED_SUCCESS,
+					COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_DELETED_SUCCESS
+				),
+				map(action => COURSE_MATERIAL_MENU_ACTIONS.CRUD_SUCCESS_SUB_CHILD_MENU()),
 			),
 	);
 }
