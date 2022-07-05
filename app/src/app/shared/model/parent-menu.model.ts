@@ -2,23 +2,21 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Modal data
+ * @summary Parent menu model
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-05-18 19:11:57 
- * Last modified  : 2022-01-19 01:38:21
+ * Created at     : 2022-07-05 10:55:36 
+ * Last modified  : 2022-07-05 10:58:26
  */
 
-import { BaseModel } from "./base.model";
 
-export interface ParentMenuModel extends BaseModel
+
+import { BaseModel } from "./base.model";
+import { CourseMaterialMenuModel } from "./course-material-menu.model";
+
+export interface ParentMenuModel extends CourseMaterialMenuModel, BaseModel
 {
 	parentArticleId?: string;
 	parentArticleOrder?: number;
 	courseMaterialId?: string;
-	articleTitle: string;
-	// childMenu?: {
-	// 	success?: boolean;
-	// 	data?: CourseMaterialChildMenuModel[];
-	// };
 }
