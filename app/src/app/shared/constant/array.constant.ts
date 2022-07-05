@@ -6,12 +6,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-01-26 19:57:40
+ * Last modified  : 2022-06-30 14:53:25
  */
 
 
 import { StringKey } from 'src/app/shared/constant/string.constant';
+import { CourseMaterialTypeIdEnum } from '../enum/course-material-type-id.enum';
 import { UserTypeEnum } from '../enum/user-type.enum';
+import { CourseMaterialTypeModel } from '../model/course-material-type.model';
 import { LanguageModel } from '../model/language.model';
 import { RouteModel } from '../model/route.model';
 import { SlideModel } from '../model/slide.model';
@@ -52,6 +54,60 @@ export class ArrayKey {
 		},
 	];
 
+	/**
+	 * Course material type of array key
+	 */
+	public static readonly COURSE_MATERIAL_TYPE: CourseMaterialTypeModel[] = [
+		{
+			id: CourseMaterialTypeIdEnum.TD,
+			type: 'courseMaterialType.textDocument',
+			icon: StringKey.ICON_TEXT_DOC,
+		},
+		{
+			id: CourseMaterialTypeIdEnum.QUIZ,
+			type: 'courseMaterialType.quiz',
+			icon: StringKey.ICON_QUIZ,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.CW,
+			type: 'courseMaterialType.crossword',
+			icon: StringKey.ICON_CROSSWORD,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.PS,
+			type: 'courseMaterialType.silds',
+			icon: StringKey.ICON_SLIDES,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.DC,
+			type: 'courseMaterialType.dragContent',
+			icon: StringKey.ICON_DRAG_CONTENT,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.FC,
+			type: 'courseMaterialType.flashCard',
+			icon: StringKey.ICON_FLASH_CARD,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.PL,
+			type: 'courseMaterialType.poll',
+			icon: StringKey.ICON_POLL,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.PZ,
+			type: 'courseMaterialType.puzzle',
+			icon: StringKey.ICON_PUZZLE,
+		 },
+		{
+			id: CourseMaterialTypeIdEnum.WC,
+			type: 'courseMaterialType.wordCloud',
+			icon: StringKey.ICON_WORD_CLOUD,
+		 },
+	];
+
+	/**
+	 * Languages  of array key
+	 */
 	public static readonly LANGUAGES: LanguageModel[] = [
 		{
 			code: 'en',
