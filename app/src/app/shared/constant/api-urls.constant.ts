@@ -34,9 +34,17 @@ export class ApiUrls {
 
 	public static readonly COURSE_MATERIAL_MENU: string = ApiUrls.API_BASE_PATH + "/course/material/menu/all";
 
-	public static readonly COURSE_MATERIAL_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/add";
+	public static readonly COURSE_MATERIAL_PARENT_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/add";
+	public static readonly COURSE_MATERIAL_PARENT_MENU_EDIT: string = ApiUrls.API_BASE_PATH + "/course/material/menu/edit";
+	public static readonly COURSE_MATERIAL_PARENT_MENU_DELETE: string = ApiUrls.API_BASE_PATH + "/course/material/menu/delete";
+
 	public static readonly COURSE_MATERIAL_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/add";
+	public static readonly COURSE_MATERIAL_CHILD_MENU_EDIT: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/edit";
+	public static readonly COURSE_MATERIAL_CHILD_MENU_DELETE: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/delete";
+
 	public static readonly COURSE_MATERIAL_SUB_CHILD_MENU_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/sub/add";
+	public static readonly COURSE_MATERIAL_SUB_CHILD_MENU_EDIT: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/sub/edit";
+	public static readonly COURSE_MATERIAL_SUB_CHILD_MENU_DELETE: string = ApiUrls.API_BASE_PATH + "/course/material/menu/child/sub/delete";
 
 	public static readonly TEACHER_AVAILABILITY_PLANNER: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner/all";
 	public static readonly STUDENT_AVAILABILITY_PLANNER: string = ApiUrls.API_BASE_PATH + "/student/availability/planner/all";
