@@ -2,13 +2,12 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material operations enum
+ * @summary Availability planner operations enum
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-01-21 18:54:13
+ * Created at     : 2022-07-05 11:52:34 
+ * Last modified  : 2022-07-05 11:52:54
  */
-
 
 export enum AvailabilityPlannerOperationsEnum {
   API_REQUEST_AVAILABILITY_PLANNER = '[Availability Planner] Api Request Availability Planner',

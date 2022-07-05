@@ -2,12 +2,14 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material state effects
+ * @summary Availability planner state effects
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-01-25 17:58:14
+ * Created at     : 2022-07-05 11:56:15 
+ * Last modified  : 2022-07-05 12:00:04
  */
+
+
 
 import { Injectable } from "@angular/core";
 import { EMPTY } from "rxjs";
@@ -22,7 +24,6 @@ import { RootStateFacade } from "../root/root.state.facade";
 @Injectable()
 export class AvailabilityPlannerStateEffects {
 	categoriesService: any;
-	//rootStateFacade: any;
 	categoryService: any;
 
 	/**
@@ -41,7 +42,7 @@ export class AvailabilityPlannerStateEffects {
 
 
 	/**
-	 * @description Api request global skill categories$ of global skill category state effects
+	 * Api request availability planner$ of availability planner state effects
 	 */
 	apiRequestAvailabilityPlanner$ = createEffect(
 		() =>
@@ -77,7 +78,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Add new category$ of global skill category state effects
+	 * Add new availability planner$ of availability planner state effects
 	 */
 	addNewAvailabilityPlanner$ = createEffect(
 		() =>
@@ -116,7 +117,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Edit category$ of global skill category state effects
+	 * Edit availability planner$ of availability planner state effects
 	 */
 	editAvailabilityPlanner$ = createEffect(
 		() =>
@@ -155,7 +156,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Delete skill$ of user skill state effects
+	 * Delete skill$ of availability planner state effects
 	 */
 	deleteSkill$ = createEffect(
 		() =>
@@ -194,7 +195,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Complete category add operation$ of global skill category state effects
+	 * Complete availability planner add operation$ of availability planner state effects
 	 */
 	completeAvailabilityPlannerAddOperation$ = createEffect(
 		() =>
@@ -207,7 +208,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Complete category update operation$ of global skill category state effects
+	 * Complete availability planner update operation$ of availability planner state effects
 	 */
 	completeAvailabilityPlannerUpdateOperation$ = createEffect(
 		() =>
@@ -220,7 +221,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Complete category delete operation$ of global skill category state effects
+	 * Complete availability planner delete operation$ of availability planner state effects
 	 */
 	completeAvailabilityPlannerDeleteOperation$ = createEffect(
 		() =>
@@ -233,7 +234,7 @@ export class AvailabilityPlannerStateEffects {
 	);
 
 	/**
-	 * @description Complete new skill curd operation$ of global skill category state effects
+	 * Complete new skill curd operation$ of availability planner state effects
 	 */
 	completeNewSkillCurdOperation$ = createEffect(
 		() =>
