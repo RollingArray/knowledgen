@@ -58,6 +58,7 @@ class CourseMaterialMenuController extends Controller
 	{
 		return [
 			'operation_type' => 'required|in:CREATE,EDIT,DELETE',
+			'course_material_type_id' => 'required|in:textDocument,quiz,crossword,silds,dragContent,flashCard,poll,puzzle,wordCloud',
 			'article_title' => 'required',
 			'parent_article_id' => 'exclude_if:operation_type,CREATE|required|alpha_num',
 			'parent_article_order' => 'required|numeric'
@@ -154,6 +155,7 @@ class CourseMaterialMenuController extends Controller
         $model->course_material_id = $request->input('course_material_id');
         $model->article_id = $articleId;
         $model->article_title = $request->input('article_title');
+		$model->course_material_type_id = $request->input('course_material_type_id');
         
         //saving the model to database
         $model->save();
@@ -175,6 +177,84 @@ class CourseMaterialMenuController extends Controller
 		$model = $this->courseMaterialMenuServiceInterface->getParentMenuById(
 			$request->input('course_material_id'),
 			$articleId
+		);
+
+        // return to client
+		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
+    }
+
+	/**
+	 * edit
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function edit(Request $request)
+    {
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+        //creating a validator
+        $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
+
+        //if validation fails 
+        if ($validator->fails()) {
+            return response(
+                array(
+                    'error' => true,
+                    'message' => $validator->errors()->all()
+                ),
+                400
+            );
+        }
+
+        //find model
+		$model = $this->courseMaterialArticleServiceInterface->getCourseMaterialArticleById($request->input('parent_article_id'));
+
+        //modify values to the model
+		$model->article_title = $request->input('article_title');
+        
+        //saving the model to database
+        $model->save();
+
+        // return to client
+		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
+    }
+
+	/**
+	 * delete
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function delete(Request $request)
+    {
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+        //creating a validator
+        $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
+
+        //if validation fails 
+        if ($validator->fails()) {
+            return response(
+                array(
+                    'error' => true,
+                    'message' => $validator->errors()->all()
+                ),
+                400
+            );
+        }
+
+        //delete parent menu
+		$model = $this->courseMaterialMenuServiceInterface->deleteParentMenu(
+			$request->input('course_material_id'),
+			$request->input('parent_article_id')
+		);
+
+		// delete relative article 
+		$model = $this->courseMaterialArticleServiceInterface->deleteCourseMaterialArticleById(
+			$request->input('parent_article_id')
 		);
 
         // return to client
