@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
-use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
-use App\Http\Interfaces\UsersServiceInterface;
 use App\Models\CourseMaterialArticleModel;
 
 class CourseMaterialArticleController extends Controller
@@ -26,6 +24,7 @@ class CourseMaterialArticleController extends Controller
 	 */
 	protected $courseMaterialArticleServiceInterface;
 
+		
 	/**
 	 * __construct
 	 *
@@ -51,6 +50,7 @@ class CourseMaterialArticleController extends Controller
             'article_id' => 'exclude_if:operation_type,CREATE|required|alpha_num',
             'course_material_id' => 'required|alpha_num',
             'article_title' => 'exclude_if:operation_type,DELETE|required|max:255',
+			'course_material_type_id' => 'required|in:textDocument,quiz,crossword,silds,dragContent,flashCard,poll,puzzle,wordCloud',
 		];
 	}
 
@@ -98,6 +98,7 @@ class CourseMaterialArticleController extends Controller
         $model->course_material_id = $request->input('course_material_id');
         $model->article_id = uniqid();
         $model->article_title = $request->input('article_title');
+		$model->course_material_type_id = $request->input('course_material_type_id');
         
         //saving the model to database
         $model->save();
