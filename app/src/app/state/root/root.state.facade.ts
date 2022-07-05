@@ -38,7 +38,12 @@ export class RootStateFacade {
 	/**
 	 * Select logged in user$ of root state facade
 	 */
-	selectLoggedInUser$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUser);
+	loggedInUser$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUser);
+	
+	/**
+	 * Logged in user id$ of root state facade
+	 */
+	loggedInUserId$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUserId);
 	
 	/**
 	 * Creates an instance of auth state facade.

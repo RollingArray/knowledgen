@@ -6,10 +6,8 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-01-14 18:41:39 
+ * Last modified  : 2022-07-05 16:58:53
  */
-
-
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
@@ -55,11 +53,20 @@ export const selectLoggedInUser: MemoizedSelector<RootStateModel, UserModel> = c
 );
 
 /**
+ * @description Selector - Logged in Userid
+ */
+export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): string => rootStateModel.loggedInUser.userId
+);
+
+/**
  * export root state query to access all selectors
  */
 export const ROOT_QUERY_SELECTOR = {
 	selectLoadingIndicatorStatus,
 	selectPreferredLanguage,
 	selectUserLoggedInStatus,
-	selectLoggedInUser
+	selectLoggedInUser,
+	selectLoggedInUserId
 };
