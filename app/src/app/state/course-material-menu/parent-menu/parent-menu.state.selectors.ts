@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material state selector
+ * @summary Parent menu state selector
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-25 18:15:55
+ * Created at     : 2022-07-05 16:26:27 
+ * Last modified  : 2022-07-05 16:31:40
  */
 
 import {
@@ -20,7 +20,7 @@ import { PARENT_MENU_FEATURE_KEY } from './parent-menu.state.reducer';
 
 
 /**
- * @description Selectors - Course material adapter
+ * @description Selectors - Parent menu adapter
  */
 const {
 	selectIds,
@@ -30,12 +30,12 @@ const {
 } = parentMenuAdapter.getSelectors();
 
 /**
- * @description  Selectors - Course material State
+ * @description  Selectors - Parent menu State
  */
 export const selectParentMenuState: MemoizedSelector<ParentMenuStateModel, ParentMenuStateModel> = createFeatureSelector<ParentMenuStateModel>(PARENT_MENU_FEATURE_KEY);
 
 /**
- * @description Selectors - All Course material
+ * @description Selectors - All Parent menus
  */
 export const selectAllParentMenu = createSelector(
 	selectParentMenuState,
@@ -43,7 +43,7 @@ export const selectAllParentMenu = createSelector(
 );
 
 /**
- * @description Selectors - All Course material Ids
+ * @description Selectors - All Parent menu Ids
  */
 export const selectAllParentMenuIds = createSelector(
 	selectParentMenuState,
@@ -51,7 +51,7 @@ export const selectAllParentMenuIds = createSelector(
 );
 
 /**
- * @description Selectors - Course material total number
+ * @description Selectors - Parent menu total number
  */
 export const selectParentMenuTotalNumber = createSelector(
 	selectParentMenuState,
@@ -59,7 +59,7 @@ export const selectParentMenuTotalNumber = createSelector(
 );
 
 /**
- * @description Selectors - Course material has parentMenu
+ * @description Selectors - Parent menu has parentMenu
  */
 export const selectParentMenuHasData = createSelector(
 	selectEntities,
@@ -68,7 +68,7 @@ export const selectParentMenuHasData = createSelector(
 );
 
 /**
- * @description Selectors - Course material by parentMenu id
+ * @description Selectors - Parent menu by parent menu id
  */
 const selectParentMenuByArticleId = (parentArticleId: string) => 
   createSelector(selectParentMenuState, (state) => state[parentArticleId]);
@@ -94,6 +94,9 @@ export const selectParentMenuByMaterialId = (courseMaterialIdId: string) => crea
 	}
 );
 
+/**
+ * @description Selectors - Select first parent menu id
+ */
 export const selectFirstParentMenuId = createSelector(
 	selectParentMenuState,
 	(entity) =>
@@ -102,10 +105,8 @@ export const selectFirstParentMenuId = createSelector(
 	}
 );
 
-
-
 /**
- * @description export User skill categories query to access all selectors
+ * @description export parent menu query to access all selectors
  */
 export const PARENT_MENU_QUERY_SELECTOR = {
 	selectAllParentMenu,
