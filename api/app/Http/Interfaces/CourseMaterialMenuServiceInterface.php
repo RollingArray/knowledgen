@@ -6,13 +6,15 @@ Interface CourseMaterialMenuServiceInterface
 {
     public function getAllMenuForMaterial($courseMaterialId);
 
-    public function getMenu($courseMaterialId, $parentArticleId, $childArticleId, $subChildArticleId);
+    public function deleteParentMenu($courseMaterialId, $parentArticleId);
 
-    public function deleteMenu($courseMaterialId, $parentArticleId, $childArticleId, $subChildArticleId);
+    public function deleteChildMenu($courseMaterialId, $parentArticleId, $childArticleId);
+
+    public function deleteSubChildMenu($courseMaterialId, $childArticleId, $subChildArticleId);
 
     public function getSubChildMenuById($courseMaterialId, $subChildArticleId);
 
-    public function getChildMenuById($courseMaterialId, $parentArticleId);
+    public function getChildMenuById($courseMaterialId, $articleId);
 
     public function getParentMenuById($courseMaterialId, $parentArticleId);
 }
