@@ -111,7 +111,8 @@
 		"veriCode" : "Account Verification Code",
 		"placeholderCode": "A2Za2z09",
 		"articleTitle": "Provide a suitable title to the course menu",
-		"contentType": "Select what type of content you want to create"
+		"contentType": "Select what type of content you want to create",
+		"yourContent": "You content goes here ..."
 	},
 	"courseMaterialType":{
 		"textDocument": "Text Document",
@@ -129,7 +130,9 @@
 		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",
 		"noRecommendedCourseMaterialData": "We have not found any course material based on interest. Keep the interest updated to get relevant recommendations !! ",
 		"noAvailabilityPlannerData": "No schedules found, plan a new schedule !!",
-		"noTopic" : "No Topic has been found. Create your first topic !!"
+		"noTopic" : "No Topic has been found. Create your first topic !!",
+		"noContent" : "No Content has been found. Add your Content !!",
+		"contentDeleted" : "This content has been removed !!"
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
@@ -190,6 +193,9 @@
 	},
 	"option": {
 		"yes": "Yes",
-		"no": "No"
+		"no": "No",
+		"ok": "Ok",
+		"done": "Done",
+		"cancel": "Cancel"
 	}
 }
