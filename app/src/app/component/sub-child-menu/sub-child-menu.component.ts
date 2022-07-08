@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-07-04 20:10:03
+ * Last modified  : 2022-07-05 20:41:10
  */ 
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -22,6 +22,7 @@ import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
@@ -202,11 +203,17 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 
 	/**
 	 * Navigates to course material article
-	 * @param articleId 
+	 * @param subChildMenuModel 
 	 */
-	public navigateToCourseMaterialArticle(articleId: string)
+	public navigateToCourseMaterialArticle(subChildMenuModel: SubChildMenuModel)
 	{
-		this.courseMaterialMenuStateFacade.storeSelectedMenu(articleId);
+		const menuSelectModel: MenuSelectModel = {
+			articleId: subChildMenuModel.subChildArticleId,
+			courseMaterialId: subChildMenuModel.courseMaterialId,
+			menuType: MenuTypeEnum.SUB_CHILD_MENU,
+			courseMaterialType: subChildMenuModel.courseMaterialTypeId
+		}
+		this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
 	}
 
 	/**

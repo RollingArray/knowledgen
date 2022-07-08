@@ -8,14 +8,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-07-04 20:05:50
+ * Last modified  : 2022-07-05 19:48:52
  */ 
 -->
 
 
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (subChildMenu$ | async)">
 	<!-- article title -->
-	<ion-item lines="none" (click)="navigateToCourseMaterialArticle(eachMenu.subChildArticleId)">
+	<ion-item lines="none" (click)="navigateToCourseMaterialArticle(eachMenu)">
 		<ion-icon color="primary" [src]="getMenuIcon(eachMenu)" slot="start"></ion-icon>
 		<ion-label class="font-size-17-px">
 			{{ eachMenu.articleTitle }}
