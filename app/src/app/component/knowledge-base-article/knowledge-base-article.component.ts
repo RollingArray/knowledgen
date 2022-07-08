@@ -1,40 +1,68 @@
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@rockwellcollins.com
- * @create date 2021-12-11 12:02:58
- * @modify date 2021-12-11 12:02:58
- * @desc Knowledge base article component
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Knowledge base article component
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-07-06 17:46:26
  */
 
-import { Component, OnInit, AfterViewInit, Input, Output, Injector, EventEmitter } from "@angular/core";
-import { CookieService } from "ngx-cookie-service";
+import { Component, OnInit, Input, ViewChild, ElementRef, Injector } from "@angular/core";
 import { Observable } from "rxjs";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
-
+import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
+import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { ElementTypeEnum } from "src/app/shared/enum/element-type.enum";
-import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { TitleTypeEnum } from "src/app/shared/enum/title-type.enum";
 import { ArticleModel } from "src/app/shared/model/article.model";
-import { ContentModel } from "src/app/shared/model/content.model";
+import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
-import { ArticleComponentService } from "src/app/shared/service/article-element.service";
-import { KnowledgeBaseArticleService } from "src/app/shared/service/knowledge-base-article.service";
-import { LoadingService } from "src/app/shared/service/loading.service";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { ParentMenuModel } from "src/app/shared/model/parent-menu.model";
+import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
+import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseViewComponent } from "../base/base-view.component";
-
-
 
 @Component({
 	selector: 'knowledge-base-article',
 	templateUrl: './knowledge-base-article.component.html',
 	styleUrls: ['./knowledge-base-article.component.scss'],
 })
-export class KnowledgeBaseArticleComponent extends BaseViewComponent implements OnInit, AfterViewInit {
-	
+export class KnowledgeBaseArticleComponent extends BaseViewComponent implements OnInit
+{
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * Readonly properties								|
+	 * -------------------------------------------------|
+	 */
 	readonly courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 
+	/**
+	 * @description Title type enum of search skill component
+	 */
+	readonly titleTypeEnum = TitleTypeEnum;
+
+	/**
+	  * @description String key of search skill component
+	  */
+	readonly stringKey = StringKey;
+
+	/**
+	 * @description Element type enum of knowledge base article component
+	 */
+	readonly elementTypeEnum = ElementTypeEnum;
+
+	/**
+	 * Course material type id enum of knowledge base article component
+	 */
+	readonly courseMaterialTypeIdEnum = CourseMaterialTypeIdEnum;
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -47,17 +75,37 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	@Input() articleId: string | number = '';
 
-	/**
-	 * @description Output  of knowledge base menu component
-	 */
-	@Output() emitSelectedArticle = new EventEmitter<string>();
-
-	courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * Instance variable								|
+	 * Public variable								|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Description  of knowledge base article component
+	 */
+	public courseMaterial$!: Observable<CourseMaterialModel>;
+
+	/**
+	 * Selected menu article$ of knowledge base article component
+	 */
+	public selectedMenuArticle$: Observable<MenuSelectModel>;
+
+	/**
+	 * Course material owner$ of knowledge base article component
+	 */
+	public courseMaterialOwner$: Observable<string>;
+
+	/**
+	 * Logged in user id$ of knowledge base article component
+	 */
+	public loggedInUserId$: Observable<string>;
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * Private variable								|
 	 * -------------------------------------------------|
 	 */
 
@@ -67,19 +115,12 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	private _articleModel!: ArticleModel;
 
 	/**
-	 * @description Title type enum of search skill component
+	 * -------------------------------------------------|
+	 * @description										|
+	 * ViewChild variable								|
+	 * -------------------------------------------------|
 	 */
-	readonly titleTypeEnum = TitleTypeEnum;
-
-	/**
-	 * @description String key of search skill component
-	 */
-	readonly stringKey = StringKey;
-
-	/**
-	 * @description Element type enum of knowledge base article component
-	 */
-	readonly elementTypeEnum = ElementTypeEnum;
+	@ViewChild('article', { read: ElementRef, static: false }) article: ElementRef;
 
 	/**
 	 * -------------------------------------------------|
@@ -90,40 +131,125 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	/**
 	 * Gets article model
 	 */
-	get articleModel() {
+	get articleModel()
+	{
 		return this._articleModel;
 	}
 
 	/**
 	 * @description Gets article title
 	 */
-	get articleTitle() {
-		let articleTitle = this.articleId!.toString().trim().toLowerCase().replace(/-/g, " ");
-		const words = articleTitle.split(" ");
-		let capitalEachWord = '';
-		words.map(word => { 
-			const capWord = word[0].toUpperCase() + word.substring(1);
-			capitalEachWord = `${capitalEachWord} ${capWord}`; 
-		});
-		return capitalEachWord.trim();
+	get articleTitle()
+	{
+		let articleTitle = 'noData.contentDeleted';
+		this.selectedMenuArticle$
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+
+						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel)
+								{
+									articleTitle = parentMenuModel.articleTitle;
+								}
+							});
+
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel)
+								{
+									articleTitle = childMenuModel.articleTitle;
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel)
+								{
+									articleTitle = subChildMenuModel.articleTitle;
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+				if (menuSelect.menuType === MenuTypeEnum.PARENT_MENU)
+				{
+
+
+				}
+			});
+
+		return articleTitle;
 	}
 
-	get isMaterialOwner()
+	/**
+	 * @description Gets article title
+	 */
+	get courseMaterialType()
 	{
-		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+		let courseMaterialType = '';
+		this.selectedMenuArticle$
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
 
-		return isMaterialOwner;
-	}
+						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel)
+								{
+									courseMaterialType = parentMenuModel.courseMaterialTypeId;
+								}
+							});
 
-	ngOnChanges()
-	{
-		console.log(this.articleId);
-		this.loadData();
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel)
+								{
+									courseMaterialType = childMenuModel.courseMaterialTypeId;
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel)
+								{
+									courseMaterialType = subChildMenuModel.courseMaterialTypeId;
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+				if (menuSelect.menuType === MenuTypeEnum.PARENT_MENU)
+				{
+
+
+				}
+			});
+
+		return courseMaterialType;
 	}
 
 	/**
@@ -136,58 +262,29 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	/**
 	 * Creates an instance of knowledge base article component.
 	 * @param injector 
+	 * @param courseMaterialStateFacade 
+	 * @param courseMaterialMenuStateFacade 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		injector: Injector,
-		private knowledgeBaseArticleService: KnowledgeBaseArticleService,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
-		private articleComponentService: ArticleComponentService,
-		private cookieService: CookieService,
-		private loadingService: LoadingService
+		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
+		private rootStateFacade: RootStateFacade,
 	)
 	{
-		
 		super(injector);
 	}
 
 	/**
-	 * @description Descriptions search skill component
+	 * on init
 	 */
-	ngOnInit() {
-		this.loadData();
-	}
-
-	/**
-	 * @description after view init
-	 */
-	ngAfterViewInit() {
-		//
-	}
-
-	/**
-	 * @description Descriptions skill requirement page
-	 */
-	loadData()
+	ngOnInit()
 	{
+		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this.courseMaterialId);
+		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
-
-		const articleModel: ArticleModel = {
-			articleId: this.articleId as string
-		}
-		this.loadingService.present(`${this.stringKey.API_REQUEST_MESSAGE_1}`);
-		this.knowledgeBaseArticleService.getArticle(articleModel).subscribe(async data =>
-		{
-			await this.loadingService.dismiss();
-			// if (data.data.success)
-			// {
-			// 	this._articleModel = {
-			// 		...this._articleModel,
-			// 		articleTitle: this.articleTitle
-			// 	}
-			// }
-			this._articleModel = data.data;
-			
-		});
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 	}
 
 	/**
@@ -198,147 +295,25 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 
 	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @Public methods									|
+	 * -------------------------------------------------|
+	 */
+
+	/**
 	 * @description Gets image path
 	 * @param imageName 
 	 * @returns  
 	 */
-	
-
-	
 
 	/**
-	 * @description Selects un searched skill
+	 * Gets menu icon
+	 * @param eachMenu 
+	 * @returns  
 	 */
-	 public goToPage(selectedArticle: string) {
-		const articleId = selectedArticle!.trim().toLowerCase().replace(/ /g, "-");
-		 this.emitSelectedArticle.emit(articleId);
-		 console.log(articleId);
-	 }
-	
-	/**
-	 * Adds sub main menu
-	 */
-	 public async addArticleComponent()
-	 {
- 
-		 const alert = await this.alertController.create({
-			 cssClass: 'myClass',
-			 header: 'Prompt!',
-			 inputs: [
-				 {
-					 name: 'articleComponentContent',
-					 type: 'textarea',
-					 placeholder: 'Article title'
-				 },
- 
-			 ],
-			 buttons: [
-				 {
-					 text: `${ElementTypeEnum.LEVEL_1}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
- 
-						 this.generateContent(ElementTypeEnum.LEVEL_1, contentModel, OperationsEnum.CREATE);
-					 }
-				 }, {
-					 text: `${ElementTypeEnum.LEVEL_2}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
-						 this.generateContent(ElementTypeEnum.LEVEL_2, contentModel, OperationsEnum.CREATE);
-					 }
-				 },
-				 {
-					 text: `${ElementTypeEnum.LEVEL_3}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
-						 this.generateContent(ElementTypeEnum.LEVEL_3, contentModel, OperationsEnum.CREATE);
-					 }
-				 }
-				 , {
-					 text: `${ElementTypeEnum.LIST}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
-						 this.generateContent(ElementTypeEnum.LIST, contentModel, OperationsEnum.CREATE);
-					 }
-				 },
-				 {
-					 text: `${ElementTypeEnum.PARA}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
-						 this.generateContent(ElementTypeEnum.PARA, contentModel, OperationsEnum.CREATE);
-					 }
-				 },
-				 {
-					 text: `${ElementTypeEnum.PARA_IMAGE}`,
-					 handler: (data) =>
-					 {
-						 const contentModel: ContentModel = {
-							 articleComponentContent: data.articleComponentContent
-						 };
-						 this.generateContent(ElementTypeEnum.PARA_IMAGE, contentModel, OperationsEnum.CREATE);
-					 }
-				 }
-			 ]
-		 });
- 
-		 await alert.present();
-	 }
- 
-	 /**
-	  * Generates content
-	  * @param elementTypeEnum 
-	  * @param articleComponentContent 
-	  * @param operationType 
-	  */
-	 private generateContent(elementTypeEnum: ElementTypeEnum, contentModel: ContentModel, operationType: OperationsEnum)
-	 {
-		 
-		 
-		 if (operationType === OperationsEnum.CREATE)
-		 {
-			 contentModel = {
-				 courseMaterialId: this.courseMaterialId,
-				 articleId: this.articleId as string,
-				 articleComponentOrder: this._articleModel.success ? this._articleModel.data.length + 1 : 1,
-				 articleComponentType: elementTypeEnum,
-				 articleComponentContent: contentModel.articleComponentContent,
-				 operationType: operationType
-			 };
-		 }
- 
-		 else if (operationType === OperationsEnum.EDIT)
-		 {
-			 contentModel = {
-				courseMaterialId: this.courseMaterialId,
-				 articleId: this.articleId as string,
-				 articleComponentId: contentModel.articleComponentId,
-				 articleComponentOrder: contentModel.articleComponentOrder,
-				 articleComponentType: elementTypeEnum,
-				 articleComponentContent: contentModel.articleComponentContent,
-				 operationType: operationType
-			 };
-		 }
- 
- 
-		 this.articleComponentService.crudArticleComponent(contentModel).subscribe(data =>
-		 {
-			 this.loadData();
-		 });
-	 }
-
+	public getMenuIcon(courseMaterialTypeId: CourseMaterialTypeIdEnum)
+	{
+		return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === courseMaterialTypeId)[0].icon;
+	}
 }

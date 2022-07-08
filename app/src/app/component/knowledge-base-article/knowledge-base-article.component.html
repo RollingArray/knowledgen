@@ -1,91 +1,49 @@
 <!-- 
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@rockwellcollins.com
- * @create date 2021-12-11 12:02:58
- * @modify date 2021-12-11 12:02:58
- * @desc Knowledge base article component template
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Knowledge base article component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-07-06 17:46:26
  */
  -->
 
- <!-- add btn -->
- <ion-fab vertical="bottom" horizontal="end" slot="fixed"  (click)="addArticleComponent()" *ngIf="isMaterialOwner">
-	<ion-fab-button color="primary">
-		<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
-	</ion-fab-button>
-</ion-fab>
-
-
-
-<!-- add btn -->
-
-<div *ngIf="articleModel">
-	<!-- loop through data -->
-	<div *ngFor="let eachArticleItem of articleModel.data">
-		<!-- header-level-2 -->
-		<div class="header-level-1" *ngIf="
-				eachArticleItem.articleComponentType === elementTypeEnum.LEVEL_1
-			">
-
-			<ion-item>
-				<ion-thumbnail slot="start">
-					<ion-icon [src]="stringKey.ICON_SUMMERY" class="font-size-50-px"></ion-icon>
-				</ion-thumbnail>
-				{{eachArticleItem.articleComponentContent}}
-			</ion-item>
-		</div>
-		<!-- header-level-2 -->
-
-		<!-- header-level-2 -->
-		<div class="header-level-2" *ngIf="
-				eachArticleItem.articleComponentType === elementTypeEnum.LEVEL_2
-			">
-
-			<ion-item>
-				<ion-thumbnail slot="start">
-					<ion-icon [src]="stringKey.ICON_RIGHT_ARROW" class="font-size-40-px"></ion-icon>
-				</ion-thumbnail>
-				{{eachArticleItem.articleComponentContent}}
-			</ion-item>
-		</div>
-		<!-- header-level-2 -->
-
-		<!-- header-level-2 -->
-		<div class="header-level-3" *ngIf="
-				eachArticleItem.articleComponentType == elementTypeEnum.LEVEL_3
-			">
-			<ion-item>
-				{{eachArticleItem.articleComponentContent}}
-			</ion-item>
-		</div>
-		<!-- header-level-2 -->
-
-		<!-- para -->
-		<div class="para" *ngIf="eachArticleItem.articleComponentType == elementTypeEnum.PARA">
-			{{eachArticleItem.articleComponentContent}}
-		</div>
-		<!-- para -->
-
-		<!-- list ul -->
-		<ul class="list" *ngIf="
-				eachArticleItem.articleComponentType ==
-				elementTypeEnum.LIST
-			">
-			<li>
-				{{eachArticleItem.articleComponentContent}}
-			</li>
-		</ul>
-		<!-- list ul -->
-
-		<!-- header-level-2 -->
-		<div *ngIf="
-				eachArticleItem.articleComponentType == elementTypeEnum.PARA_IMAGE
-			">
-			<img [src]="eachArticleItem.articleComponentContent">
-			
-		</div>
-		<!-- header-level-2 -->
-
+<ion-content>
+	<!-- article title -->
+	<div class="article-title" *ngIf="(selectedMenuArticle$ | async).articleId && articleTitle !== 'noData.contentDeleted'">
+		<ion-item>
+			<ion-thumbnail slot="start">
+				<ion-icon [src]="getMenuIcon((selectedMenuArticle$ | async).courseMaterialType)"
+					class="font-size-50-px">
+				</ion-icon>
+			</ion-thumbnail>
+			{{ articleTitle }}
+		</ion-item>
 	</div>
-	<!-- loop through data -->
-</div>
+	<!-- article title -->
+
+	<!-- no data -->
+	<ion-card class="card-no-shadow" *ngIf="articleTitle === 'noData.contentDeleted'">
+		<p class="text-center">
+			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA" ></ion-icon>
+		</p>
+		<ion-text color="dark">
+			<h4 class="text-center">
+				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
+				{{ articleTitle | translate }}
+			</h4>
+		</ion-text>
+		
+	</ion-card>
+	<!-- no data -->
+
+	<div *ngIf="(selectedMenuArticle$ | async).articleId">
+		<!-- crud-text-document -->
+		<crud-text-document *ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"></crud-text-document>
+		<!-- crud-text-document -->
+	</div>
+
+</ion-content>

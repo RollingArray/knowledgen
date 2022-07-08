@@ -1,18 +1,22 @@
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@rockwellcollins.com
- * @create date 2021-12-11 12:02:58
- * @modify date 2021-12-11 12:02:58
- * @desc Knowledge base article component module
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Knowledge base article module
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-07-06 17:46:26
  */
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { KnowledgeBaseArticleComponent } from './knowledge-base-article.component';
-import { KnowledgeBaseArticleContentElementModule } from '../knowledge-base-article-content-element/knowledge-base-article-content-element.module';
+import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe';
+import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document.module';
 
 @NgModule({
 	imports: [
@@ -20,8 +24,9 @@ import { KnowledgeBaseArticleContentElementModule } from '../knowledge-base-arti
 		IonicModule, 
 		FormsModule,
 		TranslateModule,
-		KnowledgeBaseArticleContentElementModule
-		//MessageModule
+		ReactiveFormsModule,
+		SanitizedHtmlPipeModule,
+		CrudTextDocumentModule,
 	],
 
 	declarations: [KnowledgeBaseArticleComponent],
