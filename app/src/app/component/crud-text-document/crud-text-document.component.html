@@ -1,0 +1,169 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud text document component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:20:54 
+ * Last modified  : 2022-07-06 17:46:26
+ */
+-->
+<!-- page title -->
+	<!-- fab -->
+	<ion-fab slot="fixed" vertical="top" horizontal="end">
+		<ion-fab-button *ngIf="(articleTextDocument$|async) === undefined && !showSave" color="tertiary" (click)="addNewContent()">
+			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-button *ngIf="(articleTextDocument$|async) !== undefined && !showSave" color="tertiary" (click)="editContent()">
+			<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-button *ngIf="showSave" color="tertiary" (click)="submit()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- fab -->
+	<!-- toolbar -->
+	<div *ngIf="showSave" class="para">
+		<!-- h1..h6 -->
+		<ion-button id="click-heading-trigger">
+			<ion-icon [src]="stringKey.ICON_H1"></ion-icon>
+		</ion-button>
+		<ion-popover trigger="click-heading-trigger" triggerAction="click">
+			<ng-template>
+				<ion-content class="ion-padding">
+					<ion-button (click)="triggerCommand('h1')">
+						<ion-icon [src]="stringKey.ICON_H1"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('h2')">
+						<ion-icon [src]="stringKey.ICON_H2"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('h3')">
+						<ion-icon [src]="stringKey.ICON_H3"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('h4')">
+						<ion-icon [src]="stringKey.ICON_H4"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('h5')">
+						<ion-icon [src]="stringKey.ICON_H5"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('h6')">
+						<ion-icon [src]="stringKey.ICON_H6"></ion-icon>
+					</ion-button>
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+		<!-- h1..h6 -->
+
+		<!-- presentation -->
+		<ion-button id="click-presentation-trigger">
+			<ion-icon [src]="stringKey.ICON_BOLD"></ion-icon>
+		</ion-button>
+		<ion-popover trigger="click-presentation-trigger" triggerAction="click">
+			<ng-template>
+				<ion-content class="ion-padding">
+					<ion-button (click)="triggerCommand('bold')">
+						<ion-icon [src]="stringKey.ICON_BOLD"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('italic')">
+						<ion-icon [src]="stringKey.ICON_ITALIC"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('underline')">
+						<ion-icon [src]="stringKey.ICON_UNDERSCORE"></ion-icon>
+					</ion-button>
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+		<!-- presentation -->
+
+		<!-- list -->
+		<ion-button id="click-list-trigger">
+			<ion-icon [src]="stringKey.ICON_UL"></ion-icon>
+		</ion-button>
+		<ion-popover trigger="click-list-trigger" triggerAction="click">
+			<ng-template>
+				<ion-content class="ion-padding">
+					<ion-button (click)="triggerCommand('insertUnorderedList')">
+						<ion-icon [src]="stringKey.ICON_UL"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('insertOrderedList')">
+						<ion-icon [src]="stringKey.ICON_OL"></ion-icon>
+					</ion-button>
+					
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+		<!-- list -->
+
+		<!-- alignment -->
+		<ion-button id="click-alignment-trigger">
+			<ion-icon [src]="stringKey.ICON_J_L"></ion-icon>
+		</ion-button>
+		<ion-popover trigger="click-alignment-trigger" triggerAction="click">
+			<ng-template>
+				<ion-content class="ion-padding">
+					<ion-button (click)="triggerCommand('justifyLeft')">
+						<ion-icon [src]="stringKey.ICON_J_L"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('justifyCenter')">
+						<ion-icon [src]="stringKey.ICON_J_C"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('justifyRight')">
+						<ion-icon [src]="stringKey.ICON_J_R"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('justifyFull')">
+						<ion-icon [src]="stringKey.ICON_J_F"></ion-icon>
+					</ion-button>
+					
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+		<!-- alignment -->
+
+		<!-- sub -->
+		<ion-button id="click-sub-trigger">
+			<ion-icon [src]="stringKey.ICON_SUBSCRIPT"></ion-icon>
+		</ion-button>
+		<ion-popover trigger="click-sub-trigger" triggerAction="click">
+			<ng-template>
+				<ion-content class="ion-padding">
+					<ion-button (click)="triggerCommand('subscript')">
+						<ion-icon [src]="stringKey.ICON_SUBSCRIPT"></ion-icon>
+					</ion-button>
+					<ion-button (click)="triggerCommand('superscript')">
+						<ion-icon [src]="stringKey.ICON_SUPERSCRIPT"></ion-icon>
+					</ion-button>
+					
+				</ion-content>
+			</ng-template>
+		</ion-popover>
+		<!-- sub -->
+
+		<ion-button (click)="triggerCommand('insertImage')">
+			<ion-icon [src]="stringKey.ICON_IMAGE"></ion-icon>
+		</ion-button>
+		<ion-button (click)="insertUrl()">
+			<ion-icon [src]="stringKey.ICON_LINK"></ion-icon>
+		</ion-button>
+	</div>
+	<!-- toolbar -->
+
+	<!-- no data -->
+	<ion-card class="card-no-shadow" *ngIf="(articleTextDocument$|async) === undefined && !showSave">
+		<p class="text-center">
+			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA" ></ion-icon>
+		</p>
+		<ion-text color="dark">
+			<h4 class="text-center">
+				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
+				{{ 'noData.noContent' | translate }}
+			</h4>
+		</ion-text>
+		
+	</ion-card>
+	<!-- no data -->
+	
+	<!-- content -->
+	<div class="para" #editableTextDocument ></div>
+	<!-- content -->
