@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 16:45:52
+ * Last modified  : 2022-07-05 19:53:47
  */
 
 import { Injectable } from "@angular/core";
@@ -22,6 +22,8 @@ import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
 import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
 import { COURSE_MATERIAL_ACTIONS } from "../course-material/course-material.state.actions";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 
 
 @Injectable()
@@ -60,7 +62,7 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.getCourseMaterialMenu(action.payload).pipe(
 						mergeMap((data) =>
 						{
-							let firstArticleId: string = '';
+							let firstArticle: MenuSelectModel;
 
 							let parentMenus: ParentMenuModel[] = [];
 
@@ -84,8 +86,16 @@ export class CourseMaterialMenuStateEffects
 									courseMaterialMenu.data.map((eachParentMenu, index) =>
 									{
 										// get first article from the top parent menu list
-										if(index == 0){
-											firstArticleId = eachParentMenu.parentArticleId;
+										if (index == 0)
+										{
+											
+											// build first selected menu as first parent menu
+											firstArticle = {
+												articleId: eachParentMenu.parentArticleId,
+												courseMaterialId: eachParentMenu.courseMaterialId,
+												menuType: MenuTypeEnum.PARENT_MENU,
+												courseMaterialType: eachParentMenu.courseMaterialTypeId
+											};
 										}
 										
 										const courseMaterialParentMenuModel: ParentMenuModel = {
@@ -155,7 +165,7 @@ export class CourseMaterialMenuStateEffects
 											payloadSubChildMenu: subChildMenus
 	
 										}),
-									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: firstArticleId})
+									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: firstArticle})
 								]; 
 							}
 
