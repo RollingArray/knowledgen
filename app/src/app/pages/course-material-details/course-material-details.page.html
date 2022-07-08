@@ -22,104 +22,51 @@
 		<ion-buttons slot="start">
 			<ion-back-button defaultHref="go/course/material"></ion-back-button>
 		</ion-buttons>
-		<ion-buttons slot="end" (click)="loadData()">
-			<ion-icon slot="start" [src]="stringKey.ICON_REFRESH"></ion-icon>
+		<ion-buttons slot="end" (click)="showMenu()"
+			class="hidden-device-xxl hidden-device-xl hidden-device-lg hidden-device-md">
+			<ion-icon slot="start" [src]="stringKey.ICON_MENU"></ion-icon>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <!-- header -->
 <ion-content>
-	<!-- page title -->
-	<!-- <app-page-info-title [title]="pageTitle" [info]="pageSubTitle">
-	</app-page-info-title> -->
-	<!-- page title -->
+	<ion-grid class="stretch-grid-full">
+		<ion-row class="stretch-grid-row-full">
+			<!-- top match -->
+			<ion-col [ngClass]="articleMenuClosed ? 'display-none' : 'display-block'" size-xl="4" size-lg="4"
+				size-md="4" size-sm="12" size-xs="12">
+				<ion-grid class="stretch-grid-full grid-right-border">
+					<!-- mobile view-->
 
-	
-<ion-grid class="stretch-grid-full">
-	<ion-row class="stretch-grid-row-full">
-		<!-- top match -->
-		<ion-col
-			size-xl="4"
-			size-lg="4"
-			size-md="4"
-			size-sm="0"
-			size-xs="0">
-			<ion-grid class="stretch-grid-full grid-right-border">
-				<!-- mobile view-->
-				<ion-row
-					class="overflow-container
-					hidden-device-xxl
-					hidden-device-xl
-					hidden-device-lg
-					hidden-device-md">
-					<ion-col text-center>
-						<parent-menu (emitSelectedArticle)="gotoPage($event)"></parent-menu>
-					</ion-col>
-				</ion-row>
-				<!-- mobile view-->
+					<!-- mobile view-->
 
-				<!-- desktop view-->
-				<ion-row
-					class="overflow-container
-					hidden-device-xs hidden-device-sm">
-					<ion-col text-center>
-						<parent-menu (emitSelectedArticle)="gotoPage($event)"></parent-menu>
-					</ion-col>
-				</ion-row>
-				<!-- desktop view-->
-			</ion-grid>
-		</ion-col>
+					<!-- desktop view-->
+					<ion-row class="overflow-container article-menu">
+						<ion-col text-center>
+							<parent-menu></parent-menu>
+						</ion-col>
+					</ion-row>
+					<!-- desktop view-->
+				</ion-grid>
+			</ion-col>
 
-		<!-- article -->
-		<ion-col
-			size-xl="8"
-			size-lg="8"
-			size-md="8"
-			size-sm="12"
-			size-xs="12">
-			<ion-grid class="stretch-grid-full" color="dark">
-				<ion-row
-					class="overflow-container background-color-white">
-					<ion-col text-center>
-						<ion-grid
-							class="hidden-device-xxl
-							hidden-device-xl
-							hidden-device-lg
-							hidden-device-md">
-							<ion-row>
-								<ion-col>
-									<parent-menu (emitSelectedArticle)="gotoPage($event)"></parent-menu>
-									<!-- <ion-button
-										class="float-right
-										margin-right-10-px
-										margin-top-10-px"shape="round"
-										color="primary"
-										(click)="knowledgeBaseNavigation($event)">
-										<ion-icon
-											[src]="stringKey.ICON_MENU"></ion-icon>
-										&nbsp;{{'option.navigateArticles'|translate}}
-									</ion-button> -->
-									<ion-item>&nbsp;</ion-item>
-								</ion-col>
-							</ion-row>
-						</ion-grid>
-
-						<!-- dynamic article content -->
-						<knowledge-base-article
-									*ngIf="firstParentMenuId$ | async"
-									[articleId]="selectedArticle"
-									
-								></knowledge-base-article>
-						<!-- dynamic article content -->
-					</ion-col>
-				</ion-row>
-			</ion-grid>
-		</ion-col>
-		<!-- article -->
-	</ion-row>
-</ion-grid>
+			<!-- article -->
+			<ion-col size-xl="8" size-lg="8" size-md="8" size-sm="12" size-xs="12">
+				<ion-grid class="stretch-grid-full" color="dark">
+					<ion-row class="overflow-container background-color-white">
+						<ion-col text-center>
+							<!-- dynamic article content -->
+							<knowledge-base-article>
+							</knowledge-base-article>
+							<!-- dynamic article content -->
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+			<!-- article -->
+		</ion-row>
+	</ion-grid>
 </ion-content>
-
 
 <!-- <ion-app>
 	<ion-split-pane contentId="courseMaterialArticle">

@@ -6,11 +6,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-26 16:10:41
+ * Last modified  : 2022-07-08 12:42:35
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
+import { Component, OnInit, OnDestroy, Injector, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 import { takeUntil } from 'rxjs/operators';
@@ -46,23 +46,33 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * @private Instance variable								|
 	 * -------------------------------------------------|
 	 */
-
+	
+	/**
+	 * Article menu closed of course material details page
+	 */
+	private _articleMenuClosed: boolean = false;
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
+	@ViewChild('articleMenu', { read: ElementRef, static: false }) articleMenu: ElementRef;
+	
 	/**
 	 * Description  of course material page
 	 */
 	courseMaterial$!: Observable<CourseMaterialModel>;
 
+	/**
+	 * First parent menu id$ of course material details page
+	 */
 	firstParentMenuId$: Observable<string | number>;
 
+	/**
+	 * Selected article of course material details page
+	 */
 	selectedArticle: string;
-
-	private _courseMaterialId: string;
 
 	/**
 	 * Determines whether data has
@@ -75,6 +85,11 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * Getter & Setters									|
 	 * -------------------------------------------------|
 	 */
+
+	get articleMenuClosed()
+	{
+		return this._articleMenuClosed;
+	}
 	
 	/**
 	 * -------------------------------------------------|
@@ -109,7 +124,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
-		console.log(this.selectedArticle);
 		this.firstParentMenuId$.subscribe(articleId =>
 		{
 			if (articleId)
@@ -178,11 +192,22 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		});
 	 }
 	
+	/**
+	 * Goto page
+	 * @param articleId 
+	 */
 	gotoPage(articleId  : string)
 	{
-		console.log(articleId);
 		this.selectedArticle = articleId as string;
-	 }
+	}
+	
+	/**
+	 * Shows menu
+	 */
+	public async showMenu()
+	{
+		this._articleMenuClosed = !this._articleMenuClosed;
+	} 
 	
 }
 
