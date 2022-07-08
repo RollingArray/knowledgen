@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 16:45:28
+ * Last modified  : 2022-07-05 19:38:48
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -16,6 +16,7 @@ import { OperationsEnum } from '../../shared/enum/operations.enum';
 import { CourseMaterialMenuOperationsEnum } from './course-material-menu-operations.enum';
 import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
 import { SubChildMenuModel } from 'src/app/shared/model/sub-child-menu.model';
+import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
 
 /**
  * @description Course Material Menu Action - Api Request Course Material Menu
@@ -341,7 +342,7 @@ export const CRUD_SUCCESS_SUB_CHILD_MENU = createAction(
  */
 export const STORE_SELECTED_MENU = createAction(
 	CourseMaterialMenuOperationsEnum.STORE_SELECTED_MENU,
-	props < { payload: string }>()
+	props < { payload: MenuSelectModel }>()
 );
 
 /**
