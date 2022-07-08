@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 16:47:04
+ * Last modified  : 2022-07-05 20:35:16
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -31,6 +31,7 @@ import { PARENT_MENU_CRUD_QUERY_SELECTOR } from "./crud/parent-menu-crud/parent-
 import { ParentMenuCrudStateModel } from "./crud/parent-menu-crud/parent-menu-crud.state.model";
 import { ChildMenuCrudStateModel } from "./crud/child-menu-crud/child-menu-crud.state.model";
 import { CHILD_MENU_CRUD_QUERY_SELECTOR } from "./crud/child-menu-crud/child-menu-crud.state.selectors";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 
 /**
  * @description Injectable
@@ -119,6 +120,22 @@ export class CourseMaterialMenuStateFacade {
 	 */
 	 public operationParentMenu$ = this.parentMenuCrudStore.select(PARENT_MENU_CRUD_QUERY_SELECTOR.selectOperationParentMenu);
 
+	/**
+	 * Parent menu by article id$ of course material menu state facade
+	 */
+	public parentMenuByArticleId$ = (parentArticleId: string) => this.parentMenuStore.select(PARENT_MENU_QUERY_SELECTOR.selectParentMenuByArticleId(parentArticleId));
+
+	/**
+	 * Child menu by article id$ of course material menu state facade
+	 */
+	public childMenuByArticleId$ = (childArticleId: string) => this.subChildMenuStore.select(CHILD_MENU_QUERY_SELECTOR.selectChildMenuById(childArticleId));
+
+	/**
+	 * Sub child menu by article id$ of course material menu state facade
+	 */
+	public subChildMenuByArticleId$ = (subChildArticleId: string) => this.childMenuStore.select(SUB_CHILD_MENU_QUERY_SELECTOR.selectSubChildMenuById(subChildArticleId));
+
+	 
 	
 	/**
 	 * Requests course material
@@ -228,7 +245,7 @@ export class CourseMaterialMenuStateFacade {
 	 * Stores selected menu
 	 * @param articleId 
 	 */
-	public storeSelectedMenu(articleId: string) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: articleId}));
+	public storeSelectedMenu(menuSelectModel: MenuSelectModel) {
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: menuSelectModel}));
 	}
 }
