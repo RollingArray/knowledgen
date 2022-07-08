@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 16:26:27 
- * Last modified  : 2022-07-05 16:31:40
+ * Last modified  : 2022-07-05 20:32:22
  */
 
 import {
@@ -71,8 +71,11 @@ export const selectParentMenuHasData = createSelector(
  * @description Selectors - Parent menu by parent menu id
  */
 const selectParentMenuByArticleId = (parentArticleId: string) => 
-  createSelector(selectParentMenuState, (state) => state[parentArticleId]);
+	createSelector(selectParentMenuState, (state) => state.entities[parentArticleId]);
 
+/**
+ * @description Selectors - Parent menu by material id
+ */
 export const selectParentMenuByMaterialId = (courseMaterialIdId: string) => createSelector(
 	selectParentMenuState,
 	(entity) =>
