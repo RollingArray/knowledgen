@@ -631,8 +631,13 @@ export class StringKey {
 	public static readonly ICON_CHECK: string = StringKey.ICON_BASE_PATH + "check.svg";
 	public static readonly ICON_SUMMERY: string = StringKey.ICON_BASE_PATH + "summery.svg";
 
+	public static readonly ICON_HEADING: string = StringKey.ICON_BASE_PATH + "heading.svg";
 	public static readonly ICON_H1: string = StringKey.ICON_BASE_PATH + "h1.svg";
 	public static readonly ICON_H2: string = StringKey.ICON_BASE_PATH + "h2.svg";
+	public static readonly ICON_H3: string = StringKey.ICON_BASE_PATH + "h3.svg";
+	public static readonly ICON_H4: string = StringKey.ICON_BASE_PATH + "h4.svg";
+	public static readonly ICON_H5: string = StringKey.ICON_BASE_PATH + "h5.svg";
+	public static readonly ICON_H6: string = StringKey.ICON_BASE_PATH + "h6.svg";
 	public static readonly ICON_BLOCK: string = StringKey.ICON_BASE_PATH + "block.svg";
 	public static readonly ICON_CONTENT: string = StringKey.ICON_BASE_PATH + "content.svg";
 	public static readonly ICON_IMAGE: string = StringKey.ICON_BASE_PATH + "image.svg";
