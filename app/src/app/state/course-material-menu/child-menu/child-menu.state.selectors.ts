@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-07-05 14:54:40
+ * Last modified  : 2022-07-05 20:32:48
  */
 
 import {
@@ -71,9 +71,8 @@ export const selectChildMenuHasData = createSelector(
  * @description Selectors - Course material by childMenu id
  */
 const selectChildMenuById = (parentArticleId: string) => 
-	createSelector(selectChildMenuState, (state) => state[parentArticleId]);
-  
-	
+	createSelector(selectChildMenuState, (state) => state.entities[parentArticleId]);
+ 
 /**
  * @description Selectors - Child menu by parent id
  */
