@@ -6,12 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-01-14 18:41:39 
+ * Last modified  : 2022-07-05 19:40:11
  */
 
 
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
+import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
 import { MenuSelectStateModel } from './menu-select.state.model';
 import { MENU_SELECT_FEATURE_KEY } from './menu-select.state.reducer';
 
@@ -23,11 +24,11 @@ const selectMenuSelectState: MemoizedSelector<MenuSelectStateModel, MenuSelectSt
 /**
  * @description Selector - Select Menu Article
  */
-const selectMenuArticle: MemoizedSelector<MenuSelectStateModel, string> = createSelector(
+const selectMenuArticle: MemoizedSelector<MenuSelectStateModel, MenuSelectModel> = createSelector(
 	selectMenuSelectState,
-	(menuSelectStateModel: MenuSelectStateModel): string =>
+	(menuSelectStateModel: MenuSelectStateModel): MenuSelectModel =>
 	{
-		return menuSelectStateModel.articleId
+		return menuSelectStateModel
 	}
 );
 
