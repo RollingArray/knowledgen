@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:27:57 
- * Last modified  : 2022-07-05 11:31:55
+ * Last modified  : 2022-07-06 20:04:54
  */
 
 
@@ -65,15 +65,6 @@ export class CourseMaterialMenuService extends BaseService<BaseModel> {
 		return this.post(ApiUrls.COURSE_MATERIAL_MENU, courseMaterialModel);
 	}
 
-	/**
-	 * Adds new sub child menu
-	 * @param subChildMenuModel 
-	 * @returns new sub child menu 
-	 */
-	addNewMenu(parentMenuModel: ParentMenuModel): Observable<BaseModel>
-	{
-		return this.post(ApiUrls.COURSE_MATERIAL_PARENT_MENU_ADD, parentMenuModel);
-	}
 	/**
 	 * Cruds parent menu
 	 * @param parentMenuModel 
