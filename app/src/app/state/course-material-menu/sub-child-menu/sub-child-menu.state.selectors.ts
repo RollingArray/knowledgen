@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 16:49:38 
- * Last modified  : 2022-07-05 16:54:24
+ * Last modified  : 2022-07-05 20:34:03
  */
 
 import {
@@ -72,7 +72,7 @@ export const selectSubChildMenuHasData = createSelector(
  * @description Selectors - Sub child menu by id
  */
  const selectSubChildMenuById = (subChildArticleId: string) => 
- createSelector(selectSubChildMenuState, (state) => state[subChildArticleId]);
+ createSelector(selectSubChildMenuState, (state) => state.entities[subChildArticleId]);
 
  
 /**
