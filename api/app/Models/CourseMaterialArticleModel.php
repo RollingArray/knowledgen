@@ -48,12 +48,22 @@ class CourseMaterialArticleModel extends BaseModel{
     ];
 
     /**
-     * Course Materiel Articles
+     * Relation - Has one course materiel articles
      *
      * @return void
      */
     public function courseMaterielArticles()
     {
         return $this->hasMany(CourseMaterialArticleModel::class);
+    }
+
+    /**
+     * Relation - Has one article text document
+     *
+     * @return void
+     */
+    public function articleTextDocument()
+    {
+        return $this->hasOne(ArticleTextDocumentModel::class);
     }
 }

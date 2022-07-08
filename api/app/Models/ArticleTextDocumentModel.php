@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ArticleComponentModel extends BaseModel{
+class ArticleTextDocumentModel extends BaseModel{
 
     use HasFactory;
 
@@ -13,7 +13,7 @@ class ArticleComponentModel extends BaseModel{
      *
      * @var string
      */
-    protected $table = 'tbl_article_component';
+    protected $table = 'tbl_article_text_document';
 
     
     /**
@@ -21,7 +21,7 @@ class ArticleComponentModel extends BaseModel{
      *
      * @var string
      */
-    protected $primaryKey = 'article_component_id';
+    protected $primaryKey = 'article_text_document_id';
 
     protected $keyType = 'string';
 
@@ -33,15 +33,13 @@ class ArticleComponentModel extends BaseModel{
      * @var array
      */
     protected $fillable = [
-        'article_component_id', 
+        'article_text_document_id',
         'article_id',
-        'article_component_order',
-        'article_component_type',
-        'article_component_content'
+        'article_text_document_content',
     ];
 
     /**
-     * courseMaterielArticles
+     * Relation - Belongs to Course Materiel Articles
      *
      * @return void
      */

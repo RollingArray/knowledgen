@@ -146,26 +146,34 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     'uses' => 'CourseMaterialArticleController@delete'
                 ]
             );
+
+            $router->group([
+                'prefix' => 'textdocument',
+            ], function () use ($router) {
+                $router->post(
+                    'all',
+                    [
+                        'uses' => 'ArticleTextDocumentController@all'
+                    ]
+                );
+                $router->post(
+                    'add',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'ArticleTextDocumentController@add'
+                    ]
+                );
+                $router->post(
+                    'edit',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'ArticleTextDocumentController@edit'
+                    ]
+                );
+            });
         });
 
-        $router->group([
-            'prefix' => 'article/component',
-            'middleware' => 'auth'
-        ], function () use ($router) {
-            $router->post(
-                'all',
-                [
-                    'uses' => 'ArticleComponentController@all'
-                ]
-            );
-            $router->post(
-                'add',
-                [
-                    'middleware' => 'courseMaterialOwner',
-                    'uses' => 'ArticleComponentCrudController@add'
-                ]
-            );
-        });
+        
 
         $router->group([
             'prefix' => 'menu',
