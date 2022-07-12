@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:15:11 
- * Last modified  : 2022-01-25 18:13:20
+ * Last modified  : 2022-07-11 15:48:32
  */
 
 import { HttpClient } from "@angular/common/http";
@@ -101,6 +101,32 @@ export abstract class BaseService<T extends BaseModel> {
 	 */
 	public post(url: string, data: T): Observable<T>
 	{
+		return this.abstractPost(url, data);
+	}
+
+	/**
+	 * Posts multi part
+	 * @param url 
+	 * @param data 
+	 * @returns multi part 
+	 */
+	 public postMultiPart(url: string, data: T): Observable<T>
+	 {
+		var formData = new FormData();
+		Object.keys(data).forEach(key => {
+			formData.append(key, data[key]);
+		});
+		return this.abstractPost(url, formData);
+	 }
+	
+	/**
+	 * Abstracts post
+	 * @param url 
+	 * @param data 
+	 * @returns  
+	 */
+	private abstractPost(url: string, data: T | FormData)
+	{
 		const apiData = this.httpClient.post<T>(url, data).pipe(
 			map((response: BaseModel) =>
 			{
@@ -120,13 +146,14 @@ export abstract class BaseService<T extends BaseModel> {
 
 						this.subscription.add(subscribe);
 					}
-				} else
+				}
+				else
 				{
 					// logout is invalid session
 					if (response.error)
 					{
 						const errorMessages: string[] = response.message;
-						errorMessages.map(async responseMessage =>
+						errorMessages.map(async (responseMessage) =>
 						{
 							if (this.toastController)
 							{
@@ -150,11 +177,12 @@ export abstract class BaseService<T extends BaseModel> {
 							});
 							toast.present();
 
-						})
+						});
 
 
 
-					} else
+					}
+					else
 					{
 						//this.errorAlert(JSON.stringify(response.error.message));
 					}

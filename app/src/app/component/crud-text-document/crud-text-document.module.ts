@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-06 17:46:26
+ * Last modified  : 2022-07-08 16:47:46
  */
 
 import { NgModule } from '@angular/core';
@@ -21,6 +21,7 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 import { KeywordModule } from '../keyword/keyword.component.module';
 import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe';
 import { ArticleTextDocumentStateModule } from 'src/app/state/article-text-document/article-text-document.state.module';
+import { ContentImageModule } from '../content-image/content-image.module';
 
 @NgModule({
 	imports: [
@@ -34,7 +35,8 @@ import { ArticleTextDocumentStateModule } from 'src/app/state/article-text-docum
 		SharedModule,
 		KeywordModule,
 		SanitizedHtmlPipeModule,
-		ArticleTextDocumentStateModule
+		ArticleTextDocumentStateModule,
+		ContentImageModule
 	],
 
 	declarations: [CrudTextDocumentComponent],

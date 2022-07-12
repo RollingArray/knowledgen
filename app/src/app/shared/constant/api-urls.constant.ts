@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-07-06 20:13:45
+ * Last modified  : 2022-07-12 11:32:34
  */
 
 import { environment } from "../../../environments/environment";
@@ -17,6 +17,7 @@ export class ApiUrls {
 	public static readonly API_VERSION: string = "v1";
 	public static readonly API_BASE_PATH: string = ApiUrls.API_ENDPOINT + ApiUrls.API_VERSION;
 	public static readonly RA: string = 'https://rollingarray.co.in/';
+	public static readonly FILE: string = ApiUrls.API_ENDPOINT + "file/";
 	// urls
 	public static readonly SIGN_IN: string = ApiUrls.API_BASE_PATH + "/user/sign/in";
 	public static readonly SIGN_UP: string = ApiUrls.API_BASE_PATH + "/user/sign/up";
@@ -60,4 +61,6 @@ export class ApiUrls {
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT: string = ApiUrls.API_BASE_PATH + "/course/material/article/textdocument/all";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT_ADD: string = ApiUrls.API_BASE_PATH + "/course/material/article/textdocument/add";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT_EDIT: string = ApiUrls.API_BASE_PATH + "/course/material/article/textdocument/edit";
+	public static readonly KNOWLEDGE_BASE_ARTICLE_UPLOAD_FILE: string = ApiUrls.API_BASE_PATH + "/course/material/article/upload/file";
+	
 }

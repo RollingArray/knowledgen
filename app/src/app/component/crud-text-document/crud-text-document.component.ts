@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-06 17:46:26
+ * Last modified  : 2022-07-12 11:43:06
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -15,17 +15,21 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
+import { CourseMaterialFileModel } from "src/app/shared/model/course-material-fle.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { ModalData } from "src/app/shared/model/modal-data.model";
 import { AlertService } from "src/app/shared/service/alert.service";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { ArticleTextDocumentStateFacade } from "src/app/state/article-text-document/article-text-document.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
+import { ContentImageComponent } from "../content-image/content-image.component";
 
 @Component({
 	selector: 'crud-text-document',
@@ -93,6 +97,11 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Show save of crud text document component
 	 */
 	private _showSave = false;
+
+	/**
+	 * Modal data of menu page
+	 */
+	 private _modalData: ModalData;
 
 	/**
 	 * -------------------------------------------------|
@@ -235,7 +244,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 						{
 							if (!articleTextDocumentModel)
 							{
-								console.log("no content", articleTextDocumentModel);
 								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
 								this.getArticleTextDocument();
 
@@ -497,9 +505,52 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	}
 
 
-	insertImage()
+	async insertImage()
 	{
-		//
+		console.log(this.doc);
+		
+		this.saveSelection();
+		//this.doc.execCommand('insertImage', false, '/Applications/MAMP/htdocs/knowledgen/knowledgen/api/public/upload/1657552773-Picture 1.png');
+		// initial file object state
+		const courseMaterialFileModel: CourseMaterialFileModel = {
+			articleId: this._selectedMenu.articleId,
+			courseMaterialId: this._selectedMenu.courseMaterialId,
+			operationType: OperationsEnum.CREATE
+		}
+
+		// open modal
+		const modal = await this.modalController.create({
+			component: ContentImageComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+			componentProps: {
+				courseMaterialFile : courseMaterialFileModel
+			}
+		});
+
+		// on model dismiss
+		modal.onDidDismiss().then((data) =>
+		{
+			this._modalData = data.data;
+			if (this._modalData.cancelled)
+			{
+				//do not refresh the page
+			} else
+			{
+				this.restoreSelection();
+				const courseMaterialFileModel: CourseMaterialFileModel = {
+					...this._modalData.returnData 
+				}
+				
+				
+				const filePath = `${ ApiUrls.FILE}${courseMaterialFileModel.fileName}/${courseMaterialFileModel.extension}`
+				console.log(filePath);
+				this.doc.execCommand('insertImage', false, filePath);
+			}
+		});
+
+		// present modal
+		await modal.present();
 	}
 
 	/**

@@ -1,0 +1,64 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary content image component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-12 12:08:44 
+ * Last modified  : 2022-07-12 12:09:39
+ */
+ -->
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ 'pageTitle.selectImage' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="cancelModal()"> {{ 'button.discard' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	
+	<!-- page title -->
+	<app-page-info-title [title]="'pageTitle.selectImage' | translate " [info]="'pageSubTitle.selectImage' | translate "></app-page-info-title>
+	
+	<!-- save btn -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+		<ion-fab-button color="tertiary" (click)="uploadFiles()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- save btn -->
+
+	<ion-grid>
+		<!-- select button-->
+		<ion-row>
+			<ion-col> </ion-col>
+			<ion-col size="4">
+				<label class="custom-file-upload" ali>
+					<input #file type="file" accept="image/*" (change)="preview(file.files)" />
+					{{ stringKey.SELECT }}
+				</label>
+			</ion-col>
+			<ion-col> </ion-col>
+		</ion-row>
+		<!-- select button-->
+
+		<!-- preview image-->
+		<ion-row>
+			<ion-col>
+				<img class="preview-section" [src]="stringKey.IMAGE_PLACEHOLDER" *ngIf="!imgURL" />
+				<img class="preview-section actual-image" [src]="imgURL" *ngIf="imgURL" />
+			</ion-col>
+		</ion-row>
+		<!-- preview image-->
+	</ion-grid>
+</ion-content>
+<!-- body -->

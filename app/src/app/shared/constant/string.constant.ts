@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-02-03 23:51:54
+ * Last modified  : 2022-07-11 19:32:35
  */
 
 
@@ -678,7 +678,8 @@ export class StringKey {
 	public static readonly IMAGE_PASSWORD_LESS: string = StringKey.IMAGE_BASE_PATH + "password_less.svg";
 	public static readonly IMAGE_PANEL_HEADER: string = StringKey.IMAGE_BASE_PATH + "panel-header.svg";
 	public static readonly IMAGE_PLANNER_HEADER: string = StringKey.IMAGE_BASE_PATH + "planner-header.svg";
-
+	public static readonly IMAGE_PLACEHOLDER: string = StringKey.IMAGE_BASE_PATH + "image-placeholder.svg";
+	
 	
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	

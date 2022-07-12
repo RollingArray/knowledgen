@@ -65,7 +65,8 @@
 		"editContent": "Edit Content",
 		"addCourseMenu": "Add New Course Material Menu",
 		"editCourseMenu": "Edit Course Material Menu",
-		"deleteCourseMenu": "Delete Course Material Menu"
+		"deleteCourseMenu": "Delete Course Material Menu",
+		"selectImage": "Select Image"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -86,7 +87,8 @@
 		"signUp":"Provide details to create your free account",
 		"addCourseMenu": "Provide the content title and select the content type of the course material. Save the changes once you are satisfied with the content",
 		"editCourseMenu": "Provide updated details of the title. Save the changes once you are satisfied with the content",
-		"deleteCourseMenu": "Deleting menu"
+		"deleteCourseMenu": "Deleting menu",
+		"selectImage": "Select an image from your device. Save the image if you are satisfied with the preview"
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -150,12 +152,15 @@
 		"deletingContent" : "Deleting Content ... Please wait",
 		"newCourseMaterialMenu" : "Adding New Course Material Menu ... Please wait" ,
 		"editCourseMaterialMenu" : "Updating Course Material Menu ... Please wait" ,
-		"deleteCourseMaterialMenu" : "Deleting Course Material Menu ... Please wait"
+		"deleteCourseMaterialMenu" : "Deleting Course Material Menu ... Please wait",
+		"uploading": "Uploading ... Please wait"
 	},
 	"errorMessage":{
 		"notAllowed": "Review Your Action !!",
 		"mandatory": "All fields are mandatory",
-		"email": "Should be a valid email"
+		"email": "Should be a valid email",
+		"selectImage": "Select an image",
+		"imageSize": "Image file size beyond 1 MB not allowed"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
@@ -173,7 +178,7 @@
 		"studentNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
 		"editAvailabilityPlanner" : "Your Schedule has been updated successfully!!",
 		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!",
-		"settingContent" : "Content added successfully!!",
+		"settingContent" : "Content saved successfully!!",
 		"deletingContent" : "Content deleted successfully",
 		"newCourseMaterialMenu" : "Your Course Material Menu has been saved. Its time to add content to it!!",
 		"editCourseMaterialMenu" : "Your Course Material Menu has been updated successfully!!",
