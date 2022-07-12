@@ -17,15 +17,24 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// $router->group(['prefix' => 'api/v1'], function () use ($router) {
-//     $router->post(
-//         'register', 
-//         [
-//             'uses' => 'UserController@register'
-//         ]
-//     );
-// });
+/**
+ * Get uploaded file
+ *
+ * @param  string $id
+ * @param  string $extension
+ * @return void
+ */
+$router->get('file/{id}/{extension}', function ($id, $extension) {
+    $file = 'upload/'.$id.'.'.$extension;
+    readfile($file);
+    return response()->download($file);
+});
 
+/**
+ * V1 urls
+ *
+ * @return void
+ */
 $router->group(['prefix' => 'v1'], function () use ($router) {
 
     $router->post(
@@ -48,14 +57,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             'uses' => 'SignInController@boot'
         ]
     );
-
-    // $router->post(
-    //     'user/details',
-    //     [
-    //         'middleware' => 'auth',
-    //         'uses' => 'UserDetailController@boot'
-    //     ]
-    // );
 
     $router->group([
         'prefix' => 'user',
@@ -80,7 +81,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
     $router->group([
         'prefix' => 'course/material',
-        'middleware' => 'auth'
+        //'middleware' => 'auth'
     ], function () use ($router) {
         $router->get(
             'all',
@@ -117,7 +118,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
         $router->group([
             'prefix' => 'article',
-            'middleware' => 'auth'
+            //'middleware' => 'auth'
         ], function () use ($router) {
             $router->get(
                 'all',
@@ -144,6 +145,14 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 [
                     'middleware' => 'courseMaterialOwner',
                     'uses' => 'CourseMaterialArticleController@delete'
+                ]
+            );
+
+            $router->post(
+                'upload/file',
+                [
+                    'middleware' => 'courseMaterialOwner',
+                    'uses' => 'CourseMaterialArticleController@fileUpload'
                 ]
             );
 

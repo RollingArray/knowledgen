@@ -55,6 +55,20 @@ class CourseMaterialArticleController extends Controller
 	}
 
 	/**
+	 * rules
+	 *
+	 * @return void
+	 */
+	public function rulesUpload()
+	{
+		return [
+			'operation_type' => 'required|in:CREATE,DELETE',
+            'article_id' => 'exclude_if:operation_type,CREATE|required|alpha_num',
+            'course_material_id' => 'required|alpha_num',
+		];
+	}
+
+	/**
 	 * custom messages
 	 *
 	 * @return void
@@ -175,5 +189,57 @@ class CourseMaterialArticleController extends Controller
 
         // return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
+    }
+	
+	/**
+	 * fileUpload
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function fileUpload(Request $request)
+    {
+		$file = null;
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+        //creating a validator
+        $validator = Validator::make($request->all(), $this->rulesUpload(), $this->customMessages());
+
+        //if validation fails 
+        if ($validator->fails()) {
+            return response(
+                array(
+                    'error' => true,
+                    'message' => $validator->errors()->all()
+                ),
+                400
+            );
+        }
+
+		if ($request->hasFile('file'))
+		{
+				$retrievedFile = $request->file('file');
+				$filename  = md5($retrievedFile->getClientOriginalName());
+				$extension = $retrievedFile->getClientOriginalExtension();
+				$file = $filename.'.'.$extension;
+				//move file to public location
+				$retrievedFile->move('upload', $file);
+		} 
+		else
+		{
+				//
+		}
+
+		// build a file object and return the file name
+		$app = app();
+		$courseMaterialFileModel = $app->make('stdClass');
+		$courseMaterialFileModel->articleId = $request->input('article_id');
+		$courseMaterialFileModel->courseMaterialId = $request->input('course_material_id');
+		$courseMaterialFileModel->fileName = $filename;
+		$courseMaterialFileModel->extension = $extension;
+		
+		// return to client
+		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $courseMaterialFileModel);
     }
 }
