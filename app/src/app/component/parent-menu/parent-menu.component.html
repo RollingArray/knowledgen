@@ -21,7 +21,7 @@
 	<!-- article title -->
 
 	<!-- toolbar -->
-	<ion-toolbar>
+	<ion-toolbar *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
 		<ion-buttons slot="end">
 			<ion-button color="primary" (click)="editParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
 				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>

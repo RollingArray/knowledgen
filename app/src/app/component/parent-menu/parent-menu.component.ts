@@ -98,8 +98,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	{
 		return this._courseMaterialId;
 	}
-
-
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|

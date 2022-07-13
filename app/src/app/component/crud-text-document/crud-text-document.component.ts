@@ -13,20 +13,24 @@ import { DOCUMENT } from "@angular/common";
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
+import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
 import { CourseMaterialFileModel } from "src/app/shared/model/course-material-fle.model";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
 import { AlertService } from "src/app/shared/service/alert.service";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { ArticleTextDocumentStateFacade } from "src/app/state/article-text-document/article-text-document.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
 import { ContentImageComponent } from "../content-image/content-image.component";
@@ -116,6 +120,11 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	public articleTextDocument$!: Observable<ArticleTextDocumentModel>;
 
 	/**
+	 * Course material$ of crud text document component
+	 */
+	courseMaterial$!: Observable<CourseMaterialModel>;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @ViewChild Instance variable								|
@@ -169,6 +178,21 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	}
 
 	/**
+	 * Gets description
+	 */
+	get isMaterialOwner()
+	{
+		let isMaterialOwner = false;
+		this.courseMaterial$.subscribe(data =>
+		{
+			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+			isMaterialOwner = loggedInUser === data.userId ? true : false
+		});
+
+		return isMaterialOwner;
+	}
+
+	/**
 	 * Gets operation type
 	 */
 	public get operationType()
@@ -209,7 +233,9 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		private rootStateFacade: RootStateFacade,
 		@Inject(DOCUMENT) private doc: any,
 		private sanitizer: DomSanitizer,
-		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade
+		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
+		private courseMaterialStateFacade: CourseMaterialStateFacade,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -221,7 +247,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	ngOnInit()
 	{
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-
 	}
 
 	/**
@@ -237,6 +262,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 				{
 
 					this._selectedMenu = _selectedMenu;
+					this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._selectedMenu.courseMaterialId);
 					this.articleTextDocument$ = this.articleTextDocumentStateFacade.articleTextDocumentByArticleId$(this._selectedMenu.articleId);
 					this.articleTextDocument$
 						.pipe(takeUntil(this.unsubscribe))

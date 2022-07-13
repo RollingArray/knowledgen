@@ -24,7 +24,7 @@
 	<!-- article title -->
 
 	<!-- menu toolbar -->
-	<ion-toolbar>
+	<ion-toolbar *ngIf="isMaterialOwner">
 		<ion-buttons slot="end">
 			<ion-button color="primary" (click)="editSubChildMenu(eachMenu)" *ngIf="isMaterialOwner">
 				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>

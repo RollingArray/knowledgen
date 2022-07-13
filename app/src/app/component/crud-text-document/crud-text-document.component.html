@@ -10,13 +10,16 @@
  * Last modified  : 2022-07-12 12:09:58
  */
 -->
-<!-- page title -->
+<!-- article owner toolbar -->
+<div *ngIf="(this.courseMaterial$ | async) && isMaterialOwner">
 	<!-- fab -->
 	<ion-fab slot="fixed" vertical="top" horizontal="end">
-		<ion-fab-button *ngIf="(articleTextDocument$|async) === undefined && !showSave" color="tertiary" (click)="addNewContent()">
+		<ion-fab-button *ngIf="(articleTextDocument$|async) === undefined && !showSave" color="tertiary"
+			(click)="addNewContent()">
 			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
 		</ion-fab-button>
-		<ion-fab-button *ngIf="(articleTextDocument$|async) !== undefined && !showSave" color="tertiary" (click)="editContent()">
+		<ion-fab-button *ngIf="(articleTextDocument$|async) !== undefined && !showSave" color="tertiary"
+			(click)="editContent()">
 			<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
 		</ion-fab-button>
 		<ion-fab-button *ngIf="showSave" color="tertiary" (click)="submit()">
@@ -90,7 +93,7 @@
 					<ion-button (click)="triggerCommand('insertOrderedList')">
 						<ion-icon [src]="stringKey.ICON_OL"></ion-icon>
 					</ion-button>
-					
+
 				</ion-content>
 			</ng-template>
 		</ion-popover>
@@ -115,7 +118,7 @@
 					<ion-button (click)="triggerCommand('justifyFull')">
 						<ion-icon [src]="stringKey.ICON_J_F"></ion-icon>
 					</ion-button>
-					
+
 				</ion-content>
 			</ng-template>
 		</ion-popover>
@@ -134,7 +137,7 @@
 					<ion-button (click)="triggerCommand('superscript')">
 						<ion-icon [src]="stringKey.ICON_SUPERSCRIPT"></ion-icon>
 					</ion-button>
-					
+
 				</ion-content>
 			</ng-template>
 		</ion-popover>
@@ -152,7 +155,7 @@
 	<!-- no data -->
 	<ion-card class="card-no-shadow" *ngIf="(articleTextDocument$|async) === undefined && !showSave">
 		<p class="text-center">
-			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA" ></ion-icon>
+			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA"></ion-icon>
 		</p>
 		<ion-text color="dark">
 			<h4 class="text-center">
@@ -160,10 +163,12 @@
 				{{ 'noData.noContent' | translate }}
 			</h4>
 		</ion-text>
-		
+
 	</ion-card>
 	<!-- no data -->
-	
-	<!-- content -->
-	<div class="para" #editableTextDocument ></div>
-	<!-- content -->
+</div>
+<!-- article owner toolbar -->
+
+<!-- content -->
+<div class="para" #editableTextDocument></div>
+<!-- content -->
