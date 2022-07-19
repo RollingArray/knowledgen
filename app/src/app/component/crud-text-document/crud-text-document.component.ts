@@ -6,23 +6,22 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-18 20:33:54
+ * Last modified  : 2022-07-19 15:53:29
  */
 
 import { DOCUMENT } from "@angular/common";
-import { Component, OnInit, ViewChild, ElementRef, Injector, Inject } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
+import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
-import { CourseMaterialFileModel } from "src/app/shared/model/course-material-fle.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
@@ -33,7 +32,6 @@ import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-men
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
-import { ContentImageComponent } from "../content-image/content-image.component";
 
 @Component({
 	selector: 'crud-text-document',
@@ -66,15 +64,20 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 
 	/**
 	  * -------------------------------------------------|
-	  * @description										|
-	  * @input & @output Instance variable								|
+	  * @description									 |
+	  * @input & @output Instance variable				 |
 	  * -------------------------------------------------|
 	  */
+	
+	/**
+	 * Description  of crud text document component
+	 */
+	@Input() isContentLive = false;
 
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @private Instance variable								|
+	 * @private Instance variable						|
 	 * -------------------------------------------------|
 	 */
 
@@ -127,7 +130,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @ViewChild Instance variable								|
+	 * @ViewChild Instance variable						|
 	 * -------------------------------------------------|
 	 */
 	/**
@@ -260,7 +263,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 				.pipe(takeUntil(this.unsubscribe))
 				.subscribe(_selectedMenu =>
 				{
-
 					this._selectedMenu = _selectedMenu;
 					this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._selectedMenu.courseMaterialId);
 					this.articleTextDocument$ = this.articleTextDocumentStateFacade.articleTextDocumentByArticleId$(this._selectedMenu.articleId);
@@ -268,6 +270,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 						.pipe(takeUntil(this.unsubscribe))
 						.subscribe(articleTextDocumentModel =>
 						{
+							// if no object, consider creating new
 							if (!articleTextDocumentModel)
 							{
 								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
@@ -277,11 +280,19 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 								this._operationType = OperationsEnum.CREATE;
 								this._showSave = false;
 							}
+
+							// if not material owner ans article is not live
+							else if (!this.isMaterialOwner && articleTextDocumentModel.articleStatus === ArticleStatusTypeEnum.PREVIEW)
+							{
+								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
+							}
+							
+							// show content, consider edit
 							else
 							{
 								(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
 								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = articleTextDocumentModel.articleTextDocumentContent;
-
+								
 								//
 								this._operationType = OperationsEnum.EDIT;
 								this._showSave = false;
@@ -454,172 +465,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 			this.initLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();
-		}
-	}
-
-	/**
-	 * Triggers command
-	 * @param command 
-	 * @returns  
-	 */
-	triggerCommand(command: string)
-	{
-		console.log(this.doc.getSelection());
-		const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
-		if (commands.includes(command))
-		{
-			this.doc.execCommand('formatBlock', false, command);
-			return;
-		}
-		this.doc.execCommand(command, false, null);
-	}
-
-	/**
-	 * Inserts url
-	 */
-	insertUrl()
-	{
-		this.saveSelection();
-		this.translateService
-			.get([
-				'actionAlert.link',
-				'option.done',
-				'option.cancel',
-			]).pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data =>
-			{
-
-				const alert = await this.alertController.create({
-					header: `${data['actionAlert.link']}`,
-					mode: 'md',
-					inputs: [
-						{
-							name: 'url',
-							type: 'text'
-						}
-					],
-					buttons: [
-						{
-							cssClass: 'ok-button ',
-							text: data['option.done'],
-							handler: (data) =>
-							{
-								const range = this.restoreSelection();
-								if (range)
-								{
-									const range = this.doc.getSelection().getRangeAt(0);
-									const line = range.commonAncestorContainer.data;
-									const startOffset = range.startOffset;
-									const endOffset = range.endOffset;
-									let result = line.slice(startOffset, endOffset);
-									const innerHTML = `<a href=${data.url}>${result}</a>`;
-									this.doc.execCommand('insertHTML', false, innerHTML);
-								}
-							}
-						},
-						{
-							cssClass: 'cancel-button',
-							text: data['option.cancel'],
-							handler: () =>
-							{
-							}
-						}
-					]
-				});
-				await alert.present();
-			});
-	}
-
-
-	async insertImage()
-	{
-		this.saveSelection();
-		//this.doc.execCommand('insertImage', false, '/Applications/MAMP/htdocs/knowledgen/knowledgen/api/public/upload/1657552773-Picture 1.png');
-		// initial file object state
-		const courseMaterialFileModel: CourseMaterialFileModel = {
-			articleId: this._selectedMenu.articleId,
-			courseMaterialId: this._selectedMenu.courseMaterialId,
-			operationType: OperationsEnum.CREATE
-		}
-
-		// open modal
-		const modal = await this.modalController.create({
-			component: ContentImageComponent,
-			cssClass: 'modal-view',
-			backdropDismiss: false,
-			componentProps: {
-				courseMaterialFile : courseMaterialFileModel
-			}
-		});
-
-		// on model dismiss
-		modal.onDidDismiss().then((data) =>
-		{
-			this._modalData = data.data;
-			if (this._modalData.cancelled)
-			{
-				//do not refresh the page
-			} else
-			{
-				this.restoreSelection();
-				const courseMaterialFileModel: CourseMaterialFileModel = {
-					...this._modalData.returnData 
-				}
-				
-				
-				const filePath = `${ ApiUrls.FILE}${courseMaterialFileModel.fileName}/${courseMaterialFileModel.extension}`
-				console.log(filePath);
-				this.doc.execCommand('insertImage', false, filePath);
-			}
-		});
-
-		// present modal
-		await modal.present();
-	}
-
-	/**
-	 * save selection when the editor is focussed out
-	 */
-	public saveSelection()
-	{
-		if (this.doc.getSelection)
-		{
-			const sel = this.doc.getSelection();
-			if (sel.getRangeAt && sel.rangeCount)
-			{
-				this._savedSelection = sel.getRangeAt(0);
-				this._selectedText = sel.toString();
-			}
-		} else if (this.doc.getSelection && this.doc.createRange)
-		{
-			this._savedSelection = document.createRange();
-		} else
-		{
-			this._savedSelection = null;
-		}
-	}
-
-	/**
-	 * restore selection when the editor is focused in
-	 */
-	public restoreSelection()
-	{
-		if (this._savedSelection)
-		{
-			if (this.doc.getSelection)
-			{
-				const sel = this.doc.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(this._savedSelection);
-				return true;
-			} else if (this.doc.getSelection /*&& this._savedSelection.select*/)
-			{
-				// this._savedSelection.select();
-				return true;
-			}
-		} else
-		{
-			return false;
 		}
 	}
 

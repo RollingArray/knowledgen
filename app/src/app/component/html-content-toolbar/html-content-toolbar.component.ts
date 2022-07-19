@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:33:29 
- * Last modified  : 2022-07-13 12:03:15
+ * Last modified  : 2022-07-19 15:50:34
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -165,7 +165,6 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	 */
 	triggerCommand(command: string)
 	{
-		console.log(this.doc.getSelection());
 		const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
 		if (commands.includes(command))
 		{
