@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 20:07:37 
- * Last modified  : 2022-07-13 21:23:58
+ * Last modified  : 2022-07-19 18:44:44
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -62,7 +62,7 @@ export class CourseMaterialQuizStateFacade {
 	public operationCourseMaterialQuiz$ = this.courseMaterialQuizCrudStore.select(COURSE_MATERIAL_QUIZ_CRUD_QUERY_SELECTOR.selectOperationCourseMaterialQuiz);
 
 	/**
-	 * Requests availability planner
+	 * Requests course material quiz
 	 * @param courseMaterialQuiz 
 	 */
 	public requestCourseMaterialQuiz(courseMaterialQuiz: CourseMaterialQuizModel) {
@@ -70,7 +70,7 @@ export class CourseMaterialQuizStateFacade {
 	 }
 
 	/**
-	 * Adds new availability planner
+	 * Adds new course material quiz
 	 * @param courseMaterialQuiz 
 	 */
 	public addNewCourseMaterialQuiz(courseMaterialQuiz: CourseMaterialQuizModel) {
@@ -78,7 +78,7 @@ export class CourseMaterialQuizStateFacade {
 	}
 
 	/**
-	 * Edits availability planner
+	 * Edits course material quiz
 	 * @param courseMaterialQuiz 
 	 */
 	public editCourseMaterialQuiz(courseMaterialQuiz: CourseMaterialQuizModel) {
@@ -86,7 +86,7 @@ export class CourseMaterialQuizStateFacade {
 	}
 
 	/**
-	 * Deletes availability planner
+	 * Deletes course material quiz
 	 * @param courseMaterialQuiz 
 	 */
 	public deleteCourseMaterialQuiz(courseMaterialQuiz: CourseMaterialQuizModel) {
@@ -94,7 +94,7 @@ export class CourseMaterialQuizStateFacade {
 	}
 
 	/**
-	 * Acts upon availability planner
+	 * Acts upon course material quiz
 	 * @param courseMaterialQuiz 
 	 * @param operation 
 	 */
