@@ -37,7 +37,8 @@ class ArticleTextDocumentService implements ArticleTextDocumentServiceInterface
 			'tbl_article_text_document.article_text_document_id', 
 			'tbl_article_text_document.article_id', 
 			'tbl_article_text_document.article_text_document_content',
-			'tbl_course_material_article.course_material_id'
+			'tbl_course_material_article.course_material_id',
+			'tbl_course_material_article.article_status'
 			)
 			->join(
 				'tbl_course_material_article',

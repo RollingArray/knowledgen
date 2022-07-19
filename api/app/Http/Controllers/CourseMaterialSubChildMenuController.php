@@ -168,6 +168,7 @@ class CourseMaterialSubChildMenuController extends Controller
 
         //modify values to the model
 		$model->article_title = $request->input('article_title');
+		$model->article_status = $request->input('article_status');
         
         //saving the model to database
         $model->save();
@@ -177,7 +178,7 @@ class CourseMaterialSubChildMenuController extends Controller
 			$request->input('course_material_id'),
 			$request->input('sub_child_article_id')
 		);
-
+		
 		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
     }

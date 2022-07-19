@@ -101,6 +101,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_parent_menu.parent_article_order', 
             'tbl_course_material_parent_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(
@@ -126,6 +127,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_parent_menu.parent_article_order', 
             'tbl_course_material_parent_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(
@@ -154,6 +156,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_child_menu.child_article_order', 
             'tbl_course_material_child_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(
@@ -182,6 +185,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_child_menu.child_article_order', 
             'tbl_course_material_child_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(
@@ -211,6 +215,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_sub_child_menu.sub_child_article_order', 
             'tbl_course_material_sub_child_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(
@@ -239,6 +244,7 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_sub_child_menu.sub_child_article_order', 
             'tbl_course_material_sub_child_menu.course_material_id', 
             'tbl_course_material_article.article_title',
+            'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id'
             )
             ->join(

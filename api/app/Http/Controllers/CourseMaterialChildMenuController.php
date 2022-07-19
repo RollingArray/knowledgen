@@ -167,6 +167,7 @@ class CourseMaterialChildMenuController extends Controller
 
         //modify values to the model
 		$model->article_title = $request->input('article_title');
+		$model->article_status = $request->input('article_status');
         
         //saving the model to database
         $model->save();
