@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material state selector
+ * @summary Availability planner state selectors
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:23:54 
- * Last modified  : 2022-01-25 18:13:27
+ * Last modified  : 2022-07-19 18:41:28
  */
 
 import
@@ -112,34 +112,13 @@ export const selectAllAvailabilityPlannerByDate = (availabilityDate: string) => 
 const selectAvailabilityPlannerByAvailabilityPlannerId = (availabilityPlannerIdId: string) =>
 	createSelector(selectAvailabilityPlannerState, (state) => state.entities[availabilityPlannerIdId]);
 
+
+/**
+ * @description Selectors - Availability match by availability planner id
+ */
 const selectAvailabilityMatchByAvailabilityPlannerId = (availabilityPlannerIdId: string) =>
 createSelector(selectAvailabilityPlannerState, (state) => state.entities[availabilityPlannerIdId].mentorMatch.data);
 
-// export const selectAvailabilityMatchPlanner = (availabilityPlannerIdId: string, matchAvailabilityPlannerIdId: string) => createSelector(
-// 	selectAvailabilityPlannerState,
-// 	(state) =>
-// 	{
-// 		const mentorMatchs: MentorMatchModel[] = state.entities[availabilityPlannerIdId].mentorMatch.data;
-// 		let availabilityPlanners: AvailabilityPlannerModel[] = [];
-// 		let availabilityPlannerModel: AvailabilityPlannerModel;
-// 		mentorMatchs.map(eachMentorMatch =>
-// 		{
-// 			if (eachMentorMatch.plannerId === matchAvailabilityPlannerIdId)
-// 			{
-// 				availabilityPlannerModel = {
-// 					plannerId: eachMentorMatch.plannerId,
-// 					availabilityDate: eachMentorMatch.availabilityDate,
-// 					availabilityFrom: eachMentorMatch.availabilityFrom,
-// 					availabilityTo: eachMentorMatch.availabilityTo,
-// 					availabilityContext: eachMentorMatch.availabilityContext,
-// 					onlineMeetingUrl: eachMentorMatch.onlineMeetingUrl,
-// 				}
-// 			}
-// 		})
-// 		//console.log(parentMenu);
-// 		return availabilityPlannerModel;
-// 	}
-// );
 
 /**
  * @description export User skill categories query to access all selectors
