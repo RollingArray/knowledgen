@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-07-05 19:47:40
+ * Last modified  : 2022-07-19 12:58:00
  */
  -->
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (parentMenuMenu$ | async)" >
@@ -21,7 +21,7 @@
 	<!-- article title -->
 
 	<!-- toolbar -->
-	<ion-toolbar *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+	<ion-toolbar *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)"  mode="ios">
 		<ion-buttons slot="end">
 			<ion-button color="primary" (click)="editParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
 				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
