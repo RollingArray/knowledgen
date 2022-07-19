@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-07-05 19:46:49
+ * Last modified  : 2022-07-18 19:46:03
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -201,6 +201,7 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	{
 		const menuSelectModel: MenuSelectModel = {
 			articleId: childMenuModel.childArticleId,
+			articleStatus: childMenuModel.articleStatus,
 			courseMaterialId: childMenuModel.courseMaterialId,
 			menuType: MenuTypeEnum.CHILD_MENU,
 			courseMaterialType: childMenuModel.courseMaterialTypeId
