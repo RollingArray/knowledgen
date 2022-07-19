@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-07-05 19:45:25
+ * Last modified  : 2022-07-19 12:57:22
  */ 
 -->
 
@@ -22,7 +22,7 @@
 	<!-- menu title -->
 
 	<!-- menu toolbar -->
-	<ion-toolbar *ngIf="isMaterialOwner">
+	<ion-toolbar *ngIf="isMaterialOwner" mode="ios">
 		<ion-buttons slot="end">
 			<ion-button color="primary" (click)="editChildMenu(eachMenu)" *ngIf="isMaterialOwner">
 				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
