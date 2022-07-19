@@ -1,0 +1,75 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud assignment quiz component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-13 11:11:44 
+ * Last modified  : 2022-07-19 15:03:23
+ */
+-->
+<!-- article owner toolbar -->
+<div *ngIf="(this.courseMaterial$ | async)">
+	<!-- fab -->
+	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="isMaterialOwner && !isContentLive">
+		<ion-fab-button color="tertiary" (click)="addNewQuestion()">
+			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- fab -->
+
+	<!-- no data -->
+	<app-no-data [courseMaterial]="true" *ngIf="!(hasData$ | async)" [text]="'noData.noQuestion' | translate">
+	</app-no-data>
+	<!-- no data -->
+
+	<!-- data container -->
+	<ion-grid *ngIf="hasData$ | async">
+		<ion-row>
+			<ion-col size="12"
+				*ngFor="let eachQuiz of courseMaterialQuiz$ | async">
+				<!-- each container -->
+
+				<!-- each question -->
+				<ion-card>
+					<ion-card-header>
+						<ion-card-title [innerHtml]="eachQuiz.question"></ion-card-title>
+					</ion-card-header>
+
+					<!-- answers -->
+					<ion-card-content *ngIf="isMaterialOwner">
+						<ion-item *ngFor="let option of eachQuiz.options">
+							<ion-icon [src]="stringKey.ICON_RIGHT_ARROW" *ngIf="!option.isCorrect" slot="start">
+							</ion-icon>
+							<ion-icon [src]="stringKey.ICON_CHECK" *ngIf="option.isCorrect" slot="start"></ion-icon>
+							<p [innerHtml]="option.answer"></p>
+						</ion-item>
+					</ion-card-content>
+					<!-- answers -->
+
+					<!-- question toolbar -->
+					<ion-toolbar *ngIf="isMaterialOwner && !isContentLive" mode="ios">
+						<ion-buttons slot="start">
+							<edit-button (event)="
+                  onCourseMaterialQuizAction(eachQuiz, operationsEnum.EDIT)
+                "></edit-button>
+							<copy-button (event)="onCourseMaterialQuizCopyAction(eachQuiz)">
+							</copy-button>
+						</ion-buttons>
+						<ion-buttons slot="end">
+							<delete-button (event)="
+                  onCourseMaterialQuizAction(eachQuiz, operationsEnum.DELETE)
+                "></delete-button>
+						</ion-buttons>
+					</ion-toolbar>
+					<!-- question toolbar -->
+				</ion-card>
+				<!-- each question -->
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- data container -->
+</div>
+<!-- article owner toolbar -->
