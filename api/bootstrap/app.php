@@ -156,6 +156,7 @@ $app->register(App\Providers\ReturnDataStructureProvider::class);
 $app->register(App\Providers\AvailabilityPlannerProvider::class);
 $app->register(App\Providers\ArticleComponentServiceProvider::class);
 $app->register(App\Providers\ArticleTextDocumentServiceProvider::class);
+$app->register(App\Providers\CourseMaterialQuizProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 

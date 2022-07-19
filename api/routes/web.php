@@ -180,9 +180,39 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     ]
                 );
             });
-        });
 
-        
+            $router->group([
+                'prefix' => 'quiz',
+            ], function () use ($router) {
+                $router->post(
+                    'all',
+                    [
+                        'uses' => 'CourseMaterialQuizController@all'
+                    ]
+                );
+                $router->post(
+                    'add',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialQuizController@add'
+                    ]
+                );
+                $router->post(
+                    'edit',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialQuizController@edit'
+                    ]
+                );
+                $router->post(
+                    'delete',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialQuizController@delete'
+                    ]
+                );
+            });
+        });
 
         $router->group([
             'prefix' => 'menu',
