@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-01-14 18:39:06 
+ * Last modified  : 2022-07-19 15:50:56
  */
 
 
@@ -221,8 +221,6 @@ export class RootStateEffects
 									userLastName: data.data.userLastName,
 									userSkills: data.data.userSkills,
 								};
-
-								console.log(userModel);
 
 								// store newly added skill
 								return [
