@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-07-05 20:41:10
+ * Last modified  : 2022-07-18 19:45:59
  */ 
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -209,6 +209,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	{
 		const menuSelectModel: MenuSelectModel = {
 			articleId: subChildMenuModel.subChildArticleId,
+			articleStatus: subChildMenuModel.articleStatus,
 			courseMaterialId: subChildMenuModel.courseMaterialId,
 			menuType: MenuTypeEnum.SUB_CHILD_MENU,
 			courseMaterialType: subChildMenuModel.courseMaterialTypeId

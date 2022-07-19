@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-07-05 20:40:22
+ * Last modified  : 2022-07-18 19:46:17
  */
 
 import { Component, OnInit, Injector } from "@angular/core";
@@ -233,6 +233,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 {
 		 const menuSelectModel: MenuSelectModel = {
 			 articleId: parentMenuModel.parentArticleId,
+			 articleStatus: parentMenuModel.articleStatus,
 			 courseMaterialId: parentMenuModel.courseMaterialId,
 			 menuType: MenuTypeEnum.PARENT_MENU,
 			 courseMaterialType: parentMenuModel.courseMaterialTypeId
