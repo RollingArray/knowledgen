@@ -26,7 +26,8 @@
 		"resend": "Resend",
 		"activate": "Activate",
 		"enrollMentor":"Enroll As Mentor",
-		"enrollMentee":"Enroll As Mentee"
+		"enrollMentee":"Enroll As Mentee",
+		"changeVisibility": "Change Visibility"
 
 	},
 	"pageTitle": {
@@ -66,7 +67,10 @@
 		"addCourseMenu": "Add New Course Material Menu",
 		"editCourseMenu": "Edit Course Material Menu",
 		"deleteCourseMenu": "Delete Course Material Menu",
-		"selectImage": "Select Image"
+		"selectImage": "Select Image",
+		"addQuestion": "Add New Question",
+		"editQuestion": "Edit Question",
+		"deleteQuestion": "Delete Question"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -88,7 +92,11 @@
 		"addCourseMenu": "Provide the content title and select the content type of the course material. Save the changes once you are satisfied with the content",
 		"editCourseMenu": "Provide updated details of the title. Save the changes once you are satisfied with the content",
 		"deleteCourseMenu": "Deleting menu",
-		"selectImage": "Select an image from your device. Save the image if you are satisfied with the preview"
+		"selectImage": "Select an image from your device. Save the image if you are satisfied with the preview",
+		"addQuestion": "Provide details of the question and choose answer types to create a new question. Save the changes once you are satisfied with the content",
+		"editQuestion": "Provide updated details of the question. Save the changes once you are satisfied with the content",
+		"deleteQuestion": "Deleting question"
+		
 	},
 	"formInfo":{
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -114,7 +122,16 @@
 		"placeholderCode": "A2Za2z09",
 		"articleTitle": "Provide a suitable title to the course menu",
 		"contentType": "Select what type of content you want to create",
-		"yourContent": "You content goes here ..."
+		"yourContent": "You content goes here ...",
+		"mcq": "Multiple Choice",
+		"tf": "True / False",
+		"question": "Provide your question",
+		"answer": "Provide set of answers",
+		"visibilityLiveNoChange": "This content is currently in live mode and visible to public. The content can not be updated",
+		"visibilityLive": "This content is currently in live mode and visible to public. To update the content, change visibility to preview",
+		"visibilityPreview": "This content is currently in preview mode and visible to private. Any changes to the content can be made",
+		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further"
+
 	},
 	"courseMaterialType":{
 		"textDocument": "Text Document",
@@ -134,7 +151,9 @@
 		"noAvailabilityPlannerData": "No schedules found, plan a new schedule !!",
 		"noTopic" : "No Topic has been found. Create your first topic !!",
 		"noContent" : "No Content has been found. Add your Content !!",
-		"contentDeleted" : "This content has been removed !!"
+		"contentDeleted" : "This content has been removed !!",
+		"noQuestion" : "No question has been found. Add your question !!",
+		"availableSoonContent" : "The content will be available soon !!"
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
@@ -153,21 +172,29 @@
 		"newCourseMaterialMenu" : "Adding New Course Material Menu ... Please wait" ,
 		"editCourseMaterialMenu" : "Updating Course Material Menu ... Please wait" ,
 		"deleteCourseMaterialMenu" : "Deleting Course Material Menu ... Please wait",
-		"uploading": "Uploading ... Please wait"
+		"uploading": "Uploading ... Please wait",
+		"newQuestion" : "Adding New Question ... Please wait" ,
+		"editQuestion" : "Updating Question ... Please wait" ,
+		"deleteQuestion" : "Deleting Question ... Please wait",
+		"changeVisibility" : "Changing Visibility ... Please wait"
 	},
 	"errorMessage":{
 		"notAllowed": "Review Your Action !!",
 		"mandatory": "All fields are mandatory",
 		"email": "Should be a valid email",
 		"selectImage": "Select an image",
-		"imageSize": "Image file size beyond 1 MB not allowed"
+		"imageSize": "Image file size beyond 1 MB not allowed",
+		"minimumAnswer": "Minimum 2 answers are required",
+		"minimumCorrectAnswer": "Minimum 1 answer must be correct"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
 		"confirm": "Confirm Your Action!!",
 		"delete": "Are you sure you want to Delete",
 		"link": "Insert URL link",
-		"deleteMenu": "All sub menus will be deleted, are you sure you want to Delete"
+		"deleteMenu": "All sub menus will be deleted, are you sure you want to Delete",
+		"changeVisibilityGeneral": "Are you sure you want to Change the visibility of the content",
+		"changeVisibilityAssignment": "Are you sure you want to change the visibility of the content, you will not be able to edit the content once its Live"
 	},
 	"response":{
 		"newCourseMaterial" : "Your Course Material has been saved, you can update any time!!",
@@ -182,7 +209,11 @@
 		"deletingContent" : "Content deleted successfully",
 		"newCourseMaterialMenu" : "Your Course Material Menu has been saved. Its time to add content to it!!",
 		"editCourseMaterialMenu" : "Your Course Material Menu has been updated successfully!!",
-		"deleteCourseMaterialMenu" : "Your Course Material Menu has been deleted successfully!!"
+		"deleteCourseMaterialMenu" : "Your Course Material Menu has been deleted successfully!!",
+		"newQuestion" : "Question has been saved, you can update any time until live!!",
+		"editQuestion" : "Question has been updated successfully!!",
+		"deleteQuestion" : "Question has been deleted successfully!!",
+		"changeVisibility" : "Content visibility changed  successfully!!"
 	},
 	
 	"validation" : {
