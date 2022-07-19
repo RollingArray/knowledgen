@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-12 11:43:06
+ * Last modified  : 2022-07-18 20:33:54
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -533,8 +533,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 
 	async insertImage()
 	{
-		console.log(this.doc);
-		
 		this.saveSelection();
 		//this.doc.execCommand('insertImage', false, '/Applications/MAMP/htdocs/knowledgen/knowledgen/api/public/upload/1657552773-Picture 1.png');
 		// initial file object state
