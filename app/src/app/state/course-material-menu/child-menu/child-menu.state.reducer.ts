@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 14:53:26 
- * Last modified  : 2022-07-05 14:53:42
+ * Last modified  : 2022-07-18 20:40:23
  */
 
 
@@ -55,6 +55,7 @@ const reducer = createReducer(
 			id: action.payload.childArticleId ? action.payload.childArticleId : '',
 			changes: {
 				articleTitle: action.payload.articleTitle,
+				articleStatus: action.payload.articleStatus,
 			}
 		}, state)
 	)),

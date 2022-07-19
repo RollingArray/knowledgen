@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 19:53:47
+ * Last modified  : 2022-07-18 22:04:25
  */
 
 import { Injectable } from "@angular/core";
@@ -92,6 +92,7 @@ export class CourseMaterialMenuStateEffects
 											// build first selected menu as first parent menu
 											firstArticle = {
 												articleId: eachParentMenu.parentArticleId,
+												articleStatus: eachParentMenu.articleStatus,
 												courseMaterialId: eachParentMenu.courseMaterialId,
 												menuType: MenuTypeEnum.PARENT_MENU,
 												courseMaterialType: eachParentMenu.courseMaterialTypeId
@@ -103,6 +104,7 @@ export class CourseMaterialMenuStateEffects
 											parentArticleOrder: eachParentMenu.parentArticleOrder,
 											courseMaterialId: eachParentMenu.courseMaterialId,
 											articleTitle: eachParentMenu.articleTitle,
+											articleStatus: eachParentMenu.articleStatus,
 											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId
 										};
 
@@ -122,6 +124,7 @@ export class CourseMaterialMenuStateEffects
 													childArticleOrder: eachChildMenu.childArticleOrder,
 													courseMaterialId: eachChildMenu.courseMaterialId,
 													articleTitle: eachChildMenu.articleTitle,
+													articleStatus: eachChildMenu.articleStatus,
 													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId
 												};
 
@@ -142,6 +145,7 @@ export class CourseMaterialMenuStateEffects
 															subChildArticleOrder: eachSubChildMenu.subChildArticleOrder,
 															courseMaterialId: eachSubChildMenu.courseMaterialId,
 															articleTitle: eachSubChildMenu.articleTitle,
+															articleStatus: eachSubChildMenu.articleStatus,
 															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId
 														};
 

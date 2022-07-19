@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 16:49:38 
- * Last modified  : 2022-07-05 16:52:37
+ * Last modified  : 2022-07-18 20:40:47
  */
 
 import { createReducer, Action, on, State } from '@ngrx/store';
@@ -51,6 +51,7 @@ const reducer = createReducer(
 			id: action.payload.subChildArticleId ? action.payload.subChildArticleId : '',
 			changes: {
 				articleTitle: action.payload.articleTitle,
+				articleStatus: action.payload.articleStatus,
 			}
 		}, state)
 	)),
