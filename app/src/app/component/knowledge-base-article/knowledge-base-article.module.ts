@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-06 17:46:26
+ * Last modified  : 2022-07-13 11:17:13
  */
 
 import { NgModule } from '@angular/core';
@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { KnowledgeBaseArticleComponent } from './knowledge-base-article.component';
 import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe';
 import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document.module';
+import { CrudAssignmentQuizModule } from '../crud-assignment-quiz/crud-assignment-quiz.module';
 
 @NgModule({
 	imports: [
@@ -27,6 +28,7 @@ import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document
 		ReactiveFormsModule,
 		SanitizedHtmlPipeModule,
 		CrudTextDocumentModule,
+		CrudAssignmentQuizModule
 	],
 
 	declarations: [KnowledgeBaseArticleComponent],

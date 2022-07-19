@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-06 17:46:26
+ * Last modified  : 2022-07-19 15:02:21
  */
  -->
 
@@ -24,26 +24,30 @@
 		</ion-item>
 	</div>
 	<!-- article title -->
-
-	<!-- no data -->
-	<ion-card class="card-no-shadow" *ngIf="articleTitle === 'noData.contentDeleted'">
-		<p class="text-center">
-			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA" ></ion-icon>
-		</p>
-		<ion-text color="dark">
-			<h4 class="text-center">
-				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-				{{ articleTitle | translate }}
-			</h4>
-		</ion-text>
-		
+	
+	<!-- live / preview -->
+	<ion-card *ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner" [color]="visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'">
+		<ion-card-content>
+			<ion-item lines="none" color="none">
+				<p>
+					{{visibilityInfo | translate}}
+				</p>
+				<ion-button slot="end" color="danger" (click)="changeVisibility()" *ngIf="visibilityInfo !== 'formInfo.visibilityLiveNoChange' ? true : false">
+					{{'button.changeVisibility' | translate}}
+				</ion-button>
+			</ion-item>
+		</ion-card-content>
 	</ion-card>
-	<!-- no data -->
+	<!-- live / preview -->
 
 	<div *ngIf="(selectedMenuArticle$ | async).articleId">
 		<!-- crud-text-document -->
-		<crud-text-document *ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"></crud-text-document>
+		<crud-text-document [isContentLive]="isContentLive" *ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"></crud-text-document>
 		<!-- crud-text-document -->
+
+		<!-- crud-assignment-quiz -->
+		<crud-assignment-quiz [isContentLive]="isContentLive" *ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ"></crud-assignment-quiz>
+		<!-- crud-assignment-quiz -->
 	</div>
 
 </ion-content>

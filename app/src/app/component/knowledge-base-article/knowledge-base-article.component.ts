@@ -6,16 +6,22 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-06 17:46:26
+ * Last modified  : 2022-07-19 15:50:44
  */
 
 import { Component, OnInit, Input, ViewChild, ElementRef, Injector } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
+import { takeUntil, take } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
+import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { ElementTypeEnum } from "src/app/shared/enum/element-type.enum";
 import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { TitleTypeEnum } from "src/app/shared/enum/title-type.enum";
 import { ArticleModel } from "src/app/shared/model/article.model";
 import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
@@ -23,6 +29,7 @@ import { CourseMaterialModel } from "src/app/shared/model/course-material.model"
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ParentMenuModel } from "src/app/shared/model/parent-menu.model";
 import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
+import { ToastService } from "src/app/shared/service/toast.service";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
@@ -63,6 +70,11 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 * Course material type id enum of knowledge base article component
 	 */
 	readonly courseMaterialTypeIdEnum = CourseMaterialTypeIdEnum;
+
+	/**
+	 * Article status type enum of knowledge base article component
+	 */
+	readonly articleStatusTypeEnum = ArticleStatusTypeEnum;
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -115,6 +127,16 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	private _articleModel!: ArticleModel;
 
 	/**
+	 * Article menu type of knowledge base article component
+	 */
+	private _articleMenuType = MenuTypeEnum.PARENT_MENU;
+
+	/**
+	 * Article id of knowledge base article component
+	 */
+	private _articleId = '';
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * ViewChild variable								|
@@ -143,6 +165,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	{
 		let articleTitle = 'noData.contentDeleted';
 		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(menuSelect =>
 			{
 				switch (menuSelect.menuType)
@@ -201,6 +224,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	{
 		let courseMaterialType = '';
 		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(menuSelect =>
 			{
 				switch (menuSelect.menuType)
@@ -253,6 +277,130 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	}
 
 	/**
+	 * Gets visibility info
+	 */
+	get visibilityInfo()
+	{
+		let visibility = 'formInfo.visibilityLive';
+		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+
+						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel)
+								{
+									visibility = this.selectArticleStatus(parentMenuModel.articleStatus, parentMenuModel.courseMaterialTypeId, visibility);
+								}
+							});
+
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel)
+								{
+									visibility = this.selectArticleStatus(childMenuModel.articleStatus, childMenuModel.courseMaterialTypeId, visibility);
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel)
+								{
+									visibility = this.selectArticleStatus(subChildMenuModel.articleStatus, subChildMenuModel.courseMaterialTypeId, visibility);
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+
+
+			});
+
+		return visibility;
+	}
+
+	/**
+	 * Gets whether is content live
+	 */
+	get isContentLive()
+	{
+		let isContentLive = false;
+		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+
+						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel && parentMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
+								{
+									isContentLive = true;
+								}
+							});
+
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel && childMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
+								{
+									isContentLive = true;
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel && subChildMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
+								{
+									isContentLive = true;
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+			});
+		return isContentLive;
+	}
+
+	/**
+ * Gets description
+ */
+	get isMaterialOwner()
+	{
+		let isMaterialOwner = false;
+		this.courseMaterial$.subscribe(data =>
+		{
+			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+			isMaterialOwner = loggedInUser === data.userId ? true : false
+		});
+
+		return isMaterialOwner;
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Life cycle hook									|
@@ -265,12 +413,17 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 * @param courseMaterialStateFacade 
 	 * @param courseMaterialMenuStateFacade 
 	 * @param rootStateFacade 
+	 * @param translateService 
+	 * @param toastService 
 	 */
 	constructor(
 		injector: Injector,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private rootStateFacade: RootStateFacade,
+		private translateService: TranslateService,
+		private toastService: ToastService,
+		private cookieService: CookieService
 	)
 	{
 		super(injector);
@@ -285,6 +438,8 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		//this.checkArticleVisibility();
+		this.checkArticleMenuType();
 	}
 
 	/**
@@ -295,16 +450,240 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 
 	/**
+	 * Selects article status
+	 * @param articleStatus 
+	 * @param visibility 
+	 * @returns  
+	 */
+	private selectArticleStatus(articleStatus: ArticleStatusTypeEnum, courseMaterialTypeId: CourseMaterialTypeIdEnum, visibility: string)
+	{
+		switch (articleStatus)
+		{
+			case ArticleStatusTypeEnum.LIVE:
+				if (courseMaterialTypeId === CourseMaterialTypeIdEnum.TD)
+				{
+					visibility = 'formInfo.visibilityLive';
+				}
+				else
+				{
+					visibility = 'formInfo.visibilityLiveNoChange';
+
+				}
+
+				break;
+
+			case ArticleStatusTypeEnum.PREVIEW:
+
+				if (courseMaterialTypeId === CourseMaterialTypeIdEnum.TD)
+				{
+					visibility = 'formInfo.visibilityPreview';
+				}
+				else
+				{
+					visibility = 'formInfo.visibilityPreviewNoChange';
+
+				}
+
+				break;
+
+			default:
+				break;
+		}
+		return visibility;
+	}
+
+	/**
+	 * Checks article menu type
+	 */
+	private checkArticleMenuType()
+	{
+		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+						this._articleMenuType = MenuTypeEnum.PARENT_MENU;
+						this._articleId = menuSelect.articleId;
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this._articleMenuType = MenuTypeEnum.CHILD_MENU;
+						this._articleId = menuSelect.articleId;
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this._articleMenuType = MenuTypeEnum.SUB_CHILD_MENU;
+						this._articleId = menuSelect.articleId;
+						break;
+
+					default:
+						break;
+				}
+
+			});
+	}
+
+	/**
+	 * @description Inits loading
+	 */
+	private initLoading()
+	{
+		// present loader
+		this.translateService
+			.get('loading.changeVisibility')
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data: string) =>
+			{
+				await this.rootStateFacade.startLoading(data);
+			});
+	}
+
+	/**
+	 * @description Cruds operation completion
+	 */
+	private launchOperation()
+	{
+		switch (this._articleMenuType)
+		{
+			case MenuTypeEnum.PARENT_MENU:
+
+				this.courseMaterialMenuStateFacade
+					.parentMenuByArticleId$(this._articleId)
+					.pipe(take(1))
+					.subscribe((parentMenuModel: ParentMenuModel) =>
+					{
+						if (parentMenuModel)
+						{
+							const model: ParentMenuModel = {
+								...parentMenuModel,
+								articleStatus: parentMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
+								operationType: OperationsEnum.EDIT
+							};
+
+							this.courseMaterialMenuStateFacade.editParentMenu(
+								model
+							);
+						}
+					});
+
+				break;
+
+			case MenuTypeEnum.CHILD_MENU:
+				this.courseMaterialMenuStateFacade
+					.childMenuByArticleId$(this._articleId)
+					.pipe(take(1))
+					.subscribe((childMenuModel: ChildMenuModel) =>
+					{
+						if (childMenuModel)
+						{
+							const model: ChildMenuModel = {
+								...childMenuModel,
+								articleStatus: childMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
+								operationType: OperationsEnum.EDIT
+							};
+
+							this.courseMaterialMenuStateFacade.editChildMenu(
+								model
+							);
+						}
+					});
+				break;
+			case MenuTypeEnum.SUB_CHILD_MENU:
+				this.courseMaterialMenuStateFacade
+					.subChildMenuByArticleId$(this._articleId)
+					.pipe(take(1))
+					.subscribe((subChildMenuModel: SubChildMenuModel) =>
+					{
+						if (subChildMenuModel)
+						{
+							const model: SubChildMenuModel = {
+								...subChildMenuModel,
+								articleStatus: subChildMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
+								operationType: OperationsEnum.EDIT
+							};
+
+							this.courseMaterialMenuStateFacade.editSubChildMenu(
+								model
+							);
+						}
+					});
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	/**
+	 * @description Cruds operation completion
+	 */
+	private crudOperationCompletion()
+	{
+		switch (this._articleMenuType)
+		{
+			case MenuTypeEnum.PARENT_MENU:
+				this.courseMaterialMenuStateFacade.parentMenuCurdOperationStatus$
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe(async (operationsStatus: OperationsEnum) =>
+					{
+						this.operationCompletionStatusFollowUp(operationsStatus);
+					});
+				break;
+			case MenuTypeEnum.CHILD_MENU:
+				this.courseMaterialMenuStateFacade.childMenuCurdOperationStatus$
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe(async (operationsStatus: OperationsEnum) =>
+					{
+						this.operationCompletionStatusFollowUp(operationsStatus);
+					});
+				break;
+			case MenuTypeEnum.SUB_CHILD_MENU:
+				this.courseMaterialMenuStateFacade.subChildMenuCurdOperationStatus$
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe(async (operationsStatus: OperationsEnum) =>
+					{
+						this.operationCompletionStatusFollowUp(operationsStatus);
+					});
+				break;
+			default:
+				break;
+		}
+	}
+
+	/**
+	 * Operations completion status follow up
+	 * @param operationsStatus 
+	 */
+	private operationCompletionStatusFollowUp(operationsStatus: OperationsEnum)
+	{
+		switch (operationsStatus)
+		{
+			case OperationsEnum.SUCCESS:
+
+				// show tost
+				this.translateService
+					.get('response.changeVisibility')
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe(async (data: string) =>
+					{
+						// success response
+						this.toastService.presentToast(data);
+					});
+
+				break;
+
+			default:
+				break;
+		}
+	}
+
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Public methods									|
 	 * -------------------------------------------------|
-	 */
-
-	/**
-	 * @description Gets image path
-	 * @param imageName 
-	 * @returns  
 	 */
 
 	/**
@@ -315,5 +694,48 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	public getMenuIcon(courseMaterialTypeId: CourseMaterialTypeIdEnum)
 	{
 		return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === courseMaterialTypeId)[0].icon;
+	}
+
+	/**
+	 * Changes visibility
+	 */
+	public changeVisibility()
+	{
+		this.translateService
+			.get([
+				'actionAlert.confirm',
+				'actionAlert.changeVisibilityGeneral',
+				'option.yes',
+				'option.no',
+			])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				const alert = await this.alertController.create({
+					header: `${data['actionAlert.confirm']}`,
+					subHeader: data['actionAlert.changeVisibilityGeneral'],
+					cssClass: 'custom-alert',
+					mode: 'md',
+					buttons: [
+						{
+							cssClass: 'ok-button ',
+							text: data['option.yes'],
+							handler: (_) =>
+							{
+								this.initLoading();
+								this.launchOperation();
+								this.crudOperationCompletion();
+							}
+						},
+						{
+							cssClass: 'cancel-button',
+							text: data['option.no'],
+							handler: () => { }
+						}
+					]
+				});
+				await alert.present();
+			});
 	}
 }
