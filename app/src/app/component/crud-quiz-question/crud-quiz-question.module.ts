@@ -1,0 +1,44 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud course material module
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-04 19:38:45 
+ * Last modified  : 2022-07-15 17:59:19
+ */ 
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { CrudQuizQuestionComponent } from './crud-quiz-question.component';
+import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
+import { SharedModule } from 'src/app/shared/module/shared.module';
+import { KeywordModule } from '../keyword/keyword.component.module';
+import { HtmlContentToolbarModule } from '../html-content-toolbar/html-content-toolbar.module';
+import { CourseMaterialQuizStateModule } from 'src/app/state/course-material-quiz/course-material-quiz.state.module';
+import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
+
+@NgModule({
+	imports: [
+		CommonModule, 
+		IonicModule, 
+		FormsModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		RouterModule,
+		PageInfoTitleModule,
+		SharedModule,
+		HtmlContentToolbarModule,
+		DeleteButtonModule
+	],
+
+	declarations: [CrudQuizQuestionComponent],
+	exports: [CrudQuizQuestionComponent],
+	entryComponents: [CrudQuizQuestionComponent],
+})
+export class CrudQuizQuestionModule { }
