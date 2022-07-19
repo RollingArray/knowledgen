@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 20:07:37 
- * Last modified  : 2022-07-13 20:09:03
+ * Last modified  : 2022-07-19 18:42:20
  */
 
 import {
@@ -25,12 +25,12 @@ import { COURSE_MATERIAL_QUIZ_CRUD_FEATURE_KEY } from './course-material-quiz-cr
 const getOperationStatus = (courseMaterialQuizCrudStateModel: CourseMaterialQuizCrudStateModel): OperationsEnum => courseMaterialQuizCrudStateModel.operationStatus;
 
 /**
- * @description get operation courseMaterialQuiz
+ * @description get operation course material quiz
  */
 const getOperationCourseMaterialQuiz = (courseMaterialQuizCrudStateModel: CourseMaterialQuizCrudStateModel): CourseMaterialQuizModel => courseMaterialQuizCrudStateModel.operationCourseMaterialQuiz;
 
 /**
- * @description Selector - CourseMaterialQuiz crud state
+ * @description Selector - course material quiz crud state
  */
 export const selectCourseMaterialQuizCrudState: MemoizedSelector<CourseMaterialQuizCrudStateModel, CourseMaterialQuizCrudStateModel>  = createFeatureSelector<CourseMaterialQuizCrudStateModel>(COURSE_MATERIAL_QUIZ_CRUD_FEATURE_KEY);
 
