@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-01-21 23:30:03
+ * Last modified  : 2022-07-13 16:25:41
  */
 
 /* Change autocomplete styles in WebKit */
@@ -203,10 +203,24 @@ td:last-child {
 	}
 }
 
+/*Variable margin right */
+@for $i from 1 through 100 {
+	.margin-right-#{$i}-px {
+		margin-right: #{$i}px;
+	}
+}
+
 /*Variable margin top */
 @for $i from 1 through 100 {
 	.margin-top-#{$i}-px {
 		margin-top: #{$i}px;
+	}
+}
+
+/*Variable margin bottom */
+@for $i from 1 through 100 {
+	.margin-bottom-#{$i}-px {
+		margin-bottom: #{$i}px;
 	}
 }
 
