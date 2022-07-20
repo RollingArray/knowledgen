@@ -45,7 +45,9 @@ class CourseMaterialArticleModel extends BaseModel{
         'article_id', 
         'article_title',
         'course_material_type_id',
-        'article_status'
+        'article_status',
+        'article_completion_time',
+        'article_completion_reward',
     ];
 
     /**

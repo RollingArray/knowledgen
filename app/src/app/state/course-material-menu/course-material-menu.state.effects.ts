@@ -95,7 +95,9 @@ export class CourseMaterialMenuStateEffects
 												articleStatus: eachParentMenu.articleStatus,
 												courseMaterialId: eachParentMenu.courseMaterialId,
 												menuType: MenuTypeEnum.PARENT_MENU,
-												courseMaterialType: eachParentMenu.courseMaterialTypeId
+												courseMaterialType: eachParentMenu.courseMaterialTypeId,
+												articleCompletionTime: eachParentMenu.articleCompletionTime,
+												articleCompletionReward: eachParentMenu.articleCompletionReward
 											};
 										}
 										
@@ -105,7 +107,9 @@ export class CourseMaterialMenuStateEffects
 											courseMaterialId: eachParentMenu.courseMaterialId,
 											articleTitle: eachParentMenu.articleTitle,
 											articleStatus: eachParentMenu.articleStatus,
-											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId
+											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId,
+											articleCompletionTime: eachParentMenu.articleCompletionTime,
+											articleCompletionReward: eachParentMenu.articleCompletionReward
 										};
 
 										parentMenus = [
@@ -125,7 +129,9 @@ export class CourseMaterialMenuStateEffects
 													courseMaterialId: eachChildMenu.courseMaterialId,
 													articleTitle: eachChildMenu.articleTitle,
 													articleStatus: eachChildMenu.articleStatus,
-													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId
+													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId,
+													articleCompletionTime: eachChildMenu.articleCompletionTime,
+													articleCompletionReward: eachChildMenu.articleCompletionReward
 												};
 
 												childMenus = [
@@ -146,7 +152,9 @@ export class CourseMaterialMenuStateEffects
 															courseMaterialId: eachSubChildMenu.courseMaterialId,
 															articleTitle: eachSubChildMenu.articleTitle,
 															articleStatus: eachSubChildMenu.articleStatus,
-															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId
+															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId,
+															articleCompletionTime: eachSubChildMenu.articleCompletionTime,
+															articleCompletionReward: eachSubChildMenu.articleCompletionReward
 														};
 
 														subChildMenus = [

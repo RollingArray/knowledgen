@@ -2,7 +2,7 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Crud assignment quiz component
+ * @summary Crud assignment quiz
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 

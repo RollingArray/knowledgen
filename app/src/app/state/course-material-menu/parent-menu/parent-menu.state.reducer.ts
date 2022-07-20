@@ -61,6 +61,8 @@ const reducer = createReducer(
 			changes: {
 				articleTitle: action.payload.articleTitle,
 				articleStatus: action.payload.articleStatus,
+				articleCompletionReward: action.payload.articleCompletionReward,
+				articleCompletionTime: action.payload.articleCompletionTime,
 			}
 		}, state)
 	)),

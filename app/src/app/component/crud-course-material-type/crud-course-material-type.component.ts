@@ -253,6 +253,22 @@ export class CrudCourseMaterialTypeComponent
 	}
 
 	/**
+	 * Gets article completion time
+	 */
+	get articleCompletionTime()
+	{
+		return this.formGroup.get('articleCompletionTime');
+	}
+
+	/**
+	 * Gets article completion reward
+	 */
+	get articleCompletionReward()
+	{
+		return this.formGroup.get('articleCompletionReward');
+	}
+
+	/**
 	 * Gets allow editable fields
 	 */
 	public get allowEditableFields()
@@ -288,6 +304,50 @@ export class CrudCourseMaterialTypeComponent
 				 break;
 			 case MenuTypeEnum.SUB_CHILD_MENU:
 				return this._subChildMenuModel.articleTitle;
+				 break;
+ 
+			 default:
+				 break;
+		 }
+	}
+
+	/**
+	 * Gets article completion time from model
+	 */
+	get articleCompletionTimeFromModel()
+	 {
+		 switch (this._menuType)
+		 {
+			 case MenuTypeEnum.PARENT_MENU:
+				 return this._parentMenuModel.articleCompletionTime;
+				 break;
+			 case MenuTypeEnum.CHILD_MENU:
+				return this._childMenuModel.articleCompletionTime;
+				 break;
+			 case MenuTypeEnum.SUB_CHILD_MENU:
+				return this._subChildMenuModel.articleCompletionTime;
+				 break;
+ 
+			 default:
+				 break;
+		 }
+	}
+
+	/**
+	 * Gets article completion reward from model
+	 */
+	get articleCompletionRewardFromModel()
+	 {
+		 switch (this._menuType)
+		 {
+			 case MenuTypeEnum.PARENT_MENU:
+				 return this._parentMenuModel.articleCompletionReward;
+				 break;
+			 case MenuTypeEnum.CHILD_MENU:
+				return this._childMenuModel.articleCompletionReward;
+				 break;
+			 case MenuTypeEnum.SUB_CHILD_MENU:
+				return this._subChildMenuModel.articleCompletionReward;
 				 break;
  
 			 default:
@@ -436,6 +496,8 @@ export class CrudCourseMaterialTypeComponent
 	{
 		const form = this.formGroup.value;
 		form.articleTitle = this.articleTitleFromModel;
+		form.articleCompletionReward = this.articleCompletionRewardFromModel;
+		form.articleCompletionTime = this.articleCompletionTimeFromModel;
 	}
 
 	/**
@@ -450,6 +512,12 @@ export class CrudCourseMaterialTypeComponent
 					// tslint:disable:no-unbound-method
 					this.validators().required,
 				]),
+			],
+			articleCompletionTime: [
+				this.articleCompletionTimeFromModel,
+			],
+			articleCompletionReward: [
+				this.articleCompletionRewardFromModel,
 			],
 		});
 
@@ -470,6 +538,8 @@ export class CrudCourseMaterialTypeComponent
 				const parentMenuModel: ParentMenuModel = {
 					...this._parentMenuModel,
 					articleTitle: form.articleTitle,
+					articleCompletionReward: form.articleCompletionReward,
+					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId
 				};
 
@@ -480,6 +550,8 @@ export class CrudCourseMaterialTypeComponent
 				const childMenuModel: ChildMenuModel = {
 					...this._childMenuModel,
 					articleTitle: form.articleTitle,
+					articleCompletionReward: form.articleCompletionReward,
+					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId
 				};
 
@@ -489,6 +561,8 @@ export class CrudCourseMaterialTypeComponent
 				const subChildMenuModel: SubChildMenuModel = {
 					...this._subChildMenuModel,
 					articleTitle: form.articleTitle,
+					articleCompletionReward: form.articleCompletionReward,
+					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId
 				};
 

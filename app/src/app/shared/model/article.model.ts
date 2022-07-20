@@ -18,4 +18,6 @@ export interface ArticleModel extends BaseModel
 	articleId?: string;
 	articleTitle?: string;
 	articleStatus?: ArticleStatusTypeEnum;
+	articleCompletionTime?: number;
+	articleCompletionReward?: number;
 }

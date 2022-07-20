@@ -110,6 +110,8 @@ class CourseMaterialSubChildMenuController extends Controller
         $model->article_id = $articleId;
         $model->article_title = $request->input('article_title');
 		$model->course_material_type_id = $request->input('course_material_type_id');
+		$model->article_completion_time = $request->input('article_completion_time');
+		$model->article_completion_reward = $request->input('article_completion_reward');
         
         //saving the model to database
         $model->save();
@@ -169,6 +171,8 @@ class CourseMaterialSubChildMenuController extends Controller
         //modify values to the model
 		$model->article_title = $request->input('article_title');
 		$model->article_status = $request->input('article_status');
+		$model->article_completion_time = $request->input('article_completion_time');
+		$model->article_completion_reward = $request->input('article_completion_reward');
         
         //saving the model to database
         $model->save();

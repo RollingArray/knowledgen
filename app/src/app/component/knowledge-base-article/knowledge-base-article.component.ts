@@ -163,58 +163,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get articleTitle()
 	{
-		let articleTitle = 'noData.contentDeleted';
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-
-						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
-							.subscribe((parentMenuModel: ParentMenuModel) =>
-							{
-								if (parentMenuModel)
-								{
-									articleTitle = parentMenuModel.articleTitle;
-								}
-							});
-
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
-							.subscribe((childMenuModel: ChildMenuModel) =>
-							{
-								if (childMenuModel)
-								{
-									articleTitle = childMenuModel.articleTitle;
-								}
-							});
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
-							.subscribe((subChildMenuModel: SubChildMenuModel) =>
-							{
-								if (subChildMenuModel)
-								{
-									articleTitle = subChildMenuModel.articleTitle;
-								}
-							});
-						break;
-
-					default:
-						break;
-				}
-				if (menuSelect.menuType === MenuTypeEnum.PARENT_MENU)
-				{
-
-
-				}
-			});
-
-		return articleTitle;
+		return this.getSpecificPropertyOfMenu('articleTitle');
 	}
 
 	/**
@@ -222,58 +171,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get courseMaterialType()
 	{
-		let courseMaterialType = '';
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-
-						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
-							.subscribe((parentMenuModel: ParentMenuModel) =>
-							{
-								if (parentMenuModel)
-								{
-									courseMaterialType = parentMenuModel.courseMaterialTypeId;
-								}
-							});
-
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
-							.subscribe((childMenuModel: ChildMenuModel) =>
-							{
-								if (childMenuModel)
-								{
-									courseMaterialType = childMenuModel.courseMaterialTypeId;
-								}
-							});
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
-							.subscribe((subChildMenuModel: SubChildMenuModel) =>
-							{
-								if (subChildMenuModel)
-								{
-									courseMaterialType = subChildMenuModel.courseMaterialTypeId;
-								}
-							});
-						break;
-
-					default:
-						break;
-				}
-				if (menuSelect.menuType === MenuTypeEnum.PARENT_MENU)
-				{
-
-
-				}
-			});
-
-		return courseMaterialType;
+		return this.getSpecificPropertyOfMenu('courseMaterialTypeId');
 	}
 
 	/**
@@ -281,55 +179,10 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get visibilityInfo()
 	{
-		let visibility = 'formInfo.visibilityLive';
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-
-						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
-							.subscribe((parentMenuModel: ParentMenuModel) =>
-							{
-								if (parentMenuModel)
-								{
-									visibility = this.selectArticleStatus(parentMenuModel.articleStatus, parentMenuModel.courseMaterialTypeId, visibility);
-								}
-							});
-
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
-							.subscribe((childMenuModel: ChildMenuModel) =>
-							{
-								if (childMenuModel)
-								{
-									visibility = this.selectArticleStatus(childMenuModel.articleStatus, childMenuModel.courseMaterialTypeId, visibility);
-								}
-							});
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
-							.subscribe((subChildMenuModel: SubChildMenuModel) =>
-							{
-								if (subChildMenuModel)
-								{
-									visibility = this.selectArticleStatus(subChildMenuModel.articleStatus, subChildMenuModel.courseMaterialTypeId, visibility);
-								}
-							});
-						break;
-
-					default:
-						break;
-				}
-
-
-			});
-
-		return visibility;
+		const visibility = 'formInfo.visibilityLive';
+		const articleStatus = this.getSpecificPropertyOfMenu('articleStatus');
+		const courseMaterialTypeId = this.getSpecificPropertyOfMenu('courseMaterialTypeId');
+		return this.selectArticleStatus(articleStatus, courseMaterialTypeId, visibility);
 	}
 
 	/**
@@ -338,51 +191,28 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	get isContentLive()
 	{
 		let isContentLive = false;
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-
-						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
-							.subscribe((parentMenuModel: ParentMenuModel) =>
-							{
-								if (parentMenuModel && parentMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
-								{
-									isContentLive = true;
-								}
-							});
-
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
-							.subscribe((childMenuModel: ChildMenuModel) =>
-							{
-								if (childMenuModel && childMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
-								{
-									isContentLive = true;
-								}
-							});
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
-							.subscribe((subChildMenuModel: SubChildMenuModel) =>
-							{
-								if (subChildMenuModel && subChildMenuModel.articleStatus === ArticleStatusTypeEnum.LIVE)
-								{
-									isContentLive = true;
-								}
-							});
-						break;
-
-					default:
-						break;
-				}
-			});
+		const articleStatus = this.getSpecificPropertyOfMenu('articleStatus');
+		if (articleStatus === ArticleStatusTypeEnum.LIVE)
+		{
+			isContentLive = true;
+		}
 		return isContentLive;
+	}
+
+	/**
+	 * Gets article completion time
+	 */
+	get articleCompletionTime()
+	{
+		return this.getSpecificPropertyOfMenu('articleCompletionTime');
+	}
+
+	/**
+	 * Gets article completion reward
+	 */
+	get articleCompletionReward()
+	{
+		return this.getSpecificPropertyOfMenu('articleCompletionReward');
 	}
 
 	/**
@@ -450,12 +280,68 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 
 	/**
+	 * Gets specific property of menu
+	 * @param property 
+	 * @returns  
+	 */
+	 private  getSpecificPropertyOfMenu(property: string)
+	 {
+		 let menuProperty = '';
+		 this.selectedMenuArticle$
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(menuSelect =>
+			 {
+				 switch (menuSelect.menuType)
+				 {
+					 case MenuTypeEnum.PARENT_MENU:
+ 
+						 this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							 .subscribe((parentMenuModel: ParentMenuModel) =>
+							 {
+								 if (parentMenuModel)
+								 {
+									menuProperty = parentMenuModel[property];
+								 }
+							 });
+ 
+						 break;
+ 
+					 case MenuTypeEnum.CHILD_MENU:
+						 this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							 .subscribe((childMenuModel: ChildMenuModel) =>
+							 {
+								 if (childMenuModel)
+								 {
+									menuProperty = childMenuModel[property];
+								 }
+							 });
+						 break;
+					 case MenuTypeEnum.SUB_CHILD_MENU:
+						 this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							 .subscribe((subChildMenuModel: SubChildMenuModel) =>
+							 {
+								 if (subChildMenuModel)
+								 {
+									menuProperty = subChildMenuModel[property];
+								 }
+							 });
+						 break;
+ 
+					 default:
+						 break;
+				 }
+			 });
+ 
+		 return menuProperty;
+	 }
+	
+	/**
 	 * Selects article status
 	 * @param articleStatus 
 	 * @param visibility 
 	 * @returns  
 	 */
-	private selectArticleStatus(articleStatus: ArticleStatusTypeEnum, courseMaterialTypeId: CourseMaterialTypeIdEnum, visibility: string)
+	private selectArticleStatus(articleStatus: string, courseMaterialTypeId: string, visibility: string)
 	{
 		switch (articleStatus)
 		{

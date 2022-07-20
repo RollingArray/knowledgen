@@ -44,7 +44,7 @@ import { CopyButtonModule } from '../button/copy-button/copy-button.component.mo
 		NoDataModule,
 		EditButtonModule,
 		DeleteButtonModule,
-		CopyButtonModule
+		CopyButtonModule,
 	],
 
 	declarations: [CrudAssignmentQuizComponent],

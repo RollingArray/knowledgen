@@ -83,6 +83,40 @@
 						</ion-grid>
 					</ion-card>
 					<!-- content type -->
+
+					<!-- content duration -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.contentDuration' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none">
+								<b>{{articleCompletionTime.value}}</b> &nbsp;{{ 'formInfo.minute' | translate }}
+							</ion-item>
+							<ion-item lines="none">
+								<ion-range [min]="0" [max]="180" formControlName="articleCompletionTime"></ion-range>
+							</ion-item>
+						</ion-card>
+					</ion-card>
+					<!-- content duration -->
+
+					<!-- content reward -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<p>{{ 'formInfo.contentReward' | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none">
+								<b>{{articleCompletionReward.value}} </b>&nbsp;{{ 'formInfo.point' | translate }}
+							</ion-item>
+							<ion-item lines="none">
+								<ion-range [min]="0" [max]="100" formControlName="articleCompletionReward"></ion-range>
+							</ion-item>
+						</ion-card>
+					</ion-card>
+					<!-- content reward -->
 				</ion-col>
 			</ion-row>
 		</ion-grid>

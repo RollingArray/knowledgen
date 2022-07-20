@@ -18,6 +18,7 @@ import { KnowledgeBaseArticleComponent } from './knowledge-base-article.componen
 import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe';
 import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document.module';
 import { CrudAssignmentQuizModule } from '../crud-assignment-quiz/crud-assignment-quiz.module';
+import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
 
 @NgModule({
 	imports: [
@@ -28,7 +29,8 @@ import { CrudAssignmentQuizModule } from '../crud-assignment-quiz/crud-assignmen
 		ReactiveFormsModule,
 		SanitizedHtmlPipeModule,
 		CrudTextDocumentModule,
-		CrudAssignmentQuizModule
+		CrudAssignmentQuizModule,
+		EditButtonModule
 	],
 
 	declarations: [KnowledgeBaseArticleComponent],

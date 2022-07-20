@@ -217,6 +217,8 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			parentArticleOrder: totalNumberOfMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
+			articleCompletionReward: 0,
+			articleCompletionTime: 0,
 			operationType: OperationsEnum.CREATE
 		}
 	

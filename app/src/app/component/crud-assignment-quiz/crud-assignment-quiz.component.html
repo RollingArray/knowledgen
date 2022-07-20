@@ -7,11 +7,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-19 21:39:24
+ * Last modified  : 2022-07-20 09:21:55
  */
 -->
 <!-- article owner toolbar -->
-<div *ngIf="(this.courseMaterial$ | async)">
+<div *ngIf="this.courseMaterial$ | async">
 	<!-- add new question -->
 	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="isMaterialOwner && !isContentLive">
 		<ion-fab-button color="tertiary" (click)="addNewQuestion()">
@@ -41,7 +41,7 @@
 		<ion-text color="dark">
 			<h4 class="text-center">
 				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-				{{ 'noData.availableSoonContent' | translate }}
+				{{ "noData.availableSoonContent" | translate }}
 			</h4>
 		</ion-text>
 	</ion-card>
@@ -95,10 +95,10 @@
 
 	<!-- score -->
 	<ion-card *ngIf="!isMaterialOwner && isContentLive && submittedAnswer">
-		{{totalScore}} / {{courseMaterialQuiz.length}}
+		{{ totalScore }} / {{ courseMaterialQuiz.length }}
 	</ion-card>
 	<!-- score -->
-	
+
 	<!-- data container for material visiter -->
 	<ion-grid *ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive">
 		<ion-row>
@@ -107,14 +107,13 @@
 				<ion-card>
 					<ion-card-header>
 						<ion-item lines="none">
-							<ion-icon 
-								*ngIf="submittedAnswer" 
-								[src]="eachQuiz.isCorrectAnswerMapped ? stringKey.ICON_CHECK : stringKey.ICON_CANCEL"
-								[color]="eachQuiz.isCorrectAnswerMapped ? 'success' : 'danger'"
-								slot="start"></ion-icon>
+							<ion-icon *ngIf="submittedAnswer" [src]="
+                  eachQuiz.isCorrectAnswerMapped
+                    ? stringKey.ICON_CHECK
+                    : stringKey.ICON_CANCEL
+                " [color]="eachQuiz.isCorrectAnswerMapped ? 'success' : 'danger'" slot="start"></ion-icon>
 							<ion-card-title [innerHtml]="eachQuiz.question"></ion-card-title>
 						</ion-item>
-
 					</ion-card-header>
 					<!-- answers -->
 					<ion-card-content>
@@ -124,13 +123,10 @@
 						</ion-item>
 					</ion-card-content>
 					<!-- answers -->
-
-
 				</ion-card>
 				<!-- each question -->
 			</ion-col>
 		</ion-row>
 	</ion-grid>
 	<!-- data container for material visiter -->
-
 </div>

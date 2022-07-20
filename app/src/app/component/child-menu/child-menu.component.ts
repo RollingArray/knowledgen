@@ -185,6 +185,8 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 			childArticleOrder: totalNumberOfChildMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
+			articleCompletionReward: 0,
+			articleCompletionTime: 0,
 			operationType: OperationsEnum.CREATE
 		}
 

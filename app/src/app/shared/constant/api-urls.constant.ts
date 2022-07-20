@@ -64,6 +64,8 @@ export class ApiUrls {
 	public static readonly STUDENT_AVAILABILITY_PLANNER_DELETE: string = ApiUrls.STUDENT_AVAILABILITY_PLANNER_BASE + "/delete";
 
 	public static readonly COURSE_MATERIAL_ARTICLE_BASE: string = ApiUrls.API_BASE_PATH + "/course/material/article";
+	public static readonly COURSE_MATERIAL_ARTICLE_EDIT: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/edit";
+
 	public static readonly COURSE_MATERIAL_TEXT_DOC: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/textdocument";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_UPLOAD_FILE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/upload/file";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT: string = ApiUrls.COURSE_MATERIAL_TEXT_DOC + "/all";

@@ -70,7 +70,9 @@
 		"selectImage": "Select Image",
 		"addQuestion": "Add New Question",
 		"editQuestion": "Edit Question",
-		"deleteQuestion": "Delete Question"
+		"deleteQuestion": "Delete Question",
+		"duration": "Duration",
+		"reward": "Reward"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -130,8 +132,13 @@
 		"visibilityLiveNoChange": "This content is currently in live mode and visible to public. The content can not be updated",
 		"visibilityLive": "This content is currently in live mode and visible to public. To update the content, change visibility to preview",
 		"visibilityPreview": "This content is currently in preview mode and visible to private. Any changes to the content can be made",
-		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further"
-
+		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further",
+		"contentDuration": "Select the duration (in minute) to complete the content",
+		"contentReward": "Select the reward after successfully completing the content",
+		"minute": "minutes",
+		"point": "points",
+		"articleDuration": "Total duration to complete the content",
+		"articleReward": "Total reward to earn after successfully completing the content"
 	},
 	"courseMaterialType":{
 		"textDocument": "Text Document",
@@ -176,6 +183,7 @@
 		"newQuestion" : "Adding New Question ... Please wait" ,
 		"editQuestion" : "Updating Question ... Please wait" ,
 		"deleteQuestion" : "Deleting Question ... Please wait",
+		"editQuizParameters" : "Updating Quiz Parameters ... Please wait" ,
 		"changeVisibility" : "Changing Visibility ... Please wait"
 	},
 	"errorMessage":{
