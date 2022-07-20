@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-07-19 12:54:48
+ * Last modified  : 2022-07-19 20:02:56
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -398,7 +398,7 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 		{
 			let option: CourseMaterialQuizAnswerModel = {
 				...eachAnswerOption,
-				answer: document.getElementById(eachAnswerOption.answerId).innerHTML
+				answer: document.getElementById(eachAnswerOption.answerId).innerHTML,
 			};
 
 			courseMaterialQuizOptions = [
@@ -544,7 +544,8 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 				const mcqAnswerModel: CourseMaterialQuizAnswerModel = {
 					answerId: this.utilityService.getTempId(),
 					answer: '',
-					isCorrect: false
+					isCorrect: false,
+					isChecked: false,
 				}
 				this._courseMaterialQuiz = {
 					...this._courseMaterialQuiz,
@@ -561,12 +562,14 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 				const trueAnswerModel: CourseMaterialQuizAnswerModel = {
 					answerId: this.utilityService.getTempId(),
 					answer: 'True',
-					isCorrect: true
+					isCorrect: true,
+					isChecked: false
 				}
 				const falseAnswerModel: CourseMaterialQuizAnswerModel = {
 					answerId: this.utilityService.getTempId(),
 					answer: 'False',
-					isCorrect: false
+					isCorrect: false,
+					isChecked: false
 				}
 
 				this._courseMaterialQuiz = {

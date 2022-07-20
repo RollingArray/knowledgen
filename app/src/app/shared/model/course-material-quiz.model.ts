@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 13:54:40 
- * Last modified  : 2022-07-13 19:17:52
+ * Last modified  : 2022-07-19 20:57:48
  */
 
 import { OperationsEnum } from "../enum/operations.enum";
@@ -22,5 +22,6 @@ export interface CourseMaterialQuizModel extends BaseModel
     question?: string;
     quizType?: QuizTypeEnum;
     options?: CourseMaterialQuizAnswerModel[];
+    isCorrectAnswerMapped?: boolean;
     operationType?: OperationsEnum;
 }
