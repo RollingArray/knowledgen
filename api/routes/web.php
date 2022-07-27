@@ -212,6 +212,17 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     ]
                 );
             });
+
+            $router->group([
+                'prefix' => 'assignment',
+            ], function () use ($router) {
+                $router->post(
+                    'result',
+                    [
+                        'uses' => 'CourseMaterialArticleAssignmentController@result'
+                    ]
+                );
+            });
         });
 
         $router->group([
