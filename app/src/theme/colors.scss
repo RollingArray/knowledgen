@@ -37,7 +37,9 @@
   --ion-color-base: var(--ion-color-primary-gradient) !important;
   --ion-color-base-rgb: var(--ion-color-primary-gradient-rgb) !important;
   --ion-color-contrast: var(--ion-color-primary-gradient-contrast) !important;
-  --ion-color-contrast-rgb: var(--ion-color-primary-gradient-contrast-rgb) !important;
+  --ion-color-contrast-rgb: var(
+    --ion-color-primary-gradient-contrast-rgb
+  ) !important;
   --ion-color-shade: var(--ion-color-primary-gradient-shade) !important;
   --ion-color-tint: var(--ion-color-primary-gradient-tint) !important;
 }
@@ -46,7 +48,9 @@
   --ion-color-base: var(--ion-color-semi-dark-gradient) !important;
   --ion-color-base-rgb: var(--ion-color-semi-dark-gradient-rgb) !important;
   --ion-color-contrast: var(--ion-color-semi-dark-gradient-contrast) !important;
-  --ion-color-contrast-rgb: var(--ion-color-semi-dark-gradient-contrast-rgb) !important;
+  --ion-color-contrast-rgb: var(
+    --ion-color-semi-dark-gradient-contrast-rgb
+  ) !important;
   --ion-color-shade: var(--ion-color-semi-dark-gradient-shade) !important;
   --ion-color-tint: var(--ion-color-semi-dark-gradient-tint) !important;
 }

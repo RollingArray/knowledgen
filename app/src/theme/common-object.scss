@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-07-20 08:03:22
+ * Last modified  : 2022-07-27 10:13:49
  */
 
 /* Change autocomplete styles in WebKit */
@@ -255,6 +255,13 @@ td:last-child {
 @for $i from 1 through 500 {
 	.width-#{$i}-px {
 		width: #{$i}px;
+	}
+}
+
+/*Variable font size */
+@for $i from 1 through 50 {
+	.font-size-#{$i}-px {
+		font-size: #{$i}px !important;
 	}
 }
 
