@@ -1,0 +1,64 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Assignment instructions component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-27 18:49:32 
+ * Last modified  : 2022-07-27 18:50:44
+ */
+-->
+
+<ion-card color="primary">
+	<ion-card-header>
+		<ion-grid>
+			<ion-row>
+				<ion-col size="6">
+					<ion-item lines="none" color="primary">
+						<ion-icon [src]="stringKey.ICON_QNA"></ion-icon>&nbsp;
+							<ion-label>
+								<h1>
+									<b>
+										{{noOfQuestions}}
+									</b>
+									&nbsp;{{ "formInfo.questions" | translate }}
+								</h1>
+							</ion-label>
+					</ion-item>
+				</ion-col>
+				<ion-col size="6">
+					<timer  class="float-right" *ngIf="!isMaterialOwner" (timeEventEmitter)="totalQuizSessionTime($event)" [timerStarted]="assignmentSessionInitiated" [timerEnded]="assignmentSessionSubmitted"></timer>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-card-header>
+
+	<!-- instructions -->
+	<ion-card-content *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
+		<ion-item color="primary" *ngFor="let instructions of arrayKey.QUIZ_INSTRUCTIONS">
+			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
+			<p [innerHtml] = "instructions | translate"> </p>
+		</ion-item>
+	</ion-card-content>
+	<!-- instructions -->
+	
+	<!-- start assignment -->
+	<ion-item color="tertiary" *ngIf="!isMaterialOwner && !assignmentSessionInitiated" (click)="startAssignment()" class="text-center">
+		<ion-icon slot="end" [src]="stringKey.ICON_START"></ion-icon>&nbsp;
+		<ion-label slot="end">
+			{{ "button.start" | translate }} &nbsp; {{ "button.assignment" | translate }}
+		</ion-label>
+	</ion-item>
+	<!-- start assignment -->
+
+	<!-- submit assignment -->
+	<ion-item color="tertiary" *ngIf="!isMaterialOwner && isContentLive && assignmentSessionInitiated" (click)="submitAssignment()" class="text-center">
+		<ion-icon slot="end" [src]="stringKey.ICON_SUBMIT"></ion-icon>&nbsp;
+		<ion-label slot="end">
+			{{ "button.submit" | translate }} &nbsp; {{ "button.assignment" | translate }}
+		</ion-label>
+	</ion-item>
+	<!-- submit assignment -->
+</ion-card>
