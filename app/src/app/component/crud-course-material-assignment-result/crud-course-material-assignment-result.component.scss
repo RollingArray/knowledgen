@@ -1,0 +1,53 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud course material assignment result component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-27 18:56:56 
+ * Last modified  : 2022-07-27 18:58:23
+ */
+
+
+.custom-field{
+    padding: 10px;
+}
+
+.back-overlay{
+    background-color: var(--ion-color-primary);
+    height: 200px;
+}
+
+.front-overlay{
+    border-radius: 20px;
+    height: 460px;
+    margin: 20px;
+    position: absolute;
+    width: calc(100% - 40px);
+    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+    background-image: url("../../../assets/images/score.svg");
+    background-repeat: repeat-x;
+    background-color: var(--ion-color-light);
+    color: var(--ion-color-primary);
+}
+
+.score{
+	width: 150px;
+	height: 150px;
+	border-radius: 150px;
+	text-align: center;
+	margin: auto;
+	color: var(--ion-color-primary);
+	
+    .total{
+        font-size: 4em;
+	    font-weight: bold;
+        line-height: 100px;
+    }
+    .out-of{
+        font-size: 1em;
+	    font-weight: bold;
+        line-height: 50px;
+    }
+}

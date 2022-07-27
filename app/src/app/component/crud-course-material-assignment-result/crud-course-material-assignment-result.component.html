@@ -1,0 +1,79 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud course material assignment result component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-27 18:56:56 
+ * Last modified  : 2022-07-27 18:58:42
+ */
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="secondary">
+		<ion-title>
+			{{ 'pageTitle.assignmentResult' | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
+				translate }}</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary-gradient" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title [title]="'pageTitle.assignmentResult' | translate "></app-page-info-title>
+	<!-- page title -->
+
+	<div *ngIf="resultAvailable">
+		<div class="back-overlay">
+			<ion-card class="front-overlay text-center" color="primary-gradient">
+				<br>
+				<h4>
+					<b>
+						{{resultTitle | translate}}
+					</b>
+				</h4>
+				<br>
+				<h4>
+					<b>
+						{{'pageTitle.youScore' | translate}}
+					</b>
+				</h4>
+				<ion-card color="tertiary" class="score">
+					<div class="total">
+						{{courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers}}
+					</div>
+					<div class="out-of">
+						{{'formInfo.outOf' | translate}} {{courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions}}
+					</div>
+				</ion-card>
+				<br>
+				<h3>
+					{{'formInfo.earned' | translate}}
+				</h3>
+				<ion-button color="success" mode="ios">
+					<ion-icon [src]="stringKey.ICON_REWARD" slot="start"></ion-icon>
+					<ion-text class="font-size-20-px"><b>{{courseMaterialAssignmentResult.articleAssignmentCompletionReward}}</b></ion-text> &nbsp;{{'formInfo.point' | translate}}
+				</ion-button>
+				<br><br>
+
+				<ion-item class="text-center">
+					
+					<ion-label class="font-size-13-px">
+						<ion-icon [src]="stringKey.ICON_TIME" slot="start"></ion-icon>
+						{{'formInfo.took' | translate}}
+						&nbsp;<b>{{splitTime(courseMaterialAssignmentResult.articleAssignmentCompletionTime)}}</b>&nbsp;
+						{{'formInfo.completeAssignment' | translate}}
+					</ion-label>
+				</ion-item>
+			</ion-card>
+		</div>
+	</div>
+</ion-content>
+<!-- body -->
