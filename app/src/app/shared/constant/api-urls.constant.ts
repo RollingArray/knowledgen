@@ -7,12 +7,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-07-18 21:22:34
+ * Last modified  : 2022-07-26 09:48:20
  */
 
 import { environment } from "../../../environments/environment";
 
-export class ApiUrls {
+export class ApiUrls
+{
 	public static readonly API_ENDPOINT: string = environment.apiEndpoint;
 	public static readonly API_VERSION: string = "v1";
 	public static readonly API_BASE_PATH: string = ApiUrls.API_ENDPOINT + ApiUrls.API_VERSION;
@@ -23,7 +24,7 @@ export class ApiUrls {
 	public static readonly SIGN_UP: string = ApiUrls.API_BASE_PATH + "/user/sign/up";
 	public static readonly USER_ACTIVATE: string = ApiUrls.API_BASE_PATH + "/user/activate";
 	public static readonly USER_ACTIVATE_CODE_RESEND: string = ApiUrls.API_BASE_PATH + "/user/activate/code/resend";
-	
+
 	public static readonly USER_DETAILS: string = ApiUrls.API_BASE_PATH + "/user/details";
 	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/edit";
 
@@ -71,11 +72,13 @@ export class ApiUrls {
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT: string = ApiUrls.COURSE_MATERIAL_TEXT_DOC + "/all";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT_ADD: string = ApiUrls.COURSE_MATERIAL_TEXT_DOC + "/add";
 	public static readonly KNOWLEDGE_BASE_ARTICLE_TEXT_DOCUMENT_EDIT: string = ApiUrls.COURSE_MATERIAL_TEXT_DOC + "/edit";
-	
+
 	public static readonly COURSE_MATERIAL_QUIZ_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/quiz";
 	public static readonly COURSE_MATERIAL_QUIZ: string = ApiUrls.COURSE_MATERIAL_QUIZ_BASE + "/all";
 	public static readonly COURSE_MATERIAL_QUIZ_ADD: string = ApiUrls.COURSE_MATERIAL_QUIZ_BASE + "/add";
 	public static readonly COURSE_MATERIAL_QUIZ_EDIT: string = ApiUrls.COURSE_MATERIAL_QUIZ_BASE + "/edit";
 	public static readonly COURSE_MATERIAL_QUIZ_DELETE: string = ApiUrls.COURSE_MATERIAL_QUIZ_BASE + "/delete";
 
+	public static readonly COURSE_MATERIAL_ASSIGNMENT_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/assignment";
+	public static readonly COURSE_MATERIAL_ASSIGNMENT_RESULT: string = ApiUrls.COURSE_MATERIAL_ASSIGNMENT_BASE + "/result";
 }

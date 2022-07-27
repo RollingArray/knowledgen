@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-06-30 14:53:25
+ * Last modified  : 2022-07-27 15:09:47
  */
 
 
@@ -1184,4 +1184,16 @@ export class ArrayKey {
 		"shell",
 		"neck"
 	];
+
+	/**
+	 * Quiz instructions of array key
+	 */
+	public static readonly QUIZ_INSTRUCTIONS: string[] = [
+		"assignmentInstructions.i1",
+		"assignmentInstructions.i2",
+		"assignmentInstructions.i3",
+		"assignmentInstructions.i4",
+		"assignmentInstructions.i6",
+		"assignmentInstructions.i7",
+	]
 }

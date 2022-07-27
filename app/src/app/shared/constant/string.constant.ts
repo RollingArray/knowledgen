@@ -632,6 +632,7 @@ export class StringKey {
 	public static readonly ICON_SUMMERY: string = StringKey.ICON_BASE_PATH + "summery.svg";
 	public static readonly ICON_SUBMIT: string = StringKey.ICON_BASE_PATH + "submit.svg";
 	public static readonly ICON_REWARD: string = StringKey.ICON_BASE_PATH + "reward.svg";
+	public static readonly ICON_QNA: string = StringKey.ICON_BASE_PATH + "q&a.svg";
 
 	public static readonly ICON_HEADING: string = StringKey.ICON_BASE_PATH + "heading.svg";
 	public static readonly ICON_H1: string = StringKey.ICON_BASE_PATH + "h1.svg";
