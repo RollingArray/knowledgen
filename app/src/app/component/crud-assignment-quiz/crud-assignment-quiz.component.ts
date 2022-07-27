@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-19 21:38:04
+ * Last modified  : 2022-07-27 15:07:30
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -17,8 +17,11 @@ import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
+import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { QuizTypeEnum } from "src/app/shared/enum/quiz-type.enum";
+import { AssignmentTimeModel } from "src/app/shared/model/assignment-time.model";
+import { CourseMaterialAssignmentResultModel } from "src/app/shared/model/course-material-assignment-result.model";
 import { CourseMaterialQuizAnswerModel } from "src/app/shared/model/course-material-quiz-answer.model";
 import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
@@ -27,11 +30,13 @@ import { ModalData } from "src/app/shared/model/modal-data.model";
 import { AlertService } from "src/app/shared/service/alert.service";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { UtilityService } from "src/app/shared/service/utility.service";
+import { CourseMaterialAssignmentStateFacade } from "src/app/state/course-material-assignment/course-material-assignment.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialQuizStateFacade } from "src/app/state/course-material-quiz/course-material-quiz.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
+import { CrudCourseMaterialAssignmentResultComponent } from "../crud-course-material-assignment-result/crud-course-material-assignment-result.component";
 import { CrudQuizQuestionComponent } from "../crud-quiz-question/crud-quiz-question.component";
 
 @Component({
@@ -64,13 +69,26 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	readonly operationsEnum = OperationsEnum;
 
 	/**
+	 * Course material type id enum of crud assignment quiz component
+	 */
+	readonly courseMaterialTypeIdEnum = CourseMaterialTypeIdEnum;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @input & @output Instance variable				|
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Description  of crud assignment quiz component
+	 */
 	@Input() isContentLive = false;
+
+	/**
+	 * Input  of crud assignment quiz component
+	 */
+	@Input() articleCompletionReward = ''; 
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -123,6 +141,21 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	private _totalScore = 0;
 
 	/**
+	 * Quiz session initiated of crud assignment quiz component
+	 */
+	private _assignmentSessionInitiated = false;
+
+	/**
+	 * Quiz session submitted of crud assignment quiz component
+	 */
+	private _assignmentSessionSubmitted = false;
+
+	/**
+	 * Assignment time of crud assignment quiz component
+	 */
+	private _assignmentTime: string;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable						|
@@ -144,6 +177,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 * Determines whether data has
 	 */
 	public hasData$!: Observable<boolean>;
+	
 
 	/**
 	 * -------------------------------------------------|
@@ -206,6 +240,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		let isMaterialOwner = false;
 		this.courseMaterial$.subscribe(data =>
 		{
+
 			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
 			isMaterialOwner = loggedInUser === data.userId ? true : false
 		});
@@ -254,6 +289,27 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	}
 	
 	/**
+	 * Gets quiz session initiated
+	 */
+	get assignmentSessionInitiated()
+	{
+		return this._assignmentSessionInitiated;
+	}
+
+	/**
+	 * Gets quiz session submitted
+	 */
+	get assignmentSessionSubmitted()
+	{
+		return this._assignmentSessionSubmitted;
+	}
+
+	get assignmentTime()
+	{
+		return this._assignmentTime;
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Life cycle hook									|
@@ -278,6 +334,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialQuizStateFacade: CourseMaterialQuizStateFacade,
+		private courseMaterialAssignmentStateFacade: CourseMaterialAssignmentStateFacade,
 		private cookieService: CookieService,
 		private utilityService: UtilityService
 	)
@@ -304,6 +361,8 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 				.pipe(takeUntil(this.unsubscribe))
 				.subscribe(_selectedMenu =>
 				{
+					this._assignmentSessionInitiated = false;
+					this._assignmentSessionSubmitted = false;
 					this._selectedMenu = _selectedMenu;
 					this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._selectedMenu.courseMaterialId);
 					this.courseMaterialQuiz$ = this.courseMaterialQuizStateFacade.allCourseMaterialQuizByArticleId$(this._selectedMenu.articleId);
@@ -511,7 +570,52 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 				eachCourseMaterialQuiz.isCorrectAnswerMapped = false;
 			}
 		});
+
+		// 
+		
 	}
+
+	/**
+	 * Adds new assignment result
+	 */
+	public async addNewAssignmentResult()
+	 {
+		 const assignmentReward = parseInt(((this._totalScore / this._courseMaterialQuiz.length) * parseInt(this.articleCompletionReward)).toFixed(2));
+		 const courseMaterialAssignmentResultModel: CourseMaterialAssignmentResultModel = {
+			 articleId: this._selectedMenu.articleId,
+			 articleAssignmentCompletionTime: this._assignmentTime,
+			 articleAssignmentCompletionReward: assignmentReward,
+			 articleAssignmentTotalNoOfQuestions: this._courseMaterialQuiz.length,
+			 articleAssignmentTotalNoOfCorrectAnswers: this._totalScore,
+			 operationType: OperationsEnum.CREATE
+		 }
+	 
+		 this.courseMaterialAssignmentStateFacade.actUponCourseMaterialAssignment(courseMaterialAssignmentResultModel, OperationsEnum.CREATE);
+ 
+		 this.courseMaterialAssignmentStateFacade.operationCourseMaterialAssignment$.subscribe(
+			data =>
+			{ 
+				console.log(data);
+				
+			}
+		);
+	 }
+	
+	 /**
+	  * Opens crud assignment result
+	  */
+	 private async openCrudAssignmentResult()
+	 {
+		 const modal = await this.modalController.create({
+			 component: CrudCourseMaterialAssignmentResultComponent,
+			 cssClass: 'modal-view',
+			 backdropDismiss: false,
+		 });
+ 
+		 // present modal
+		 await modal.present();
+	 }
+ 
 
 	/**
 	 * -------------------------------------------------|
@@ -575,7 +679,10 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		this.courseMaterialQuizStateFacade.actUponCourseMaterialQuiz(model, OperationsEnum.CREATE);
 	}
 
-	public submitAnswers()
+	/**
+	 * Submits answers
+	 */
+	public submitAnswers(assignmentTime: string)
 	{
 		this.translateService
 			.get([
@@ -596,7 +703,17 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 						{
 							cssClass: 'ok-button ',
 							text: data['option.yes'],
-							handler: (_) => this.checkAnswer()
+							handler: (_) =>
+							{
+								this._assignmentSessionSubmitted = true;
+								this._assignmentSessionInitiated = false;
+								
+								this._assignmentTime = assignmentTime;
+								this.checkAnswer();
+								this.addNewAssignmentResult();
+								this.openCrudAssignmentResult();
+								this.generateQuizForAssignmentSubmission();
+							}
 						},
 						{
 							cssClass: 'cancel-button',
@@ -609,5 +726,21 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			});
 	}
 
+	/**
+	 * Starts quiz
+	 */
+	public startQuiz()
+	{
+		this._assignmentSessionInitiated = true;
+		this._assignmentSessionSubmitted = false; 
+	}
 
+	/**
+	 * Totals quiz session time
+	 * @param assignmentTime 
+	 */
+	// public totalQuizSessionTime(assignmentTime: string)
+	// {
+		
+	// }
 }

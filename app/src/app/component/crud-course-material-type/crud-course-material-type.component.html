@@ -85,7 +85,7 @@
 					<!-- content type -->
 
 					<!-- content duration -->
-					<ion-card color="secondary">
+					<ion-card color="secondary" *ngIf="ifTimeRewardVisible">
 						<ion-item color="secondary" lines="none">
 							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
 							<p>{{ 'formInfo.contentDuration' | translate }}</p>
@@ -102,7 +102,7 @@
 					<!-- content duration -->
 
 					<!-- content reward -->
-					<ion-card color="secondary">
+					<ion-card color="secondary" *ngIf="ifTimeRewardVisible">
 						<ion-item color="secondary" lines="none">
 							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
 							<p>{{ 'formInfo.contentReward' | translate }}</p>

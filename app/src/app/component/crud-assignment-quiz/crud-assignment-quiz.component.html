@@ -7,9 +7,10 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-20 09:21:55
+ * Last modified  : 2022-07-27 18:52:59
  */
 -->
+
 <!-- article owner toolbar -->
 <div *ngIf="this.courseMaterial$ | async">
 	<!-- add new question -->
@@ -19,14 +20,6 @@
 		</ion-fab-button>
 	</ion-fab>
 	<!-- add new question -->
-
-	<!-- submit answer -->
-	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="!isMaterialOwner && isContentLive">
-		<ion-fab-button color="tertiary" (click)="submitAnswers()">
-			<ion-icon [src]="stringKey.ICON_SUBMIT"></ion-icon>
-		</ion-fab-button>
-	</ion-fab>
-	<!-- submit answer -->
 
 	<!-- no data -->
 	<app-no-data [courseMaterial]="true" *ngIf="!(hasData$ | async)" [text]="'noData.noQuestion' | translate">
@@ -47,12 +40,24 @@
 	</ion-card>
 	<!-- content not live message -->
 
+	
+	<!-- number of questions -->
+	<assignment-instructions
+		*ngIf="(hasData$ | async)"
+		[isMaterialOwner]= "isMaterialOwner"
+		[isContentLive]= "isContentLive"
+		[courseMaterialTypeId]="courseMaterialTypeIdEnum.QUIZ"
+		[noOfQuestions] = "(courseMaterialQuiz$ | async).length"
+		(startAssignmentEvent)="startQuiz()"
+		(submitAssignmentEvent) = "submitAnswers($event)"
+	>
+	</assignment-instructions>
+	<!-- number of questions -->
+
 	<!-- data container for material owner -->
 	<ion-grid *ngIf="(hasData$ | async) && isMaterialOwner">
 		<ion-row>
 			<ion-col size="12" *ngFor="let eachQuiz of courseMaterialQuiz$ | async">
-				<!-- each container -->
-
 				<!-- each question -->
 				<ion-card>
 					<ion-card-header>
@@ -93,14 +98,8 @@
 	</ion-grid>
 	<!-- data container for material owner -->
 
-	<!-- score -->
-	<ion-card *ngIf="!isMaterialOwner && isContentLive && submittedAnswer">
-		{{ totalScore }} / {{ courseMaterialQuiz.length }}
-	</ion-card>
-	<!-- score -->
-
 	<!-- data container for material visiter -->
-	<ion-grid *ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive">
+	<ion-grid *ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive && assignmentSessionInitiated">
 		<ion-row>
 			<ion-col size="12" *ngFor="let eachQuiz of courseMaterialQuiz">
 				<!-- each question -->

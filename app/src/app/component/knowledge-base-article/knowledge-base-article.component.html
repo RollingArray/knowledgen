@@ -7,14 +7,16 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-19 15:02:21
+ * Last modified  : 2022-07-27 13:45:49
  */
  -->
 
 <ion-content>
 	<!-- article title -->
-	<div class="article-title"
-		*ngIf="(selectedMenuArticle$ | async).articleId && articleTitle !== 'noData.contentDeleted'">
+	<div class="article-title" *ngIf="
+      (selectedMenuArticle$ | async).articleId &&
+      articleTitle !== 'noData.contentDeleted'
+    ">
 		<ion-item>
 			<ion-thumbnail slot="start">
 				<ion-icon [src]="getMenuIcon((selectedMenuArticle$ | async).courseMaterialType)"
@@ -27,16 +29,18 @@
 	<!-- article title -->
 
 	<!-- live / preview -->
-	<ion-card *ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner"
-		[color]="visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'">
+	<ion-card *ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner" [color]="
+      visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'
+    ">
 		<ion-card-content>
 			<ion-item lines="none" color="none">
 				<p>
-					{{visibilityInfo | translate}}
+					{{ visibilityInfo | translate }}
 				</p>
-				<ion-button slot="end" color="danger" (click)="changeVisibility()"
-					*ngIf="visibilityInfo !== 'formInfo.visibilityLiveNoChange' ? true : false">
-					{{'button.changeVisibility' | translate}}
+				<ion-button slot="end" color="danger" (click)="changeVisibility()" *ngIf="
+            visibilityInfo !== 'formInfo.visibilityLiveNoChange' ? true : false
+          ">
+					{{ "button.changeVisibility" | translate }}
 				</ion-button>
 			</ion-item>
 		</ion-card-content>
@@ -44,8 +48,11 @@
 	<!-- live / preview -->
 
 	<div *ngIf="(selectedMenuArticle$ | async).articleId">
-		<!-- quiz parameters -->
-		<ion-card>
+		<!-- time & reward -->
+		<ion-card *ngIf="
+        courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
+        courseMaterialType === courseMaterialTypeIdEnum.DC
+      ">
 			<ion-grid>
 				<ion-row>
 					<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
@@ -58,16 +65,16 @@
 												<ion-icon color="primary" [src]="stringKey.ICON_TIME"></ion-icon>
 												<br />
 												<ion-label color="primary" class="text-center">
-													{{'pageTitle.duration' | translate}} -
-													{{articleCompletionTime}}&nbsp;
-													{{'formInfo.minute' | translate}}
+													{{ "pageTitle.duration" | translate }} -
+													{{ articleCompletionTime }}&nbsp;
+													{{ "formInfo.minute" | translate }}
 												</ion-label>
 											</b>
 										</h1>
 									</ion-card-header>
 
 									<ion-card-content class="text-center">
-										{{'formInfo.articleDuration' | translate}}
+										{{ "formInfo.articleDuration" | translate }}
 									</ion-card-content>
 								</ion-col>
 							</ion-row>
@@ -83,16 +90,16 @@
 												<ion-icon color="primary" [src]="stringKey.ICON_REWARD"></ion-icon>
 												<br />
 												<ion-label color="primary" class="text-center">
-													{{'pageTitle.reward' | translate}} -
-													{{articleCompletionReward}}&nbsp;
-													{{'formInfo.point' | translate}}
+													{{ "pageTitle.reward" | translate }} -
+													{{ articleCompletionReward }}&nbsp;
+													{{ "formInfo.point" | translate }}
 												</ion-label>
 											</b>
 										</h1>
 									</ion-card-header>
 
 									<ion-card-content class="text-center">
-										{{'formInfo.articleReward' | translate}}
+										{{ "formInfo.articleReward" | translate }}
 									</ion-card-content>
 								</ion-col>
 							</ion-row>
@@ -101,7 +108,7 @@
 				</ion-row>
 			</ion-grid>
 		</ion-card>
-		<!-- quiz parameters -->
+		<!-- time & reward -->
 
 		<!-- crud-text-document -->
 		<crud-text-document [isContentLive]="isContentLive" *ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD">
@@ -109,9 +116,8 @@
 		<!-- crud-text-document -->
 
 		<!-- crud-assignment-quiz -->
-		<crud-assignment-quiz [isContentLive]="isContentLive"
+		<crud-assignment-quiz [articleCompletionReward]="articleCompletionReward" [isContentLive]="isContentLive"
 			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ"></crud-assignment-quiz>
 		<!-- crud-assignment-quiz -->
 	</div>
-
 </ion-content>

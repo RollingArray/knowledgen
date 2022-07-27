@@ -130,9 +130,29 @@ export class CrudCourseMaterialTypeComponent
 	 * Gets description
 	 */
 	get courseMaterialTypeId()
-	 {
-		 return this._courseMaterialTypeId;
-	 }
+	{
+		return this._courseMaterialTypeId;
+	}
+
+	/**
+	 * Gets if time reward visible
+	 */
+	get ifTimeRewardVisible()
+	{
+		if (
+			this._courseMaterialTypeId === CourseMaterialTypeIdEnum.QUIZ ||
+			this._courseMaterialTypeId === CourseMaterialTypeIdEnum.DC ||
+			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.QUIZ ||
+			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.DC
+		)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	/**
 	 * Gets operation type
@@ -304,6 +324,28 @@ export class CrudCourseMaterialTypeComponent
 				 break;
 			 case MenuTypeEnum.SUB_CHILD_MENU:
 				return this._subChildMenuModel.articleTitle;
+				 break;
+ 
+			 default:
+				 break;
+		 }
+	}
+
+	/**
+	 * Gets course material type id from model
+	 */
+	get courseMaterialTypeIdFromModel()
+	 {
+		 switch (this._menuType)
+		 {
+			 case MenuTypeEnum.PARENT_MENU:
+				 return this._parentMenuModel.courseMaterialTypeId;
+				 break;
+			 case MenuTypeEnum.CHILD_MENU:
+				return this._childMenuModel.courseMaterialTypeId;
+				 break;
+			 case MenuTypeEnum.SUB_CHILD_MENU:
+				return this._subChildMenuModel.courseMaterialTypeId;
 				 break;
  
 			 default:
