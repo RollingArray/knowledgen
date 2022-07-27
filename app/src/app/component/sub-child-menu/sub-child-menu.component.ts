@@ -193,8 +193,8 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 			subChildArticleOrder: totalNumberOfSubChildMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
-			articleCompletionReward: 0,
-			articleCompletionTime: 0,
+			articleCompletionReward: 10,
+			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE
 		}
 
