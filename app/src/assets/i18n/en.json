@@ -22,19 +22,21 @@
 		"addChildMenu": "Add Topic [Level 2]",
 		"addMenu": "Add Topic [Level 1]",
 		"haveAccount": "Already have an account?",
-		"lostCode" : "Lost verification code",
+		"lostCode": "Lost verification code",
 		"resend": "Resend",
 		"activate": "Activate",
-		"enrollMentor":"Enroll As Mentor",
-		"enrollMentee":"Enroll As Mentee",
-		"changeVisibility": "Change Visibility"
-
+		"enrollMentor": "Enroll As Mentor",
+		"enrollMentee": "Enroll As Mentee",
+		"changeVisibility": "Change Visibility",
+		"start": "Start",
+		"submit": "Submit",
+		"assignment": "Assignment"
 	},
 	"pageTitle": {
-		"profile":"Profile",
+		"profile": "Profile",
 		"myProfile": "My Profile",
-		"mySpace":"My Space",
-		"settings":"Settings",
+		"mySpace": "My Space",
+		"settings": "Settings",
 		"selectlanguage": "Change Language",
 		"selectLanguage": "Select your preferred Language",
 		"addCourse": "Add New Course Material",
@@ -59,7 +61,7 @@
 		"schedule": "Schedule",
 		"meet": "Online Meet Url",
 		"no": "No",
-		"interest":"Interest",
+		"interest": "Interest",
 		"education": "Education",
 		"accVerification": "Account Verification",
 		"addContent": "Add Content",
@@ -72,7 +74,12 @@
 		"editQuestion": "Edit Question",
 		"deleteQuestion": "Delete Question",
 		"duration": "Duration",
-		"reward": "Reward"
+		"reward": "Reward",
+		"assignmentResult": "Assignment Result",
+		"resultTop": "Congratulation !! you nailed it",
+		"resultMid": "Congratulation !! you are almost there",
+		"resultLow": "Do more practice !! Way to go ",
+		"youScore": "You have scored"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -90,7 +97,7 @@
 		"availableMentorSession": "Based on your requirement and availability, below session are found",
 		"signInInfo": "Provide your email address you have used while creating the account, and we will send you a verification code in your email. Use the code to sign in",
 		"accVerification": "We have send you a verification code in your registered email. Use the code to verify your account",
-		"signUp":"Provide details to create your free account",
+		"signUp": "Provide details to create your free account",
 		"addCourseMenu": "Provide the content title and select the content type of the course material. Save the changes once you are satisfied with the content",
 		"editCourseMenu": "Provide updated details of the title. Save the changes once you are satisfied with the content",
 		"deleteCourseMenu": "Deleting menu",
@@ -98,9 +105,8 @@
 		"addQuestion": "Provide details of the question and choose answer types to create a new question. Save the changes once you are satisfied with the content",
 		"editQuestion": "Provide updated details of the question. Save the changes once you are satisfied with the content",
 		"deleteQuestion": "Deleting question"
-		
 	},
-	"formInfo":{
+	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
 		"yourCred": "Your credential, you use this email to sign in",
 		"firstName": "First Name",
@@ -120,7 +126,7 @@
 		"yourEmail": "Provide your registered email",
 		"placeholderEmail": "your.email@domain.com",
 		"accVerification": "Provide the verification code you have received in your email",
-		"veriCode" : "Account Verification Code",
+		"veriCode": "Account Verification Code",
 		"placeholderCode": "A2Za2z09",
 		"articleTitle": "Provide a suitable title to the course menu",
 		"contentType": "Select what type of content you want to create",
@@ -133,14 +139,22 @@
 		"visibilityLive": "This content is currently in live mode and visible to public. To update the content, change visibility to preview",
 		"visibilityPreview": "This content is currently in preview mode and visible to private. Any changes to the content can be made",
 		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further",
-		"contentDuration": "Select the duration (in minute) to complete the content",
-		"contentReward": "Select the reward after successfully completing the content",
-		"minute": "minutes",
-		"point": "points",
+		"contentDuration": "Select the duration (in minute) to complete the assignment",
+		"contentReward": "Select the reward after successfully completing the assignment",
+		"minute": "min",
+		"hour": "hr",
+		"second": "sec",
+		"millisecond": "ms",
+		"point": "point(s)",
 		"articleDuration": "Total duration to complete the content",
-		"articleReward": "Total reward to earn after successfully completing the content"
+		"articleReward": "Total reward to earn after successfully completing the content",
+		"questions": "Question(s)",
+		"outOf": "Out Of",
+		"earned": "You have earned",
+		"took": "You took",
+		"completeAssignment": "to complete the assignment"
 	},
-	"courseMaterialType":{
+	"courseMaterialType": {
 		"textDocument": "Text Document",
 		"quiz": "Quiz",
 		"crossword": "Crossword",
@@ -156,11 +170,11 @@
 		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",
 		"noRecommendedCourseMaterialData": "We have not found any course material based on interest. Keep the interest updated to get relevant recommendations !! ",
 		"noAvailabilityPlannerData": "No schedules found, plan a new schedule !!",
-		"noTopic" : "No Topic has been found. Create your first topic !!",
-		"noContent" : "No Content has been found. Add your Content !!",
-		"contentDeleted" : "This content has been removed !!",
-		"noQuestion" : "No question has been found. Add your question !!",
-		"availableSoonContent" : "The content will be available soon !!"
+		"noTopic": "No Topic has been found. Create your first topic !!",
+		"noContent": "No Content has been found. Add your Content !!",
+		"contentDeleted": "This content has been removed !!",
+		"noQuestion": "No question has been found. Add your question !!",
+		"availableSoonContent": "The content will be available soon !!"
 	},
 	"loading": {
 		"wait": "Loading ... Please wait",
@@ -168,25 +182,26 @@
 		"signIngIn": "Signing In  .. Please Wait",
 		"signIngUp": "Signing Up  .. Please Wait",
 		"holdTight": "Hold tight, we are looking for your data",
-		"newCourseMaterial" : "Adding New Course Material ... Please wait" ,
-		"editCourseMaterial" : "Updating Course Material ... Please wait" ,
-		"deleteCourseMaterial" : "Deleting Course Material ... Please wait",
-		"newAvailabilityPlanner" : "Adding New Schedule ... Please wait" ,
-		"editAvailabilityPlanner" : "Updating Schedule ... Please wait" ,
-		"deleteAvailabilityPlanner" : "Deleting Schedule ... Please wait",
-		"settingContent" : "Setting Content ... Please wait",
-		"deletingContent" : "Deleting Content ... Please wait",
-		"newCourseMaterialMenu" : "Adding New Course Material Menu ... Please wait" ,
-		"editCourseMaterialMenu" : "Updating Course Material Menu ... Please wait" ,
-		"deleteCourseMaterialMenu" : "Deleting Course Material Menu ... Please wait",
+		"newCourseMaterial": "Adding New Course Material ... Please wait",
+		"editCourseMaterial": "Updating Course Material ... Please wait",
+		"deleteCourseMaterial": "Deleting Course Material ... Please wait",
+		"newAvailabilityPlanner": "Adding New Schedule ... Please wait",
+		"editAvailabilityPlanner": "Updating Schedule ... Please wait",
+		"deleteAvailabilityPlanner": "Deleting Schedule ... Please wait",
+		"settingContent": "Setting Content ... Please wait",
+		"deletingContent": "Deleting Content ... Please wait",
+		"newCourseMaterialMenu": "Adding New Course Material Menu ... Please wait",
+		"editCourseMaterialMenu": "Updating Course Material Menu ... Please wait",
+		"deleteCourseMaterialMenu": "Deleting Course Material Menu ... Please wait",
 		"uploading": "Uploading ... Please wait",
-		"newQuestion" : "Adding New Question ... Please wait" ,
-		"editQuestion" : "Updating Question ... Please wait" ,
-		"deleteQuestion" : "Deleting Question ... Please wait",
-		"editQuizParameters" : "Updating Quiz Parameters ... Please wait" ,
-		"changeVisibility" : "Changing Visibility ... Please wait"
+		"newQuestion": "Adding New Question ... Please wait",
+		"editQuestion": "Updating Question ... Please wait",
+		"deleteQuestion": "Deleting Question ... Please wait",
+		"editQuizParameters": "Updating Quiz Parameters ... Please wait",
+		"changeVisibility": "Changing Visibility ... Please wait",
+		"holdTightResult": "Hold tight, we are looking for your result"
 	},
-	"errorMessage":{
+	"errorMessage": {
 		"notAllowed": "Review Your Action !!",
 		"mandatory": "All fields are mandatory",
 		"email": "Should be a valid email",
@@ -205,28 +220,27 @@
 		"changeVisibilityAssignment": "Are you sure you want to change the visibility of the content, you will not be able to edit the content once its Live",
 		"answerSubmit": "Are you sure you want to submit the answer"
 	},
-	"response":{
-		"newCourseMaterial" : "Your Course Material has been saved, you can update any time!!",
-		"editCourseMaterial" : "Your Course Material has been updated successfully!!",
-		"deleteCourseMaterial" : "Your Course Material has been deleted successfully!!",
+	"response": {
+		"newCourseMaterial": "Your Course Material has been saved, you can update any time!!",
+		"editCourseMaterial": "Your Course Material has been updated successfully!!",
+		"deleteCourseMaterial": "Your Course Material has been deleted successfully!!",
 		"feedbackSubmitted": "Thank you for taking time to share your feedback!!",
-		"teacherNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentee who would like to join your session",
-		"studentNewAvailabilityPlanner" : "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
-		"editAvailabilityPlanner" : "Your Schedule has been updated successfully!!",
-		"deleteAvailabilityPlanner" : "Your Schedule has been deleted successfully!!",
-		"settingContent" : "Content saved successfully!!",
-		"deletingContent" : "Content deleted successfully",
-		"newCourseMaterialMenu" : "Your Course Material Menu has been saved. Its time to add content to it!!",
-		"editCourseMaterialMenu" : "Your Course Material Menu has been updated successfully!!",
-		"deleteCourseMaterialMenu" : "Your Course Material Menu has been deleted successfully!!",
-		"newQuestion" : "Question has been saved, you can update any time until live!!",
-		"editQuestion" : "Question has been updated successfully!!",
-		"deleteQuestion" : "Question has been deleted successfully!!",
-		"changeVisibility" : "Content visibility changed  successfully!!"
+		"teacherNewAvailabilityPlanner": "Your Schedule has been saved, you can update any time!!. We will look for any Mentee who would like to join your session",
+		"studentNewAvailabilityPlanner": "Your Schedule has been saved, you can update any time!!. We will look for any Mentor who would like help you in you mentorship needs",
+		"editAvailabilityPlanner": "Your Schedule has been updated successfully!!",
+		"deleteAvailabilityPlanner": "Your Schedule has been deleted successfully!!",
+		"settingContent": "Content saved successfully!!",
+		"deletingContent": "Content deleted successfully",
+		"newCourseMaterialMenu": "Your Course Material Menu has been saved. Its time to add content to it!!",
+		"editCourseMaterialMenu": "Your Course Material Menu has been updated successfully!!",
+		"deleteCourseMaterialMenu": "Your Course Material Menu has been deleted successfully!!",
+		"newQuestion": "Question has been saved, you can update any time until live!!",
+		"editQuestion": "Question has been updated successfully!!",
+		"deleteQuestion": "Question has been deleted successfully!!",
+		"changeVisibility": "Content visibility changed  successfully!!"
 	},
-	
-	"validation" : {
-		"required" : "Please provide the details"
+	"validation": {
+		"required": "Please provide the details"
 	},
 	"categoryModal": {
 		"addTitle": "Add New Category",
@@ -242,5 +256,13 @@
 		"ok": "Ok",
 		"done": "Done",
 		"cancel": "Cancel"
+	},
+	"assignmentInstructions": {
+		"i1": "Tap on <b>Start Assignment</b> when you are ready to take the assignment",
+		"i2": "The <b>Timer</b> will start as soon as the assignment starts",
+		"i3": "<b>Points<b> are equally devided accross questions based on <b>Total Reward<b>",
+		"i4": "<b>No</b> negative marking",
+		"i5": "Tap on <b>Options<b> to select the correct answer",
+		"i6": "Tap on <b>Submit Assignment</b> when you are ready with your answers"
 	}
 }
