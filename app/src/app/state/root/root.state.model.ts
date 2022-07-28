@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:40:25 
- * Last modified  : 2022-01-14 18:40:25 
+ * Last modified  : 2022-07-27 19:19:32
  */
 
 import { LANGUAGE_CODE } from "@angular/fire/compat/auth";
@@ -22,7 +22,8 @@ export interface RootStateModel {
 	loadingIndicatorStatus: boolean;
 	preferredLanguage: string,
 	userLoggedInStatus: OperationsEnum,
-	loggedInUser: UserModel
+	loggedInUser: UserModel,
+	studyTimerStatus: OperationsEnum
 }
 
 /**
@@ -32,5 +33,6 @@ export const INITIAL_ROOT_STATE: RootStateModel = {
 	loadingIndicatorStatus: false,
 	preferredLanguage: ArrayKey.LANGUAGES[0].code,
 	userLoggedInStatus: OperationsEnum.NOT_LOGGED_IN,
-	loggedInUser: {}
+	loggedInUser: {},
+	studyTimerStatus: OperationsEnum.END
 };

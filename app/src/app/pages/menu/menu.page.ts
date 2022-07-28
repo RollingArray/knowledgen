@@ -7,11 +7,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-01-26 23:13:14
+ * Last modified  : 2022-07-27 21:53:47
  */
 
 
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
@@ -34,6 +34,11 @@ import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
+import { Alert } from 'selenium-webdriver';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from 'src/app/shared/service/alert.service';
 
 @Component({
 	selector: "app-menu",
@@ -86,7 +91,7 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * Load route of menu page
 	 */
 	private _loadRoute: boolean = true;
-	
+
 	/**
 	 * Gets logged in user
 	 */
@@ -160,19 +165,19 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	}
 
 	get userType()
-	 {
-		 return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	 }
-	
-	 get isUserTypeTeacher()
-	 {
-		 return this.userType === UserTypeEnum.Teacher ? true : false;
-	 }
- 
-	 get isUserTypeStudent()
-	 {
-		 return this.userType === UserTypeEnum.Student ? true : false;
-	 }
+	{
+		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+	}
+
+	get isUserTypeTeacher()
+	{
+		return this.userType === UserTypeEnum.Teacher ? true : false;
+	}
+
+	get isUserTypeStudent()
+	{
+		return this.userType === UserTypeEnum.Student ? true : false;
+	}
 
 	/**
 	 * App environment of learn more component
@@ -183,11 +188,11 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * App version of learn more component
 	 */
 	readonly appVersion = environment.version;
-	
+
 	/**
 	 * User type enum of menu page
 	 */
-	readonly userTypeEnum =  UserTypeEnum;
+	readonly userTypeEnum = UserTypeEnum;
 	/**
 	 * Creates an instance of menu page.
 	 * @param injector 
@@ -206,13 +211,17 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		private dataCommunicationService: DataCommunicationService,
 		private userService: UserService,
 		private updateCheckerService: UpdateCheckerService,
-		private cookieService: CookieService
+		private cookieService: CookieService,
+		private rootStateFacade: RootStateFacade,
+		private translateService: TranslateService,
+		private alertService: AlertService
 	)
 	{
+
 		super(injector);
 
 	}
-	
+
 	/**
 	 * Registers back button
 	 */
@@ -266,10 +275,11 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	/**
 	 * Loads data
 	 */
-	 async loadData() {
+	async loadData()
+	{
 		//this.loadingService.present(`${StringKey.API_REQUEST_MESSAGE_1}`);
-	 }
-	
+	}
+
 	/**
 	 * Passed project id
 	 */
@@ -416,6 +426,34 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	async gotoPage(routeChildrenModel: RouteChildrenModel)
 	{
 
+		this.rootStateFacade.studyTimerStatus$.subscribe(
+			studyTimerStatus =>
+			{
+				if (studyTimerStatus === OperationsEnum.END)
+				{
+					this.routePage(routeChildrenModel);
+				}
+				else
+				{
+					this.translateService
+						.get('actionAlert.ongoingActivity')
+						.pipe(take(1))
+						.subscribe(async data =>
+						{
+
+							await this.alertService.presentBasicAlert(data);
+						});
+				}
+			}
+		)
+	}
+
+	/**
+	 * Routes page
+	 * @param routeChildrenModel 
+	 */
+	private routePage(routeChildrenModel: RouteChildrenModel)
+	{
 		let constructUrl = [];
 
 		constructUrl.push('go');
@@ -427,14 +465,19 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		this.router.navigate(constructUrl);
 	}
 
+	/**
+	 * Goto action
+	 * @param routeChildrenModel 
+	 */
 	async gotoAction(routeChildrenModel: RouteChildrenModel)
 	{
 
-		switch (routeChildrenModel.action) {
+		switch (routeChildrenModel.action)
+		{
 			case 'changeLanguage':
 				this.changeLanguage();
 				break;
-		
+
 			default:
 				break;
 		}
@@ -444,38 +487,39 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * Learns more
 	 * @returns  
 	 */
-	 public async learnMore()
-	 {
-		 const modal = await this.modalController.create({
-			 component: LearnMoreComponent,
-			 componentProps: {
-				 data: {}
-			 }
-		 });
- 
-		 modal.onDidDismiss().then(data =>
-		 {
-			 //
-		 });
- 
-		 return await modal.present();
-	 }
-	
-	 async changeLanguage()
-	 {
-		 const modal = await this.modalController.create({
-			 component: SelectLanguageComponent,
-			 componentProps: {
-				 //
-			 },
-		 });
- 
-		 modal.onDidDismiss().then((data) => {
-			 //if app, initiate push notificaiton
-			 window.location.reload();
-			 
-		 });
- 
-		 return await modal.present();
-	 }
+	public async learnMore()
+	{
+		const modal = await this.modalController.create({
+			component: LearnMoreComponent,
+			componentProps: {
+				data: {}
+			}
+		});
+
+		modal.onDidDismiss().then(data =>
+		{
+			//
+		});
+
+		return await modal.present();
+	}
+
+	async changeLanguage()
+	{
+		const modal = await this.modalController.create({
+			component: SelectLanguageComponent,
+			componentProps: {
+				//
+			},
+		});
+
+		modal.onDidDismiss().then((data) =>
+		{
+			//if app, initiate push notificaiton
+			window.location.reload();
+
+		});
+
+		return await modal.present();
+	}
 }

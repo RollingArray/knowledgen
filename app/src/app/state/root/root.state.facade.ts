@@ -6,11 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:39 
- * Last modified  : 2022-01-14 18:39:39 
+ * Last modified  : 2022-07-27 19:30:33
  */
 
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { ROOT_ACTIONS } from './root.state.actions';
 import { RootStateModel } from './root.state.model';
@@ -44,6 +45,11 @@ export class RootStateFacade {
 	 * Logged in user id$ of root state facade
 	 */
 	loggedInUserId$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUserId);
+
+	/**
+	 * Study timer status$ of root state facade
+	 */
+	studyTimerStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectStudyTimerStatus);
 	
 	/**
 	 * Creates an instance of auth state facade.
@@ -94,6 +100,22 @@ export class RootStateFacade {
 	 */
 	public accountVerification(user: UserModel) {
 		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_ACCOUNT_VERIFICATION({payload: user}));
+	}
+
+	/**
+	 * Starts study timer
+	 * @param operation 
+	 */
+	public startStudyTimer(operation: OperationsEnum) {
+		this.store.dispatch(ROOT_ACTIONS.STUDY_TIMER_START({payload: operation}));
+	}
+
+	/**
+	 * Stops study timer
+	 * @param operation 
+	 */
+	public stopStudyTimer(operation: OperationsEnum) {
+		this.store.dispatch(ROOT_ACTIONS.STUDY_TIMER_STOP({payload: operation}));
 	}
 
 	/**

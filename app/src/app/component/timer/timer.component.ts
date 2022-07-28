@@ -6,11 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-25 19:35:16 
- * Last modified  : 2022-07-27 12:32:06
+ * Last modified  : 2022-07-28 08:42:08
  */
 
 import { Component, OnInit, Output, Injector, EventEmitter, Input } from "@angular/core";
-import { AssignmentTimeModel } from "src/app/shared/model/assignment-time.model";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseViewComponent } from "../base/base-view.component";
 
 @Component({
@@ -131,6 +132,7 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 	 */
 	constructor(
 		injector: Injector,
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);
@@ -224,6 +226,7 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 	 */
 	private startTimer()
 	{
+		this.rootStateFacade.startStudyTimer(OperationsEnum.START);
 		this.timerCycle();
 	}
 
@@ -232,6 +235,7 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 	 */
 	private stopTimer()
 	{
+		this.rootStateFacade.startStudyTimer(OperationsEnum.END);
 		this.timerCycle();
 		const assignmentTime = `${this.format(this._minute)}:${this.format(this._second)}:${this.format(this._millisecond)}`;
 

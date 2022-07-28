@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:13 
- * Last modified  : 2022-01-14 18:41:13 
+ * Last modified  : 2022-07-27 19:26:16
  */
 
 
@@ -69,8 +69,14 @@ const reducer = createReducer(
 		...state,
 		userLoggedInStatus: action.payload
 	 })),
-	 
-	 
+
+	 /**
+	 * Reducer for action - Store study timer status
+	 */
+	 on(ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS, (state, action) => ({
+		...state,
+		studyTimerStatus: action.payload
+	 })),	 
 );
 
 /**

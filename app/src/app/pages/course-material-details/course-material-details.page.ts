@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-07-08 12:42:35
+ * Last modified  : 2022-07-27 21:25:45
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -89,6 +89,14 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	get articleMenuClosed()
 	{
 		return this._articleMenuClosed;
+	}
+
+	/**
+	 * Gets back available
+	 */
+	get backAvailable()
+	{
+		return this.rootStateFacade.studyTimerStatus$;
 	}
 	
 	/**
@@ -207,7 +215,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	public async showMenu()
 	{
 		this._articleMenuClosed = !this._articleMenuClosed;
-	} 
-	
+	} 	
 }
 

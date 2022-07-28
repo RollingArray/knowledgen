@@ -218,7 +218,9 @@
 		"deleteMenu": "All sub menus will be deleted, are you sure you want to Delete",
 		"changeVisibilityGeneral": "Are you sure you want to Change the visibility of the content",
 		"changeVisibilityAssignment": "Are you sure you want to change the visibility of the content, you will not be able to edit the content once its Live",
-		"answerSubmit": "Are you sure you want to submit the answer"
+		"answerSubmit": "Are you sure you want to submit the answer",
+		"activityDetected": "Activity Detected !!",
+		"ongoingActivity": "An activity timer is going on. Complete the activity before navigating away !!"
 	},
 	"response": {
 		"newCourseMaterial": "Your Course Material has been saved, you can update any time!!",

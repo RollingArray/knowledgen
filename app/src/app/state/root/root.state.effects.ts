@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-07-19 15:50:56
+ * Last modified  : 2022-07-27 19:28:19
  */
 
 
@@ -43,7 +43,7 @@ export class RootStateEffects
 		private actions$: Actions,
 		private loadingService: LoadingService,
 		private cookieService: CookieService,
-		private userService: UserService, 
+		private userService: UserService,
 		private rootStateFacade: RootStateFacade,
 		private toastService: ToastService
 	) { }
@@ -156,12 +156,14 @@ export class RootStateEffects
 				),
 				mergeMap(action =>
 					this.userService.resendActivationCode(action.payload).pipe(
-						mergeMap((data) => {
+						mergeMap((data) =>
+						{
 							// stop loader
 							this.rootStateFacade.stopLoading();
 
 							// if success response
-							if (data.success) {
+							if (data.success)
+							{
 
 								this.toastService.presentToast(data.message[0]);
 
@@ -172,14 +174,15 @@ export class RootStateEffects
 								];
 							}
 							// response fail
-							else {
+							else
+							{
 
 								// if error message
 								if (data.message)
 								{
 									data.message.map(eachMessage =>
 									{
-										this.toastService.presentToast(eachMessage);	
+										this.toastService.presentToast(eachMessage);
 									})
 								}
 
@@ -204,14 +207,16 @@ export class RootStateEffects
 				),
 				mergeMap(action =>
 					this.userService.signIn(action.payload).pipe(
-						mergeMap((data) => {
+						mergeMap((data) =>
+						{
 							// stop loader
 							this.rootStateFacade.stopLoading();
 
 							// if success response
-							if (data.success) {
+							if (data.success)
+							{
 
-														
+
 								const userModel: UserModel = {
 									userType: data.data.userType,
 									userId: data.data.userId,
@@ -230,14 +235,15 @@ export class RootStateEffects
 								];
 							}
 							// response fail
-							else {
+							else
+							{
 
 								// if error message
 								if (data.message)
 								{
 									data.message.map(eachMessage =>
 									{
-										this.toastService.presentToast(eachMessage);	
+										this.toastService.presentToast(eachMessage);
 									})
 								}
 
@@ -271,7 +277,7 @@ export class RootStateEffects
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, action.payload.userLastName, path);
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, action.payload.userEmail, path);
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, action.payload.userSkills, path);
-					
+
 					return [
 						ROOT_ACTIONS.NOOP()
 					];
@@ -282,7 +288,7 @@ export class RootStateEffects
 	/**
 	 * Api request sign in$ of root state effects
 	 */
-	 apiRequestSignUp$ = createEffect(
+	apiRequestSignUp$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -290,12 +296,14 @@ export class RootStateEffects
 				),
 				mergeMap(action =>
 					this.userService.signUp(action.payload).pipe(
-						mergeMap((data) => {
+						mergeMap((data) =>
+						{
 							// stop loader
 							this.rootStateFacade.stopLoading();
 
 							// if success response
-							if (data.success) {
+							if (data.success)
+							{
 
 								this.toastService.presentToast(data.message[0]);
 
@@ -306,14 +314,15 @@ export class RootStateEffects
 								];
 							}
 							// response fail
-							else {
+							else
+							{
 
 								// if error message
 								if (data.message)
 								{
 									data.message.map(eachMessage =>
 									{
-										this.toastService.presentToast(eachMessage);	
+										this.toastService.presentToast(eachMessage);
 									})
 								}
 
@@ -324,6 +333,44 @@ export class RootStateEffects
 						catchError(() => EMPTY)
 					),
 				),
+			),
+	);
+
+	/**
+	 * Start study timer$ of root state effects
+	 */
+	startStudyTimer$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.STUDY_TIMER_START
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					return [
+						ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS({ payload: action.payload })
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Stop study timer$ of root state effects
+	 */
+	stopStudyTimer$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.STUDY_TIMER_STOP
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					return [
+						ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS({ payload: action.payload })
+					];
+				}),
 			),
 	);
 }

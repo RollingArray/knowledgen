@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-04-29 11:22:01 
- * Last modified  : 2022-01-14 18:19:20
+ * Last modified  : 2022-07-27 19:18:53
  */
 
 
@@ -22,5 +22,7 @@ export enum OperationsEnum
 	SUCCESS = 'SUCCESS',
 	FAIL = 'FAIL',
 	NONE = 'NONE',
-	REQUEST = 'REQUEST'
+	REQUEST = 'REQUEST',
+	START = 'START',
+	END = 'END'
 }

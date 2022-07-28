@@ -8,7 +8,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-01-26 17:12:45
+ * Last modified  : 2022-07-27 21:25:26
 */	
  -->
 <!-- header -->
@@ -19,7 +19,7 @@
 		<ion-title *ngIf="courseMaterial$ | async">
 			{{(courseMaterial$ | async).courseMaterialName}}
 		</ion-title>
-		<ion-buttons slot="start">
+		<ion-buttons slot="start" *ngIf="(backAvailable | async) === operationsEnum.END">
 			<ion-back-button defaultHref="go/course/material"></ion-back-button>
 		</ion-buttons>
 		<ion-buttons slot="end" (click)="showMenu()"

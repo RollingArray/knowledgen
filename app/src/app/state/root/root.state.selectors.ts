@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-07-05 16:58:53
+ * Last modified  : 2022-07-27 19:39:41
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
@@ -61,6 +61,14 @@ export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = cr
 );
 
 /**
+ * @description Selector - Study timer status
+ */
+ export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): OperationsEnum => rootStateModel.studyTimerStatus
+);
+
+/**
  * export root state query to access all selectors
  */
 export const ROOT_QUERY_SELECTOR = {
@@ -68,5 +76,6 @@ export const ROOT_QUERY_SELECTOR = {
 	selectPreferredLanguage,
 	selectUserLoggedInStatus,
 	selectLoggedInUser,
-	selectLoggedInUserId
+	selectLoggedInUserId,
+	selectStudyTimerStatus
 };

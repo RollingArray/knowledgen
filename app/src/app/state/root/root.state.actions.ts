@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:33:13 
- * Last modified  : 2022-01-14 18:33:13 
+ * Last modified  : 2022-07-27 19:28:31
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -108,8 +108,29 @@ export const STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = createAction(
 	props<{ payload: UserModel }>()
 );
 
+/**
+ * @description Root action - Start Study Timer
+ */
+ export const STUDY_TIMER_START = createAction(
+	RootOperationsEnum.STUDY_TIMER_START,
+	props<{ payload: OperationsEnum }>()
+);
 
- 
+/**
+ * @description Root action - Stop Study Timer
+ */
+ export const STUDY_TIMER_STOP = createAction(
+	RootOperationsEnum.STUDY_TIMER_STOP,
+	props<{ payload: OperationsEnum }>()
+ );
+
+ /**
+ * @description Root action - Store Study Timer Status
+ */
+  export const STORE_STUDY_TIMER_STATUS = createAction(
+	RootOperationsEnum.STORE_STUDY_TIMER_STATUS,
+	props<{ payload: OperationsEnum }>()
+);
 
 /**
  * @description Root action - No Operation
@@ -134,5 +155,8 @@ export const ROOT_ACTIONS = {
 	API_REQUEST_ACCOUNT_VERIFICATION,
 	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE,
 	API_REQUEST_SIGN_UP,
+	STUDY_TIMER_START,
+	STUDY_TIMER_STOP,
+	STORE_STUDY_TIMER_STATUS,
 	NOOP
 };

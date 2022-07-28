@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-01-26 19:41:18
+ * Last modified  : 2022-07-27 21:28:50
  */
 
 import { UserProfileModule } from './../../component/user-profile/user-profile.component.module';
@@ -23,6 +23,7 @@ import { NoDataModule } from 'src/app/component/no-data/no-data.component.module
 import { LearnMoreModule } from 'src/app/component/learn-more/learn-more.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
 import { SelectLanguageModule } from 'src/app/component/select-language/select-language.component.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 const routes: Routes = [
 	{
@@ -52,6 +53,7 @@ const routes: Routes = [
 		LearnMoreModule,
 		I18nModule,
 		SelectLanguageModule,
+		RootStateModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [MenuPage]

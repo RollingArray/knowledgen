@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-05 20:35:16
+ * Last modified  : 2022-07-27 21:54:12
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -32,13 +32,19 @@ import { ParentMenuCrudStateModel } from "./crud/parent-menu-crud/parent-menu-cr
 import { ChildMenuCrudStateModel } from "./crud/child-menu-crud/child-menu-crud.state.model";
 import { CHILD_MENU_CRUD_QUERY_SELECTOR } from "./crud/child-menu-crud/child-menu-crud.state.selectors";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { RootStateFacade } from "../root/root.state.facade";
+import { take } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
+import { AlertController } from "@ionic/angular";
+import { AlertService } from "src/app/shared/service/alert.service";
 
 /**
  * @description Injectable
  */
 @Injectable()
 
-export class CourseMaterialMenuStateFacade {
+export class CourseMaterialMenuStateFacade
+{
 
 	/**
 	 * Creates an instance of course material menu state facade.
@@ -49,15 +55,21 @@ export class CourseMaterialMenuStateFacade {
 	 * @param subChildMenuCrudStore 
 	 * @param parentMenuCrudStore 
 	 * @param childMenuCrudStore 
+	 * @param rootStateFacade 
+	 * @param translateService 
+	 * @param alertController 
 	 */
 	constructor(
-		 private parentMenuStore: Store<ParentMenuStateModel>,
-		 private childMenuStore: Store<ChildMenuStateModel>,
-		 private subChildMenuStore: Store<SubChildMenuStateModel>,
-		 private menuSelectStateModel: Store<MenuSelectStateModel>,
-		 private subChildMenuCrudStore: Store<SubChildMenuCrudStateModel>,
-		 private parentMenuCrudStore: Store<ParentMenuCrudStateModel>,
-		 private childMenuCrudStore: Store<ChildMenuCrudStateModel>,
+		private parentMenuStore: Store<ParentMenuStateModel>,
+		private childMenuStore: Store<ChildMenuStateModel>,
+		private subChildMenuStore: Store<SubChildMenuStateModel>,
+		private menuSelectStateModel: Store<MenuSelectStateModel>,
+		private subChildMenuCrudStore: Store<SubChildMenuCrudStateModel>,
+		private parentMenuCrudStore: Store<ParentMenuCrudStateModel>,
+		private childMenuCrudStore: Store<ChildMenuCrudStateModel>,
+		private rootStateFacade: RootStateFacade,
+		private translateService: TranslateService,
+		private alertService: AlertService
 	) { }
 
 	/**
@@ -89,7 +101,7 @@ export class CourseMaterialMenuStateFacade {
 	 * Selected menu article$ of course material menu state facade
 	 */
 	public selectedMenuArticle$ = this.menuSelectStateModel.select(MENU_SELECT_QUERY_SELECTOR.selectMenuArticle);
-	
+
 	/**
 	 * Operation sub child menu$ of course material menu state facade
 	 */
@@ -118,7 +130,7 @@ export class CourseMaterialMenuStateFacade {
 	/**
 	 * Operation parent menu$ of course material menu state facade
 	 */
-	 public operationParentMenu$ = this.parentMenuCrudStore.select(PARENT_MENU_CRUD_QUERY_SELECTOR.selectOperationParentMenu);
+	public operationParentMenu$ = this.parentMenuCrudStore.select(PARENT_MENU_CRUD_QUERY_SELECTOR.selectOperationParentMenu);
 
 	/**
 	 * Parent menu by article id$ of course material menu state facade
@@ -135,117 +147,154 @@ export class CourseMaterialMenuStateFacade {
 	 */
 	public subChildMenuByArticleId$ = (subChildArticleId: string) => this.childMenuStore.select(SUB_CHILD_MENU_QUERY_SELECTOR.selectSubChildMenuById(subChildArticleId));
 
-	 
-	
 	/**
 	 * Requests course material
 	 * @param courseMaterialModel 
 	 */
-	public requestCourseMaterial(courseMaterialModel: CourseMaterialModel) {
-		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_MENU({payload: courseMaterialModel}));
+	public requestCourseMaterial(courseMaterialModel: CourseMaterialModel)
+	{
+		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_MENU({ payload: courseMaterialModel }));
 	}
 
 	/**
 	 * Acts upon parent menu
 	 * @param parentMenuModel 
 	 */
-	public actUponParentMenu(parentMenuModel: ParentMenuModel, operation: OperationsEnum) {
-		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_PARENT_MENU({payload: parentMenuModel, operation: operation}));
+	public actUponParentMenu(parentMenuModel: ParentMenuModel, operation: OperationsEnum)
+	{
+		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_PARENT_MENU({ payload: parentMenuModel, operation: operation }));
 	}
 
 	/**
 	 * Acts upon child menu model
 	 * @param childMenuModel 
 	 */
-	public actUponChildMenu(childMenuModel: ChildMenuModel, operation: OperationsEnum) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_CHILD_MENU({payload: childMenuModel, operation: operation}));
+	public actUponChildMenu(childMenuModel: ChildMenuModel, operation: OperationsEnum)
+	{
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_CHILD_MENU({ payload: childMenuModel, operation: operation }));
 	}
-	
+
 	/**
 	 * Acts upon sub child menu model
 	 * @param subChildMenuModel 
 	 */
-	public actUponSubChildMenu(subChildMenuModel: SubChildMenuModel, operation: OperationsEnum) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_SUB_CHILD_MENU({payload: subChildMenuModel, operation: operation}));
+	public actUponSubChildMenu(subChildMenuModel: SubChildMenuModel, operation: OperationsEnum)
+	{
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.ACT_UPON_SUB_CHILD_MENU({ payload: subChildMenuModel, operation: operation }));
 	}
 
 	/**
 	 * Adds new parent menu
 	 * @param parentMenuModel 
 	 */
-	public addNewParentMenu(parentMenuModel: ParentMenuModel) {
-		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_PARENT_MENU({payload: parentMenuModel}));
+	public addNewParentMenu(parentMenuModel: ParentMenuModel)
+	{
+		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_PARENT_MENU({ payload: parentMenuModel }));
 	}
 
 	/**
 	 * Adds new child menu
 	 * @param childMenuModel 
 	 */
-	public addNewChildMenu(childMenuModel: ChildMenuModel) {
-		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_CHILD_MENU({payload: childMenuModel}));
+	public addNewChildMenu(childMenuModel: ChildMenuModel)
+	{
+		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_CHILD_MENU({ payload: childMenuModel }));
 	}
 
 	/**
 	 * Adds new sub child menu
 	 * @param subChildMenuModel 
 	 */
-	public addNewSubChildMenu(subChildMenuModel: SubChildMenuModel) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_SUB_CHILD_MENU({payload: subChildMenuModel}));
+	public addNewSubChildMenu(subChildMenuModel: SubChildMenuModel)
+	{
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_ADD_NEW_SUB_CHILD_MENU({ payload: subChildMenuModel }));
 	}
 
 	/**
 	 * Edits parent menu
 	 * @param parentMenuModel 
 	 */
-	public editParentMenu(parentMenuModel: ParentMenuModel) {
-		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_PARENT_MENU({payload: parentMenuModel}));
+	public editParentMenu(parentMenuModel: ParentMenuModel)
+	{
+		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_PARENT_MENU({ payload: parentMenuModel }));
 	}
 
 	/**
 	 * Edits child menu
 	 * @param childMenuModel 
 	 */
-	public editChildMenu(childMenuModel: ChildMenuModel) {
-		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_CHILD_MENU({payload: childMenuModel}));
+	public editChildMenu(childMenuModel: ChildMenuModel)
+	{
+		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_CHILD_MENU({ payload: childMenuModel }));
 	}
 
 	/**
 	 * Edits sub child menu
 	 * @param subChildMenuModel 
 	 */
-	public editSubChildMenu(subChildMenuModel: SubChildMenuModel) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_SUB_CHILD_MENU({payload: subChildMenuModel}));
+	public editSubChildMenu(subChildMenuModel: SubChildMenuModel)
+	{
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_EDIT_SUB_CHILD_MENU({ payload: subChildMenuModel }));
 	}
 
 	/**
 	 * Deletes parent menu
 	 * @param parentMenuModel 
 	 */
-	public deleteParentMenu(parentMenuModel: ParentMenuModel) {
-		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_PARENT_MENU({payload: parentMenuModel}));
+	public deleteParentMenu(parentMenuModel: ParentMenuModel)
+	{
+		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_PARENT_MENU({ payload: parentMenuModel }));
 	}
 
 	/**
 	 * Deletes child menu
 	 * @param childMenuModel 
 	 */
-	public deleteChildMenu(childMenuModel: ChildMenuModel) {
-		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_CHILD_MENU({payload: childMenuModel}));
+	public deleteChildMenu(childMenuModel: ChildMenuModel)
+	{
+		this.childMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_CHILD_MENU({ payload: childMenuModel }));
 	}
 
 	/**
 	 * Deletes sub child menu
 	 * @param subChildMenuModel 
 	 */
-	public deleteSubChildMenu(subChildMenuModel: SubChildMenuModel) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_SUB_CHILD_MENU({payload: subChildMenuModel}));
+	public deleteSubChildMenu(subChildMenuModel: SubChildMenuModel)
+	{
+		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_DELETE_SUB_CHILD_MENU({ payload: subChildMenuModel }));
 	}
 
 	/**
 	 * Stores selected menu
 	 * @param articleId 
 	 */
-	public storeSelectedMenu(menuSelectModel: MenuSelectModel) {
-		this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: menuSelectModel}));
+	public storeSelectedMenu(menuSelectModel: MenuSelectModel)
+	{
+		// check if any study activity running
+		this.rootStateFacade
+			.studyTimerStatus$
+			.pipe(take(1))
+			.subscribe(
+				studyTimerStatus =>
+				{
+					// if running, ask if wish to exit
+					if (studyTimerStatus === OperationsEnum.START)
+					{
+						this.translateService
+							.get('actionAlert.ongoingActivity')
+							.pipe(take(1))
+							.subscribe(async data =>
+							{
+
+								await this.alertService.presentBasicAlert(data);
+							});
+					}
+					// pass on
+					else
+					{
+						this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: menuSelectModel }));
+					}
+				}
+			)
 	}
 }
