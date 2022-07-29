@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-27 18:52:59
+ * Last modified  : 2022-07-28 17:52:12
  */
 -->
 
@@ -21,29 +21,27 @@
 	</ion-fab>
 	<!-- add new question -->
 
-	<!-- no data -->
-	<app-no-data [courseMaterial]="true" *ngIf="!(hasData$ | async)" [text]="'noData.noQuestion' | translate">
+	<!-- no content for material owner -->
+	<app-no-data 
+		[courseMaterial]="true" 
+		*ngIf="!(hasData$ | async) && isMaterialOwner" 
+		[text]="'noData.noQuestion' | translate"
+	>
 	</app-no-data>
-	<!-- no data -->
+	<!-- no content for material owner -->
 
-	<!-- content not live message -->
-	<ion-card class="card-no-shadow" *ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && !isContentLive">
-		<p class="text-center">
-			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA"></ion-icon>
-		</p>
-		<ion-text color="dark">
-			<h4 class="text-center">
-				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-				{{ "noData.availableSoonContent" | translate }}
-			</h4>
-		</ion-text>
-	</ion-card>
-	<!-- content not live message -->
-
+	<!-- content not live message for visitor -->
+	<app-no-data 
+		[courseMaterial]="true" 
+		*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && !isContentLive" 
+		[text]="'noData.availableSoonContent' | translate"
+	>
+	</app-no-data>
+	<!-- content not live message for visitor -->
 	
-	<!-- number of questions -->
+	<!-- assignment instructions -->
 	<assignment-instructions
-		*ngIf="(hasData$ | async)"
+		*ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive"
 		[isMaterialOwner]= "isMaterialOwner"
 		[isContentLive]= "isContentLive"
 		[courseMaterialTypeId]="courseMaterialTypeIdEnum.QUIZ"
@@ -52,7 +50,7 @@
 		(submitAssignmentEvent) = "submitAnswers($event)"
 	>
 	</assignment-instructions>
-	<!-- number of questions -->
+	<!-- assignment instructions -->
 
 	<!-- data container for material owner -->
 	<ion-grid *ngIf="(hasData$ | async) && isMaterialOwner">
