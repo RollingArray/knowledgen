@@ -1,0 +1,69 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Assignment properties component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-27 18:49:32 
+ * Last modified  : 2022-07-28 09:49:40
+ */
+-->
+
+<ion-card>
+	<ion-grid>
+		<ion-row>
+			<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+				<ion-grid>
+					<ion-row>
+						<ion-col>
+							<ion-card-header class="text-center">
+								<h1>
+									<b>
+										<ion-icon color="primary" [src]="stringKey.ICON_TIME"></ion-icon>
+										<br />
+										<ion-label color="primary" class="text-center">
+											{{ "pageTitle.duration" | translate }} -
+											{{ articleCompletionTime }}&nbsp;
+											{{ "formInfo.minute" | translate }}
+										</ion-label>
+									</b>
+								</h1>
+							</ion-card-header>
+
+							<ion-card-content class="text-center">
+								{{ "formInfo.articleDuration" | translate }}
+							</ion-card-content>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+			<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+				<ion-grid>
+					<ion-row>
+						<ion-col>
+							<ion-card-header class="text-center">
+								<h1>
+									<b>
+										<ion-icon color="primary" [src]="stringKey.ICON_REWARD"></ion-icon>
+										<br />
+										<ion-label color="primary" class="text-center">
+											{{ "pageTitle.reward" | translate }} -
+											{{ articleCompletionReward }}&nbsp;
+											{{ "formInfo.point" | translate }}
+										</ion-label>
+									</b>
+								</h1>
+							</ion-card-header>
+
+							<ion-card-content class="text-center">
+								{{ "formInfo.articleReward" | translate }}
+							</ion-card-content>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-card>
