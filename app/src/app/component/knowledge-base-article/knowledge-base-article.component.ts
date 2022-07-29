@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-26 22:25:20
+ * Last modified  : 2022-07-28 10:08:47
  */
 
 import { Component, OnInit, Input, ViewChild, ElementRef, Injector } from "@angular/core";
@@ -268,7 +268,6 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-		//this.checkArticleVisibility();
 		this.checkArticleMenuType();
 	}
 
@@ -284,57 +283,57 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 * @param property 
 	 * @returns  
 	 */
-	 private  getSpecificPropertyOfMenu(property: string)
-	 {
-		 let menuProperty = '';
-		 this.selectedMenuArticle$
-			 .pipe(takeUntil(this.unsubscribe))
-			 .subscribe(menuSelect =>
-			 {
-				 switch (menuSelect.menuType)
-				 {
-					 case MenuTypeEnum.PARENT_MENU:
- 
-						 this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
-							 .subscribe((parentMenuModel: ParentMenuModel) =>
-							 {
-								 if (parentMenuModel)
-								 {
+	private getSpecificPropertyOfMenu(property: string)
+	{
+		let menuProperty = '';
+		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+
+						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel)
+								{
 									menuProperty = parentMenuModel[property];
-								 }
-							 });
- 
-						 break;
- 
-					 case MenuTypeEnum.CHILD_MENU:
-						 this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
-							 .subscribe((childMenuModel: ChildMenuModel) =>
-							 {
-								 if (childMenuModel)
-								 {
+								}
+							});
+
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel)
+								{
 									menuProperty = childMenuModel[property];
-								 }
-							 });
-						 break;
-					 case MenuTypeEnum.SUB_CHILD_MENU:
-						 this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
-							 .subscribe((subChildMenuModel: SubChildMenuModel) =>
-							 {
-								 if (subChildMenuModel)
-								 {
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel)
+								{
 									menuProperty = subChildMenuModel[property];
-								 }
-							 });
-						 break;
- 
-					 default:
-						 break;
-				 }
-			 });
- 
-		 return menuProperty;
-	 }
-	
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+			});
+
+		return menuProperty;
+	}
+
 	/**
 	 * Selects article status
 	 * @param articleStatus 
@@ -346,29 +345,12 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 		switch (articleStatus)
 		{
 			case ArticleStatusTypeEnum.LIVE:
-				if (courseMaterialTypeId === CourseMaterialTypeIdEnum.TD)
-				{
-					visibility = 'formInfo.visibilityLive';
-				}
-				else
-				{
-					visibility = 'formInfo.visibilityLiveNoChange';
-
-				}
+				visibility = 'formInfo.visibilityLive';
 
 				break;
 
 			case ArticleStatusTypeEnum.PREVIEW:
-
-				if (courseMaterialTypeId === CourseMaterialTypeIdEnum.TD)
-				{
-					visibility = 'formInfo.visibilityPreview';
-				}
-				else
-				{
-					visibility = 'formInfo.visibilityPreviewNoChange';
-
-				}
+				visibility = 'formInfo.visibilityPreview';
 
 				break;
 
@@ -573,8 +555,8 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 
 	/**
-	 * Gets menu icon
-	 * @param eachMenu 
+	 * Descriptions knowledge base article component
+	 * @param courseMaterialTypeId 
 	 * @returns  
 	 */
 	public getMenuIcon(courseMaterialTypeId: CourseMaterialTypeIdEnum)

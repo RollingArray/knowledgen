@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-13 11:17:13
+ * Last modified  : 2022-07-28 09:50:02
  */
 
 import { NgModule } from '@angular/core';
@@ -19,6 +19,7 @@ import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe
 import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document.module';
 import { CrudAssignmentQuizModule } from '../crud-assignment-quiz/crud-assignment-quiz.module';
 import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
+import { AssignmentPropertiesModule } from '../assignment-properties/assignment-properties.module';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { EditButtonModule } from '../button/edit-button/edit-button.component.mo
 		SanitizedHtmlPipeModule,
 		CrudTextDocumentModule,
 		CrudAssignmentQuizModule,
-		EditButtonModule
+		EditButtonModule,
+		AssignmentPropertiesModule
 	],
 
 	declarations: [KnowledgeBaseArticleComponent],
