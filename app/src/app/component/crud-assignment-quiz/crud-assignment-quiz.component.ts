@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-27 15:07:30
+ * Last modified  : 2022-08-02 20:22:14
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -238,12 +238,17 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(data =>
+			{
 
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+				if (data && data.userId)
+				{
+					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+					isMaterialOwner = loggedInUser === data.userId ? true : false
+				}
+			});
 
 		return isMaterialOwner;
 	}
@@ -591,14 +596,6 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		 }
 	 
 		 this.courseMaterialAssignmentStateFacade.actUponCourseMaterialAssignment(courseMaterialAssignmentResultModel, OperationsEnum.CREATE);
- 
-		 this.courseMaterialAssignmentStateFacade.operationCourseMaterialAssignment$.subscribe(
-			data =>
-			{ 
-				console.log(data);
-				
-			}
-		);
 	 }
 	
 	 /**

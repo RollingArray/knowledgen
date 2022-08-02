@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-02 08:58:52 
- * Last modified  : 2022-08-02 09:03:14
+ * Last modified  : 2022-08-02 20:32:36
  */
 
 import { Component, OnInit, Injector } from "@angular/core";
@@ -19,6 +19,7 @@ import { BaseFormComponent } from "../base/base-form.component";
 import { CourseMaterialAssignmentStateFacade } from 'src/app/state/course-material-assignment/course-material-assignment.state.facade';
 import { CourseMaterialAssignmentLeaderBoardModel } from "src/app/shared/model/course-material-assignment-leader-board.model";
 import { CourseMaterialAssignmentResultModel } from "src/app/shared/model/course-material-assignment-result.model";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
 	selector: 'course-material-assignment-leader-board',
@@ -87,12 +88,17 @@ export class CourseMaterialAssignmentLeaderBoardComponent extends BaseFormCompon
 		super(injector);
 
 		// get act upon curd model from store
-		this.courseMaterialAssignmentStateFacade.operationCourseMaterialAssignment$.subscribe(
+		this.courseMaterialAssignmentStateFacade
+			.operationCourseMaterialAssignment$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
 			data =>
 			{
-				this.sortRewardByDescendingOrder(data);
-			}
-		);
+				if (data.assignmentLeaderBoard)
+				{
+					this.sortRewardByDescendingOrder(data);	
+				}
+			});
 	}
 
 	/**
@@ -116,15 +122,12 @@ export class CourseMaterialAssignmentLeaderBoardComponent extends BaseFormCompon
 	 */
 	 private sortRewardByDescendingOrder(data: CourseMaterialAssignmentResultModel)
 	 {
-		 if (data.assignmentLeaderBoard.data.length > 0)
-		 {
-			 let leaderBoard = data.assignmentLeaderBoard.data;
+		let leaderBoard = data.assignmentLeaderBoard.data;
  
-			 this._courseMaterialAssignmentLeaderBoard = [...leaderBoard].sort(function (a, b)
-			 {
-				 return b.articleAssignmentCompletionReward - a.articleAssignmentCompletionReward;
-			 });
-		 }
+		this._courseMaterialAssignmentLeaderBoard = [...leaderBoard].sort(function (a, b)
+		{
+			return b.articleAssignmentCompletionReward - a.articleAssignmentCompletionReward;
+		});
 	 }
 
 	/**

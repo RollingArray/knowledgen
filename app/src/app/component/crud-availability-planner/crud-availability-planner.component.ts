@@ -264,9 +264,12 @@ export class CrudAvailabilityPlannerComponent extends BaseFormComponent implemen
 		super(injector);
 
 		// get act upon curd model from store
-		this.availabilityPlannerStateFacade.operationAvailabilityPlanner$.subscribe(
-			data => this._availabilityPlanner = data
-		);
+		this.availabilityPlannerStateFacade
+			.operationAvailabilityPlanner$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
+				data => this._availabilityPlanner = data
+			);
 
 		// build form
 		this.buildFrom();

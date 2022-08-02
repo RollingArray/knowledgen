@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-07-18 19:45:59
+ * Last modified  : 2022-08-02 20:26:27
  */ 
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -102,11 +102,16 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(data =>
+			{
+				if (data && data.userId)
+				{
+					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+					isMaterialOwner = loggedInUser === data.userId ? true : false
+				}
+			});
 
 		return isMaterialOwner;
 	}

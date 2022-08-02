@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-25 19:35:16 
- * Last modified  : 2022-07-28 08:42:08
+ * Last modified  : 2022-08-02 20:19:46
  */
 
 import { Component, OnInit, Output, Injector, EventEmitter, Input } from "@angular/core";
@@ -143,7 +143,6 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 	 */
 	ngOnInit()
 	{
-		console.log(this.timerStarted, this.timerEnded);
 		if (this.timerStarted && !this.timerEnded)
 		{
 			this.startTimer();
@@ -155,7 +154,6 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 	 */
 	ngOnChanges()
 	{
-		console.log(this.timerStarted, this.timerEnded);
 		if (this.timerStarted && !this.timerEnded)
 		{
 			this.startTimer();

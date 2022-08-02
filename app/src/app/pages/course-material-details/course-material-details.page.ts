@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-07-27 21:25:45
+ * Last modified  : 2022-08-02 20:27:36
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -132,31 +132,20 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
-		this.firstParentMenuId$.subscribe(articleId =>
-		{
-			if (articleId)
+		this.firstParentMenuId$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(articleId =>
 			{
-				this.selectedArticle = articleId as string;
-				// this.router.navigate([
-				// 	'go/course/material',
-				// 	courseMaterialId,
-				// 	'details',
-				// 	'article',
-				// 	articleId
-				// ]);
-			}
-			else
-			{
-				// this.router.navigate([
-				// 	'go/course/material',
-				// 	courseMaterialId,
-				// 	'details',
-				// 	'article',
-				// 	'none'
-				// ]);
-			}
-			
-		})
+				if (articleId)
+				{
+					this.selectedArticle = articleId as string;
+				}
+				else
+				{
+					///
+				}
+				
+			});
 	}
 
 	/**

@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 17:23:00 
- * Last modified  : 2022-01-20 18:31:59
+ * Last modified  : 2022-08-02 20:28:15
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -175,13 +175,16 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 		this.rootStateFacade.signIn(userModel);
 
 		// track user status
-		this.rootStateFacade.selectUserLoggedInStatus$.subscribe(status =>
-		{
-			if (status === OperationsEnum.SIGNED_IN_NOT_VERIFIED)
+		this.rootStateFacade
+			.selectUserLoggedInStatus$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(status =>
 			{
-				this.loadAccountVerification(userModel);
-			}
-		});
+				if (status === OperationsEnum.SIGNED_IN_NOT_VERIFIED)
+				{
+					this.loadAccountVerification(userModel);
+				}
+			});
 	}
 
 	/**

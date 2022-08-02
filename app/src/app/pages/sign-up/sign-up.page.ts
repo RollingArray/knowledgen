@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:17:44 
- * Last modified  : 2021-12-27 15:34:21
+ * Last modified  : 2022-08-02 20:28:37
  */
 
 
@@ -172,13 +172,16 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy {
 		this.rootStateFacade.signUp(userModel);
 
 		// track user status
-		this.rootStateFacade.selectUserLoggedInStatus$.subscribe(status =>
-		{
-			if (status === OperationsEnum.SIGNED_UP)
+		this.rootStateFacade
+			.selectUserLoggedInStatus$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(status =>
 			{
-				this.loadAccountVerification(userModel);
-			}
-		});
+				if (status === OperationsEnum.SIGNED_UP)
+				{
+					this.loadAccountVerification(userModel);
+				}
+			});
 	}
 
 	/**

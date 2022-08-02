@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-07-27 21:53:47
+ * Last modified  : 2022-08-02 20:27:59
  */
 
 
@@ -426,7 +426,10 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	async gotoPage(routeChildrenModel: RouteChildrenModel)
 	{
 
-		this.rootStateFacade.studyTimerStatus$.subscribe(
+		this.rootStateFacade
+			.studyTimerStatus$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
 			studyTimerStatus =>
 			{
 				if (studyTimerStatus === OperationsEnum.END)

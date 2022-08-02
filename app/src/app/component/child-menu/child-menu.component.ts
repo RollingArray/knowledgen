@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-07-18 19:46:03
+ * Last modified  : 2022-08-02 20:21:22
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -99,11 +99,16 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(data =>
+			{
+				if (data && data.userId)
+				{
+					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+					isMaterialOwner = loggedInUser === data.userId ? true : false
+				}
+			});
 
 		return isMaterialOwner;
 	}
@@ -249,7 +254,8 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 				'actionAlert.delete',
 				'option.yes',
 				'option.no',
-			]).pipe(takeUntil(this.unsubscribe))
+			])
+			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(async data =>
 			{
 

@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-25 19:49:35
+ * Last modified  : 2022-08-02 20:21:05
  */
 
 
@@ -222,21 +222,23 @@ export class CalenderComponent extends BaseViewComponent implements OnInit
 
 	private findSlidePosition()
 	{
-		this.weeksInMonth$.subscribe(weeksInMonth =>
-		{
-			this._gotoSlide = 0;
-
-			weeksInMonth.map((eachWeek, index) =>
+		this.weeksInMonth$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(weeksInMonth =>
 			{
-				eachWeek.map(eachDay =>
+				this._gotoSlide = 0;
+
+				weeksInMonth.map((eachWeek, index) =>
 				{
-					if (eachDay.fullDate === this._selectedDate)
+					eachWeek.map(eachDay =>
 					{
-						this._gotoSlide = index;
-					}
+						if (eachDay.fullDate === this._selectedDate)
+						{
+							this._gotoSlide = index;
+						}
+					});
 				});
 			});
-		});
 	}
 
 	private daysInMonth(month: number, year: number)

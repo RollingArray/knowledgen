@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-19 15:53:29
+ * Last modified  : 2022-08-02 20:24:40
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -186,11 +186,16 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(data =>
+			{
+				if (data && data.userId)
+				{
+					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+					isMaterialOwner = loggedInUser === data.userId ? true : false
+				}
+			});
 
 		return isMaterialOwner;
 	}

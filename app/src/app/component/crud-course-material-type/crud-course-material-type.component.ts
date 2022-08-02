@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-06-30 12:28:23
- * Last modified  : 2022-06-30 21:06:30
+ * Last modified  : 2022-08-02 20:24:04
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -471,24 +471,33 @@ export class CrudCourseMaterialTypeComponent
 			 case MenuTypeEnum.PARENT_MENU:
  
 				 // get act upon curd model from store
-				 this.courseMaterialMenuStateFacade.operationParentMenu$.subscribe(
-					 (data) => (this._parentMenuModel = data)
-				 );
+				 this.courseMaterialMenuStateFacade
+					 .operationParentMenu$
+					 .pipe(takeUntil(this.unsubscribe))
+					 .subscribe(
+					 	(data) => (this._parentMenuModel = data)
+				 	);
 				 break;
 			 case MenuTypeEnum.CHILD_MENU:
  
 				 // get act upon curd model from store
-				 this.courseMaterialMenuStateFacade.operationChildMenu$.subscribe(
-					 (data) => (this._childMenuModel = data)
-				 );
+				 this.courseMaterialMenuStateFacade
+					 .operationChildMenu$
+					 .pipe(takeUntil(this.unsubscribe))
+					 .subscribe(
+					 	(data) => (this._childMenuModel = data)
+				 	);
 				 break;
  
 			 case MenuTypeEnum.SUB_CHILD_MENU:
  
 				 // get act upon curd model from store
-				 this.courseMaterialMenuStateFacade.operationSubChildMenu$.subscribe(
-					 (data) => (this._subChildMenuModel = data)
-				 );
+				 this.courseMaterialMenuStateFacade
+					 .operationSubChildMenu$
+					 .pipe(takeUntil(this.unsubscribe))
+					 .subscribe(
+					 	(data) => (this._subChildMenuModel = data)
+				 	);
 				 break;
  
 			 default:

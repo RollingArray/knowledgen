@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-28 10:08:47
+ * Last modified  : 2022-08-02 20:25:28
  */
 
 import { Component, OnInit, Input, ViewChild, ElementRef, Injector } from "@angular/core";
@@ -221,11 +221,16 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
-		this.courseMaterial$.subscribe(data =>
-		{
-			const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-			isMaterialOwner = loggedInUser === data.userId ? true : false
-		});
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(data =>
+			{
+				if (data && data.userId)
+				{
+					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
+					isMaterialOwner = loggedInUser === data.userId ? true : false
+				}
+			});
 
 		return isMaterialOwner;
 	}
@@ -294,7 +299,9 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 				{
 					case MenuTypeEnum.PARENT_MENU:
 
-						this.courseMaterialMenuStateFacade.parentMenuByArticleId$(menuSelect.articleId)
+						this.courseMaterialMenuStateFacade
+							.parentMenuByArticleId$(menuSelect.articleId)
+							.pipe(takeUntil(this.unsubscribe))
 							.subscribe((parentMenuModel: ParentMenuModel) =>
 							{
 								if (parentMenuModel)
@@ -306,7 +313,9 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 						break;
 
 					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade.childMenuByArticleId$(menuSelect.articleId)
+						this.courseMaterialMenuStateFacade
+							.childMenuByArticleId$(menuSelect.articleId)
+							.pipe(takeUntil(this.unsubscribe))
 							.subscribe((childMenuModel: ChildMenuModel) =>
 							{
 								if (childMenuModel)
@@ -316,7 +325,9 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 							});
 						break;
 					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(menuSelect.articleId)
+						this.courseMaterialMenuStateFacade
+							.subChildMenuByArticleId$(menuSelect.articleId)
+							.pipe(takeUntil(this.unsubscribe))
 							.subscribe((subChildMenuModel: SubChildMenuModel) =>
 							{
 								if (subChildMenuModel)

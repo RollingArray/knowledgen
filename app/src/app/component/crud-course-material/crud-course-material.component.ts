@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-07-04 19:42:41
+ * Last modified  : 2022-08-02 20:23:10
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -238,9 +238,11 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		super(injector);
 
 		// get act upon curd model from store
-		this.courseMaterialStateFacade.operationCourseMaterial$.subscribe(
-			data => this._courseMaterial = data
-		);
+		this.courseMaterialStateFacade.operationCourseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
+				data => this._courseMaterial = data
+			);
 
 		// build form
 		this.buildFrom();

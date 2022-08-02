@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 14:25:52
- * Last modified  : 2022-01-25 20:16:56
+ * Last modified  : 2022-08-02 20:20:45
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -236,14 +236,17 @@ export class AccountVerificationComponent
 		this.rootStateFacade.accountVerification(userModel);
 
 		// track user status
-		this.rootStateFacade.selectUserLoggedInStatus$.subscribe(status =>
-		{
-			if (status === OperationsEnum.SIGNED_IN_VERIFIED)
+		this.rootStateFacade
+			.selectUserLoggedInStatus$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(status =>
 			{
-				this.dismissModal();
-				this.router.navigate(['/go/course/material']);
-			}
-		});
+				if (status === OperationsEnum.SIGNED_IN_VERIFIED)
+				{
+					this.dismissModal();
+					this.router.navigate(['/go/course/material']);
+				}
+			});
 	}
 
 	/**

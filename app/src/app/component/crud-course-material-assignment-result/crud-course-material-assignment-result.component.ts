@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-07-27 18:57:54
+ * Last modified  : 2022-08-02 20:23:26
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -157,9 +157,12 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		super(injector);
 
 		// get act upon curd model from store
-		this.courseMaterialAssignmentStateFacade.operationCourseMaterialAssignment$.subscribe(
-			data => this._courseMaterialAssignmentResult = data
-		);
+		this.courseMaterialAssignmentStateFacade
+			.operationCourseMaterialAssignment$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
+				data => this._courseMaterialAssignmentResult = data
+			);
 
 		this.submit();
 	}
@@ -270,24 +273,27 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 */
 	public splitTime(time: string)
 	{
-		let localization = [];
-		this.translateService
-			.get([
-				'formInfo.minute',
-				'formInfo.second',
-				'formInfo.millisecond',
-				
-			]).pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data =>
-			{
-				localization = data;
-			});
-		
-		const timeArray = time.split(":");
-		const hour = parseInt(timeArray[0]) !== 0 ? `${parseInt(timeArray[0])} ${localization['formInfo.minute']}` : '';
-		const minute = parseInt(timeArray[1]) !== 0 ? `${parseInt(timeArray[1])} ${localization['formInfo.second']}` : '';
-		const seconds = parseInt(timeArray[2]) !== 0 ? `${parseInt(timeArray[2])} ${localization['formInfo.millisecond']}` : '';
-		
-		return `${hour} ${minute} ${seconds}`;
+		if (time)
+		{
+			let localization = [];
+			this.translateService
+				.get([
+					'formInfo.minute',
+					'formInfo.second',
+					'formInfo.millisecond',
+					
+				]).pipe(takeUntil(this.unsubscribe))
+				.subscribe(async data =>
+				{
+					localization = data;
+				});
+			
+			const timeArray = time.split(":");
+			const hour = parseInt(timeArray[0]) !== 0 ? `${parseInt(timeArray[0])} ${localization['formInfo.minute']}` : '';
+			const minute = parseInt(timeArray[1]) !== 0 ? `${parseInt(timeArray[1])} ${localization['formInfo.second']}` : '';
+			const seconds = parseInt(timeArray[2]) !== 0 ? `${parseInt(timeArray[2])} ${localization['formInfo.millisecond']}` : '';
+			
+			return `${hour} ${minute} ${seconds}`;	
+		}
 	}
 }

@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { SwUpdate } from "@angular/service-worker";
+import { take } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -17,15 +18,18 @@ export class UpdateCheckerService {
  
 		 if (this.swUpdate.isEnabled)
 		 {
-			 this.swUpdate.available.subscribe(() =>
-			 {
-				 let versionUpdateMessage = `New version of KnowledgeN is available. Load New Version ?`;
- 
-				 if (confirm(versionUpdateMessage))
-				 {
-					 window.location.reload();
-				 }
-			 });
+			 this.swUpdate
+				 .available
+				 .pipe(take(1))
+				 .subscribe(() =>
+				{
+					let versionUpdateMessage = `New version of KnowledgeN is available. Load New Version ?`;
+	
+					if (confirm(versionUpdateMessage))
+					{
+						window.location.reload();
+					}
+				});
 		 }
 	 }
 }

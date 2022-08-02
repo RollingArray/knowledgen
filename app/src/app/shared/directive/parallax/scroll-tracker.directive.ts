@@ -1,6 +1,7 @@
 import { Directive, Input, ElementRef, Renderer2, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { DomController } from "@ionic/angular";
 import { Subject, Subscription } from 'rxjs';
+import { take } from "rxjs/operators";
 
 @Directive({
 	selector: "[appScrollTracker]",
@@ -24,6 +25,7 @@ export class ScrollTrackerDirective implements OnInit, OnDestroy {
 		
 		const subscription = this.scrollArea
 			.ionScroll
+			.pipe(take(1))
 			.subscribe((scrollEvent) => {
 				const delta = scrollEvent.detail.scrollTop;
 				if (scrollEvent.detail.currentY === 0 && this.hidden) {
