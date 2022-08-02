@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
@@ -14,6 +16,8 @@ class CourseMaterialArticleAssignmentController extends Controller
 	 * @var mixed
 	 */
 	protected $jwtAuthServiceInterface;
+
+	protected $courseMaterialAssignmentResultServiceInterface;
 			
 	/**
 	 * __construct
@@ -21,9 +25,12 @@ class CourseMaterialArticleAssignmentController extends Controller
 	 * @return void
 	 */
 	public function __construct(
-		JWTAuthServiceInterface $jwtAuthServiceInterface
+		JWTAuthServiceInterface $jwtAuthServiceInterface,
+		CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
+		$this->courseMaterialAssignmentResultServiceInterface = $courseMaterialAssignmentResultServiceInterface;
+
 	}
 
 	/**
@@ -91,10 +98,12 @@ class CourseMaterialArticleAssignmentController extends Controller
 		$model->article_assignment_total_no_of_questions = $request->input('article_assignment_total_no_of_questions');
 		$model->article_assignment_total_no_of_correct_answers = $request->input('article_assignment_total_no_of_correct_answers');
         
-		//dd($model);
-        //saving the model to database
+		//saving the model to database
         $model->save();
 
+		// get assignment leader board
+		$model['assignment_leader_board'] = $this->courseMaterialAssignmentResultServiceInterface->getAssignmentLeaderBoard($request->input('article_id'), $userId);
+		
 		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
     }
