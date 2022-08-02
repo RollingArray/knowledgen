@@ -152,7 +152,9 @@
 		"outOf": "আউট অফ",
 		"earned": "তুমি অর্জন করেছ",
 		"took": "তুমি নিয়েছ",
-		"completeAssignment": "অ্যাসাইনমেন্ট সম্পূর্ণ করতে"
+		"completeAssignment": "অ্যাসাইনমেন্ট সম্পূর্ণ করতে",
+		"leaderBoard": "দেখুন আপনি কোথায় দাঁড়িয়ে আছেন",
+		"rank": "পদমর্যাদা"
 	},
 	"courseMaterialType":{
 		"textDocument": "টেক্সট ডকুমেন্ট",

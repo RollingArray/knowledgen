@@ -11,6 +11,7 @@
 
 import { OperationsEnum } from "../enum/operations.enum";
 import { BaseModel } from "./base.model";
+import { CourseMaterialAssignmentLeaderBoardModel } from "./course-material-assignment-leader-board.model";
 
 export interface CourseMaterialAssignmentResultModel extends BaseModel
 {
@@ -19,5 +20,9 @@ export interface CourseMaterialAssignmentResultModel extends BaseModel
     articleAssignmentCompletionReward?: number;
     articleAssignmentTotalNoOfQuestions?: number;
     articleAssignmentTotalNoOfCorrectAnswers?: number;
+    assignmentLeaderBoard?: {
+		success: boolean,
+		data: CourseMaterialAssignmentLeaderBoardModel[]
+	}
     operationType?: OperationsEnum;
 }

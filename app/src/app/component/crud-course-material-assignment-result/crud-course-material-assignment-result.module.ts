@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { CrudCourseMaterialAssignmentResultComponent } from './crud-course-material-assignment-result.component';
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
+import { CourseMaterialAssignmentLeaderBoardModule } from '../course-material-assignment-leader-board/course-material-assignment-leader-board.module';
 
 @NgModule({
 	imports: [
@@ -29,6 +30,7 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 		RouterModule,
 		PageInfoTitleModule,
 		SharedModule,
+		CourseMaterialAssignmentLeaderBoardModule
 	],
 
 	declarations: [CrudCourseMaterialAssignmentResultComponent],

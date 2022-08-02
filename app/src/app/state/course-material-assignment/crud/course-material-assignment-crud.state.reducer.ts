@@ -47,6 +47,14 @@ const reducer = createReducer(
 	})),
 
 	/**
+	 * @description Reducer for action - course material assignment result
+	 */
+	 on(COURSE_MATERIAL_ASSIGNMENT_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL_ASSIGNMENT_RESULT, (state, action) => ({
+		...state,
+		operationCourseMaterialAssignmentResult: action.payload,
+	 })),
+	 
+	/**
 	 * @description Reducer for action - course material assignment added success
 	 */
 	on(COURSE_MATERIAL_ASSIGNMENT_ACTIONS.COURSE_MATERIAL_ASSIGNMENT_RESULT_ADDED_SUCCESS, (state, action) => ({

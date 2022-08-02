@@ -152,7 +152,9 @@
 		"outOf": "Out Of",
 		"earned": "You have earned",
 		"took": "You took",
-		"completeAssignment": "to complete the assignment"
+		"completeAssignment": "to complete the assignment",
+		"leaderBoard": "See where you stand",
+		"rank": "Rank"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",

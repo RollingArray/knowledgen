@@ -197,55 +197,55 @@ td:last-child {
 }
 
 /*Variable margin left */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.margin-left-#{$i}-px {
 		margin-left: #{$i}px;
 	}
 }
 
 /*Variable margin right */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.margin-right-#{$i}-px {
 		margin-right: #{$i}px;
 	}
 }
 
 /*Variable margin top */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.margin-top-#{$i}-px {
 		margin-top: #{$i}px;
 	}
 }
 
 /*Variable margin bottom */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.margin-bottom-#{$i}-px {
 		margin-bottom: #{$i}px;
 	}
 }
 
 /*Variable margin */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.margin-#{$i}-px {
 		margin: #{$i}px;
 	}
 }
 
 /*Variable padding */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.padding-#{$i}-px {
 		padding: #{$i}px;
 	}
 }
 
 /*Variable margin top */
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.padding-top-#{$i}-px {
 		padding-top: #{$i}px;
 	}
 }
 
-@for $i from 1 through 100 {
+@for $i from 1 through 500 {
 	.padding-bottom-#{$i}-px {
 		padding-bottom: #{$i}px;
 	}

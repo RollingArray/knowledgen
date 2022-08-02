@@ -1,0 +1,45 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Course material assignment leader board component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-02 08:58:52 
+ * Last modified  : 2022-08-02 09:00:11
+ */
+-->
+
+<ion-card color="none" class="card-no-shadow">
+    <ion-card-title>
+        {{'formInfo.leaderBoard' | translate}}
+    </ion-card-title>
+    <ion-card-content>
+        <div *ngFor="let user of courseMaterialAssignmentLeaderBoard; let i = index">
+            <ion-card color="light" class="margin-top-30-px padding-top-30-px">
+                <ion-item color="none">
+                    <ion-avatar slot="start">
+                        <img [src]="stringKey.ICON_USER" />
+                    </ion-avatar>
+                    <ion-label>
+                        <b><h2>{{user.userFirstName}} {{user.userFirstName}}</h2></b>
+                        <h4><ion-text color="medium"> {{user.userEmail}}</ion-text></h4>
+                    </ion-label>
+                </ion-item>
+                <ion-item color="none">
+                    <ion-card slot="end" mode="ios" color="success" class="padding-10-px">
+                        <ion-text class="font-size-20-px"><b>{{user.articleAssignmentCompletionReward}}</b></ion-text> &nbsp;{{'formInfo.point' | translate}}
+                    </ion-card>
+                    
+                </ion-item>
+            </ion-card>
+            <ion-badge mode="ios" color="tertiary">
+                <h3>{{'formInfo.rank' | translate}}&nbsp;-&nbsp;{{i+1}}&nbsp;</h3>
+            </ion-badge>
+        </div>
+        
+    </ion-card-content>
+</ion-card>
+

@@ -230,7 +230,6 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 */
 	private launchOperation()
 	{
-		console.log(this._courseMaterialAssignmentResult);
 		this.courseMaterialAssignmentStateFacade.addNewCourseMaterialAssignmentResult(this._courseMaterialAssignmentResult)
 	}
 
