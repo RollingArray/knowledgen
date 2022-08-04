@@ -51,6 +51,41 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
     }
 
     /**
+     * Get all session time
+     *
+     * @param  mixed $articleId
+     * @return mixed
+     */
+    public function getAllSessionTime($articleId, $userId){
+        $tempRows = array();
+        $articleSessions = array();
+        $articleSessionsCreatedOn = array();
+        $rows = $this->getAllStudyAssignmentSessionTime($articleId, $userId);
+        foreach ($rows as $eachData) {
+            $splitTime = $eachData->article_assignment_completion_time;
+            $timeArray = preg_split ("/\:/", $splitTime); 
+            
+            $minute = $timeArray[0];
+            $second = $timeArray[1];
+            $millisecond = $timeArray[2];
+            
+            $secondToMinute = $second / 60;
+            $millisecondToMinute = ($millisecond / 100) / 60;
+            $totalTime = $minute + $secondToMinute + $millisecondToMinute;
+
+            $articleSessions[] = round($totalTime, 2);
+            $articleSessionsCreatedOn[] = $eachData->created_at;
+        }
+
+        $tempRows['article_id'] = $articleId;
+        $tempRows['article_sessions'] = $articleSessions;
+        $tempRows['article_sessions_created_on'] = $articleSessionsCreatedOn;
+
+
+        return $this->returnDataStructureServiceInterface->generateServiceReturnDataStructure($tempRows);
+    }
+
+    /**
      * Get max reward for user performing assignment
      *
      * @param  mixed $articleId
@@ -90,6 +125,25 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
             )
             ->where('tbl_course_material_article_assignment_result.article_id', '=', $articleId)
             ->distinct('tbl_course_material_article_assignment_result.user_id')
+            ->get();
+    }
+
+    /**
+     * Get all study assignment session time
+     *
+     * @param  mixed $articleId
+     * @param  mixed $userId
+     * @return mixed
+     */
+    private function getAllStudyAssignmentSessionTime($articleId, $userId){
+        return CourseMaterialArticleAssignmentResultModel::select(
+            'tbl_course_material_article_assignment_result.article_id',
+            'tbl_course_material_article_assignment_result.article_assignment_completion_time',
+            'tbl_course_material_article_assignment_result.created_at'
+            )
+            ->where('tbl_course_material_article_assignment_result.article_id', '=', $articleId)
+            ->where('tbl_course_material_article_assignment_result.user_id', '=', $userId)
+            ->orderBy('tbl_course_material_article_assignment_result.created_at', 'ASC')
             ->get();
     }
 }

@@ -223,6 +223,22 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     ]
                 );
             });
+            $router->group([
+                'prefix' => 'session/time',
+            ], function () use ($router) {
+                $router->post(
+                    'add',
+                    [
+                        'uses' => 'CourseMaterialArticleSessionController@add'
+                    ]
+                );
+                $router->post(
+                    'all',
+                    [
+                        'uses' => 'CourseMaterialArticleSessionController@all'
+                    ]
+                );
+            });
         });
 
         $router->group([
