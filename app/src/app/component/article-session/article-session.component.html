@@ -1,0 +1,110 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Article session component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-04 20:10:12 
+ * Last modified  : 2022-08-04 20:10:36
+ */
+-->
+
+<ion-card color="primary-gradient">
+	<!-- header if content text/document -->
+	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD">
+		<panel-header 
+			[panelTitle]="'pageTitle.studySession' | translate"
+			[panelIcon] = "stringKey.ICON_QNA"
+			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+		></panel-header>
+		<panel-info
+			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[title]="'pageSubTitle.studySession' | translate"
+		></panel-info>
+	</ion-card-header>
+	<!-- header if content text/document -->
+
+	<!-- header if content quiz -->
+	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
+		<panel-header 
+			[panelTitle]="'pageTitle.quizSession' | translate"
+			[panelIcon] = "stringKey.ICON_QUIZ"
+			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+		></panel-header>
+		<panel-info
+			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[title]="'pageSubTitle.quizSession' | translate"
+		></panel-info>
+	</ion-card-header>
+	<!-- header if content quiz -->
+
+	<!-- instructions quiz -->
+	<ion-card-content>
+		<!-- if data loading -->
+		<ion-card color="primary" *ngIf="dataLoading" class="overlay-info">
+			<panel-info
+				panelIcon = "spinner"
+				[panelColor]="stringKey.COLOR_PRIMARY"
+				[title]="'loading.holdTight' | translate"
+			></panel-info>
+		</ion-card>
+		<!-- if data loading -->
+
+		<!-- if no data -->
+		<ion-card color="primary" *ngIf="!(hasData$ | async)" class="overlay-info">
+			<!-- text/document -->
+			<panel-info
+				*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD"
+				[panelColor]="stringKey.COLOR_PRIMARY"
+				[title]="'noData.noStudySession' | translate"
+			></panel-info>
+			<!-- text/document -->
+
+			<!-- quiz -->
+			<panel-info
+				*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+				[panelColor]="stringKey.COLOR_PRIMARY"
+				[title]="'noData.noStudySession' | translate"
+			></panel-info>
+			<!-- quiz -->
+		</ion-card>
+		<!-- if no data -->
+
+		<!-- chart -->
+		<canvas #chart> </canvas>
+		<!-- chart -->
+	</ion-card-content>
+	
+	<div *ngIf="(articleSessionAnalysis$ | async)">
+		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.POSITIVE">
+			<ion-item color="none">
+				<ion-icon [src]="stringKey.ICON_UP_ARROW"></ion-icon>
+				<ion-badge> 
+					+ {{(articleSessionAnalysis$ | async).value}} % 
+				</ion-badge> 
+				&nbsp;{{'formInfo.sessionIncrease' | translate}}
+			</ion-item>
+		</ion-card>
+	
+		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.NEGATIVE">
+			<ion-item color="none">
+				<ion-icon [src]="stringKey.ICON_DOWN_ARROW"></ion-icon>
+				<ion-badge>
+					- {{(articleSessionAnalysis$ | async).value}} % 
+				</ion-badge>
+				&nbsp;{{'formInfo.sessionDecreased' | translate}}
+			</ion-item>
+		</ion-card>
+
+		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.NEUTRAL">
+			<ion-item color="none">
+				<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
+				&nbsp;{{'formInfo.sessionNeutral' | translate}}
+			</ion-item>
+		</ion-card>
+	</div>
+	
+	<!-- instructions quiz -->
+</ion-card>

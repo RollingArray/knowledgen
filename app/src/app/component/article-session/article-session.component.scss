@@ -1,0 +1,26 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Article session component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-04 20:10:12 
+ * Last modified  : 2022-08-04 20:10:44
+ */
+
+ .overlay-info {
+    width: 250px;
+    height: 50px;
+    position: absolute;
+    margin-left: calc((100% - 250px) / 2);
+    top: calc((100% - 100px) / 2);
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+
+ion-badge{
+  font-size: large;
+}
