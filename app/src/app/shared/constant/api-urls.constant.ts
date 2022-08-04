@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-07-26 09:48:20
+ * Last modified  : 2022-08-03 16:09:16
  */
 
 import { environment } from "../../../environments/environment";
@@ -81,4 +81,8 @@ export class ApiUrls
 
 	public static readonly COURSE_MATERIAL_ASSIGNMENT_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/assignment";
 	public static readonly COURSE_MATERIAL_ASSIGNMENT_RESULT: string = ApiUrls.COURSE_MATERIAL_ASSIGNMENT_BASE + "/result";
+
+	public static readonly COURSE_MATERIAL_SESSION_TIME_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/session/time";
+	public static readonly COURSE_MATERIAL_SESSION_TIME_ALL: string = ApiUrls.COURSE_MATERIAL_SESSION_TIME_BASE + "/all";
+	public static readonly COURSE_MATERIAL_SESSION_TIME_ADD: string = ApiUrls.COURSE_MATERIAL_SESSION_TIME_BASE + "/add";
 }

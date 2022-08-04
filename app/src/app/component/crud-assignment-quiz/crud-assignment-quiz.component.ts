@@ -6,10 +6,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-08-02 20:22:14
+ * Last modified  : 2022-08-04 18:19:54
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
+import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
@@ -88,7 +89,24 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	/**
 	 * Input  of crud assignment quiz component
 	 */
-	@Input() articleCompletionReward = ''; 
+	@Input() articleCompletionReward = '';
+
+	/**
+	 * Input  of crud assignment quiz component
+	 */
+	@Input() public articleView: IonContent;
+
+	/**
+	 * Input  of crud assignment quiz component
+	 */
+	@Input() public articleTitleView: ElementRef;
+
+	/**
+	 * Input  of crud assignment quiz component
+	 */
+	@Input() public assignmentPropertiesView: ElementRef;
+
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -177,7 +195,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 * Determines whether data has
 	 */
 	public hasData$!: Observable<boolean>;
-	
+
 
 	/**
 	 * -------------------------------------------------|
@@ -189,6 +207,12 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 * Description  of crud text document component
 	 */
 	@ViewChild('editableTextDocument') editableTextDocument: ElementRef;
+
+	/**
+	 * View child of crud text document component
+	 */
+	@ViewChild('contentTopScrollView') contentTopScrollView: ElementRef;
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -292,7 +316,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	{
 		return this._totalScore;
 	}
-	
+
 	/**
 	 * Gets quiz session initiated
 	 */
@@ -577,42 +601,57 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		});
 
 		// 
-		
+
 	}
 
 	/**
 	 * Adds new assignment result
 	 */
 	public async addNewAssignmentResult()
+	{
+		const assignmentReward = parseInt(((this._totalScore / this._courseMaterialQuiz.length) * parseInt(this.articleCompletionReward)).toFixed(2));
+		const courseMaterialAssignmentResultModel: CourseMaterialAssignmentResultModel = {
+			articleId: this._selectedMenu.articleId,
+			articleAssignmentCompletionTime: this._assignmentTime,
+			articleAssignmentCompletionReward: assignmentReward,
+			articleAssignmentTotalNoOfQuestions: this._courseMaterialQuiz.length,
+			articleAssignmentTotalNoOfCorrectAnswers: this._totalScore,
+			operationType: OperationsEnum.CREATE
+		}
+
+		this.courseMaterialAssignmentStateFacade.actUponCourseMaterialAssignment(courseMaterialAssignmentResultModel, OperationsEnum.CREATE);
+	}
+
+	/**
+	 * Opens crud assignment result
+	 */
+	private async openCrudAssignmentResult()
+	{
+		const modal = await this.modalController.create({
+			component: CrudCourseMaterialAssignmentResultComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+		});
+
+		// present modal
+		await modal.present();
+	}
+
+	/**
+	 * Scrolls to article content
+	 */
+	 private scrollToArticleContent()
 	 {
-		 const assignmentReward = parseInt(((this._totalScore / this._courseMaterialQuiz.length) * parseInt(this.articleCompletionReward)).toFixed(2));
-		 const courseMaterialAssignmentResultModel: CourseMaterialAssignmentResultModel = {
-			 articleId: this._selectedMenu.articleId,
-			 articleAssignmentCompletionTime: this._assignmentTime,
-			 articleAssignmentCompletionReward: assignmentReward,
-			 articleAssignmentTotalNoOfQuestions: this._courseMaterialQuiz.length,
-			 articleAssignmentTotalNoOfCorrectAnswers: this._totalScore,
-			 operationType: OperationsEnum.CREATE
-		 }
-	 
-		 this.courseMaterialAssignmentStateFacade.actUponCourseMaterialAssignment(courseMaterialAssignmentResultModel, OperationsEnum.CREATE);
+		 const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
+		 const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
+		 const parentAssignmentPropertiesViewViewHeight = this.assignmentPropertiesView.nativeElement.offsetHeight;
+		 const deltaMargin = 40;
+		 const scrollY = pageBaseHeight + parentArticleTitleViewHeight + parentAssignmentPropertiesViewViewHeight + deltaMargin;
+		 const scrollX = 0;
+		 const animationDelay = 1500;
+		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
 	 }
-	
-	 /**
-	  * Opens crud assignment result
-	  */
-	 private async openCrudAssignmentResult()
-	 {
-		 const modal = await this.modalController.create({
-			 component: CrudCourseMaterialAssignmentResultComponent,
-			 cssClass: 'modal-view',
-			 backdropDismiss: false,
-		 });
- 
-		 // present modal
-		 await modal.present();
-	 }
- 
+
 
 	/**
 	 * -------------------------------------------------|
@@ -704,7 +743,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 							{
 								this._assignmentSessionSubmitted = true;
 								this._assignmentSessionInitiated = false;
-								
+
 								this._assignmentTime = assignmentTime;
 								this.checkAnswer();
 								this.addNewAssignmentResult();
@@ -729,7 +768,9 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	public startQuiz()
 	{
 		this._assignmentSessionInitiated = true;
-		this._assignmentSessionSubmitted = false; 
+		this._assignmentSessionSubmitted = false;
+
+		this.scrollToArticleContent();
 	}
 
 	/**
@@ -738,6 +779,6 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	// public totalQuizSessionTime(assignmentTime: string)
 	// {
-		
+
 	// }
 }

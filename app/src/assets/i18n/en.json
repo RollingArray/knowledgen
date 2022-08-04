@@ -30,7 +30,10 @@
 		"changeVisibility": "Change Visibility",
 		"start": "Start",
 		"submit": "Submit",
-		"assignment": "Assignment"
+		"assignment": "Assignment",
+		"studySession": "Study Session",
+		"quizSession": "Quiz Session",
+		"stop": "Stop"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -79,7 +82,9 @@
 		"resultTop": "Congratulation !! you nailed it",
 		"resultMid": "Congratulation !! you are almost there",
 		"resultLow": "Do more practice !! Way to go ",
-		"youScore": "You have scored"
+		"youScore": "You have scored",
+		"studySession": "Study session progress over time",
+		"quizSession": "Quiz sessions over time"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -104,7 +109,9 @@
 		"selectImage": "Select an image from your device. Save the image if you are satisfied with the preview",
 		"addQuestion": "Provide details of the question and choose answer types to create a new question. Save the changes once you are satisfied with the content",
 		"editQuestion": "Provide updated details of the question. Save the changes once you are satisfied with the content",
-		"deleteQuestion": "Deleting question"
+		"deleteQuestion": "Deleting question",
+		"studySession": "Session time over iterations graph will show the amount of time you have taken in each iteration while reading this article. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to grasp the content much quicker",
+		"quizSession": "Quiz session time over iterations graph will show the amount of time you have taken in each iteration while taking this quiz. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to answer the question much quicker"
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -154,7 +161,14 @@
 		"took": "You took",
 		"completeAssignment": "to complete the assignment",
 		"leaderBoard": "See where you stand",
-		"rank": "Rank"
+		"rank": "Rank",
+		"trackStudy": "Track study time",
+		"sessionTime": "Time in minute(s)",
+		"sessionIterations": "Study session iteration(s) [Latest to the right]",
+		"sessionProgress": "Progress over time",
+		"sessionDecreased": "Decreased in time between last 2 session",
+		"sessionIncrease": "Increased in time between last 2 session",
+		"sessionNeutral": "No time time between last 2 session"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -176,9 +190,11 @@
 		"noContent": "No Content has been found. Add your Content !!",
 		"contentDeleted": "This content has been removed !!",
 		"noQuestion": "No question has been found. Add your question !!",
-		"availableSoonContent": "The content will be available soon !!"
+		"availableSoonContent": "The content will be available soon !!",
+		"noStudySession": "No study session data available !!",
+		"noQuizSession": "No quiz session data available !!"
 	},
-	"loading": {
+	"loading": { 
 		"wait": "Loading ... Please wait",
 		"activationCode": "Sending activation code ... Please wait",
 		"signIngIn": "Signing In  .. Please Wait",
@@ -267,6 +283,10 @@
 		"i3": "<b>Points<b> are equally devided accross questions based on <b>Total Reward<b>",
 		"i4": "<b>No</b> negative marking",
 		"i5": "Tap on <b>Options<b> to select the correct answer",
-		"i6": "Tap on <b>Submit Assignment</b> when you are ready with your answers"
+		"i6": "Tap on <b>Submit Assignment</b> when you are ready with your answers",
+		"i7": "<b>Study time calculator<b> helps you keep track of how much time you have spent on this lession.",
+		"i8": "Each <b>study session<b> is logged and will help you to keep track of your progress over a pertiod of time",
+		"i9": "Tap on <b>Start Study Session</b> when you are ready to start reading",
+		"i10": "Tap on <b>Stop Study Session</b> when you are done"
 	}
 }

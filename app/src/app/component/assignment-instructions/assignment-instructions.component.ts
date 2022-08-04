@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-07-28 09:04:18
+ * Last modified  : 2022-08-03 10:41:17
  */
 
 import { Component, OnInit, Injector, Input, EventEmitter, Output } from "@angular/core";
@@ -248,9 +248,9 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	}
 
 	/**
-	 * Starts assignment
+	 * Starts session
 	 */
-	public startAssignment()
+	public startSession()
 	{
 		this._assignmentSessionInitiated = true;
 		this._assignmentSessionSubmitted = false; 
@@ -261,7 +261,7 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 * Totals quiz session time
 	 * @param assignmentTime 
 	 */
-	 public totalQuizSessionTime(assignmentTime: string)
+	 public totalSessionTime(assignmentTime: string)
 	 {
 		 this._assignmentTime = assignmentTime;
 		 this.submitAssignmentEvent.emit(this._assignmentTime);

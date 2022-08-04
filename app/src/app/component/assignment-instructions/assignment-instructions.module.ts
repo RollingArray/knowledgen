@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-07-27 18:49:49
+ * Last modified  : 2022-08-04 18:00:28
  */
 
 import { CommonModule } from "@angular/common";
@@ -16,6 +16,7 @@ import { IonicModule } from "@ionic/angular";
 import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from "src/app/shared/module/shared.module";
 import { CourseMaterialMenuStateModule } from "src/app/state/course-material-menu/course-material-menu.state.module";
+import { PanelHeaderModule } from "../panel-header/panel-header.component.module";
 import { TimerModule } from "../timer/timer.component.module";
 import { AssignmentInstructionsComponent } from "./assignment-instructions.component";
 
@@ -27,7 +28,8 @@ import { AssignmentInstructionsComponent } from "./assignment-instructions.compo
 		TranslateModule,
 		SharedModule,
 		CourseMaterialMenuStateModule,
-		TimerModule
+		TimerModule,
+		PanelHeaderModule
 	],
 
 	declarations: [AssignmentInstructionsComponent],

@@ -6,12 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-08-02 20:24:40
+ * Last modified  : 2022-08-04 19:59:37
  */
 
 import { DOCUMENT } from "@angular/common";
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
+import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
@@ -20,15 +21,20 @@ import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
+import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { ArticleSessionModel } from "src/app/shared/model/article-session.model";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
+import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
 import { AlertService } from "src/app/shared/service/alert.service";
 import { ToastService } from "src/app/shared/service/toast.service";
+import { ArticleSessionStateFacade } from "src/app/state/article-session/article-session.state.facade";
 import { ArticleTextDocumentStateFacade } from "src/app/state/article-text-document/article-text-document.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialQuizStateFacade } from "src/app/state/course-material-quiz/course-material-quiz.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
@@ -63,6 +69,11 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	readonly operationsEnum = OperationsEnum;
 
 	/**
+	 * Course material type id enum of crud text document component
+	 */
+	readonly courseMaterialTypeIdEnum = CourseMaterialTypeIdEnum;
+
+	/**
 	  * -------------------------------------------------|
 	  * @description									 |
 	  * @input & @output Instance variable				 |
@@ -73,6 +84,17 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Description  of crud text document component
 	 */
 	@Input() isContentLive = false;
+
+	/**
+	 * Input  of crud text document component
+	 */
+	@Input() public articleView: IonContent;
+
+	/**
+	 * Input  of crud text document component
+	 */
+	@Input() public articleTitleView: ElementRef;
+	
 
 	/**
 	 * -------------------------------------------------|
@@ -108,7 +130,12 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	/**
 	 * Modal data of menu page
 	 */
-	 private _modalData: ModalData;
+	private _modalData: ModalData;
+	
+	/**
+	 * Article text document content of crud text document component
+	 */
+	private _articleTextDocumentContent: string;
 
 	/**
 	 * -------------------------------------------------|
@@ -137,6 +164,12 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Description  of crud text document component
 	 */
 	@ViewChild('editableTextDocument') editableTextDocument: ElementRef;
+
+	/**
+	 * View child of crud text document component
+	 */
+	@ViewChild('contentTopScrollView') contentTopScrollView: ElementRef;
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -149,7 +182,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 */
 	public get loading()
 	{
-		let loading = '';
+		let loading = 'loading.wait';
 		if (this._operationType === OperationsEnum.CREATE)
 		{
 			loading = 'loading.settingContent';
@@ -217,6 +250,37 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	}
 
 	/**
+	 * Study session initiated of crud text document component
+	 */
+	private _studySessionInitiated = false;
+
+	/**
+	 * Study session submitted of crud text document component
+	 */
+	private _studySessionSubmitted = false;
+ 
+	/**
+	 * Assignment time of crud text document component
+	 */
+	private _studyTime: string;
+
+	/**
+	 * Gets study session submitted
+	 */
+	get studySessionSubmitted()
+	{
+		return this._studySessionSubmitted;
+	}
+
+	/**
+	 * Gets study session initiated
+	 */
+	get studySessionInitiated()
+	{
+		return this._studySessionInitiated;
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Life cycle hook									|
@@ -243,10 +307,12 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		private sanitizer: DomSanitizer,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
-		private cookieService: CookieService
+		private cookieService: CookieService,
+		private articleSessionStateFacade: ArticleSessionStateFacade
 	)
 	{
 		super(injector);
+		this.initLoading();
 	}
 
 	/**
@@ -275,35 +341,21 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 						.pipe(takeUntil(this.unsubscribe))
 						.subscribe(articleTextDocumentModel =>
 						{
-							// if no object, consider creating new
-							if (!articleTextDocumentModel)
-							{
-								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
-								this.getArticleTextDocument();
+							// blank content
+							(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
 
-								//
-								this._operationType = OperationsEnum.CREATE;
-								this._showSave = false;
+							// if material owner visiting
+							if (this.isMaterialOwner)
+							{
+								this.documentModeForOwner(articleTextDocumentModel);
 							}
 
-							// if not material owner ans article is not live
-							else if (!this.isMaterialOwner && articleTextDocumentModel.articleStatus === ArticleStatusTypeEnum.PREVIEW)
-							{
-								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
-							}
-							
-							// show content, consider edit
+							// if material visitor visiting
 							else
 							{
-								(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
-								(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = articleTextDocumentModel.articleTextDocumentContent;
-								
-								//
-								this._operationType = OperationsEnum.EDIT;
-								this._showSave = false;
+								this.documentModeForVisitor(articleTextDocumentModel);
 							}
-						}
-						)
+						})
 				}
 				);
 		}, 0);
@@ -317,6 +369,53 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Documents mode for visitor
+	 * @param articleTextDocumentModel 
+	 */
+	 private documentModeForVisitor(articleTextDocumentModel: ArticleTextDocumentModel)
+	 {
+		 if (!articleTextDocumentModel)
+		 {
+			 this.getArticleTextDocument();
+		 }
+ 
+		 // if object os not in preview
+		 else if (articleTextDocumentModel.articleStatus !== ArticleStatusTypeEnum.PREVIEW)
+		 {
+			 this._articleTextDocumentContent = articleTextDocumentModel.articleTextDocumentContent;
+		 }
+	 }
+ 
+	 /**
+	  * Documents mode for owner
+	  * @param articleTextDocumentModel 
+	  */
+	 private documentModeForOwner(articleTextDocumentModel: ArticleTextDocumentModel)
+	 {
+		 if (!articleTextDocumentModel)
+		 {
+ 
+			 this.getArticleTextDocument();
+			 this._operationType = OperationsEnum.CREATE;
+			 this._showSave = false;
+		 }
+ 
+ 
+ 
+		 // show content, consider edit
+		 else
+		 {
+			 // fill content, make non editable
+			 (this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
+			 (this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = articleTextDocumentModel.articleTextDocumentContent;
+ 
+			 //
+			 this._operationType = OperationsEnum.EDIT;
+			 this._showSave = false;
+		 }
+	 }
+	
 	/**
 	 * Descriptions crud text document component
 	 */
@@ -367,7 +466,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	private initLoading()
 	{
 		const loading = this.loading;
-
+		
 		// present loader
 		this.translateService
 			.get(loading)
@@ -437,6 +536,21 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		}
 	}
 
+
+	/**
+	 * Scrolls to article content
+	 */
+	 private scrollToArticleContent()
+	 {
+		 const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
+		 const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
+		 const deltaMargin = 40;
+		 const scrollY = pageBaseHeight + parentArticleTitleViewHeight + deltaMargin;
+		 const scrollX = 0;
+		 const animationDelay = 1500;
+		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
+	 }
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -502,5 +616,44 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		editableTextDocument.contentEditable = "true";
 		this._showSave = true;
 		this._operationType = OperationsEnum.EDIT;
+	}
+
+	/**
+	 * Submits study session
+	 * @param studyTime 
+	 */
+	public submitStudySession(studyTime: string)
+	 {
+		this._studySessionSubmitted = true;
+		this._studySessionInitiated = false;
+		this._studyTime = studyTime;
+
+		// remove content
+		(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
+		(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
+	
+		const model: ArticleSessionModel = {
+			articleId: this._selectedMenu.articleId,
+			articleSessionTime: this._studyTime,
+		};
+
+		this.initLoading();
+		this.articleSessionStateFacade.addNewArticleSession(model);
+	 }
+ 
+	/**
+	 * Starts study session
+	 */
+	public startStudySession()
+	 {
+		 this._studySessionInitiated = true;
+		this._studySessionSubmitted = false; 
+		
+		// fill content, make non editable
+		(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
+		(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = this._articleTextDocumentContent;
+		
+		// scroll to content
+		this.scrollToArticleContent();
 	}
 }

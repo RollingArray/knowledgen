@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-07-27 19:15:28
+ * Last modified  : 2022-08-03 11:04:35
  */
 
 
@@ -1195,5 +1195,15 @@ export class ArrayKey {
 		"assignmentInstructions.i4",
 		"assignmentInstructions.i5",
 		"assignmentInstructions.i6",
+	]
+
+	/**
+	 * Study instructions of array key
+	 */
+	public static readonly STUDY_INSTRUCTIONS: string[] = [
+		"assignmentInstructions.i7",
+		"assignmentInstructions.i8",
+		"assignmentInstructions.i9",
+		"assignmentInstructions.i10"
 	]
 }

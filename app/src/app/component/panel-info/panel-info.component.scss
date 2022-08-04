@@ -1,7 +1,11 @@
 ion-item{
-  border-bottom: 1px solid #c7c7c7 !important;
-
+  // border-bottom: 1px solid #c7c7c7 !important;
+  
   p {
     font-size:small;
   }
+}
+
+ion-icon {
+  font-size: 20px; //Preferred size here
 }

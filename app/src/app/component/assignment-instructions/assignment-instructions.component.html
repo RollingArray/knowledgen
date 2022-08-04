@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-07-27 18:50:44
+ * Last modified  : 2022-08-04 20:11:30
  */
 -->
 
@@ -15,50 +15,125 @@
 	<ion-card-header>
 		<ion-grid>
 			<ion-row>
-				<ion-col size="6">
-					<ion-item lines="none" color="primary">
-						<ion-icon [src]="stringKey.ICON_QNA"></ion-icon>&nbsp;
-							<ion-label>
-								<h1>
-									<b>
-										{{noOfQuestions}}
-									</b>
-									&nbsp;{{ "formInfo.questions" | translate }}
-								</h1>
-							</ion-label>
-					</ion-item>
+				<!-- q & a -->
+				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
+					<panel-header 
+						panelTitle="{{noOfQuestions}} {{'formInfo.questions' | translate}}"
+						[panelIcon] = "stringKey.ICON_QNA"
+						[panelColor]="stringKey.COLOR_PRIMARY"
+					></panel-header>
 				</ion-col>
-				<ion-col size="6">
-					<timer  class="float-right" *ngIf="!isMaterialOwner" (timeEventEmitter)="totalQuizSessionTime($event)" [timerStarted]="assignmentSessionInitiated" [timerEnded]="assignmentSessionSubmitted"></timer>
+				<!-- q & a -->
+
+				<!-- text doc -->
+				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD">
+					<panel-header 
+						[panelTitle]="'formInfo.trackStudy' | translate"
+						[panelIcon] = "stringKey.ICON_TEXT_DOC"
+						[panelColor]="stringKey.COLOR_PRIMARY"
+					></panel-header>
+				</ion-col>
+				<!-- text doc -->
+
+				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6">
+					<timer 
+						class="float-right" 
+						*ngIf="!isMaterialOwner" 
+						(timeEventEmitter)="totalSessionTime($event)" 
+						[timerStarted]="assignmentSessionInitiated" 
+						[timerEnded]="assignmentSessionSubmitted"
+					></timer>
 				</ion-col>
 			</ion-row>
 		</ion-grid>
 	</ion-card-header>
 
-	<!-- instructions -->
+	<!-- instructions quiz -->
 	<ion-card-content *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
 		<ion-item color="primary" *ngFor="let instructions of arrayKey.QUIZ_INSTRUCTIONS">
 			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
 			<p [innerHtml] = "instructions | translate"> </p>
 		</ion-item>
 	</ion-card-content>
-	<!-- instructions -->
-	
-	<!-- start assignment -->
-	<ion-item color="tertiary" *ngIf="!isMaterialOwner && !assignmentSessionInitiated" (click)="startAssignment()" class="text-center">
-		<ion-icon slot="end" [src]="stringKey.ICON_START"></ion-icon>&nbsp;
-		<ion-label slot="end">
-			{{ "button.start" | translate }} &nbsp; {{ "button.assignment" | translate }}
-		</ion-label>
-	</ion-item>
-	<!-- start assignment -->
+	<!-- instructions quiz -->
 
-	<!-- submit assignment -->
-	<ion-item color="tertiary" *ngIf="!isMaterialOwner && isContentLive && assignmentSessionInitiated" (click)="submitAssignment()" class="text-center">
-		<ion-icon slot="end" [src]="stringKey.ICON_SUBMIT"></ion-icon>&nbsp;
-		<ion-label slot="end">
-			{{ "button.submit" | translate }} &nbsp; {{ "button.assignment" | translate }}
+	<!-- instructions td / ps / fc -->
+	<ion-card-content 
+		*ngIf="
+				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
+			"
+		>
+		<ion-item color="primary" *ngFor="let instructions of arrayKey.STUDY_INSTRUCTIONS">
+			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
+			<p [innerHtml] = "instructions | translate"> </p>
+		</ion-item>
+	</ion-card-content>
+	<!-- instructions td / ps / fc -->
+	
+	<!-- start session -->
+	<ion-item 
+		color="tertiary" 
+		*ngIf="!isMaterialOwner && !assignmentSessionInitiated" 
+		(click)="startSession()" 
+		class="text-center cursor-pointer"
+	>
+		<ion-icon slot="end" [src]="stringKey.ICON_START"></ion-icon>
+
+		<!-- quiz -->
+		<ion-label 
+			slot="end" 
+			*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+		>
+		<b>{{ "button.start" | translate }} {{ "button.assignment" | translate }}</b>
 		</ion-label>
+		<!-- quiz -->
+
+		<!-- td / ps / fc -->
+		<ion-label 
+			slot="end"
+			*ngIf="
+				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
+			"
+		>
+			<b>{{ "button.start" | translate }} {{ "button.studySession" | translate }}</b>
+		</ion-label>
+		<!-- td / ps / fc -->
 	</ion-item>
-	<!-- submit assignment -->
+	<!-- start session -->
+
+	<!-- submit session -->
+	<ion-item 
+		color="tertiary" 
+		*ngIf="!isMaterialOwner && isContentLive && assignmentSessionInitiated" 
+		(click)="submitAssignment()" 
+		class="text-center cursor-pointer"
+	>
+		<ion-icon slot="end" [src]="stringKey.ICON_STOP"></ion-icon>&nbsp;
+		<!-- quiz -->
+		<ion-label 
+			slot="end" 
+			*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+		>
+		<b>{{ "button.submit" | translate }} {{ "button.assignment" | translate }}</b>
+		</ion-label>
+		<!-- quiz -->
+
+		<!-- td / ps / fc -->
+		<ion-label 
+			slot="end"
+			*ngIf="
+				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
+				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
+			"
+		>
+		<b>{{ "button.stop" | translate }} {{ "button.studySession" | translate }}</b>
+		</ion-label>
+		<!-- td / ps / fc -->
+	</ion-item>
+	<!-- submit session -->
 </ion-card>

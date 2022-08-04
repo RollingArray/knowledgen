@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-08-02 20:25:28
+ * Last modified  : 2022-08-04 18:18:50
  */
 
 import { Component, OnInit, Input, ViewChild, ElementRef, Injector } from "@angular/core";
@@ -144,6 +144,16 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	@ViewChild('article', { read: ElementRef, static: false }) article: ElementRef;
 
+	/**
+	 * View child of knowledge base article component
+	 */
+	@ViewChild('articleTitleView', { read: ElementRef, static: false }) articleTitleView: ElementRef;
+
+	/**
+	 * View child of knowledge base article component
+	 */
+	@ViewChild('assignmentPropertiesView', { read: ElementRef, static: false }) assignmentPropertiesView: ElementRef;
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|

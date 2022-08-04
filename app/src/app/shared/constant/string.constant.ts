@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-07-20 09:18:10
+ * Last modified  : 2022-08-04 19:25:44
  */
 
 
@@ -567,6 +567,9 @@ export class StringKey {
 	public static readonly ICON_LINK: string = StringKey.ICON_BASE_PATH + "link.svg";
 	public static readonly ICON_LEFT_ARROW: string = StringKey.ICON_BASE_PATH + "left-arrow.svg";
 	public static readonly ICON_RIGHT_ARROW: string = StringKey.ICON_BASE_PATH + "right-arrow.svg";
+	public static readonly ICON_UP_ARROW: string = StringKey.ICON_BASE_PATH + "up-arrow.svg";
+	public static readonly ICON_DOWN_ARROW: string = StringKey.ICON_BASE_PATH + "down-arrow.svg";
+	public static readonly ICON_BIDIRECTIONAL_ARROW: string = StringKey.ICON_BASE_PATH + "bidirectional-arrow.svg";
 	public static readonly ICON_ACTIVATE: string = StringKey.ICON_BASE_PATH + "activate.svg";
 	public static readonly ICON_SEND: string = StringKey.ICON_BASE_PATH + "send.svg";
 	public static readonly ICON_SAVE: string = StringKey.ICON_BASE_PATH + "save.svg";
@@ -667,7 +670,7 @@ export class StringKey {
 	public static readonly ICON_PUZZLE: string = StringKey.ICON_BASE_PATH + "puzzle.svg";
 	public static readonly ICON_WORD_CLOUD: string = StringKey.ICON_BASE_PATH + "word-cloud.svg";
 	public static readonly ICON_COPY: string = StringKey.ICON_BASE_PATH + "copy.svg";
-
+	
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
@@ -688,6 +691,7 @@ export class StringKey {
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	
 	public static readonly COLOR_PRIMARY: string = "primary";
+	public static readonly COLOR_PRIMARY_GRADIENT: string = "primary-gradient";
 	public static readonly COLOR_SECONDARY: string = "secondary";
 	public static readonly COLOR_TERNARY: string = "tertiary";
 	public static readonly COLOR_SUCCESS: string = "success";

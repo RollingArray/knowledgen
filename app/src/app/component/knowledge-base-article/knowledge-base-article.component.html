@@ -7,13 +7,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-28 10:07:28
+ * Last modified  : 2022-08-04 18:19:08
  */
  -->
 
-<ion-content>
+<ion-content #articleView>
 	<!-- article title -->
 	<div 
+		#articleTitleView
 		class="article-title" 
 		*ngIf="
       			(selectedMenuArticle$ | async).articleId &&
@@ -80,6 +81,7 @@
 
 	<!-- show assignment properties for visitor if live -->
 	<assignment-properties
+		#assignmentPropertiesView
 		*ngIf="
 			!isMaterialOwner &&
 			isContentLive &&
@@ -96,6 +98,8 @@
 	>
 		<!-- crud-text-document -->
 		<crud-text-document
+			[articleTitleView] = "articleTitleView"
+			[articleView] = "articleView"
 			[isContentLive]="isContentLive" 
 			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"
 		>
@@ -104,6 +108,9 @@
 
 		<!-- crud-assignment-quiz -->
 		<crud-assignment-quiz 
+			[assignmentPropertiesView] = "assignmentPropertiesView"
+			[articleTitleView] = "articleTitleView"
+			[articleView] = "articleView"
 			[articleCompletionReward]="articleCompletionReward" 
 			[isContentLive]="isContentLive"
 			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ"

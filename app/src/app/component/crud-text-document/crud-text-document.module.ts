@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-19 14:04:14
+ * Last modified  : 2022-08-04 19:50:53
  */
 
 import { NgModule } from '@angular/core';
@@ -23,6 +23,10 @@ import { SanitizedHtmlPipeModule } from 'src/app/shared/pipe/sanitized-html.pipe
 import { ArticleTextDocumentStateModule } from 'src/app/state/article-text-document/article-text-document.state.module';
 import { ContentImageModule } from '../content-image/content-image.module';
 import { HtmlContentToolbarModule } from '../html-content-toolbar/html-content-toolbar.module';
+import { AssignmentInstructionsModule } from '../assignment-instructions/assignment-instructions.module';
+import { ArticleSessionModule } from '../article-session/article-session.module';
+import { ArticleSessionStateModule } from 'src/app/state/article-session/article-session.state.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 @NgModule({
 	imports: [
@@ -38,7 +42,11 @@ import { HtmlContentToolbarModule } from '../html-content-toolbar/html-content-t
 		SanitizedHtmlPipeModule,
 		ArticleTextDocumentStateModule,
 		ContentImageModule,
-		HtmlContentToolbarModule
+		HtmlContentToolbarModule,
+		AssignmentInstructionsModule,
+		ArticleSessionModule,
+		ArticleSessionStateModule,
+		RootStateModule
 	],
 
 	declarations: [CrudTextDocumentComponent],

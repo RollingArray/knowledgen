@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-26 10:14:32 
- * Last modified  : 2022-07-26 12:02:24
+ * Last modified  : 2022-08-04 19:04:35
  */
 
 import { Injectable } from "@angular/core";
@@ -17,6 +17,7 @@ import { COURSE_MATERIAL_ASSIGNMENT_ACTIONS } from "./course-material-assignment
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "../root/root.state.facade";
 import { CourseMaterialAssignmentService } from "src/app/shared/service/course-material-assignment.service";
+import { ARTICLE_SESSION_ACTIONS } from "../article-session/article-session.state.actions";
 
 
 @Injectable()
@@ -76,13 +77,26 @@ export class CourseMaterialAssignmentStateEffects {
 	);
 
 	/**
-	 * Complete course material assignment result add operation$ of course material assignment state effects
+	 * Store quiz time in article session$ of course material assignment state effects
 	 */
-	completeCourseMaterialAssignmentResultAddOperation$ = createEffect(
+	storeQuizTimeInArticleSession$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
 					COURSE_MATERIAL_ASSIGNMENT_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL_ASSIGNMENT_RESULT
+				),
+				map(action => ARTICLE_SESSION_ACTIONS.STORE_NEWLY_ADDED_ARTICLE_SESSION({ payload: action.payload.sessionTime.data })),
+			),
+	);
+
+	/**
+	 * Complete course material assignment result add operation$ of course material assignment state effects
+	 */
+	 completeCourseMaterialAssignmentResultAddOperation$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ARTICLE_SESSION_ACTIONS.STORE_NEWLY_ADDED_ARTICLE_SESSION
 				),
 				map(action => COURSE_MATERIAL_ASSIGNMENT_ACTIONS.COURSE_MATERIAL_ASSIGNMENT_RESULT_ADDED_SUCCESS()),
 			),

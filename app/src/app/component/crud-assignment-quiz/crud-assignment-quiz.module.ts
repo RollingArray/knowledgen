@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-07-27 18:55:27
+ * Last modified  : 2022-08-04 17:20:29
  */
 
 import { NgModule } from '@angular/core';
@@ -29,6 +29,7 @@ import { CopyButtonModule } from '../button/copy-button/copy-button.component.mo
 import { CourseMaterialAssignmentStateModule } from 'src/app/state/course-material-assignment/course-material-assignment.state.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 import { AssignmentInstructionsModule } from '../assignment-instructions/assignment-instructions.module';
+import { ArticleSessionModule } from '../article-session/article-session.module';
 
 @NgModule({
 	imports: [
@@ -50,7 +51,8 @@ import { AssignmentInstructionsModule } from '../assignment-instructions/assignm
 		DeleteButtonModule,
 		CopyButtonModule,
 		CrudCourseMaterialAssignmentResultModule,
-		AssignmentInstructionsModule
+		AssignmentInstructionsModule,
+		ArticleSessionModule
 	],
 
 	declarations: [CrudAssignmentQuizComponent],

@@ -7,10 +7,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-19 19:43:17
+ * Last modified  : 2022-08-04 17:19:03
  */
 -->
 <!-- article owner toolbar -->
+
 <div *ngIf="(this.courseMaterial$ | async) && isMaterialOwner">
 	<!-- fab -->
 	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="!isContentLive">
@@ -27,6 +28,7 @@
 		</ion-fab-button>
 	</ion-fab>
 	<!-- fab -->
+
 	<!-- toolbar -->
 	<ion-card  *ngIf="showSave">
 		<html-content-toolbar></html-content-toolbar>
@@ -50,8 +52,36 @@
 </div>
 <!-- article owner toolbar -->
 
+<div #contentTopScrollView>
+	<!-- study instructions -->
+	<assignment-instructions
+		*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
+		[isMaterialOwner]= "isMaterialOwner"
+		[isContentLive]= "isContentLive"
+		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"
+		(startAssignmentEvent)="startStudySession()"
+		(submitAssignmentEvent) = "submitStudySession($event)"
+	>
+	</assignment-instructions>
+	<!-- study instructions -->
+
+	<!-- article-session -->
+	<article-session
+		#scroll 
+		*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
+		[isMaterialOwner]= "isMaterialOwner"
+		[isContentLive]= "isContentLive"
+		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"
+	></article-session>
+	<!-- article-session -->
+</div>
+
+
 <!-- content -->
-<div class="para" #editableTextDocument></div>
+<div 
+	class="para" 
+	#editableTextDocument 
+></div>
 <!-- content -->
 
 <!-- content not live message -->

@@ -1,4 +1,5 @@
-<ion-item color="info" lines="none">
-  <ion-icon color="primary" slot="start" [src]="stringKey.ICON_INFO"></ion-icon>
+<ion-item [color]="panelColor">
+  <ion-icon slot="start" *ngIf="panelIcon !== 'spinner'" [src]="!panelIcon ? stringKey.ICON_INFO : panelIcon"></ion-icon>
+  <ion-spinner color="light" *ngIf="panelIcon === 'spinner'"></ion-spinner>
   <p>{{title}}</p>
 </ion-item>
