@@ -50,6 +50,7 @@ class CourseMaterialArticleController extends Controller
             'article_id' => 'exclude_if:operation_type,CREATE|required|alpha_num',
             'course_material_id' => 'required|alpha_num',
             'article_title' => 'exclude_if:operation_type,DELETE|required|max:255',
+			'article_summery' => 'sometimes',
 			'course_material_type_id' => 'required|in:textDocument,quiz,crossword,silds,dragContent,flashCard,poll,puzzle,wordCloud',
 			'article_completion_time' => 'required',
 			'article_completion_reward' => 'required',
@@ -114,6 +115,7 @@ class CourseMaterialArticleController extends Controller
         $model->course_material_id = $request->input('course_material_id');
         $model->article_id = uniqid();
         $model->article_title = $request->input('article_title');
+		$model->article_summery = $request->input('article_summery');
 		$model->course_material_type_id = $request->input('course_material_type_id');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
@@ -155,6 +157,7 @@ class CourseMaterialArticleController extends Controller
 
         //modify values to the model
 		$model->article_title = $request->input('article_title');
+		$model->article_summery = $request->input('article_summery');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
         

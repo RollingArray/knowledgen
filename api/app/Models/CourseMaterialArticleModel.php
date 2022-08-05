@@ -44,6 +44,7 @@ class CourseMaterialArticleModel extends BaseModel{
     protected $fillable = [
         'article_id', 
         'article_title',
+        'article_summery',
         'course_material_type_id',
         'article_status',
         'article_completion_time',
