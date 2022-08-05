@@ -7,9 +7,32 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-07-19 12:58:00
+ * Last modified  : 2022-08-05 19:58:40
  */
  -->
+ <div *ngIf="courseMaterial$ | async">
+	<img
+								[src]="stringKey.IMAGE_PANEL_HEADER" />
+							<ion-card-header>
+								<ion-card-subtitle>
+									{{(courseMaterial$
+									|
+									async).createdAt
+									|
+									date:'fullDate'}}
+								</ion-card-subtitle>
+								<ion-card-title>
+									{{(courseMaterial$
+									|
+									async).courseMaterialName}}
+								</ion-card-title>
+							</ion-card-header>
+							<ion-card-content>
+								{{(courseMaterial$
+								|
+								async).courseMaterialDescription}}
+							</ion-card-content>
+ </div>
 <ion-card class="cursor-pointer" *ngFor="let eachMenu of (parentMenuMenu$ | async)" >
 	<!-- article title -->
 	<ion-item lines="none" (click)="navigateToCourseMaterialArticle(eachMenu)">

@@ -8,53 +8,89 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-07-27 21:25:26
+ * Last modified  : 2022-08-05 19:59:27
 */	
  -->
 <!-- header -->
 
 <!-- header -->
 <ion-header>
-	<ion-toolbar color="primary">
-		<ion-title *ngIf="courseMaterial$ | async">
-			{{(courseMaterial$ | async).courseMaterialName}}
+	<ion-toolbar
+		color="primary">
+		<ion-title
+			*ngIf="courseMaterial$ | async">
+			{{(courseMaterial$
+			|
+			async).courseMaterialName}}
 		</ion-title>
-		<ion-buttons slot="start" *ngIf="(backAvailable | async) === operationsEnum.END">
-			<ion-back-button defaultHref="go/course/material"></ion-back-button>
+		<ion-buttons
+			slot="start"
+			*ngIf="(backAvailable | async) === operationsEnum.END">
+			<ion-back-button
+				defaultHref="go/course/material">
+			</ion-back-button>
 		</ion-buttons>
-		<ion-buttons slot="end" (click)="showMenu()"
+		<ion-buttons
+			slot="end"
+			(click)="showMenu()"
 			class="hidden-device-xxl hidden-device-xl hidden-device-lg hidden-device-md">
-			<ion-icon slot="start" [src]="stringKey.ICON_MENU"></ion-icon>
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_MENU">
+			</ion-icon>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <!-- header -->
 <ion-content>
-	<ion-grid class="stretch-grid-full">
-		<ion-row class="stretch-grid-row-full">
+	<ion-grid
+		class="stretch-grid-full">
+		<ion-row
+			class="stretch-grid-row-full">
 			<!-- top match -->
-			<ion-col [ngClass]="articleMenuClosed ? 'display-none' : 'display-block'" size-xl="4" size-lg="4"
-				size-md="4" size-sm="12" size-xs="12">
-				<ion-grid class="stretch-grid-full grid-right-border">
+			<ion-col
+				[ngClass]="articleMenuClosed ? 'display-none' : 'display-block'"
+				size-xl="4"
+				size-lg="4"
+				size-md="4"
+				size-sm="12"
+				size-xs="12">
+				<ion-grid
+					class="stretch-grid-full grid-right-border">
 					<!-- mobile view-->
 
 					<!-- mobile view-->
 
 					<!-- desktop view-->
-					<ion-row class="overflow-container article-menu">
-						<ion-col text-center>
-							<parent-menu></parent-menu>
+
+					<ion-row
+						class="overflow-container article-menu">
+						<!-- menu -->
+						<ion-col
+							text-center>
+							<parent-menu>
+							</parent-menu>
 						</ion-col>
+						<!-- menu -->
 					</ion-row>
 					<!-- desktop view-->
 				</ion-grid>
 			</ion-col>
 
 			<!-- article -->
-			<ion-col size-xl="8" size-lg="8" size-md="8" size-sm="12" size-xs="12">
-				<ion-grid class="stretch-grid-full" color="dark">
-					<ion-row class="overflow-container background-color-white">
-						<ion-col text-center>
+			<ion-col
+				size-xl="8"
+				size-lg="8"
+				size-md="8"
+				size-sm="12"
+				size-xs="12">
+				<ion-grid
+					class="stretch-grid-full"
+					color="dark">
+					<ion-row
+						class="overflow-container background-color-white">
+						<ion-col
+							text-center>
 							<!-- dynamic article content -->
 							<knowledge-base-article>
 							</knowledge-base-article>
@@ -67,30 +103,3 @@
 		</ion-row>
 	</ion-grid>
 </ion-content>
-
-<!-- <ion-app>
-	<ion-split-pane contentId="courseMaterialArticle">
-		<ion-menu contentId="courseMaterialArticle" type="overlay" color="pitch-dark">
-			<ion-header lines="none" class="ion-no-border">
-				<ion-toolbar color="primary">
-					<ion-buttons slot="start">
-						<ion-back-button defaultHref="go/course/material"></ion-back-button>
-					</ion-buttons>
-				</ion-toolbar>
-				<ion-menu-toggle auto-hide="false">
-					<app-page-info-title *ngIf="courseMaterial$ | async"
-						[title]="(courseMaterial$ | async).courseMaterialName"
-						[info]="(courseMaterial$ | async).courseMaterialDescription">
-					</app-page-info-title>
-				</ion-menu-toggle>
-			</ion-header>
-			
-			<ion-content color="primary-gradient">
-				<ion-menu-toggle auto-hide="false">
-					<parent-menu></parent-menu>
-				</ion-menu-toggle>
-			</ion-content>
-		</ion-menu>
-		<ion-router-outlet id="courseMaterialArticle"></ion-router-outlet>
-	</ion-split-pane>
-</ion-app> -->
