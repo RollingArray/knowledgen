@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-08-02 20:21:22
+ * Last modified  : 2022-08-05 15:08:35
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -190,6 +190,7 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 			childArticleOrder: totalNumberOfChildMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
+			articleSummery: '',
 			articleCompletionReward: 10,
 			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE

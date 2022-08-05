@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-07-18 22:04:25
+ * Last modified  : 2022-08-05 15:11:52
  */
 
 import { Injectable } from "@angular/core";
@@ -106,6 +106,7 @@ export class CourseMaterialMenuStateEffects
 											parentArticleOrder: eachParentMenu.parentArticleOrder,
 											courseMaterialId: eachParentMenu.courseMaterialId,
 											articleTitle: eachParentMenu.articleTitle,
+											articleSummery: eachParentMenu.articleSummery,
 											articleStatus: eachParentMenu.articleStatus,
 											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId,
 											articleCompletionTime: eachParentMenu.articleCompletionTime,
@@ -128,6 +129,7 @@ export class CourseMaterialMenuStateEffects
 													childArticleOrder: eachChildMenu.childArticleOrder,
 													courseMaterialId: eachChildMenu.courseMaterialId,
 													articleTitle: eachChildMenu.articleTitle,
+													articleSummery: eachParentMenu.articleSummery,
 													articleStatus: eachChildMenu.articleStatus,
 													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId,
 													articleCompletionTime: eachChildMenu.articleCompletionTime,
@@ -151,6 +153,7 @@ export class CourseMaterialMenuStateEffects
 															subChildArticleOrder: eachSubChildMenu.subChildArticleOrder,
 															courseMaterialId: eachSubChildMenu.courseMaterialId,
 															articleTitle: eachSubChildMenu.articleTitle,
+															articleSummery: eachParentMenu.articleSummery,
 															articleStatus: eachSubChildMenu.articleStatus,
 															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId,
 															articleCompletionTime: eachSubChildMenu.articleCompletionTime,

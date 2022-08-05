@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 16:26:27 
- * Last modified  : 2022-07-18 20:40:40
+ * Last modified  : 2022-08-05 15:11:01
  */
 
 import { createReducer, Action, on } from '@ngrx/store';
@@ -60,6 +60,7 @@ const reducer = createReducer(
 			id: action.payload.parentArticleId ? action.payload.parentArticleId : '',
 			changes: {
 				articleTitle: action.payload.articleTitle,
+				articleSummery: action.payload.articleSummery,
 				articleStatus: action.payload.articleStatus,
 				articleCompletionReward: action.payload.articleCompletionReward,
 				articleCompletionTime: action.payload.articleCompletionTime,

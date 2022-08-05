@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-08-02 20:26:27
+ * Last modified  : 2022-08-05 15:05:53
  */ 
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -198,6 +198,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 			subChildArticleOrder: totalNumberOfSubChildMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
+			articleSummery: '',
 			articleCompletionReward: 10,
 			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE

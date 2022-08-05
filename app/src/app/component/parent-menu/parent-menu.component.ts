@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-07-18 19:46:17
+ * Last modified  : 2022-08-05 15:08:19
  */
 
 import { Component, OnInit, Injector } from "@angular/core";
@@ -217,6 +217,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			parentArticleOrder: totalNumberOfMenu + 1,
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
+			articleSummery: '',
 			articleCompletionReward: 10,
 			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE

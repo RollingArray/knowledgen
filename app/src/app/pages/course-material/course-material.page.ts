@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-07-08 16:46:20
+ * Last modified  : 2022-08-05 14:17:51
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -68,32 +68,45 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 * Getter & Setters									|
 	 * -------------------------------------------------|
 	 */
-	
-	 get userType()
-	 {
-		 return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	 }
-	
-	 get isUserTypeTeacher()
-	 {
-		 return this.userType === UserTypeEnum.Teacher ? true : false;
-	 }
- 
-	 get isUserTypeStudent()
-	 {
-		 return this.userType === UserTypeEnum.Student ? true : false;
-	 }
-	
-	 get pageTitle()
-	 {
-		 let title = '';
-		 this.translateService
+
+	/**
+	 * Gets description
+	 */
+	get userType()
+	{
+		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+	}
+
+	/**
+	 * Gets whether is user type teacher
+	 */
+	get isUserTypeTeacher()
+	{
+		return this.userType === UserTypeEnum.Teacher ? true : false;
+	}
+
+	/**
+	 * Gets whether is user type student
+	 */
+	get isUserTypeStudent()
+	{
+		return this.userType === UserTypeEnum.Student ? true : false;
+	}
+
+	/**
+	 * Gets page title
+	 */
+	get pageTitle()
+	{
+		let title = '';
+		this.translateService
 			.get([
 				'pageTitle.myCourseMaterials',
 				'pageTitle.recommendedCourseMaterials',
 			])
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data) => {
+			.subscribe(async (data) =>
+			{
 				if (this.isUserTypeTeacher)
 				{
 					title = data['pageTitle.myCourseMaterials'];
@@ -103,32 +116,36 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 					title = data['pageTitle.recommendedCourseMaterials'];
 				}
 			});
-			 
-		 return title;
-	 }
- 
-	 get pageSubTitle()
-	 {
-		 let pageSubTitle = '';
-			 this.translateService
-				 .get([
-					 'pageSubTitle.myCourseMaterials',
-					 'pageSubTitle.recommendedCourseMaterials'
-				 ])
-				 .pipe(takeUntil(this.unsubscribe))
-				 .subscribe(async (data) => {
-					 if (this.isUserTypeTeacher)
-					 {
-						pageSubTitle = `${data['pageSubTitle.myCourseMaterials']}`;
-					 }
-					 else
-					 {
-						pageSubTitle = `${data['pageSubTitle.recommendedCourseMaterials']}`;
-					 }
-				 });
-		 return pageSubTitle;
-	 }
-	
+
+		return title;
+	}
+
+	/**
+	 * Gets page sub title
+	 */
+	get pageSubTitle()
+	{
+		let pageSubTitle = '';
+		this.translateService
+			.get([
+				'pageSubTitle.myCourseMaterials',
+				'pageSubTitle.recommendedCourseMaterials'
+			])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data) =>
+			{
+				if (this.isUserTypeTeacher)
+				{
+					pageSubTitle = `${data['pageSubTitle.myCourseMaterials']}`;
+				}
+				else
+				{
+					pageSubTitle = `${data['pageSubTitle.recommendedCourseMaterials']}`;
+				}
+			});
+		return pageSubTitle;
+	}
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -296,7 +313,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 								{
 									this.errorMessage = data['noData.noRecommendedCourseMaterialData'];
 								}
-								
+
 							});
 
 						this.getCourseMaterialMaterial()
@@ -313,9 +330,8 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 */
 	async getCourseMaterialMaterial()
 	{
-
 		this.translateService
-			.get('loading.courseMaterial')
+			.get('loading.myCourseMaterial')
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(async (data: string) =>
 			{
@@ -330,7 +346,6 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		{
 			this.courseMaterialStateFacade.requestRecommendedCourseMaterial();
 		}
-		
 	}
 
 	/**
@@ -377,6 +392,10 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		}
 	}
 
+	/**
+	 * Navigates to course material details
+	 * @param courseMaterialId 
+	 */
 	public navigateToCourseMaterialDetails(courseMaterialId: string)
 	{
 		this.router.navigate([courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-06-30 12:28:23
- * Last modified  : 2022-08-02 20:24:04
+ * Last modified  : 2022-08-05 15:13:14
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -273,6 +273,14 @@ export class CrudCourseMaterialTypeComponent
 	}
 
 	/**
+	 * Gets article summery
+	 */
+	get articleSummery()
+	 {
+		 return this.formGroup.get('articleSummery');
+	 }
+
+	/**
 	 * Gets article completion time
 	 */
 	get articleCompletionTime()
@@ -324,6 +332,28 @@ export class CrudCourseMaterialTypeComponent
 				 break;
 			 case MenuTypeEnum.SUB_CHILD_MENU:
 				return this._subChildMenuModel.articleTitle;
+				 break;
+ 
+			 default:
+				 break;
+		 }
+	}
+
+	/**
+	 * Gets article summery from model
+	 */
+	get articleSummeryFromModel()
+	 {
+		 switch (this._menuType)
+		 {
+			 case MenuTypeEnum.PARENT_MENU:
+				 return this._parentMenuModel.articleSummery;
+				 break;
+			 case MenuTypeEnum.CHILD_MENU:
+				return this._childMenuModel.articleSummery;
+				 break;
+			 case MenuTypeEnum.SUB_CHILD_MENU:
+				return this._subChildMenuModel.articleSummery;
 				 break;
  
 			 default:
@@ -547,6 +577,7 @@ export class CrudCourseMaterialTypeComponent
 	{
 		const form = this.formGroup.value;
 		form.articleTitle = this.articleTitleFromModel;
+		form.articleSummery = this.articleTitleFromModel;
 		form.articleCompletionReward = this.articleCompletionRewardFromModel;
 		form.articleCompletionTime = this.articleCompletionTimeFromModel;
 	}
@@ -559,6 +590,13 @@ export class CrudCourseMaterialTypeComponent
 		this.formGroup = this.formBuilder.group({
 			articleTitle: [
 				this.articleTitleFromModel,
+				this.validators().compose([
+					// tslint:disable:no-unbound-method
+					this.validators().required,
+				]),
+			],
+			articleSummery: [
+				this.articleSummeryFromModel,
 				this.validators().compose([
 					// tslint:disable:no-unbound-method
 					this.validators().required,
@@ -589,6 +627,7 @@ export class CrudCourseMaterialTypeComponent
 				const parentMenuModel: ParentMenuModel = {
 					...this._parentMenuModel,
 					articleTitle: form.articleTitle,
+					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
 					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId
@@ -601,6 +640,7 @@ export class CrudCourseMaterialTypeComponent
 				const childMenuModel: ChildMenuModel = {
 					...this._childMenuModel,
 					articleTitle: form.articleTitle,
+					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
 					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId
@@ -612,6 +652,7 @@ export class CrudCourseMaterialTypeComponent
 				const subChildMenuModel: SubChildMenuModel = {
 					...this._subChildMenuModel,
 					articleTitle: form.articleTitle,
+					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
 					articleCompletionTime: form.articleCompletionTime,
 					courseMaterialTypeId: this._courseMaterialTypeId

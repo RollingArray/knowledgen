@@ -33,7 +33,8 @@
 		"assignment": "অ্যাসাইনমেন্ট",
 		"studySession": "অধ্যয়ন অধিবেশন",
 		"quizSession": "কুইজ অধিবেশন",
-		"stop": "থামো"
+		"stop": "থামো",
+		"learningPath": "শেখার পথে যোগ করুন"
 	},
 	"pageTitle": {
 		"profile":"প্রোফাইল",
@@ -168,7 +169,8 @@
 		"sessionProgress": "সময়ের সাথে সাথে অগ্রগতি",
 		"sessionDecreased": "শেষ 2 সেশনের মধ্যে সময় কমেছে",
 		"sessionIncrease": "শেষ 2 সেশনের মধ্যে সময় বৃদ্ধি করা হয়েছে",
-		"sessionNeutral": "শেষ 2 সেশনের মধ্যে সময় নেই"
+		"sessionNeutral": "শেষ 2 সেশনের মধ্যে সময় নেই",
+		"articleSummery": "Provide a summery of the content"
 	},
 	"courseMaterialType":{
 		"textDocument": "টেক্সট ডকুমেন্ট",
@@ -217,7 +219,9 @@
 		"deleteQuestion" : "প্রশ্ন মুছে ফেলা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন",
 		"changeVisibility" : "দৃশ্যমানতা পরিবর্তন করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন",
 		"editQuizParameters" : "কুইজ প্যারামিটার আপডেট করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন",
-		"holdTightResult": "দৃঢ়ভাবে ধরুন, আমরা আপনার ফলাফল খুঁজছি"
+		"holdTightResult": "দৃঢ়ভাবে ধরুন, আমরা আপনার ফলাফল খুঁজছি",
+		"recommendedCourseMaterial": "প্রস্তাবিত কোর্সের উপকরণ লোড হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন",
+		"myCourseMaterial": "আপনার কোর্সের উপকরণ লোড হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন"
 	},
 	"errorMessage":{
 		"notAllowed": "আপনার কর্ম পর্যালোচনা !!",
