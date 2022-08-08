@@ -6,10 +6,10 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-08-05 15:08:19
+ * Last modified  : 2022-08-06 07:37:20
  */
 
-import { Component, OnInit, Injector } from "@angular/core";
+import { Component, OnInit, Injector, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
@@ -83,6 +83,22 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * Determines whether data has
 	 */
 	hasData$!: Observable<boolean>;
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @input & @output Instance variable				|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Description  of parent menu component
+	 */
+	@Input() learningPathCourseMaterialId = '';
+
+	/**
+	 * Input  of parent menu component
+	 */
+	@Input() showSummery = false;
 
 	/**
 	 * -------------------------------------------------|
@@ -184,6 +200,23 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	}
 
 	/**
+	 * Gets course material id
+	 * @returns  
+	 */
+	 private getCourseMaterialId()
+	 {
+		 if (this.learningPathCourseMaterialId)
+		 {
+			 return this.learningPathCourseMaterialId;
+		 }
+ 
+		 else
+		 {
+			 return this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+		 }
+	 }
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Public methods									|
@@ -195,7 +228,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	public loadData()
 	{
-		this._courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+		this._courseMaterialId = this.getCourseMaterialId();
 		this.getCourseMaterialMenu();
 		this.parentMenuMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
 		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);

@@ -1,0 +1,205 @@
+<!-- 
+/**
+* © Rolling Array https://rollingarray.co.in/
+*
+*
+* @summary Course material page template
+* @author code@rollingarray.co.in
+*
+* Created at     : 2022-01-16 08:18:18 
+ * Last modified  : 2022-08-08 20:05:42
+*/	
+ -->
+<!-- header -->
+<ion-header
+	[appScrollTracker]="scrollArea">
+	<ion-toolbar
+		color="primary">
+		<ion-title>
+			{{'pageTitle.myLearningPath'
+			|
+			translate}}
+		</ion-title>
+		<ion-buttons
+			slot="start">
+			<ion-menu-button>
+			</ion-menu-button>
+		</ion-buttons>
+		<ion-buttons
+			slot="end"
+			(click)="getLearningPathMaterial()">
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_REFRESH">
+			</ion-icon>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+<ion-content
+	#scrollArea
+	scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="'pageTitle.myLearningPath' | translate"
+		[info]="'pageSubTitle.myLearningPath' | translate">
+	</app-page-info-title>
+	<!-- page title -->
+
+	<!-- refresh btn -->
+	<ion-refresher
+		slot="fixed"
+		(ionRefresh)="doRefresh($event)">
+		<ion-refresher-content>
+		</ion-refresher-content>
+	</ion-refresher>
+	<!-- refresh btn -->
+
+	<!-- no data -->
+	<app-no-data
+		[courseMaterial]="true"
+		*ngIf="!(hasData$ | async)"
+		[text]="errorMessage">
+	</app-no-data>
+	<!-- no data -->
+
+	<!-- data container -->
+	<ng-container
+		*ngIf="(hasData$ | async)">
+		<!-- learning path total progress -->
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<ion-item
+						class="float-right"
+						lines="none">
+						<h1>
+							<b>
+								<ion-text
+									color="success">
+									{{(learningPathTotalProgressPercentage$
+									|
+									async)[0]}}
+									%
+								</ion-text>
+								completed
+							</b>
+						</h1>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-card>
+						<ion-progress-bar
+							class="height-10-px"
+							color="success"
+							[value]="(learningPathTotalProgressPercentage$ | async)[1]">
+						</ion-progress-bar>
+					</ion-card>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<!-- learning path total progress -->
+
+		<ion-grid>
+			<ion-row
+				*ngFor="let eachCourseMaterials of (courseMaterials$ | async)">
+				<ion-col
+					sizeLg="1"
+					sizeMd="1"
+					sizeSm="2"
+					sizeXl="1"
+					sizeXs="2">
+					<div
+						class="index-col">
+						<div
+							[class]="statusColorIcon(eachCourseMaterials.courseMaterialProgress)[0]">
+							<ion-icon
+								slot="start"
+								[src]="statusColorIcon(eachCourseMaterials.courseMaterialProgress)[1]">
+							</ion-icon>
+						</div>
+					</div>
+				</ion-col>
+				<ion-col
+					sizeLg="11"
+					sizeMd="11"
+					sizeSm="10"
+					sizeXl="11"
+					sizeXs="10">
+					<!-- each container -->
+					<ion-card>
+						<ion-card-title>
+							<ion-item>
+								<ion-icon
+									slot="start"
+									[src]="stringKey.ICON_DOCUMENT">
+								</ion-icon>
+								<b>
+									{{eachCourseMaterials.courseMaterialName}}
+								</b>
+
+							</ion-item>
+						</ion-card-title>
+						<ion-card-content>
+							{{eachCourseMaterials.courseMaterialDescription}}
+						</ion-card-content>
+
+						<ion-grid>
+							<!-- operation tool -->
+							<ion-row>
+
+								<ion-col>
+									<div
+										class="margin-10-px float-right">
+										<delete-button
+											(event)="onLearningPathAction(eachCourseMaterials)
+                			"></delete-button>
+									</div>
+									<div
+										class="margin-10-px float-right">
+										<view-button
+											(event)="navigateToLearningPathDetails(eachCourseMaterials.courseMaterialId)
+                			"></view-button>
+									</div>
+								</ion-col>
+							</ion-row>
+							<!-- operation tool -->
+							<ion-row>
+								<ion-col>
+									<ion-item
+										class="float-right"
+										lines="none">
+										<h4>
+											<b>
+												<ion-text
+													color="success">
+													{{eachCourseMaterials.courseMaterialProgress}}
+													%
+												</ion-text>
+												completed
+											</b>
+										</h4>
+									</ion-item>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col>
+									<ion-progress-bar
+										class="height-10-px"
+										color="success"
+										[value]="eachCourseMaterials.courseMaterialProgress / 100">
+									</ion-progress-bar>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<!--  -->
+					</ion-card>
+					<!-- each container -->
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ng-container>
+	<!-- data container -->
+</ion-content>

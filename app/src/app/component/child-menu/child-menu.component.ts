@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-08-05 15:08:35
+ * Last modified  : 2022-08-06 07:37:46
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -52,6 +52,11 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 * Input  of child menu component
 	 */
 	@Input() courseMaterialId: string;
+
+	/**
+	 * Input  of child menu component
+	 */
+	@Input() showSummery = false;
 
 	/**
 	 * -------------------------------------------------|

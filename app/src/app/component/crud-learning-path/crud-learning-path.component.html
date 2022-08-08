@@ -1,0 +1,84 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud course material component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-07-04 19:38:45 
+ * Last modified  : 2022-08-08 10:35:01
+ */ 
+-->
+
+<!-- header -->
+<ion-header
+	[appScrollTracker]="scrollArea">
+	<ion-toolbar
+		color="primary">
+		<ion-title>
+			{{
+			pageTitle
+			|
+			translate
+			}}
+		</ion-title>
+		<ion-buttons
+			slot="end">
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()">
+				{{
+				'button.discard'
+				|
+				translate
+				}}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content
+	lines="none"
+	#scrollArea
+	scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="pageTitle | translate "
+		[info]="pageSubTitle | translate ">
+	</app-page-info-title>
+
+	<!-- course material layout -->
+	<course-material-layout
+		[courseMaterialId]="learningPath.courseMaterialId">
+	</course-material-layout>
+	<!-- course material layout -->
+
+	<!-- add to path -->
+	<ion-grid>
+		<ion-row>
+			<ion-col>
+				<common-button
+					(event)="submit()"
+					class="margin-20-px float-right"
+					[title]="'button.learningPath'
+					|
+					translate" [color]="stringKey.COLOR_TERNARY"
+					[icon]="stringKey.ICON_ADD">
+				</common-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- add to path -->
+
+	<!-- parent menu -->
+	<parent-menu
+		[showSummery]=true
+		[learningPathCourseMaterialId]="learningPath.courseMaterialId">
+	</parent-menu>
+	<!-- parent menu -->
+</ion-content>
+<!-- body -->

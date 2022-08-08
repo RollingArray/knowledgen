@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-07-27 21:28:50
+ * Last modified  : 2022-08-08 14:22:45
  */
 
 import { UserProfileModule } from './../../component/user-profile/user-profile.component.module';
@@ -37,6 +37,10 @@ const routes: Routes = [
 			{
 				path: 'availability/planner',
 				loadChildren: () => import('../availability-planner/availability-planner.module').then(m => m.AvailabilityPlannerPageModule)
+			},
+			{
+				path: 'learning/path',
+				loadChildren: () => import('../learning-path/learning-path.module').then(m => m.LearningPathPageModule)
 			},
 		]
 	},

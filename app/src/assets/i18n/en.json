@@ -34,7 +34,8 @@
 		"studySession": "Study Session",
 		"quizSession": "Quiz Session",
 		"stop": "Stop",
-		"learningPath": "Add To Learning Path"
+		"learningPath": "Add To Learning Path",
+		"share": "Share"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -85,7 +86,10 @@
 		"resultLow": "Do more practice !! Way to go ",
 		"youScore": "You have scored",
 		"studySession": "Study session progress over time",
-		"quizSession": "Quiz sessions over time"
+		"quizSession": "Quiz sessions over time",
+		"addToLearningPath": "Add To Learning Path",
+		"deleteLearningPath": "Delete Learning Path",
+		"myLearningPath": "My Learning Path"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -112,7 +116,10 @@
 		"editQuestion": "Provide updated details of the question. Save the changes once you are satisfied with the content",
 		"deleteQuestion": "Deleting question",
 		"studySession": "Session time over iterations graph will show the amount of time you have taken in each iteration while reading this article. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to grasp the content much quicker",
-		"quizSession": "Quiz session time over iterations graph will show the amount of time you have taken in each iteration while taking this quiz. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to answer the question much quicker"
+		"quizSession": "Quiz session time over iterations graph will show the amount of time you have taken in each iteration while taking this quiz. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to answer the question much quicker",
+		"addToLearningPath": "Find the content summery of the material below. Add the material to learning path to study the material and track progress",
+		"deleteLearningPath": "Deleting Learning Path",
+		"myLearningPath": "My Learning Path if tied to your learning progress. As you complete articles and assignments provided in the course material, you will be able to see the progress in %."
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -170,7 +177,8 @@
 		"sessionDecreased": "Decreased in time between last 2 session",
 		"sessionIncrease": "Increased in time between last 2 session",
 		"sessionNeutral": "No time time between last 2 session",
-		"articleSummery": "Provide a summery of the content"
+		"articleSummery": "Provide a summery of the content",
+		"materialContent": "Course material content"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -194,7 +202,8 @@
 		"noQuestion": "No question has been found. Add your question !!",
 		"availableSoonContent": "The content will be available soon !!",
 		"noStudySession": "No study session data available !!",
-		"noQuizSession": "No quiz session data available !!"
+		"noQuizSession": "No quiz session data available !!",
+		"noMyLearningPath": "You have not yet addedd any course to yout learning path !!"
 	},
 	"loading": { 
 		"wait": "Loading ... Please wait",
@@ -221,7 +230,9 @@
 		"changeVisibility": "Changing Visibility ... Please wait",
 		"holdTightResult": "Hold tight, we are looking for your result",
 		"recommendedCourseMaterial": "Loading Recommended Course Materials ... Please wait",
-		"myCourseMaterial": "Loading Your Course Materials ... Please wait"
+		"myCourseMaterial": "Loading Your Course Materials ... Please wait",
+		"newLearningPath": "Adding Course Material To Your Learning Path ... Please wait",
+		"deleteLearningPath": "Deleting Course Material Form Your Learning Path ... Please wait"
 	},
 	"errorMessage": {
 		"notAllowed": "Review Your Action !!",
@@ -261,7 +272,9 @@
 		"newQuestion": "Question has been saved, you can update any time until live!!",
 		"editQuestion": "Question has been updated successfully!!",
 		"deleteQuestion": "Question has been deleted successfully!!",
-		"changeVisibility": "Content visibility changed  successfully!!"
+		"changeVisibility": "Content visibility changed  successfully!!",
+		"newLearningPath": "Course Material has been added to your learning path successfully!!",
+		"deleteLearningPath": "Course Material removed from your learning path successfully!!"
 	},
 	"validation": {
 		"required": "Please provide the details"

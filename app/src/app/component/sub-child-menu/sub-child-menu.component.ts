@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-08-05 15:05:53
+ * Last modified  : 2022-08-06 07:37:01
  */ 
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
@@ -56,6 +56,11 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	 * Input  of child menu component
 	 */
 	@Input() courseMaterialId: string;
+
+	/**
+	 * Input  of sub child menu component
+	 */
+	@Input() showSummery = false;
 	/**
 	 * -------------------------------------------------|
 	 * @description										|

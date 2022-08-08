@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-08-03 11:04:35
+ * Last modified  : 2022-08-08 14:37:12
  */
 
 
@@ -38,6 +38,12 @@ export class ArrayKey {
 					url: ['availability', 'planner'],
 					icon: StringKey.ICON_RIGHT_ARROW,
 					allowAccess: [UserTypeEnum.Teacher]
+				},
+				{
+					title: 'pageTitle.myLearningPath',
+					url: ['learning', 'path'],
+					icon: StringKey.ICON_RIGHT_ARROW,
+					allowAccess: [UserTypeEnum.Student]
 				},
 			]
 		},

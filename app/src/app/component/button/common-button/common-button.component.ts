@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-15 12:55:08 
- * Last modified  : 2022-08-05 09:54:35
+ * Last modified  : 2022-08-06 07:45:15
  */
 
 import { Component, OnInit, Output, Injector, EventEmitter, Input } from "@angular/core";
@@ -45,6 +45,11 @@ export class CommonButtonComponent extends BaseViewComponent implements OnInit
 	 * Input  of common button component
 	 */
 	@Input() icon = '';
+
+	/**
+	 * Input  of common button component
+	 */
+	@Input() color = this.stringKey.COLOR_PRIMARY;
 
 	/**
 	 * -------------------------------------------------|

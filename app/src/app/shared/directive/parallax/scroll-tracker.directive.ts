@@ -1,78 +1,176 @@
-import { Directive, Input, ElementRef, Renderer2, OnInit, ViewChild, OnDestroy } from "@angular/core";
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Scroll tracker directive
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-06 07:10:54 
+ * Last modified  : 2022-08-06 07:16:51
+ */
+
+
+import { Directive, Input, ElementRef, Renderer2, OnInit, OnDestroy } from "@angular/core";
 import { DomController } from "@ionic/angular";
-import { Subject, Subscription } from 'rxjs';
-import { take } from "rxjs/operators";
+import { Subscription } from 'rxjs';
 
 @Directive({
 	selector: "[appScrollTracker]",
 })
-export class ScrollTrackerDirective implements OnInit, OnDestroy {
+export class ScrollTrackerDirective implements OnInit, OnDestroy
+{
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @readonly properties								|
+	 * -------------------------------------------------|
+	 */
+
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @private Instance variable								|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Description  of scroll tracker directive
+	 */
+	private _hidden = true;
+
+	/**
+	 * Trigger distance of scroll tracker directive
+	 */
+	private _triggerDistance = 40;
+
+	/**
+	 * Subscription  of scroll tracker directive
+	 */
+	private _subscription: Subscription = new Subscription();
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @public Instance variable								|
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @Input & @Output									|
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Description  of scroll tracker directive
+	 */
 	@Input("appScrollTracker") scrollArea;
 
-	private hidden = true;
-	private triggerDistance = 40;
-	private subscription: Subscription = new Subscription();
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * Life cycle hook									|
+	 * -------------------------------------------------|
+	 */
 
+	/**
+	 * Creates an instance of scroll tracker directive.
+	 * @param element 
+	 * @param renderer 
+	 * @param domCtrl 
+	 */
 	constructor(
 		private element: ElementRef,
 		private renderer: Renderer2,
 		private domCtrl: DomController
 	) { }
 
-	ngOnInit() {
+	/**
+	 * on init
+	 */
+	ngOnInit()
+	{
 		this.initStyles();
-		
-		
-		const subscription = this.scrollArea
+		const _subscription = this.scrollArea
 			.ionScroll
-			.pipe(take(1))
-			.subscribe((scrollEvent) => {
+			.subscribe((scrollEvent) =>
+			{
 				const delta = scrollEvent.detail.scrollTop;
-				if (scrollEvent.detail.currentY === 0 && this.hidden) {
+				if (scrollEvent.detail.currentY === 0 && this._hidden)
+				{
 					this.hide();
-				} else if (!this.hidden && delta > this.triggerDistance) {
+				} else if (!this._hidden && delta > this._triggerDistance)
+				{
 					this.show();
-				} else if (this.hidden && delta < this.triggerDistance) {
+				} else if (this._hidden && delta < this._triggerDistance)
+				{
 					this.hide();
 				}
 			});
 
-		this.subscription.add(subscription);
+		this._subscription.add(_subscription);
 	}
 
-	ngOnDestroy() {
-		this.subscription.unsubscribe();
+	/**
+	 * on destroy
+	 */
+	ngOnDestroy()
+	{
+		this._subscription.unsubscribe();
 	}
 
-	initStyles() {
-		this.domCtrl.write(() => {
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @Private methods									|
+	 * -------------------------------------------------|
+	 */
+	/**
+	 * Descriptions scroll tracker directive
+	 */
+	private initStyles()
+	{
+		this.domCtrl.write(() =>
+		{
 			this.renderer.setStyle(this.element.nativeElement, "transition", "2s linear");
 			this.renderer.setStyle(this.element.nativeElement.querySelector('ion-title'), "opacity", "0");
 			this.renderer.addClass(this.element.nativeElement, 'ion-no-border');
 			this.renderer.setAttribute(this.element.nativeElement.querySelector('ion-toolbar'), 'color', 'primary');
 		});
-		this.hidden = false;
+		this._hidden = false;
 	}
 
-	show() {
-		this.domCtrl.write(() => {
+	/**
+	 * Shows scroll tracker directive
+	 */
+	private show()
+	{
+		this.domCtrl.write(() =>
+		{
 			this.renderer.setStyle(this.element.nativeElement, "transition", "2s linear");
 			this.renderer.setStyle(this.element.nativeElement.querySelector('ion-title'), "opacity", "1");
 			this.renderer.removeClass(this.element.nativeElement, 'ion-no-border');
 			this.renderer.setAttribute(this.element.nativeElement.querySelector('ion-toolbar'), 'color', 'primary');
 		});
 
-		this.hidden = true;
+		this._hidden = true;
 	}
 
-	hide() {
-		this.domCtrl.write(() => {
+	/**
+	 * Hides scroll tracker directive
+	 */
+	private hide()
+	{
+		this.domCtrl.write(() =>
+		{
 			this.renderer.setStyle(this.element.nativeElement, "transition", "2s linear");
 			this.renderer.setStyle(this.element.nativeElement.querySelector('ion-title'), "opacity", "0");
 			this.renderer.addClass(this.element.nativeElement, 'ion-no-border');
 			this.renderer.setAttribute(this.element.nativeElement.querySelector('ion-toolbar'), 'color', 'primary');
 		});
 
-		this.hidden = false;
+		this._hidden = false;
 	}
 }

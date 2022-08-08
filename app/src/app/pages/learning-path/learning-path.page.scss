@@ -1,0 +1,42 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Course material page template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-01-16 08:17:54 
+ * Last modified  : 2022-08-08 19:53:36
+ */
+
+.index-col{
+    height: 100%;
+    background-color: var(--ion-color-light);
+    width: 10px;
+    margin-left: 40px;
+    border-radius: 10px;
+
+    .index{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        margin: 0 0 0 -20px;
+        line-height: 55px;
+        text-align: center;
+        font-size: x-large;
+    }
+
+    .complete{
+        color: white;
+        background-color: var(--ion-color-success);
+    }
+    .in-progress{
+        color: black;
+        background-color: var(--ion-color-tertiary);
+    }
+    .not-start{
+        color: white;
+        background-color: var(--ion-color-medium);
+    }
+}

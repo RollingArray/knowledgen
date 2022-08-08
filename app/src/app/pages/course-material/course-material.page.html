@@ -7,7 +7,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-08-05 10:01:02
+ * Last modified  : 2022-08-08 10:41:08
 */	
  -->
 <!-- header -->
@@ -93,28 +93,19 @@
 					*ngFor="let eachCourseMaterials of (courseMaterials$ | async)">
 					<!-- each container -->
 					<ion-card>
-						<!-- data -->
-						<img
-							[src]="stringKey.IMAGE_PANEL_HEADER" />
-						<ion-card-header>
-							<ion-card-subtitle>
-								{{eachCourseMaterials.createdAt
-								|
-								date:'fullDate'}}
-							</ion-card-subtitle>
-							<ion-card-title>
-								{{eachCourseMaterials.courseMaterialName}}
-							</ion-card-title>
-						</ion-card-header>
-						<ion-card-content>
-							{{eachCourseMaterials.courseMaterialDescription}}
-						</ion-card-content>
+						<!-- course material layout -->
+						<course-material-layout
+							[courseMaterialId]="eachCourseMaterials.courseMaterialId"
+						></course-material-layout>
+						<!-- course material layout -->
+						
+						<!-- course material keywords -->
 						<ion-card-content>
 							<keyword
 								[context]="eachCourseMaterials.courseMaterialDescription">
 							</keyword>
 						</ion-card-content>
-						<!-- data -->
+						<!-- course material keywords -->
 
 						<!-- operation tool -->
 						<!-- <ion-toolbar> -->
@@ -134,11 +125,17 @@
 
 						<div class="margin-10-px float-right"
 							*ngIf="isUserTypeStudent">
+							<view-button
+								*ngIf="eachCourseMaterials.addedToLearningPath"
+								class="float-right"
+								(event)="navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)
+                			"></view-button>
 							<common-button
+								*ngIf="!eachCourseMaterials.addedToLearningPath"
 								class="float-right"
 								[title] = "'button.learningPath' | translate"
 								[icon] = "stringKey.ICON_ADD"
-								(event) = "navigateToCourseMaterialDetails(eachCourseMaterials.courseMaterialId)
+								(event) = "onLearningPathAction(eachCourseMaterials)
                 			"></common-button>
 						</div>
 

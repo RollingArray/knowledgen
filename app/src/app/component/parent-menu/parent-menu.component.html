@@ -7,63 +7,99 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-08-05 19:58:40
+ * Last modified  : 2022-08-07 07:36:25
  */
  -->
- <div *ngIf="courseMaterial$ | async">
-	<img
-								[src]="stringKey.IMAGE_PANEL_HEADER" />
-							<ion-card-header>
-								<ion-card-subtitle>
-									{{(courseMaterial$
-									|
-									async).createdAt
-									|
-									date:'fullDate'}}
-								</ion-card-subtitle>
-								<ion-card-title>
-									{{(courseMaterial$
-									|
-									async).courseMaterialName}}
-								</ion-card-title>
-							</ion-card-header>
-							<ion-card-content>
-								{{(courseMaterial$
-								|
-								async).courseMaterialDescription}}
-							</ion-card-content>
- </div>
-<ion-card class="cursor-pointer" *ngFor="let eachMenu of (parentMenuMenu$ | async)" >
+
+<!-- content title -->
+<ion-item
+	color="none">
+	<b>{{'formInfo.materialContent'
+		|
+		translate}}</b>
+</ion-item>
+<!-- content title -->
+
+<!-- menu -->
+<ion-card
+	class="cursor-pointer"
+	*ngFor="let eachMenu of (parentMenuMenu$ | async)">
 	<!-- article title -->
-	<ion-item lines="none" (click)="navigateToCourseMaterialArticle(eachMenu)">
-		<ion-icon color="primary" [src]="getMenuIcon(eachMenu)" slot="start"></ion-icon>
-		<ion-label class="font-size-17-px">
-			{{ eachMenu.articleTitle }}
+	<ion-item
+		lines="none"
+		(click)="navigateToCourseMaterialArticle(eachMenu)">
+		<ion-icon
+			color="primary"
+			[src]="getMenuIcon(eachMenu)"
+			slot="start">
+		</ion-icon>
+		<ion-label
+			class="font-size-17-px">
+			{{
+			eachMenu.articleTitle
+			}}
 		</ion-label>
 	</ion-item>
 	<!-- article title -->
 
+	<!-- article summery -->
+	<ion-card-content
+		*ngIf="showSummery">
+		{{
+		eachMenu.articleSummery
+		}}
+	</ion-card-content>
+	<!-- article summery -->
+
 	<!-- toolbar -->
-	<ion-toolbar *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)"  mode="ios">
-		<ion-buttons slot="end">
-			<ion-button color="primary" (click)="editParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
-				<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
+	<ion-toolbar
+		*ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)"
+		mode="ios">
+		<ion-buttons
+			slot="end">
+			<ion-button
+				color="primary"
+				(click)="editParentMenu(eachMenu)"
+				*ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+				<ion-icon
+					[src]="stringKey.ICON_EDIT">
+				</ion-icon>
 			</ion-button>
-			<ion-button color="primary" (click)="deleteParentMenu(eachMenu)" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
-				<ion-icon [src]="stringKey.ICON_DELETE"></ion-icon>
+			<ion-button
+				color="primary"
+				(click)="deleteParentMenu(eachMenu)"
+				*ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+				<ion-icon
+					[src]="stringKey.ICON_DELETE">
+				</ion-icon>
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 	<!-- toolbar -->
-	
+
 	<!-- all child menu -->
-	<child-menu [parentArticleId]="eachMenu.parentArticleId" [courseMaterialId]="courseMaterialId"></child-menu>
+	<child-menu
+		[showSummery]="showSummery"
+		[parentArticleId]="eachMenu.parentArticleId"
+		[courseMaterialId]="courseMaterialId">
+	</child-menu>
 	<!-- all child menu -->
 </ion-card>
+<!-- menu -->
 
 <!-- add new menu -->
-<ion-button class="card-button" mode="ios" (click)="addNewParentMenu()" expand="block" *ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
-	<ion-icon [src]="stringKey.ICON_ADD" slot="start"></ion-icon>
-	{{'button.addMenu' | translate}}
+<ion-button
+	class="card-button"
+	mode="ios"
+	(click)="addNewParentMenu()"
+	expand="block"
+	*ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)">
+	<ion-icon
+		[src]="stringKey.ICON_ADD"
+		slot="start">
+	</ion-icon>
+	{{'button.addMenu'
+	|
+	translate}}
 </ion-button>
 <!-- add new menu -->

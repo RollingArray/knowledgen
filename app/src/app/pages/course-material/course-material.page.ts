@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-08-05 14:17:51
+ * Last modified  : 2022-08-08 20:44:34
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -22,6 +22,10 @@ import { CrudCourseMaterialComponent } from 'src/app/component/crud-course-mater
 import { CookieService } from 'ngx-cookie-service';
 import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { CrudLearningPathComponent } from 'src/app/component/crud-learning-path/crud-learning-path.component';
+import { LearningPathModel } from 'src/app/shared/model/learning-path.model';
+import { LearningPathStateFacade } from 'src/app/state/learning-path/learning-path.state.facade';
+import { ModalData } from 'src/app/shared/model/modal-data.model';
 
 @Component({
 	selector: "project-users",
@@ -162,6 +166,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	constructor(
 		injector: Injector,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
+		private learningPathStateFacade: LearningPathStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
 		private cookieService: CookieService
@@ -273,6 +278,41 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 			});
 
 	}
+
+
+	/**
+	 * Opens crud learning path
+	 */
+	private async openCrudLearningPath()
+	{
+
+		const modal = await this.modalController.create({
+			component: CrudLearningPathComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+		});
+
+		// on model dismiss
+		modal.onDidDismiss().then((data) =>
+		{
+			console.log(data);
+			const modalData: ModalData = data.data;
+			if (modalData.cancelled)
+			{
+				//do not do anything
+			}
+
+			//  Navigates to learning path
+			else
+			{
+				this.navigateToLearningPath();
+			}
+		});
+
+		// present modal
+		await modal.present();
+	}
+
 
 	/**
 	 * -------------------------------------------------|
@@ -400,5 +440,32 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	{
 		this.router.navigate([courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });
 	}
-}
 
+	/**
+	 * Navigates to learning path
+	 */
+	public navigateToLearningPath()
+	{
+		this.router.navigate(['/go/learning/path']);
+	}
+
+	/**
+	 * Determines whether course material action on
+	 * @param selectedCourseMaterialModel 
+	 * @param operation 
+	 * @returns  
+	 */
+	public onLearningPathAction(selectedCourseMaterialModel: CourseMaterialModel)
+	{
+		// add operation to the object
+		const learningPathModel: LearningPathModel = {
+			courseMaterialId: selectedCourseMaterialModel.courseMaterialId,
+			operationType: OperationsEnum.CREATE
+		};
+
+		this.learningPathStateFacade.actUponLearningPath(learningPathModel, OperationsEnum.CREATE)
+
+		//load crud modal
+		this.openCrudLearningPath();
+	}
+}
