@@ -7,4 +7,6 @@ Interface CourseMaterialAssignmentResultServiceInterface
     public function getAssignmentLeaderBoard($articleId);
 
     public function getAllSessionTime($articleId, $userId);
+
+    public function checkIfResultExist($userId, $articleId);
 }

@@ -75,11 +75,13 @@ class CourseMaterialRecommendationController extends Controller
 	 */
 	public function all(Request $request)
 	{
+		$userId = $request->header('UserId');
+
 		$user = $this->usersServiceInterface->getUserById(
 			$request->header('UserId')
 		);
 
-		$data = $this->courseMaterialServiceInterface->findRecommendedCourses($user->user_skills);
+		$data = $this->courseMaterialServiceInterface->findRecommendedCoursesWithLearningPath($user->user_skills, $userId);
 
 		return $this->jwtAuthServiceInterface->sendBackToClient(
 			$request->header('Auth'), 

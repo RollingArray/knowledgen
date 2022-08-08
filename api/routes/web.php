@@ -117,6 +117,29 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         );
 
         $router->group([
+            'prefix' => 'learning/path',
+        ], function () use ($router) {
+            $router->get(
+                'all',
+                [
+                    'uses' => 'CourseMaterialLearningPathController@all'
+                ]
+            );
+            $router->post(
+                'add',
+                [
+                    'uses' => 'CourseMaterialLearningPathController@add'
+                ]
+            );
+            $router->post(
+                'delete',
+                [
+                    'uses' => 'CourseMaterialLearningPathController@delete'
+                ]
+            );
+        });
+
+        $router->group([
             'prefix' => 'article',
             //'middleware' => 'auth'
         ], function () use ($router) {

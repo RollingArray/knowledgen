@@ -146,4 +146,20 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
             ->orderBy('tbl_course_material_article_assignment_result.created_at', 'ASC')
             ->get();
     }
+
+    
+    /**
+     * Check if result exist
+     *
+     * @param  mixed $articleId
+     * @param  mixed $userId
+     * @return void
+     */
+    public function checkIfResultExist($userId, $articleId)
+    {
+        return CourseMaterialArticleAssignmentResultModel::where('user_id', '=', $userId)
+                ->where('article_id', '=', $articleId)
+                ->exists();
+    }
+
 }

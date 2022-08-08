@@ -6,6 +6,8 @@ Interface CourseMaterialServiceInterface
 {
     public function getAllUserCourseMateriels($userId);
 
+    public function getAllUserCourseMaterielsWithLearningPath($userId);
+
     public function getCourseMaterialById($courseMaterialId);
 
     public function deleteCourseMaterialById($courseMaterialId);
@@ -13,4 +15,6 @@ Interface CourseMaterialServiceInterface
     public function checkIfUserIsCourseOwner($userId, $courseMaterialId);
 
     public function findRecommendedCourses($availabilityContext);
+
+    public function findRecommendedCoursesWithLearningPath($availabilityContext, $userId);
 }
