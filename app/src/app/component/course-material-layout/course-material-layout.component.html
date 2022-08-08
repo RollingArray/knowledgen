@@ -1,0 +1,37 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Course material layout component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-07 07:14:33 
+ * Last modified  : 2022-08-07 07:26:39
+ */
+-->
+
+<div
+	*ngIf="courseMaterial$|async">
+	<img
+		[src]="stringKey.IMAGE_PANEL_HEADER" />
+	<ion-card-header>
+		<ion-card-subtitle>
+			{{(courseMaterial$
+			|
+			async).createdAt
+			|
+			date:'fullDate'}}
+		</ion-card-subtitle>
+		<ion-card-title>
+			{{(courseMaterial$
+			|
+			async).courseMaterialName}}
+		</ion-card-title>
+	</ion-card-header>
+	<ion-card-content>
+		{{(courseMaterial$
+		|
+		async).courseMaterialDescription}}
+	</ion-card-content>
+</div>
