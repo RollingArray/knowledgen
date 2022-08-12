@@ -1,0 +1,18 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Dashboard page template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-12 20:05:53 
+ * Last modified  : 2022-08-12 20:07:17
+ */
+
+ .user-profile {
+    position: relative;
+    margin-top: -150px;
+    margin-left: calc(100% - 400px);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
