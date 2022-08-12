@@ -1,0 +1,26 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Course content time coverage component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-12 07:40:24 
+ * Last modified  : 2022-08-12 11:05:51
+ */
+-->
+
+<ion-card color="light">
+	<ion-card-header>
+		<panel-header 
+			[panelTitle]="'pageTitle.courseContentTimeCoverageOverTime' | translate"
+			[panelIcon] = "stringKey.ICON_LINE_CHART"
+			[panelColor]="stringKey.COLOR_LIGHT"
+			[fontColor]="stringKey.COLOR_MEDIUM"
+		></panel-header>
+	</ion-card-header>
+	<ion-card-content>
+		<canvas #chart style="height: 300px;"> </canvas>
+	</ion-card-content>
+</ion-card>
