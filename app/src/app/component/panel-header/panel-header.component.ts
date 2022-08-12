@@ -11,6 +11,7 @@ export class PanelHeaderComponent extends BaseViewComponent implements OnInit {
   @Input() panelTitle;
   @Input() panelIcon;
   @Input() panelColor;
+  @Input() fontColor = 'primary';
 
   constructor(
     injector: Injector,
