@@ -1,0 +1,27 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Assignments score analysis component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-12 07:40:24 
+ * Last modified  : 2022-08-12 11:05:46
+ */
+-->
+
+<ion-card color="light">
+	<ion-card-header>
+		<panel-header 
+			[panelTitle]="'pageTitle.assignmentsScoreAnalysis' | translate"
+			[panelIcon] = "stringKey.ICON_PIE_CHART"
+			[fontColor]="stringKey.COLOR_MEDIUM"
+			[panelColor]="stringKey.COLOR_LIGHT"
+		></panel-header>
+	</ion-card-header>
+	<ion-card-content>
+		<canvas #chart style="height: 300px;"> </canvas>
+	</ion-card-content>
+</ion-card>
