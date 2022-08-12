@@ -85,7 +85,18 @@
 		"resultLow": "বেশি বেশি অনুশীলন করুন!! যাবার পথ",
 		"youScore": "আপনি গোল করেছেন",
 		"studySession": "সময়ের সাথে সাথে অধ্যয়ন সেশনের অগ্রগতি",
-		"quizSession": "সময়ের সাথে কুইজ সেশন"
+		"quizSession": "সময়ের সাথে কুইজ সেশন",
+		"addToLearningPath": "শেখার পথে যোগ করুন",
+		"deleteLearningPath": "শেখার পথ মুছুন",
+		"myLearningPath": "আমার শেখার পথ",
+		"dashboard": "আমার ড্যাশবোর্ড",
+		"morning": "সুপ্রভাত",
+		"afternoon" : "শুভ অপরাহ্ন",
+		"evening" : "শুভ সন্ধ্যা",
+		"welcome" : "স্বাগতম",
+		"courseContentCoverageOverTime": "কোর্স বিষয়বস্তু কভারেজ",
+		"courseContentTimeCoverageOverTime": "কোর্স সময় কভারেজ",
+		"assignmentsScoreAnalysis": "অ্যাসাইনমেন্ট স্কোর বিশ্লেষণ"
 	},
 	"pageSubTitle": {
         "myProfile": "আপনি আপনার ব্যক্তিগত বিবরণ আপডেট করতে ইচ্ছুক হতে পারে",
@@ -170,7 +181,17 @@
 		"sessionDecreased": "শেষ 2 সেশনের মধ্যে সময় কমেছে",
 		"sessionIncrease": "শেষ 2 সেশনের মধ্যে সময় বৃদ্ধি করা হয়েছে",
 		"sessionNeutral": "শেষ 2 সেশনের মধ্যে সময় নেই",
-		"articleSummery": "Provide a summery of the content"
+		"articleSummery": "কন্টেন্ট একটি গ্রীষ্মপূর্ণ প্রদান",
+		"materialContent": "কোর্স উপাদান বিষয়বস্তু",
+		"sessionDecreasedMonth": "গত মাসের তুলনায় কমেছে",
+		"sessionIncreaseMonth": "গত মাস থেকে বেড়েছে",
+		"sessionNeutralMonth": "বর্তমান এবং গত মাসের মধ্যে কোন পার্থক্য নেই",
+		"assessmentsTaken": "এ পর্যন্ত নেওয়া মূল্যায়নের সংখ্যা",
+		"assessmentsTakenCategory": "বিভাগ অনুসারে এ পর্যন্ত নেওয়া মূল্যায়নের সংখ্যা",
+		"studyTimeTaken": "এখন পর্যন্ত অধ্যয়নের সময়ের মিনিট",
+		"courseContentCovered": "কোর্স কন্টেন্ট খরচ সংখ্যা",
+		"courseMinutesCovered": "কোর্সে খাওয়া মিনিটের সংখ্যা",
+		"last12": "গত 12 মাস"
 	},
 	"courseMaterialType":{
 		"textDocument": "টেক্সট ডকুমেন্ট",
@@ -181,7 +202,8 @@
 		"flashCard": "ফ্ল্যাশ কার্ড",
 		"poll": "একটি পোল তৈরি করুন",
 		"puzzle": "ধাঁধা",
-		"wordCloud": "শব্দ মেঘ"
+		"wordCloud": "শব্দ মেঘ",
+		"fillBlank": "Fill Blank"
 	},
 	"noData": {
 		"noNWAData": "কোন নেটওয়ার্ক কার্যক্রম পাওয়া যায়নি",
@@ -280,7 +302,10 @@
 		"no": "না",
 		"ok": "ঠিক আছে",
 		"done": "সম্পন্ন",
-		"cancel": "বাতিল করুন"
+		"cancel": "বাতিল করুন",
+		"good": "ভাল",
+		"average": "গড়",
+		"poor": "দরিদ্র"
 	},
 	"assignmentInstructions": {
 		"i1": "আপনি যখন অ্যাসাইনমেন্ট নিতে প্রস্তুত হন তখন <b>অ্যাসাইনমেন্ট শুরু করুন</b> এ আলতো চাপুন",

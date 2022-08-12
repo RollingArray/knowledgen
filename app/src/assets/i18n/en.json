@@ -89,7 +89,15 @@
 		"quizSession": "Quiz sessions over time",
 		"addToLearningPath": "Add To Learning Path",
 		"deleteLearningPath": "Delete Learning Path",
-		"myLearningPath": "My Learning Path"
+		"myLearningPath": "My Learning Path",
+		"dashboard": "My Dashboard",
+		"morning": "Good Morning",
+		"afternoon" : "Good Afternoon",
+		"evening" : "Good Evening",
+		"welcome" : "Welcome To",
+		"courseContentCoverageOverTime": "Course Content Coverage",
+		"courseContentTimeCoverageOverTime": "Course Time Coverage",
+		"assignmentsScoreAnalysis": "Assignments Score Analysis"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -178,7 +186,16 @@
 		"sessionIncrease": "Increased in time between last 2 session",
 		"sessionNeutral": "No time time between last 2 session",
 		"articleSummery": "Provide a summery of the content",
-		"materialContent": "Course material content"
+		"materialContent": "Course material content",
+		"sessionDecreasedMonth": "Decreased from last month",
+		"sessionIncreaseMonth": "Increased from last month",
+		"sessionNeutralMonth": "No difference between present and last month",
+		"assessmentsTaken": "Number of Assessments Taken So far",
+		"assessmentsTakenCategory": "Number of Assessments Taken So far By Category",
+		"studyTimeTaken": "Minutes of Study Time So Far",
+		"courseContentCovered": "Number of course content consumed",
+		"courseMinutesCovered": "Number of minuts consumed in course ",
+		"last12": "Last 12 months"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -189,7 +206,8 @@
 		"flashCard": "Flash Card",
 		"poll": "Create a Poll",
 		"puzzle": "Puzzle",
-		"wordCloud": "Word Cloud"
+		"wordCloud": "Word Cloud",
+		"fillBlank": "Fill Blank"
 	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
@@ -292,7 +310,10 @@
 		"no": "No",
 		"ok": "Ok",
 		"done": "Done",
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"good": "Good",
+		"average": "Average",
+		"poor": "Poor"
 	},
 	"assignmentInstructions": {
 		"i1": "Tap on <b>Start Assignment</b> when you are ready to take the assignment",
