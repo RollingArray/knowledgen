@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-03 16:41:21 
- * Last modified  : 2022-08-04 19:32:32
+ * Last modified  : 2022-08-12 12:04:50
  */
 
 
@@ -110,30 +110,7 @@ export const selectArticleSessionAnalysis = (articleId: string) => createSelecto
 					const articleSessions = eachEntity.articleSessions;
 					const last = parseFloat(articleSessions[articleSessions.length - 1]);
 					const secondLast = parseFloat(articleSessions[articleSessions.length - 2]);
-					const gapBetweenLast2Time = last - secondLast;
-					const inPercentage = ((Math.abs(gapBetweenLast2Time) / secondLast) * 100).toFixed(2);
-					
-					if (gapBetweenLast2Time === 0)
-					{
-						articleSessionAnalysis = {
-							characteristics: CharacteristicsEnum.NEUTRAL,
-							value: '0'
-						}
-					}
-					else if (gapBetweenLast2Time > 0)
-					{
-						articleSessionAnalysis = {
-							characteristics: CharacteristicsEnum.POSITIVE,
-							value: inPercentage
-						}
-					}
-					else
-					{
-						articleSessionAnalysis = {
-							characteristics: CharacteristicsEnum.NEGATIVE,
-							value: inPercentage
-						}
-					}
+					articleSessionAnalysis = gapAnalysis(last, secondLast);
 				}
 			}
 		})
@@ -141,6 +118,39 @@ export const selectArticleSessionAnalysis = (articleId: string) => createSelecto
 		return articleSessionAnalysis;
 	}
 );
+
+/**
+* @description Selectors - gap analysis
+*/
+export const gapAnalysis = (last: number, secondLast: number) => 
+{
+	let articleSessionAnalysis: ArticleSessionAnalysisModel;
+	const gapBetweenLast2Time = last - secondLast;
+	const inPercentage = ((Math.abs(gapBetweenLast2Time) / secondLast) * 100).toFixed(2);
+	if (gapBetweenLast2Time === 0)
+	{
+		articleSessionAnalysis = {
+			characteristics: CharacteristicsEnum.NEUTRAL,
+			value: '0'
+		}
+	}
+	else if (gapBetweenLast2Time > 0)
+	{
+		articleSessionAnalysis = {
+			characteristics: CharacteristicsEnum.POSITIVE,
+			value: inPercentage
+		}
+	}
+	else
+	{
+		articleSessionAnalysis = {
+			characteristics: CharacteristicsEnum.NEGATIVE,
+			value: inPercentage
+		}
+	}
+
+	return articleSessionAnalysis;
+};
 
 
 /**
@@ -152,5 +162,6 @@ export const ARTICLE_SESSION_QUERY_SELECTOR = {
 	selectArticleSessionTotalNumber,
 	selectArticleSessionHasData,
 	selectArticleSessionByArticleId,
-	selectArticleSessionAnalysis
+	selectArticleSessionAnalysis,
+	gapAnalysis
 };

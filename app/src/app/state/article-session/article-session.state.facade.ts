@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-03 16:52:39 
- * Last modified  : 2022-08-04 16:30:15
+ * Last modified  : 2022-08-11 17:28:11
  */
 
 
@@ -51,6 +51,11 @@ export class ArticleSessionStateFacade
 	 * Select article session by article id$ of article session state facade
 	 */
 	public selectArticleSessionByArticleId$ = (articleId: string) => this.articleSessionStateModel.select(ARTICLE_SESSION_QUERY_SELECTOR.selectArticleSessionByArticleId(articleId));
+
+	/**
+	 * Gap analysis of article session state facade
+	 */
+	public gapAnalysis = (last: number, secondLast: number) => ARTICLE_SESSION_QUERY_SELECTOR.gapAnalysis(last, secondLast);
 
 	/**
 	 * Requests course material
