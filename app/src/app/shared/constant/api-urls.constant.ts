@@ -7,13 +7,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-08-07 08:02:00
+ * Last modified  : 2022-08-12 13:03:37
  */
 
 import { environment } from "../../../environments/environment";
 
 export class ApiUrls
 {
+	public static readonly ROOT_APP_URL_AFTER_AUTH: string = '/go/dashboard';
 	public static readonly API_ENDPOINT: string = environment.apiEndpoint;
 	public static readonly API_VERSION: string = "v1";
 	public static readonly API_BASE_PATH: string = ApiUrls.API_ENDPOINT + ApiUrls.API_VERSION;
@@ -27,6 +28,10 @@ export class ApiUrls
 
 	public static readonly USER_DETAILS: string = ApiUrls.API_BASE_PATH + "/user/details";
 	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/edit";
+
+	public static readonly DASHBOARD_BASE: string = ApiUrls.API_BASE_PATH + "/dashboard";
+	public static readonly DASHBOARD_STUDENT: string = ApiUrls.DASHBOARD_BASE + "/student";
+	public static readonly DASHBOARD_TEACHER: string = ApiUrls.DASHBOARD_BASE + "/teacher";
 
 	public static readonly COURSE_MATERIAL_BASE: string = ApiUrls.API_BASE_PATH + "/course/material";
 	public static readonly COURSE_MATERIAL: string = ApiUrls.COURSE_MATERIAL_BASE + "/all";

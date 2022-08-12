@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:14:11 
- * Last modified  : 2022-01-26 19:44:39
+ * Last modified  : 2022-08-12 13:02:28
  */
 
 
@@ -20,6 +20,7 @@ import { IntroComponent } from 'src/app/component/intro/intro.component';
 import { AnalyticsService } from 'src/app/shared/service/analytics.service';
 import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
 import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 
 @Component({
 	selector: "app-front",
@@ -69,8 +70,9 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 */
 	async ngOnInit() {
 		if (await this.activeUserId()) {
-			this.router.navigate(["/go/course/material"]);
-		} else {
+			this.router.navigate([this.apiUrls.ROOT_APP_URL_AFTER_AUTH]);
+		}
+		else{
 			this.localStorageService
 				.getIntroStatus()
 				.pipe(takeUntil(this.unsubscribe))

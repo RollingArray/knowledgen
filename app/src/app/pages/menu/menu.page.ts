@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-08-02 20:27:59
+ * Last modified  : 2022-08-12 20:19:00
  */
 
 
@@ -507,6 +507,10 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		return await modal.present();
 	}
 
+	/**
+	 * Changes language
+	 * @returns  
+	 */
 	async changeLanguage()
 	{
 		const modal = await this.modalController.create({

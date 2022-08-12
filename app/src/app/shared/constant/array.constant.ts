@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-08-08 14:37:12
+ * Last modified  : 2022-08-11 13:55:23
  */
 
 
@@ -27,6 +27,12 @@ export class ArrayKey {
 		{
 			title: 'pageTitle.mySpace',
 			children: [
+				{
+					title: 'pageTitle.dashboard',
+					url: ['dashboard'],
+					icon: StringKey.ICON_RIGHT_ARROW,
+					allowAccess: [UserTypeEnum.Student]
+				},
 				{
 					title: 'pageTitle.courseMaterials',
 					url: ['course','material'],

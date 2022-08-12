@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-08-08 14:22:45
+ * Last modified  : 2022-08-11 13:54:25
  */
 
 import { UserProfileModule } from './../../component/user-profile/user-profile.component.module';
@@ -30,6 +30,10 @@ const routes: Routes = [
 		path: "",
 		component: MenuPage,
 		children: [
+			{
+				path: 'dashboard',
+				loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardPageModule)
+			},
 			{
 				path: 'course/material',
 				loadChildren: () => import('../course-material/course-material.module').then(m => m.CourseMaterialPageModule)

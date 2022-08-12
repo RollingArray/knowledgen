@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-08-08 19:49:16
+ * Last modified  : 2022-08-12 14:23:26
  */
 
 
@@ -672,6 +672,8 @@ export class StringKey {
 	public static readonly ICON_COPY: string = StringKey.ICON_BASE_PATH + "copy.svg";
 	public static readonly ICON_BEGIN: string = StringKey.ICON_BASE_PATH + "begin.svg";
 	public static readonly ICON_IN_PROGRESS: string = StringKey.ICON_BASE_PATH + "in-progress.svg";
+	public static readonly ICON_ASSESSMENT: string = StringKey.ICON_BASE_PATH + "assessment.svg";
+	public static readonly ICON_GROUP: string = StringKey.ICON_BASE_PATH + "group.svg";
 	
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
@@ -688,7 +690,8 @@ export class StringKey {
 	public static readonly IMAGE_PANEL_HEADER: string = StringKey.IMAGE_BASE_PATH + "panel-header.svg";
 	public static readonly IMAGE_PLANNER_HEADER: string = StringKey.IMAGE_BASE_PATH + "planner-header.svg";
 	public static readonly IMAGE_PLACEHOLDER: string = StringKey.IMAGE_BASE_PATH + "image-placeholder.svg";
-	
+	public static readonly IMAGE_STUDENT_PROFILE: string = StringKey.IMAGE_BASE_PATH + "student-profile.svg";
+	public static readonly IMAGE_TEACHER_PROFILE: string = StringKey.IMAGE_BASE_PATH + "teacher-profile.svg";
 	
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	

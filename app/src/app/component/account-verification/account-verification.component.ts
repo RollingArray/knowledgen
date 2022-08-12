@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 14:25:52
- * Last modified  : 2022-08-02 20:20:45
+ * Last modified  : 2022-08-12 13:02:43
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -244,7 +244,7 @@ export class AccountVerificationComponent
 				if (status === OperationsEnum.SIGNED_IN_VERIFIED)
 				{
 					this.dismissModal();
-					this.router.navigate(['/go/course/material']);
+					this.router.navigate([this.apiUrls.ROOT_APP_URL_AFTER_AUTH]);
 				}
 			});
 	}
