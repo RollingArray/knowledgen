@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-08-08 17:55:39
+ * Last modified  : 2022-08-12 11:40:23
  */
 
 /* Change autocomplete styles in WebKit */
@@ -346,4 +346,16 @@ td:last-child {
 	.hidden-device-xxl {
 		display: none !important;
 	}
+}
+
+
+/*font-color*/
+.font-color-success {
+	color: var(--ion-color-success) !important;
+}
+.font-color-warning {
+	color: var(--ion-color-warning) !important;
+}
+.font-color-danger {
+	color: var(--ion-color-danger) !important;
 }

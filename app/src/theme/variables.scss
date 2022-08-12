@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:57 
- * Last modified  : 2022-08-08 18:05:00
+ * Last modified  : 2022-08-12 14:35:46
  */
 
 @import url(https://fonts.googleapis.com/css?family=Ubuntu&display=swap);
@@ -48,7 +48,7 @@
   --ion-color-tertiary-tint: #ffc91a;
 
   /** success **/
-  --ion-color-success: #6c9b00;
+  --ion-color-success: #547801;
   --ion-color-success-rgb: 167, 201, 87;
   --ion-color-success-contrast: #000000;
   --ion-color-success-contrast-rgb: 0, 0, 0;
@@ -86,4 +86,11 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-color-light-gradient: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(255, 255, 255) 0%, #e4e6eb 100%);
+  --ion-color-light-gradient-rgb: 0, 29, 61;
+  --ion-color-light-gradient-contrast: #000000;
+  --ion-color-light-gradient-contrast-rgb: 0, 0, 0;
+  --ion-color-light-gradient-shade: #d7d8da;
+  --ion-color-light-gradient-tint: #f5f6f9;
 }
