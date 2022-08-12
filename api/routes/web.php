@@ -80,9 +80,30 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     });
 
     $router->group([
-        'prefix' => 'course/material',
-        //'middleware' => 'auth'
+        'prefix' => 'dashboard',
+        'middleware' => 'auth',
     ], function () use ($router) {
+        $router->get(
+            'student',
+            [
+                'middleware' => 'roleStudent',
+                'uses' => 'DashboardController@studentAll'
+            ]
+        );
+        $router->get(
+            'teacher',
+            [
+                'middleware' => 'roleTeacher',
+                'uses' => 'DashboardController@teacherAll'
+            ]
+        );
+    });
+
+    $router->group([
+        'prefix' => 'course/material',
+        'middleware' => 'auth'
+    ], function () use ($router) {
+        
         $router->get(
             'all',
             [

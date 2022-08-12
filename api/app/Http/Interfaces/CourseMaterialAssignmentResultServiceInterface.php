@@ -9,4 +9,6 @@ Interface CourseMaterialAssignmentResultServiceInterface
     public function getAllSessionTime($articleId, $userId);
 
     public function checkIfResultExist($userId, $articleId);
+
+    public function getAllSession($userId);
 }
