@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:16:05 
- * Last modified  : 2022-01-26 20:12:30
+ * Last modified  : 2022-08-12 12:57:37
  */
 
 
@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { EncryptionService } from './encryption.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment';
+import { UserTypeEnum } from '../enum/user-type.enum';
 
 @Injectable({
 	providedIn: 'root'
@@ -56,6 +57,11 @@ export class LocalStorageService
 	 * Current active user last name$ of local storage service
 	 */
 	public currentActiveUserLastName$ = new BehaviorSubject<string>("");
+
+	/**
+	 * Current active user type$ of local storage service
+	 */
+	public currentActiveUserType$ = new BehaviorSubject<UserTypeEnum>(UserTypeEnum.Student);
 
 	/**
 	 * Current active user token$ of local storage service
@@ -97,6 +103,18 @@ export class LocalStorageService
 		return this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_ID}`);
 	}
 
+	/**
+	 * Gets active user type
+	 * @returns active user type 
+	 */
+	getActiveUserType(): Observable<UserTypeEnum>
+	{
+		this.currentActiveUserType$ = new BehaviorSubject<UserTypeEnum>(
+			this.cookieService.get(`${LocalStoreKey.LOGGED_IN_USER_TYPE}`) as UserTypeEnum
+		);
+		return this.currentActiveUserType$.asObservable();
+	 }
+	
 	/**
 	 * Gets active user first name
 	 * @returns active user first name 
