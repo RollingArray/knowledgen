@@ -1,0 +1,47 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Analysis booth component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-12 07:40:24 
+ * Last modified  : 2022-08-12 12:20:37
+ */
+-->
+
+
+<ion-grid>
+	<ion-row>
+		<ion-col sizeLg="12" sizeMd="12" sizeXl="12" sizeSm="12" sizeXs="12" class="text-center padding-10-px">
+			<ion-text color="primary" class="font-size-50-px">
+				{{baseNumber}}
+			</ion-text>
+		</ion-col>
+		<ion-col sizeLg="12" sizeMd="12" sizeXl="12" sizeSm="12" sizeXs="12" class="text-center">
+			<div *ngIf="analysis().characteristics === characteristicsEnum.POSITIVE">
+				<div color="none" class="text-center padding-10-px font-color-success font-size-20-px">
+					<ion-icon [src]="stringKey.ICON_UP_ARROW"></ion-icon>
+					<b>+ {{analysis().value}} %</b> {{'formInfo.sessionIncreaseMonth' | translate}}
+				</div>
+			</div>
+		
+			<div *ngIf="analysis().characteristics === characteristicsEnum.NEGATIVE">
+				<div color="none" class="text-center padding-10-px font-color-danger font-size-20-px">
+					<ion-icon [src]="stringKey.ICON_DOWN_ARROW"></ion-icon>
+					- {{analysis().value}} % {{'formInfo.sessionIncreaseMonth' | translate}}
+					&nbsp;
+				</div>
+			</div>
+	
+			<div *ngIf="analysis().characteristics === characteristicsEnum.NEUTRAL">
+				<div color="none" class="text-center padding-10-px font-color-success font-size-20-px">
+					<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
+					&nbsp;{{'formInfo.sessionNeutralMonth' | translate}}
+				</div>
+			</div>
+		</ion-col>
+	</ion-row>
+</ion-grid>
