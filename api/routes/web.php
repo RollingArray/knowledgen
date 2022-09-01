@@ -258,6 +258,38 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             });
 
             $router->group([
+                'prefix' => 'flash/card',
+            ], function () use ($router) {
+                $router->post(
+                    'all',
+                    [
+                        'uses' => 'CourseMaterialFlashCardController@all'
+                    ]
+                );
+                $router->post(
+                    'add',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialFlashCardController@add'
+                    ]
+                );
+                $router->post(
+                    'edit',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialFlashCardController@edit'
+                    ]
+                );
+                $router->post(
+                    'delete',
+                    [
+                        'middleware' => 'courseMaterialOwner',
+                        'uses' => 'CourseMaterialFlashCardController@delete'
+                    ]
+                );
+            });
+
+            $router->group([
                 'prefix' => 'assignment',
             ], function () use ($router) {
                 $router->post(
