@@ -11,21 +11,35 @@
  */
 -->
 
-<ion-card>
+<ion-card color="light">
 	<ion-grid>
 		<ion-row>
-			<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+			<ion-col
+				size-xl="6"
+				size-lg="6"
+				size-md="12"
+				size-sm="12"
+				size-xs="12"
+			>
 				<ion-grid>
 					<ion-row>
 						<ion-col>
 							<ion-card-header class="text-center">
 								<h1>
 									<b>
-										<ion-icon color="primary" [src]="stringKey.ICON_TIME"></ion-icon>
+										<ion-icon
+											color="primary"
+											[src]="stringKey.ICON_TIME"
+										></ion-icon>
 										<br />
-										<ion-label color="primary" class="text-center">
-											{{ "pageTitle.duration" | translate }} -
-											{{ articleCompletionTime }}&nbsp;
+										<ion-label
+											color="primary"
+											class="text-center"
+										>
+											{{
+												"pageTitle.duration" | translate
+											}}
+											- {{ articleCompletionTime }}&nbsp;
 											{{ "formInfo.minute" | translate }}
 										</ion-label>
 									</b>
@@ -39,17 +53,32 @@
 					</ion-row>
 				</ion-grid>
 			</ion-col>
-			<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+			<ion-col
+				size-xl="6"
+				size-lg="6"
+				size-md="12"
+				size-sm="12"
+				size-xs="12"
+			>
 				<ion-grid>
 					<ion-row>
 						<ion-col>
 							<ion-card-header class="text-center">
 								<h1>
 									<b>
-										<ion-icon color="primary" [src]="stringKey.ICON_REWARD"></ion-icon>
+										<ion-icon
+											color="primary"
+											[src]="stringKey.ICON_REWARD"
+										></ion-icon>
 										<br />
-										<ion-label color="primary" class="text-center">
-											{{ "pageTitle.reward" | translate }} -
+										<ion-label
+											color="primary"
+											class="text-center"
+										>
+											{{
+												"pageTitle.reward" | translate
+											}}
+											-
 											{{ articleCompletionReward }}&nbsp;
 											{{ "formInfo.point" | translate }}
 										</ion-label>
