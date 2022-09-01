@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-07-28 09:50:02
+ * Last modified  : 2022-08-18 16:32:55
  */
 
 import { NgModule } from '@angular/core';
@@ -20,6 +20,7 @@ import { CrudTextDocumentModule } from '../crud-text-document/crud-text-document
 import { CrudAssignmentQuizModule } from '../crud-assignment-quiz/crud-assignment-quiz.module';
 import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
 import { AssignmentPropertiesModule } from '../assignment-properties/assignment-properties.module';
+import { CrudFlashCardModule } from '../crud-flash-card/crud-flash-card.module';
 
 @NgModule({
 	imports: [
@@ -31,8 +32,10 @@ import { AssignmentPropertiesModule } from '../assignment-properties/assignment-
 		SanitizedHtmlPipeModule,
 		CrudTextDocumentModule,
 		CrudAssignmentQuizModule,
+		CrudFlashCardModule,
 		EditButtonModule,
-		AssignmentPropertiesModule
+		AssignmentPropertiesModule,
+		CrudFlashCardModule
 	],
 
 	declarations: [KnowledgeBaseArticleComponent],
