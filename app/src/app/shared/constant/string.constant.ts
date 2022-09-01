@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-08-12 14:23:26
+ * Last modified  : 2022-08-24 13:09:32
  */
 
 
@@ -674,7 +674,11 @@ export class StringKey {
 	public static readonly ICON_IN_PROGRESS: string = StringKey.ICON_BASE_PATH + "in-progress.svg";
 	public static readonly ICON_ASSESSMENT: string = StringKey.ICON_BASE_PATH + "assessment.svg";
 	public static readonly ICON_GROUP: string = StringKey.ICON_BASE_PATH + "group.svg";
-	
+	public static readonly ICON_AUDIO: string = StringKey.ICON_BASE_PATH + "audio.svg";
+	public static readonly ICON_LOADER: string = StringKey.ICON_BASE_PATH + "loader.svg";
+	public static readonly ICON_MIC_ON: string = StringKey.ICON_BASE_PATH + "mic-on.svg";
+	public static readonly ICON_MIC_OFF: string = StringKey.ICON_BASE_PATH + "mic-off.svg";
+
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
 	public static readonly IMAGE_AVATAR: string = StringKey.IMAGE_BASE_PATH + "app_avatar.svg";
@@ -697,6 +701,7 @@ export class StringKey {
 	
 	public static readonly COLOR_PRIMARY: string = "primary";
 	public static readonly COLOR_PRIMARY_GRADIENT: string = "primary-gradient";
+	public static readonly COLOR_LIGHT_GRADIENT: string = "light-gradient";
 	public static readonly COLOR_SECONDARY: string = "secondary";
 	public static readonly COLOR_TERNARY: string = "tertiary";
 	public static readonly COLOR_SUCCESS: string = "success";
