@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-08-11 13:55:23
+ * Last modified  : 2022-08-23 14:14:07
  */
 
 
@@ -19,7 +19,8 @@ import { RouteModel } from '../model/route.model';
 import { SlideModel } from '../model/slide.model';
 import { ApiUrls } from './api-urls.constant';
 
-export class ArrayKey {
+export class ArrayKey
+{
 	/**
 	 * App primary route pages of array key
 	 */
@@ -35,7 +36,7 @@ export class ArrayKey {
 				},
 				{
 					title: 'pageTitle.courseMaterials',
-					url: ['course','material'],
+					url: ['course', 'material'],
 					icon: StringKey.ICON_RIGHT_ARROW,
 					allowAccess: [UserTypeEnum.Student]
 				},
@@ -79,42 +80,42 @@ export class ArrayKey {
 			id: CourseMaterialTypeIdEnum.QUIZ,
 			type: 'courseMaterialType.quiz',
 			icon: StringKey.ICON_QUIZ,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.CW,
 			type: 'courseMaterialType.crossword',
 			icon: StringKey.ICON_CROSSWORD,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.PS,
 			type: 'courseMaterialType.silds',
 			icon: StringKey.ICON_SLIDES,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.DC,
 			type: 'courseMaterialType.dragContent',
 			icon: StringKey.ICON_DRAG_CONTENT,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.FC,
 			type: 'courseMaterialType.flashCard',
 			icon: StringKey.ICON_FLASH_CARD,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.PL,
 			type: 'courseMaterialType.poll',
 			icon: StringKey.ICON_POLL,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.PZ,
 			type: 'courseMaterialType.puzzle',
 			icon: StringKey.ICON_PUZZLE,
-		 },
+		},
 		{
 			id: CourseMaterialTypeIdEnum.WC,
 			type: 'courseMaterialType.wordCloud',
 			icon: StringKey.ICON_WORD_CLOUD,
-		 },
+		},
 	];
 
 	/**
@@ -1198,24 +1199,69 @@ export class ArrayKey {
 	];
 
 	/**
+	 * Space repetition days of array key
+	 */
+	public static readonly SPACE_REPETITION_DAYS: number[] = [
+		1,
+		3,
+		7,
+		14,
+		28,
+		40
+	];
+
+	/**
 	 * Quiz instructions of array key
 	 */
 	public static readonly QUIZ_INSTRUCTIONS: string[] = [
-		"assignmentInstructions.i1",
-		"assignmentInstructions.i2",
-		"assignmentInstructions.i3",
-		"assignmentInstructions.i4",
-		"assignmentInstructions.i5",
-		"assignmentInstructions.i6",
-	]
+		"quizInstructions.i1",
+		"quizInstructions.i2",
+		"quizInstructions.i3",
+		"quizInstructions.i4",
+		"quizInstructions.i5",
+		"quizInstructions.i6",
+	];
 
 	/**
 	 * Study instructions of array key
 	 */
 	public static readonly STUDY_INSTRUCTIONS: string[] = [
-		"assignmentInstructions.i7",
-		"assignmentInstructions.i8",
-		"assignmentInstructions.i9",
-		"assignmentInstructions.i10"
-	]
+		"studyInstructions.i1",
+		"studyInstructions.i2",
+		"studyInstructions.i3",
+		"studyInstructions.i4"
+	];
+
+	/**
+	 * Flash card instructions of array key
+	 */
+	public static readonly FLASH_CARD_INSTRUCTIONS: string[] = [
+		"flashCardInstructions.i1",
+		"flashCardInstructions.i2",
+		"flashCardInstructions.i3",
+		"flashCardInstructions.i4",
+		"flashCardInstructions.i5",
+		"flashCardInstructions.i6",
+		"flashCardInstructions.i7"
+	];
+
+	public static readonly PRIMARY_CARD_TOGGLE_ANIMATION_REMOVE_CLASS_SERIES: string[] = [
+		"display-block",
+		"display-none",
+	];
+
+	public static readonly PRIMARY_CARD_TOGGLE_ANIMATION_ADD_CLASS_SERIES: string[] = [
+		"display-block"
+	];
+
+	public static readonly SECONDARY_CARD_TOGGLE_ANIMATION_REMOVE_CLASS_SERIES: string[] = [
+		"display-block",
+		"display-none",
+	];
+
+	public static readonly SECONDARY_CARD_TOGGLE_ANIMATION_ADD_CLASS_SERIES: string[] = [
+		"display-none",
+	];
+
+
 }
