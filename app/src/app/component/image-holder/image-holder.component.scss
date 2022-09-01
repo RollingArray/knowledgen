@@ -1,0 +1,26 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Image holder component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-01 18:12:07 
+ * Last modified  : 2022-09-01 18:12:51
+ */
+
+.loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.container {
+	// float: left;
+}
+
+.container img{
+	width: 95%;
+	display: block;
+    margin: auto;
+    border-radius: 10px;
+	border: 1px dashed var(--ion-color-light);
+}

@@ -1,0 +1,20 @@
+
+
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Image holder component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-01 18:12:07 
+ * Last modified  : 2022-09-01 18:12:57
+ */
+ -->
+<div class="container">
+	<div [ngStyle]="{height:height+'px',width:width+'px'}" *ngIf="isLoading" class="loading">
+		<img [src]="loader" />
+	</div>
+	<img [src]=image [ngStyle]="{visibility:isLoading?'hidden':''}"
+		(load)="hideLoader()" (error)="hideLoader()" />
+</div>
