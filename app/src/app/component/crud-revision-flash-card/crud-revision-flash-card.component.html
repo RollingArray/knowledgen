@@ -1,0 +1,306 @@
+
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud revision flash card component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-01 18:19:03 
+ * Last modified  : 2022-09-01 18:20:06
+ */
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ pageTitle | translate }}
+		</ion-title>
+		<ion-buttons
+			slot="end"
+			*ngIf="
+				courseMaterialFlashCard.operationType !== operationsEnum.DELETE
+			"
+		>
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()"
+			>
+				{{ "button.discard" | translate }}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="pageTitle | translate"
+		[info]="pageSubTitle | translate"
+	>
+	</app-page-info-title>
+
+	<!-- save btn -->
+	<ion-fab
+		slot="fixed"
+		vertical="bottom"
+		horizontal="end"
+		*ngIf="courseMaterialFlashCard.operationType !== operationsEnum.DELETE"
+	>
+		<ion-fab-button color="tertiary" (click)="submit()">
+			<ion-icon [src]="stringKey.ICON_SAVE"> </ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- save btn -->
+
+	<!-- form -->
+	<form
+		[formGroup]="formGroup"
+		(ngSubmit)="submit()"
+		color="primary"
+		lines="none"
+	>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<!-- front content -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start">
+							</ion-icon>
+							<p>{{ "formInfo.frontContent" | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-textarea
+									[disabled]="isOperationDelete"
+									autocomplete="off"
+									formControlName="frontContent"
+									type="text"
+								>
+								</ion-textarea>
+							</ion-item>
+							<ion-card
+								*ngIf="
+									frontContent.invalid && frontContent.touched
+								"
+								color="warning"
+							>
+								<ion-item color="warning">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									>
+									</ion-icon>
+									{{ "validation.required" | translate }}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+					<!-- front content -->
+
+					<!-- front media content -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start">
+							</ion-icon>
+							<p>
+								{{ "formInfo.frontMediaContent" | translate }}
+							</p>
+						</ion-item>
+
+						<!-- media choice -->
+						<ion-card color="tertiary">
+							<ion-segment mode="ios" [value]="frontMediaType">
+								<ion-segment-button
+									[value]="mediaTypeEnum.IMAGE"
+									(click)="insertImage('front')"
+								>
+									<ion-icon [src]="stringKey.ICON_IMAGE">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.image" | translate }}
+									</ion-label>
+								</ion-segment-button>
+								<ion-segment-button
+									[value]="mediaTypeEnum.AUDIO"
+									(click)="insertAudio('front')"
+								>
+									<ion-icon [src]="stringKey.ICON_AUDIO">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.audio" | translate }}
+									</ion-label>
+								</ion-segment-button>
+								<ion-segment-button
+									[value]="mediaTypeEnum.VIDEO"
+								>
+									<ion-icon [src]="stringKey.ICON_VIDEO">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.video" | translate }}
+									</ion-label>
+								</ion-segment-button>
+							</ion-segment>
+						</ion-card>
+						<!-- media choice -->
+						
+						<!-- image -->
+						<image-holder
+							*ngIf="frontMediaType === mediaTypeEnum.IMAGE"
+							[image]="frontMedia"
+						>
+						</image-holder>
+						<!-- image -->
+
+						<!-- audio -->
+						<audio
+							*ngIf="frontMediaType === mediaTypeEnum.AUDIO"
+							controls
+						>
+							<source [src]="frontMedia" type="audio/wav" />
+						</audio>
+						<!-- audio -->
+
+						<!-- toolbar -->
+						<ion-toolbar color="none">
+							<delete-button
+								class="margin-right-16-px margin-bottom-16-px"
+								slot="end"
+								(event)="onRemoveMedia('back')"
+							>
+							</delete-button>
+						</ion-toolbar>
+						<!-- toolbar -->
+					</ion-card>
+					<!-- front media content -->
+
+					<!-- back content -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start">
+							</ion-icon>
+							<p>{{ "formInfo.backContent" | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-textarea
+									[disabled]="isOperationDelete"
+									autocomplete="off"
+									formControlName="backContent"
+									type="text"
+								>
+								</ion-textarea>
+							</ion-item>
+							<ion-card
+								*ngIf="
+									backContent.invalid && backContent.touched
+								"
+								color="warning"
+							>
+								<ion-item color="warning">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									>
+									</ion-icon>
+									{{ "validation.required" | translate }}
+								</ion-item>
+							</ion-card>
+						</ion-card>
+					</ion-card>
+					<!-- back content -->
+
+					<!-- back media content -->
+					<ion-card color="secondary">
+						<ion-item color="secondary" lines="none">
+							<ion-icon [src]="stringKey.ICON_FORM" slot="start">
+							</ion-icon>
+							<p>{{ "formInfo.backMediaContent" | translate }}</p>
+						</ion-item>
+						<!-- media choice -->
+						<ion-card color="tertiary">
+							<ion-segment mode="ios" [value]="backMediaType">
+								<ion-segment-button
+									[value]="mediaTypeEnum.IMAGE"
+									(click)="insertImage('back')"
+								>
+									<ion-icon [src]="stringKey.ICON_IMAGE">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.image" | translate }}
+									</ion-label>
+								</ion-segment-button>
+								<ion-segment-button
+									[value]="mediaTypeEnum.AUDIO"
+									(click)="insertAudio('back')"
+								>
+									<ion-icon [src]="stringKey.ICON_AUDIO">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.audio" | translate }}
+									</ion-label>
+								</ion-segment-button>
+								<ion-segment-button
+									[value]="mediaTypeEnum.VIDEO"
+								>
+									<ion-icon [src]="stringKey.ICON_VIDEO">
+									</ion-icon>
+									<ion-label>
+										{{ "formInfo.video" | translate }}
+									</ion-label>
+								</ion-segment-button>
+							</ion-segment>
+						</ion-card>
+						<!-- media choice -->
+
+						<!-- image -->
+						<image-holder
+							*ngIf="backMediaType === mediaTypeEnum.IMAGE"
+							[image]="backMedia"
+						>
+						</image-holder>
+						<!-- image -->
+
+						<!-- audio -->
+						<audio
+							*ngIf="backMediaType === mediaTypeEnum.AUDIO"
+							controls
+							autoplay
+							muted
+						>
+							<source [src]="backMedia" type="audio/wav" />
+						</audio>
+						<!-- audio -->
+
+						<!-- toolbar -->
+						<ion-toolbar color="none">
+							<delete-button
+								class="margin-right-16-px margin-bottom-16-px"
+								slot="end"
+								(event)="onRemoveMedia('back')"
+							>
+							</delete-button>
+						</ion-toolbar>
+						<!-- toolbar -->
+					</ion-card>
+					<!-- back media content -->
+				</ion-col>
+			</ion-row>
+			<!-- empty row -->
+			<ion-row>
+				<ion-col class="height-80-px">&nbsp;</ion-col>
+			</ion-row>
+			<!-- empty row -->
+		</ion-grid>
+	</form>
+	<!-- form -->
+</ion-content>
+<!-- body -->
