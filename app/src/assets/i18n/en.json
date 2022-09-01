@@ -35,7 +35,8 @@
 		"quizSession": "Quiz Session",
 		"stop": "Stop",
 		"learningPath": "Add To Learning Path",
-		"share": "Share"
+		"share": "Share",
+		"timer": "Timer"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -97,7 +98,19 @@
 		"welcome" : "Welcome To",
 		"courseContentCoverageOverTime": "Course Content Coverage",
 		"courseContentTimeCoverageOverTime": "Course Time Coverage",
-		"assignmentsScoreAnalysis": "Assignments Score Analysis"
+		"assignmentsScoreAnalysis": "Assignments Score Analysis",
+		"addFlashCard": "Add New Flash Card",
+		"editFlashCard": "Edit Flash Card",
+		"deleteFlashCard": "Delete Flash Card",
+		"selectAudio": "Record an audio clip",
+		"activeRecall": "Your appx. active recall time is",
+		"timeL1": "Congratulation !! you nailed it",
+		"timeL2": "Congratulation !! you are almost there",
+		"timeL3": "Dont give up !! you are close ",
+		"timeL4": "It’s the little things that matter !! stay focused ",
+		"timeL5": "Your are just in time !! stay focused ",
+		"timeL6": "Do more practice !! Way to go ",
+		"fcSession": "Flash card sessions over time"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -127,7 +140,12 @@
 		"quizSession": "Quiz session time over iterations graph will show the amount of time you have taken in each iteration while taking this quiz. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to answer the question much quicker",
 		"addToLearningPath": "Find the content summery of the material below. Add the material to learning path to study the material and track progress",
 		"deleteLearningPath": "Deleting Learning Path",
-		"myLearningPath": "My Learning Path if tied to your learning progress. As you complete articles and assignments provided in the course material, you will be able to see the progress in %."
+		"myLearningPath": "My Learning Path if tied to your learning progress. As you complete articles and assignments provided in the course material, you will be able to see the progress in %.",
+		"addFlashCard": "Provide the question on front card and answer on back card. Save the changes once you are satisfied with the content",
+		"editFlashCard": "Provide updated details of the the question on front card and answer on back card. Save the changes once you are satisfied with the content",
+		"deleteFlashCard": "Deleting question",
+		"selectAudio": "Record an audio clip bu using your device microphone. Save the image if you are satisfied with the audio",
+		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time mgiht be a helpfull indecator, that with each iteration you are able to recall the question much quicker"
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -180,7 +198,7 @@
 		"rank": "Rank",
 		"trackStudy": "Track study time",
 		"sessionTime": "Time in minute(s)",
-		"sessionIterations": "Study session iteration(s) [Latest to the right]",
+		"sessionIterations": "Session iteration(s) [Latest to the right]",
 		"sessionProgress": "Progress over time",
 		"sessionDecreased": "Decreased in time between last 2 session",
 		"sessionIncrease": "Increased in time between last 2 session",
@@ -195,7 +213,14 @@
 		"studyTimeTaken": "Minutes of Study Time So Far",
 		"courseContentCovered": "Number of course content consumed",
 		"courseMinutesCovered": "Number of minuts consumed in course ",
-		"last12": "Last 12 months"
+		"last12": "Last 12 months",
+		"frontContent": "Provide question for the front side of the card ",
+		"backContent": "Provide answer for the front side of the card ",
+		"frontMediaContent": "Add the media content to the front side of the card (oprional)",
+		"backMediaContent": "Add the media content to the back front side of the card (oprional)",
+		"image": "Add Image",
+		"audio": "Record Audio",
+		"video": "Add Video"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -221,7 +246,9 @@
 		"availableSoonContent": "The content will be available soon !!",
 		"noStudySession": "No study session data available !!",
 		"noQuizSession": "No quiz session data available !!",
-		"noMyLearningPath": "You have not yet addedd any course to yout learning path !!"
+		"noMyLearningPath": "You have not yet addedd any course to yout learning path !!",
+		"noCard": "No card has been found. Add your card !!",
+		"noFlashCardSession": "No session data available for this flash card !!"
 	},
 	"loading": { 
 		"wait": "Loading ... Please wait",
@@ -250,7 +277,10 @@
 		"recommendedCourseMaterial": "Loading Recommended Course Materials ... Please wait",
 		"myCourseMaterial": "Loading Your Course Materials ... Please wait",
 		"newLearningPath": "Adding Course Material To Your Learning Path ... Please wait",
-		"deleteLearningPath": "Deleting Course Material Form Your Learning Path ... Please wait"
+		"deleteLearningPath": "Deleting Course Material Form Your Learning Path ... Please wait",
+		"newFlashCard": "Adding New Flash Card ... Please wait",
+		"editFlashCard": "Updating Flash Card ... Please wait",
+		"deleteFlashCard": "Deleting Flash Card ... Please wait"
 	},
 	"errorMessage": {
 		"notAllowed": "Review Your Action !!",
@@ -259,7 +289,8 @@
 		"selectImage": "Select an image",
 		"imageSize": "Image file size beyond 1 MB not allowed",
 		"minimumAnswer": "Minimum 2 answers are required",
-		"minimumCorrectAnswer": "Minimum 1 answer must be correct"
+		"minimumCorrectAnswer": "Minimum 1 answer must be correct",
+		"selectAudio": "Record an audio clip"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
@@ -292,7 +323,10 @@
 		"deleteQuestion": "Question has been deleted successfully!!",
 		"changeVisibility": "Content visibility changed  successfully!!",
 		"newLearningPath": "Course Material has been added to your learning path successfully!!",
-		"deleteLearningPath": "Course Material removed from your learning path successfully!!"
+		"deleteLearningPath": "Course Material removed from your learning path successfully!!",
+		"newFlashCard": "Flash Card has been saved, you can update any time",
+		"editFlashCard": "Flash Card has been updated successfullt",
+		"deleteFlashCard": "Flash Card has been deleted successfullt"
 	},
 	"validation": {
 		"required": "Please provide the details"
@@ -315,16 +349,27 @@
 		"average": "Average",
 		"poor": "Poor"
 	},
-	"assignmentInstructions": {
-		"i1": "Tap on <b>Start Assignment</b> when you are ready to take the assignment",
+	"quizInstructions": {
+		"i1": "Tap on <b>Start Timer</b> when you are ready to take the assignment",
 		"i2": "The <b>Timer</b> will start as soon as the assignment starts",
 		"i3": "<b>Points<b> are equally devided accross questions based on <b>Total Reward<b>",
 		"i4": "<b>No</b> negative marking",
 		"i5": "Tap on <b>Options<b> to select the correct answer",
-		"i6": "Tap on <b>Submit Assignment</b> when you are ready with your answers",
-		"i7": "<b>Study time calculator<b> helps you keep track of how much time you have spent on this lession.",
-		"i8": "Each <b>study session<b> is logged and will help you to keep track of your progress over a pertiod of time",
-		"i9": "Tap on <b>Start Study Session</b> when you are ready to start reading",
-		"i10": "Tap on <b>Stop Study Session</b> when you are done"
+		"i6": "Tap on <b>Stop Timer</b> when you are ready with your answers"
+	},
+	"studyInstructions": {
+		"i1": "<b>Study time calculator<b> helps you keep track of how much time you have spent on this lession.",
+		"i2": "Each <b>study session<b> is logged and will help you to keep track of your progress over a pertiod of time",
+		"i3": "Tap on <b>Start Timer</b> when you are ready to start reading",
+		"i4": "Tap on <b>Stop Timer</b> when you are done"
+	},
+	"flashCardInstructions": {
+		"i1": "<b>Flash cards</b> promote studying through <b>active recall</b>, which is one of the practices through which our brains learn most effectively.",
+		"i2": "Tap on <b>Start Timer</b> when you are ready to take your memory test using flash cards",
+		"i3": "Each flashcards has two-sides, the prompt on one side and the information about the prompt on the other.",
+		"i4": "Flash card is a self learning approach. Hence, be honest in accessaing your memory about the promt. If you are unable to recall, <b>Tap</b> to see the information about the prompt",
+		"i5": "Tap on <b>Next</b> to go to the next flash card",
+		"i6": "Tap on <b>Previous</b> to go to the previous flash card",
+		"i7": "Tap on <b>Stop Timer</b> when you have completed all the flash cards"
 	}
 }
