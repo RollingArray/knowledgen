@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-07-27 18:58:23
+ * Last modified  : 2022-08-30 09:32:36
  */
 
 
@@ -21,7 +21,6 @@
 
 .front-overlay{
     border-radius: 20px;
-    height: 460px;
     margin: 20px;
     position: absolute;
     width: calc(100% - 40px);
@@ -50,4 +49,15 @@
 	    font-weight: bold;
         line-height: 50px;
     }
+}
+
+.time{
+	width: 50%;
+	border-radius: 10px;
+	text-align: center;
+	margin: 50px auto;
+	color: var(--ion-color-primary);
+	font-size: 4em;
+    font-weight: bold;
+    line-height: 100px;
 }

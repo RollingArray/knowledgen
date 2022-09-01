@@ -6,12 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-08-02 20:23:26
+ * Last modified  : 2022-08-31 16:46:09
  */
 
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Injector } from "@angular/core";
-import { takeUntil } from "rxjs/operators";
+import { retry, takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Regex } from "src/app/shared/constant/regex.constant";
@@ -23,6 +23,11 @@ import { BaseFormComponent } from "../base/base-form.component";
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { CourseMaterialAssignmentStateFacade } from 'src/app/state/course-material-assignment/course-material-assignment.state.facade';
 import { CourseMaterialAssignmentResultModel } from 'src/app/shared/model/course-material-assignment-result.model';
+import { ResultTypeEnum } from 'src/app/shared/enum/retust-type.enum';
+import { NavParams } from '@ionic/angular';
+import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
+import { Observable } from 'rxjs';
+import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
 
 @Component({
 	selector: 'crud-course-material-assignment-result',
@@ -59,6 +64,11 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	readonly apiUrls = ApiUrls;
 
 	/**
+	 * Result type enum of crud course material assignment result component
+	 */
+	readonly resultTypeEnum = ResultTypeEnum;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable								|
@@ -75,12 +85,22 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	private _resultAvailable = false;
 
 	/**
+	 * Result type of crud course material assignment result component
+	 */
+	private _resultType: ResultTypeEnum;
+	
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Description  of article session component
+	 */
+	public selectedMenuArticle$: Observable<MenuSelectModel>;
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -91,28 +111,6 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	/**
 	 * Gets description
 	 */
-	public get resultTitle()
-	{
-
-		const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100; 
-		
-		let title = '';
-		if (resultPercentage => 0 && resultPercentage <= 30)
-		{
-			title = 'pageTitle.resultLow';
-		}
-		else if (resultPercentage => 31 && resultPercentage <= 70)
-		{
-			title = 'pageTitle.resultMid';
-		}
-		else if (resultPercentage => 71 && resultPercentage <= 100)
-		{
-			title = 'pageTitle.resultTop';
-		}
-
-		return title;
-	}
-
 	/**
 	 * Gets result available
 	 */
@@ -127,6 +125,19 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	public get courseMaterialAssignmentResult()
 	{
 		return this._courseMaterialAssignmentResult;
+	}
+
+	/**
+	 * Gets result type
+	 */
+	public get resultType()
+	{
+		return this._resultType;
+	}
+
+	public set resultType(value: ResultTypeEnum)
+	{
+		this._resultType = value;
 	}
 
 	/**
@@ -151,10 +162,16 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		private translateService: TranslateService,
 		private alertService: AlertService,
 		private courseMaterialAssignmentStateFacade: CourseMaterialAssignmentStateFacade,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private navParams: NavParams,
+		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 	)
 	{
 		super(injector);
+
+		// get result type
+		this._resultType = this.navParams.get('resultType');
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 
 		// get act upon curd model from store
 		this.courseMaterialAssignmentStateFacade
@@ -295,5 +312,72 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 			
 			return `${hour} ${minute} ${seconds}`;	
 		}
+	}
+
+	/**
+	 * Results title
+	 * @returns  
+	 */
+	public resultTitle()
+	{
+
+		let title = '';
+		
+		if (this._resultType === ResultTypeEnum.SCORE)
+		{
+			const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100; 
+		
+			if (resultPercentage >= 0 && resultPercentage <= 30)
+			{
+				title = 'pageTitle.resultLow';
+			}
+			else if (resultPercentage >= 31 && resultPercentage <= 70)
+			{
+				title = 'pageTitle.resultMid';
+			}
+			else if (resultPercentage >= 71 && resultPercentage <= 100)
+			{
+				title = 'pageTitle.resultTop';
+			}
+		}
+		else if (this._resultType === ResultTypeEnum.TIME)
+		{
+			// get article completion time
+			const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
+			
+			// get maximum time allowed for each question
+			const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
+			
+			// find best active recall time in percentage 
+			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100; 
+		
+			// set result title based on percentage
+			if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
+			{
+				title = 'pageTitle.timeL1';
+			}
+			else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
+			{
+				title = 'pageTitle.timeL2';
+			}
+			else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
+			{
+				title = 'pageTitle.timeL3';
+			}
+			else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
+			{
+				title = 'pageTitle.timeL4';
+			}
+			else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
+			{
+				title = 'pageTitle.timeL4';
+			}
+			else if (bestActiveRecallTimePercentage > 100)
+			{
+				title = 'pageTitle.timeL6';
+			}
+		}
+		
+		return title;
 	}
 }

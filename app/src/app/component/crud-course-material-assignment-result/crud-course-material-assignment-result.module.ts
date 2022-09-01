@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-07-27 18:57:37
+ * Last modified  : 2022-08-31 14:57:45
  */
 
 import { NgModule } from '@angular/core';
@@ -19,6 +19,7 @@ import { CrudCourseMaterialAssignmentResultComponent } from './crud-course-mater
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { CourseMaterialAssignmentLeaderBoardModule } from '../course-material-assignment-leader-board/course-material-assignment-leader-board.module';
+import { CourseMaterialMenuStateModule } from 'src/app/state/course-material-menu/course-material-menu.state.module';
 
 @NgModule({
 	imports: [
@@ -30,7 +31,8 @@ import { CourseMaterialAssignmentLeaderBoardModule } from '../course-material-as
 		RouterModule,
 		PageInfoTitleModule,
 		SharedModule,
-		CourseMaterialAssignmentLeaderBoardModule
+		CourseMaterialAssignmentLeaderBoardModule,
+		CourseMaterialMenuStateModule
 	],
 
 	declarations: [CrudCourseMaterialAssignmentResultComponent],
