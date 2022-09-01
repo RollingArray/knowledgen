@@ -1,0 +1,92 @@
+<!-- /**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Content audio component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-08-25 16:14:31 
+ * Last modified  : 2022-08-25 17:25:26
+ */ -->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ "pageTitle.selectAudio" | translate }}
+		</ion-title>
+		<ion-buttons slot="end">
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="cancelModal()"
+			>
+				{{ "button.discard" | translate }}</ion-button
+			>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="'pageTitle.selectAudio' | translate"
+		[info]="'pageSubTitle.selectAudio' | translate"
+	></app-page-info-title>
+
+	<!-- save btn -->
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+		<ion-fab-button color="tertiary" (click)="uploadFiles()">
+			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- save btn -->
+
+	<!-- toolbar -->
+	<div class="text-center margin-20-px">
+		<ion-icon
+			*ngIf="!recordStared"
+			(click)="start()"
+			color="tertiary font-size-100-px cursor-pointer"
+			[src]="stringKey.ICON_MIC_ON"
+		></ion-icon>
+		<ion-icon
+			*ngIf="recordStared"
+			(click)="stop()"
+			color="tertiary font-size-100-px cursor-pointer"
+			[src]="stringKey.ICON_MIC_OFF"
+		></ion-icon>
+	</div>
+	<!-- toolbar -->
+
+	<!-- time -->
+	<ion-grid>
+		<ion-row>
+			<ion-col
+				size-xl="4"
+				size-lg="4"
+				size-md="4"
+				size-sm="4"
+				size-xs="6"
+				offset-xl="4"
+				offset-lg="4"
+				offset-md="4"
+				offset-sm="4"
+				offset-xs="3"
+			>
+				<timer
+					[timerStarted]="timerStarted"
+					[timerEnded]="timerEnded"
+				></timer>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- time -->
+
+	<!-- audio time domain graph -->
+	<canvas #canvasEl></canvas>
+	<!-- audio time domain graph -->
+</ion-content>
+<!-- body -->
