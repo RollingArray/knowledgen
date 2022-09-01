@@ -66,6 +66,11 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	readonly characteristicsEnum = CharacteristicsEnum;
 
 	/**
+	 * Chart data color of article session component
+	 */
+	readonly chartDataColor = '#003566';
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @input & @output Instance variable				|
@@ -323,7 +328,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 				 this._chartData = [
 					 {
 						 data: articleSession.articleSessions,
-						 borderColor: '#fff',
+						 borderColor: this.chartDataColor,
 						 backgroundColor: "#003566",
 						 label: `${data['formInfo.sessionProgress']}`,
 						 tension: 0.5
@@ -360,10 +365,10 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 							title: {
 								display: true,
 								text: `${data['formInfo.sessionIterations']}`,
-								color: '#fff'
+								color: this.chartDataColor
 							},
 							ticks: {
-								color: '#fff'
+								color: this.chartDataColor
 							},
 							grid: {
 								display: false
@@ -374,10 +379,10 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 							title: {
 								display: true,
 								text: `${data['formInfo.sessionTime']}`,
-								color: '#fff'
+								color: this.chartDataColor
 							},
 							ticks: {
-								color: '#fff'
+								color: this.chartDataColor
 							},
 							grid: {
 								display: false

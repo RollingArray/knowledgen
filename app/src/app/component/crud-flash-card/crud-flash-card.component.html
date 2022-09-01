@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-01 18:17:13
+ * Last modified  : 2022-09-01 20:42:15
  */
 -->
 
@@ -133,7 +133,8 @@
 									(click)="
 										toggleCard(
 											'front ' + selectedCard.cardId,
-											'back ' + selectedCard.cardId
+											'back ' + selectedCard.cardId,
+											true
 										)
 									"
 									[class]="getClass('front')"
@@ -189,7 +190,8 @@
 									(click)="
 										toggleCard(
 											'back ' + selectedCard.cardId,
-											'front ' + selectedCard.cardId
+											'front ' + selectedCard.cardId,
+											false
 										)
 									"
 									[class]="getClass('back')"
@@ -342,7 +344,8 @@
 						(click)="
 							toggleCard(
 								'front ' + selectedCard.cardId,
-								'back ' + selectedCard.cardId
+								'back ' + selectedCard.cardId,
+								true
 							)
 						"
 						[class]="getClass('front')"
@@ -398,7 +401,8 @@
 						(click)="
 							toggleCard(
 								'back ' + selectedCard.cardId,
-								'front ' + selectedCard.cardId
+								'front ' + selectedCard.cardId,
+								false
 							)
 						"
 						[class]="getClass('back')"

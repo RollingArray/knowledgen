@@ -173,7 +173,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get articleTitle()
 	{
-		return this.getSpecificPropertyOfMenu('articleTitle');
+		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleTitle');
 	}
 
 	/**
@@ -181,7 +181,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get courseMaterialType()
 	{
-		return this.getSpecificPropertyOfMenu('courseMaterialTypeId');
+		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('courseMaterialTypeId');
 	}
 
 	/**
@@ -190,8 +190,8 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	get visibilityInfo()
 	{
 		const visibility = 'formInfo.visibilityLive';
-		const articleStatus = this.getSpecificPropertyOfMenu('articleStatus');
-		const courseMaterialTypeId = this.getSpecificPropertyOfMenu('courseMaterialTypeId');
+		const articleStatus = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleStatus');
+		const courseMaterialTypeId = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('courseMaterialTypeId');
 		return this.selectArticleStatus(articleStatus, courseMaterialTypeId, visibility);
 	}
 
@@ -201,7 +201,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	get isContentLive()
 	{
 		let isContentLive = false;
-		const articleStatus = this.getSpecificPropertyOfMenu('articleStatus');
+		const articleStatus = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleStatus');
 		if (articleStatus === ArticleStatusTypeEnum.LIVE)
 		{
 			isContentLive = true;
@@ -214,7 +214,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get articleCompletionTime()
 	{
-		return this.getSpecificPropertyOfMenu('articleCompletionTime');
+		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime');
 	}
 
 	/**
@@ -222,7 +222,7 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 */
 	get articleCompletionReward()
 	{
-		return this.getSpecificPropertyOfMenu('articleCompletionReward');
+		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionReward');
 	}
 
 	/**
@@ -292,68 +292,6 @@ export class KnowledgeBaseArticleComponent extends BaseViewComponent implements 
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * Gets specific property of menu
-	 * @param property 
-	 * @returns  
-	 */
-	private getSpecificPropertyOfMenu(property: string)
-	{
-		let menuProperty = '';
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-
-						this.courseMaterialMenuStateFacade
-							.parentMenuByArticleId$(menuSelect.articleId)
-							.pipe(takeUntil(this.unsubscribe))
-							.subscribe((parentMenuModel: ParentMenuModel) =>
-							{
-								if (parentMenuModel)
-								{
-									menuProperty = parentMenuModel[property];
-								}
-							});
-
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this.courseMaterialMenuStateFacade
-							.childMenuByArticleId$(menuSelect.articleId)
-							.pipe(takeUntil(this.unsubscribe))
-							.subscribe((childMenuModel: ChildMenuModel) =>
-							{
-								if (childMenuModel)
-								{
-									menuProperty = childMenuModel[property];
-								}
-							});
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this.courseMaterialMenuStateFacade
-							.subChildMenuByArticleId$(menuSelect.articleId)
-							.pipe(takeUntil(this.unsubscribe))
-							.subscribe((subChildMenuModel: SubChildMenuModel) =>
-							{
-								if (subChildMenuModel)
-								{
-									menuProperty = subChildMenuModel[property];
-								}
-							});
-						break;
-
-					default:
-						break;
-				}
-			});
-
-		return menuProperty;
-	}
 
 	/**
 	 * Selects article status

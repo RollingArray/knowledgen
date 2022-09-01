@@ -11,16 +11,16 @@
  */
 -->
 
-<ion-card color="primary-gradient">
+<ion-card color="light">
 	<!-- header if content text/document -->
 	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD">
 		<panel-header 
 			[panelTitle]="'pageTitle.studySession' | translate"
 			[panelIcon] = "stringKey.ICON_QNA"
-			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[panelColor]="stringKey.COLOR_LIGHT"
 		></panel-header>
 		<panel-info
-			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[panelColor]="stringKey.COLOR_LIGHT"
 			[title]="'pageSubTitle.studySession' | translate"
 		></panel-info>
 	</ion-card-header>
@@ -31,14 +31,28 @@
 		<panel-header 
 			[panelTitle]="'pageTitle.quizSession' | translate"
 			[panelIcon] = "stringKey.ICON_QUIZ"
-			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[panelColor]="stringKey.COLOR_LIGHT"
 		></panel-header>
 		<panel-info
-			[panelColor]="stringKey.COLOR_PRIMARY_GRADIENT"
+			[panelColor]="stringKey.COLOR_LIGHT"
 			[title]="'pageSubTitle.quizSession' | translate"
 		></panel-info>
 	</ion-card-header>
 	<!-- header if content quiz -->
+
+	<!-- header if content flash card -->
+	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC">
+		<panel-header 
+			[panelTitle]="'pageTitle.fcSession' | translate"
+			[panelIcon] = "stringKey.ICON_FLASH_CARD"
+			[panelColor]="stringKey.COLOR_LIGHT"
+		></panel-header>
+		<panel-info
+			[panelColor]="stringKey.COLOR_LIGHT"
+			[title]="'pageSubTitle.quizSession' | translate"
+		></panel-info>
+	</ion-card-header>
+	<!-- header if content flash card -->
 
 	<!-- instructions quiz -->
 	<ion-card-content>
@@ -69,6 +83,15 @@
 				[title]="'noData.noStudySession' | translate"
 			></panel-info>
 			<!-- quiz -->
+
+			<!-- fc -->
+			<panel-info
+				*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC"
+				[panelColor]="stringKey.COLOR_PRIMARY"
+				[title]="'noData.noFlashCardSession' | translate"
+			></panel-info>
+			<!-- fc -->
+			
 		</ion-card>
 		<!-- if no data -->
 

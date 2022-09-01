@@ -8,7 +8,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-08-07 07:33:09
+ * Last modified  : 2022-08-23 09:56:03
 */	
  -->
 <!-- header -->
@@ -71,6 +71,7 @@
 
 							<!-- course material layout -->
 							<course-material-layout
+								*ngIf="courseMaterial$ | async"
 								[courseMaterialId]="(courseMaterial$ | async).courseMaterialId">
 							</course-material-layout>
 							<!-- course material layout -->

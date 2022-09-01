@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-01 18:17:31
+ * Last modified  : 2022-09-01 20:48:27
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -207,6 +207,11 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 * Flash card assignment time of crud flash card component
 	 */
 	private _flashCardAssignmentTime: FlashCardAssignmentTimeModel[] = [];
+
+	/**
+	 * Card flipped of crud flash card component
+	 */
+	private _cardFlipped = false;
 
 	/**
 	 * -------------------------------------------------|
@@ -725,6 +730,18 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
 	 }
 
+	/**
+	 * Tracks card flip
+	 */
+	private trackCardFlip()
+	 {
+		 if (this._cardFlipped)
+		 {
+			 const primaryCardId = 'back ' + this._selectedCard.cardId;
+			 const secondaryCardId = 'front ' + this._selectedCard.cardId;
+			 this.toggleCard(primaryCardId, secondaryCardId, false);
+		 }
+	 }
 
 	/**
 	 * -------------------------------------------------|
@@ -852,7 +869,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 * @param primaryCardId 
 	 * @param secondaryCardId 
 	 */
-	public toggleCard(primaryCardId: string, secondaryCardId: string)
+	public toggleCard(primaryCardId: string, secondaryCardId: string, cardFlipped: boolean)
 	{
 		if (document.getElementById(primaryCardId) && document.getElementById(secondaryCardId))
 		{
@@ -862,6 +879,8 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			
 			document.getElementById(secondaryCardId).classList.remove('display-none');
 			document.getElementById(secondaryCardId).classList.add('display-block');
+
+			this._cardFlipped = cardFlipped;
 		}
 		
 	}
@@ -875,18 +894,23 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		this.trackCardSpendTime(OperationsEnum.END);
 
 		this._flashCardAction = FlashCardActionEnum.NONE;
-		this._resetFlashCard = false;
+		//this._resetFlashCard = false;
 		this._cardIndex++;
 		this.getSelectedCard();
 		setTimeout(() =>
 		{
 			this._flashCardAction = FlashCardActionEnum.LEFT;
-			this._resetFlashCard = true;
+			//this._resetFlashCard = true;
 
 			// track card time
 			this.trackCardSpendTime(OperationsEnum.START);
+
+			// track if card flipped
+			this.trackCardFlip();
 		}, 0);
 	}
+
+	
 
 	/**
 	 * Previous card
@@ -897,16 +921,19 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		this.trackCardSpendTime(OperationsEnum.END);
 		
 		this._flashCardAction = FlashCardActionEnum.NONE;
-		this._resetFlashCard = false;
+		//this._resetFlashCard = false;
 		this._cardIndex--;
 		this.getSelectedCard();
 		setTimeout(() =>
 		{
 			this._flashCardAction = FlashCardActionEnum.RIGHT;
-			this._resetFlashCard = true;
+			//this._resetFlashCard = true;
 
 			// track card time
 			this.trackCardSpendTime(OperationsEnum.START);
+
+			// track if card flipped
+			this.trackCardFlip();
 		}, 0);
 	}
 

@@ -7,65 +7,60 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-08-05 19:59:41
+ * Last modified  : 2022-09-01 20:21:41
  */
  -->
 
-<ion-content
-	#articleView>
+<ion-content #articleView>
 	<!-- article title -->
-	<div #articleTitleView
+	<div
+		#articleTitleView
 		class="article-title"
 		*ngIf="
-      			(selectedMenuArticle$ | async).articleId &&
-      			articleTitle !== 'noData.contentDeleted'
-   		 ">
+			(selectedMenuArticle$ | async).articleId &&
+			articleTitle !== 'noData.contentDeleted'
+		"
+	>
 		<ion-item>
-			<ion-thumbnail
-				slot="start">
+			<ion-thumbnail slot="start">
 				<ion-icon
-					[src]="getMenuIcon((selectedMenuArticle$ | async).courseMaterialType)"
-					class="font-size-50-px">
+					[src]="
+						getMenuIcon(
+							(selectedMenuArticle$ | async).courseMaterialType
+						)
+					"
+					class="font-size-50-px"
+				>
 				</ion-icon>
 			</ion-thumbnail>
-			{{
-			articleTitle
-			}}
+			{{ articleTitle }}
 		</ion-item>
 	</div>
 	<!-- article title -->
 
 	<!-- live / preview message -->
 	<ion-card
-		*ngIf="
-			(selectedMenuArticle$ | async).articleId && 
-			isMaterialOwner"
+		*ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner"
 		[color]="
-      		visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'
-    ">
+			visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'
+		"
+	>
 		<ion-card-content>
-			<ion-item
-				lines="none"
-				color="none">
+			<ion-item lines="none" color="none">
 				<p>
-					{{
-					visibilityInfo
-					|
-					translate
-					}}
+					{{ visibilityInfo | translate }}
 				</p>
 				<ion-button
 					slot="end"
 					color="danger"
 					(click)="changeVisibility()"
 					*ngIf="
-            			visibilityInfo !== 'formInfo.visibilityLiveNoChange' ? true : false
-          			">
-					{{
-					"button.changeVisibility"
-					|
-					translate
-					}}
+						visibilityInfo !== 'formInfo.visibilityLiveNoChange'
+							? true
+							: false
+					"
+				>
+					{{ "button.changeVisibility" | translate }}
 				</ion-button>
 			</ion-item>
 		</ion-card-content>
@@ -75,11 +70,14 @@
 	<!-- show assignment properties for material owner even if not live -->
 	<assignment-properties
 		*ngIf="
-			isMaterialOwner &&
-			courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
-			courseMaterialType === courseMaterialTypeIdEnum.DC
-		" [articleCompletionTime]="articleCompletionTime"
-		[articleCompletionReward]="articleCompletionReward">
+			(isMaterialOwner &&
+				(courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
+			courseMaterialType === courseMaterialTypeIdEnum.DC ||
+			courseMaterialType === courseMaterialTypeIdEnum.FC))
+		"
+		[articleCompletionTime]="articleCompletionTime"
+		[articleCompletionReward]="articleCompletionReward"
+	>
 	</assignment-properties>
 	<!-- show assignment properties for material owner even if not live -->
 
@@ -87,23 +85,26 @@
 	<assignment-properties
 		#assignmentPropertiesView
 		*ngIf="
-			!isMaterialOwner &&
-			isContentLive &&
-			courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
-			courseMaterialType === courseMaterialTypeIdEnum.DC
-		" [articleCompletionTime]="articleCompletionTime"
-		[articleCompletionReward]="articleCompletionReward">
+			(!isMaterialOwner &&
+				isContentLive &&
+				(courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
+			courseMaterialType === courseMaterialTypeIdEnum.DC ||
+			courseMaterialType === courseMaterialTypeIdEnum.FC))
+		"
+		[articleCompletionTime]="articleCompletionTime"
+		[articleCompletionReward]="articleCompletionReward"
+	>
 	</assignment-properties>
 	<!-- show assignment properties for visitor if live -->
 
-	<div
-		*ngIf="(selectedMenuArticle$ | async).articleId">
+	<div *ngIf="(selectedMenuArticle$ | async).articleId">
 		<!-- crud-text-document -->
 		<crud-text-document
 			[articleTitleView]="articleTitleView"
 			[articleView]="articleView"
 			[isContentLive]="isContentLive"
-			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD">
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"
+		>
 		</crud-text-document>
 		<!-- crud-text-document -->
 
@@ -114,8 +115,21 @@
 			[articleView]="articleView"
 			[articleCompletionReward]="articleCompletionReward"
 			[isContentLive]="isContentLive"
-			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ">
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ"
+		>
 		</crud-assignment-quiz>
 		<!-- crud-assignment-quiz -->
+
+		<!-- crud-flash-card -->
+		<crud-flash-card
+			[assignmentPropertiesView]="assignmentPropertiesView"
+			[articleTitleView]="articleTitleView"
+			[articleView]="articleView"
+			[articleCompletionReward]="articleCompletionReward"
+			[isContentLive]="isContentLive"
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.FC"
+		>
+		</crud-flash-card>
+		<!-- crud-flash-card -->
 	</div>
 </ion-content>
