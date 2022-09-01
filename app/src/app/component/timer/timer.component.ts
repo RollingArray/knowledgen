@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-25 19:35:16 
- * Last modified  : 2022-08-02 20:19:46
+ * Last modified  : 2022-08-25 17:07:09
  */
 
 import { Component, OnInit, Output, Injector, EventEmitter, Input } from "@angular/core";
@@ -238,7 +238,7 @@ export class TimerComponent extends BaseViewComponent implements OnInit
 		const assignmentTime = `${this.format(this._minute)}:${this.format(this._second)}:${this.format(this._millisecond)}`;
 
 		this.timeEventEmitter.emit(assignmentTime);
-		this.reset();
+		//this.reset();
 
 	}
 
