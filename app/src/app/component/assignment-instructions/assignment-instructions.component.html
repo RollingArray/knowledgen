@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-08-04 20:11:30
+ * Last modified  : 2022-08-25 16:17:45
  */
 -->
 
@@ -35,6 +35,16 @@
 				</ion-col>
 				<!-- text doc -->
 
+				<!-- flash card -->
+				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC">
+					<panel-header 
+						[panelTitle]="'formInfo.trackStudy' | translate"
+						[panelIcon] = "stringKey.ICON_FLASH_CARD"
+						[panelColor]="stringKey.COLOR_PRIMARY"
+					></panel-header>
+				</ion-col>
+				<!-- flash card -->
+
 				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6">
 					<timer 
 						class="float-right" 
@@ -48,6 +58,7 @@
 		</ion-grid>
 	</ion-card-header>
 
+	<!-- instructions -->
 	<!-- instructions quiz -->
 	<ion-card-content *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
 		<ion-item color="primary" *ngFor="let instructions of arrayKey.QUIZ_INSTRUCTIONS">
@@ -57,12 +68,11 @@
 	</ion-card-content>
 	<!-- instructions quiz -->
 
-	<!-- instructions td / ps / fc -->
+	<!-- instructions td / ps -->
 	<ion-card-content 
 		*ngIf="
 				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
+				courseMaterialTypeId === courseMaterialTypeIdEnum.PS
 			"
 		>
 		<ion-item color="primary" *ngFor="let instructions of arrayKey.STUDY_INSTRUCTIONS">
@@ -70,7 +80,21 @@
 			<p [innerHtml] = "instructions | translate"> </p>
 		</ion-item>
 	</ion-card-content>
-	<!-- instructions td / ps / fc -->
+	<!-- instructions td / ps -->
+
+	<!-- instructions fc -->
+	<ion-card-content 
+		*ngIf="
+				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
+			"
+		>
+		<ion-item color="primary" *ngFor="let instructions of arrayKey.FLASH_CARD_INSTRUCTIONS">
+			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
+			<p [innerHtml] = "instructions | translate"> </p>
+		</ion-item>
+	</ion-card-content>
+	<!-- instructions fc -->
+	<!-- instructions -->
 	
 	<!-- start session -->
 	<ion-item 
@@ -81,27 +105,11 @@
 	>
 		<ion-icon slot="end" [src]="stringKey.ICON_START"></ion-icon>
 
-		<!-- quiz -->
 		<ion-label 
 			slot="end" 
-			*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
 		>
-		<b>{{ "button.start" | translate }} {{ "button.assignment" | translate }}</b>
+		<b>{{ "button.start" | translate }} {{ "button.timer" | translate }}</b>
 		</ion-label>
-		<!-- quiz -->
-
-		<!-- td / ps / fc -->
-		<ion-label 
-			slot="end"
-			*ngIf="
-				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
-			"
-		>
-			<b>{{ "button.start" | translate }} {{ "button.studySession" | translate }}</b>
-		</ion-label>
-		<!-- td / ps / fc -->
 	</ion-item>
 	<!-- start session -->
 
@@ -116,24 +124,9 @@
 		<!-- quiz -->
 		<ion-label 
 			slot="end" 
-			*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
 		>
-		<b>{{ "button.submit" | translate }} {{ "button.assignment" | translate }}</b>
+		<b>{{ "button.stop" | translate }} {{ "button.timer" | translate }}</b>
 		</ion-label>
-		<!-- quiz -->
-
-		<!-- td / ps / fc -->
-		<ion-label 
-			slot="end"
-			*ngIf="
-				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.PS ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
-			"
-		>
-		<b>{{ "button.stop" | translate }} {{ "button.studySession" | translate }}</b>
-		</ion-label>
-		<!-- td / ps / fc -->
 	</ion-item>
 	<!-- submit session -->
 </ion-card>
