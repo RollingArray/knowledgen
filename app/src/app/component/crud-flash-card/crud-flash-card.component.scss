@@ -1,0 +1,56 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud flash card component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-01 18:16:20 
+ * Last modified  : 2022-09-01 18:17:22
+ */
+
+.para {
+	margin: 20px 20px 20px 30px;
+}
+
+.flash-card {
+	min-height: 50vh;
+}
+
+.flash-card-content-no-image {
+	margin: auto;
+	font-size: large;
+	text-align: center;
+	display: table;
+	min-height: 40vh;
+	overflow-y: auto;
+
+	span {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.flash-card-content-with-image {
+	margin: 10px auto auto auto;
+	font-size: large;
+	text-align: center;
+
+	span {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.flash-card-image {
+	display: block;
+	margin: auto;
+	width: 100%;
+	border-radius: 5px;
+	border: 1px dashed var(--ion-color-light-gradient);
+}
+
+audio{
+    margin: 16px;
+    width: calc(100% - 32px);
+}

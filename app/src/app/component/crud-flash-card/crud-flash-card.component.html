@@ -1,0 +1,455 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ *
+ * @summary Crud flash card component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-01 18:16:20 
+ * Last modified  : 2022-09-01 18:17:13
+ */
+-->
+
+<!-- article owner toolbar -->
+<div *ngIf="this.courseMaterial$ | async">
+	<!-- add new question -->
+	<ion-fab
+		slot="fixed"
+		vertical="top"
+		horizontal="end"
+		*ngIf="isMaterialOwner && !isContentLive"
+	>
+		<ion-fab-button color="tertiary" (click)="addNewCard()">
+			<ion-icon [src]="stringKey.ICON_ADD"> </ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- add new question -->
+
+	<!-- no content for material owner -->
+	<app-no-data
+		[courseMaterial]="true"
+		*ngIf="!(hasData$ | async) && isMaterialOwner"
+		[text]="'noData.noCard' | translate"
+	>
+	</app-no-data>
+	<!-- no content for material owner -->
+
+	<!-- content not live message for visitor -->
+	<app-no-data
+		[courseMaterial]="true"
+		*ngIf="
+			(this.courseMaterial$ | async) && !isMaterialOwner && !isContentLive
+		"
+		[text]="'noData.availableSoonContent' | translate"
+	>
+	</app-no-data>
+	<!-- content not live message for visitor -->
+
+	<div #contentTopScrollView>
+		<!-- assignment instructions -->
+		<assignment-instructions
+			*ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive"
+			[isMaterialOwner]="isMaterialOwner"
+			[isContentLive]="isContentLive"
+			[courseMaterialTypeId]="courseMaterialTypeIdEnum.FC"
+			[noOfQuestions]="(courseMaterialFlashCard$ | async).length"
+			(startAssignmentEvent)="startActiveRecall()"
+			(submitAssignmentEvent)="submitAnswers($event)"
+		>
+		</assignment-instructions>
+		<!-- assignment instructions -->
+
+		<!-- article-session -->
+		<article-session
+			#scroll
+			*ngIf="
+				(this.courseMaterial$ | async) &&
+				!isMaterialOwner &&
+				isContentLive &&
+				!assignmentSessionInitiated
+			"
+			[isMaterialOwner]="isMaterialOwner"
+			[isContentLive]="isContentLive"
+			[courseMaterialTypeId]="courseMaterialTypeIdEnum.FC"
+		>
+		</article-session>
+		<!-- article-session -->
+	</div>
+
+	<!-- data container for material owner -->
+	<ion-grid *ngIf="(hasData$ | async) && isMaterialOwner">
+		<ion-row>
+			<ion-col size="12">
+				<ion-grid>
+					<ion-row>
+						<ion-col
+							size="12"
+							size-xl="6"
+							size-lg="6"
+							size-md="6"
+							size-sm="6"
+							offset-lg="3"
+							offset-md="3"
+							offset-sm="3"
+						>
+							<ion-card class="card-no-shadow">
+								<ion-button
+									*ngIf="cardIndex !== 0"
+									class="float-left"
+									(click)="previousCard()"
+								>
+									Previous
+								</ion-button>
+								<ion-button
+									*ngIf="
+										cardIndex !==
+										(courseMaterialFlashCard$ | async)
+											.length -
+											1
+									"
+									class="float-right"
+									(click)="nextCard()"
+								>
+									Next
+								</ion-button>
+							</ion-card>
+							<ion-card
+								class="text-center margin-10-px card-no-shadow"
+							>
+								<h2>
+									{{ cardIndex + 1 }}
+									of
+									{{
+										(courseMaterialFlashCard$ | async)
+											.length
+									}}
+								</h2>
+							</ion-card>
+							<div>
+								<!-- each front -->
+								<ion-card
+									id="{{ 'front ' + selectedCard.cardId }}"
+									(click)="
+										toggleCard(
+											'front ' + selectedCard.cardId,
+											'back ' + selectedCard.cardId
+										)
+									"
+									[class]="getClass('front')"
+									color="primary-gradient"
+									*ngIf="resetFlashCard && selectedCard"
+								>
+									<ion-card-content *ngIf="isMaterialOwner">
+										<!-- image -->
+										<image-holder
+											*ngIf="
+												selectedCard.frontMediaType ===
+												mediaTypeEnum.IMAGE
+											"
+											class="flash-card-image"
+											[image]="selectedCard.frontMedia"
+										>
+										</image-holder>
+										<!-- image -->
+
+										<!-- audio -->
+										<audio
+											*ngIf="
+												selectedCard.frontMediaType ===
+												mediaTypeEnum.AUDIO
+											"
+											controls
+										>
+											<source
+												[src]="selectedCard.frontMedia"
+												type="audio/wav"
+											/>
+										</audio>
+										<!-- audio -->
+										<div
+											[class]="
+												selectedCard.frontMediaType ===
+												mediaTypeEnum.NONE
+													? 'flash-card-content-no-image'
+													: 'flash-card-content-with-image'
+											"
+										>
+											<span>
+												{{ selectedCard.frontContent }}
+											</span>
+										</div>
+									</ion-card-content>
+								</ion-card>
+								<!-- each front -->
+
+								<!-- each back -->
+								<ion-card
+									id="{{ 'back ' + selectedCard.cardId }}"
+									(click)="
+										toggleCard(
+											'back ' + selectedCard.cardId,
+											'front ' + selectedCard.cardId
+										)
+									"
+									[class]="getClass('back')"
+									color="primary-gradient"
+									*ngIf="resetFlashCard && selectedCard"
+								>
+									<ion-card-content *ngIf="isMaterialOwner">
+										<!-- image -->
+										<image-holder
+											*ngIf="
+												selectedCard.backMediaType ===
+												mediaTypeEnum.IMAGE
+											"
+											class="flash-card-image"
+											[image]="selectedCard.backMedia"
+										>
+										</image-holder>
+										<!-- image -->
+
+										<!-- audio -->
+										<audio
+											*ngIf="
+												selectedCard.backMediaType ===
+												mediaTypeEnum.AUDIO
+											"
+											controls
+										>
+											<source
+												[src]="selectedCard.backMedia"
+												type="audio/wav"
+											/>
+										</audio>
+										<!-- audio -->
+										<div
+											[class]="
+												selectedCard.backMediaType ===
+												mediaTypeEnum.NONE
+													? 'flash-card-content-no-image'
+													: 'flash-card-content-with-image'
+											"
+										>
+											<span>
+												{{ selectedCard.backContent }}
+											</span>
+										</div>
+									</ion-card-content>
+								</ion-card>
+								<!-- each back -->
+
+								<!-- flash card toolbar -->
+								<ion-card>
+									<ion-toolbar
+										*ngIf="
+											isMaterialOwner && !isContentLive
+										"
+										mode="ios"
+									>
+										<ion-buttons slot="start">
+											<edit-button
+												(event)="
+													onCourseMaterialFlashCardAction(
+														selectedCard,
+														operationsEnum.EDIT
+													)
+												"
+											>
+											</edit-button>
+											<copy-button
+												(event)="
+													onCourseMaterialFlashCardCopyAction(
+														selectedCard
+													)
+												"
+											>
+											</copy-button>
+										</ion-buttons>
+										<ion-buttons slot="end">
+											<delete-button
+												(event)="
+													onCourseMaterialFlashCardAction(
+														selectedCard,
+														operationsEnum.DELETE
+													)
+												"
+											>
+											</delete-button>
+										</ion-buttons>
+									</ion-toolbar>
+								</ion-card>
+								<!-- flash card toolbar -->
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- data container for material owner -->
+
+	<!-- data container for material visiter -->
+	<ion-grid
+		*ngIf="
+			(hasData$ | async) &&
+			!isMaterialOwner &&
+			isContentLive &&
+			assignmentSessionInitiated
+		"
+	>
+		<ion-row>
+			<ion-col
+				size="12"
+				size-xl="6"
+				size-lg="6"
+				size-md="6"
+				size-sm="6"
+				offset-lg="3"
+				offset-md="3"
+				offset-sm="3"
+			>
+				<ion-card class="card-no-shadow">
+					<ion-button
+						*ngIf="cardIndex !== 0"
+						class="float-left"
+						(click)="previousCard()"
+					>
+						Previous
+					</ion-button>
+					<ion-button
+						*ngIf="
+							cardIndex !==
+							(courseMaterialFlashCard$ | async).length - 1
+						"
+						class="float-right"
+						(click)="nextCard()"
+					>
+						Next
+					</ion-button>
+				</ion-card>
+				<ion-card class="text-center margin-10-px card-no-shadow">
+					<h2>
+						{{ cardIndex + 1 }}
+						of
+						{{ (courseMaterialFlashCard$ | async).length }}
+					</h2>
+				</ion-card>
+				<div>
+					<!-- each front -->
+					<ion-card
+						id="{{ 'front ' + selectedCard.cardId }}"
+						(click)="
+							toggleCard(
+								'front ' + selectedCard.cardId,
+								'back ' + selectedCard.cardId
+							)
+						"
+						[class]="getClass('front')"
+						color="primary-gradient"
+						*ngIf="resetFlashCard && selectedCard"
+					>
+						<ion-card-content>
+							<!-- image -->
+							<image-holder
+								*ngIf="
+									selectedCard.frontMediaType ===
+									mediaTypeEnum.IMAGE
+								"
+								class="flash-card-image"
+								[image]="selectedCard.frontMedia"
+							>
+							</image-holder>
+							<!-- image -->
+
+							<!-- audio -->
+							<audio
+								*ngIf="
+									selectedCard.frontMediaType ===
+									mediaTypeEnum.AUDIO
+								"
+								controls
+							>
+								<source
+									[src]="selectedCard.frontMedia"
+									type="audio/wav"
+								/>
+							</audio>
+							<!-- audio -->
+							<div
+								[class]="
+									selectedCard.frontMediaType ===
+									mediaTypeEnum.NONE
+										? 'flash-card-content-no-image'
+										: 'flash-card-content-with-image'
+								"
+							>
+								<span>
+									{{ selectedCard.frontContent }}
+								</span>
+							</div>
+						</ion-card-content>
+					</ion-card>
+					<!-- each front -->
+
+					<!-- each back -->
+					<ion-card
+						id="{{ 'back ' + selectedCard.cardId }}"
+						(click)="
+							toggleCard(
+								'back ' + selectedCard.cardId,
+								'front ' + selectedCard.cardId
+							)
+						"
+						[class]="getClass('back')"
+						color="primary-gradient"
+						*ngIf="resetFlashCard && selectedCard"
+					>
+						<ion-card-content>
+							<!-- image -->
+							<image-holder
+								*ngIf="
+									selectedCard.backMediaType ===
+									mediaTypeEnum.IMAGE
+								"
+								class="flash-card-image"
+								[image]="selectedCard.backMedia"
+							>
+							</image-holder>
+							<!-- image -->
+
+							<!-- audio -->
+							<audio
+								*ngIf="
+									selectedCard.backMediaType ===
+									mediaTypeEnum.AUDIO
+								"
+								controls
+							>
+								<source
+									[src]="selectedCard.backMedia"
+									type="audio/wav"
+								/>
+							</audio>
+							<!-- audio -->
+							<div
+								[class]="
+									selectedCard.backMediaType ===
+									mediaTypeEnum.NONE
+										? 'flash-card-content-no-image'
+										: 'flash-card-content-with-image'
+								"
+							>
+								<span>
+									{{ selectedCard.backContent }}
+								</span>
+							</div>
+						</ion-card-content>
+					</ion-card>
+					<!-- each back -->
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+	<!-- data container for material visiter -->
+</div>
