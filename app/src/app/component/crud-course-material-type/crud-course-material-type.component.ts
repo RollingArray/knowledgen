@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-06-30 12:28:23
- * Last modified  : 2022-08-05 15:13:14
+ * Last modified  : 2022-08-30 09:57:40
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -135,15 +135,17 @@ export class CrudCourseMaterialTypeComponent
 	}
 
 	/**
-	 * Gets if time reward visible
+	 * Gets if time visible
 	 */
-	get ifTimeRewardVisible()
+	get ifTimeVisible()
 	{
 		if (
 			this._courseMaterialTypeId === CourseMaterialTypeIdEnum.QUIZ ||
 			this._courseMaterialTypeId === CourseMaterialTypeIdEnum.DC ||
+			this._courseMaterialTypeId === CourseMaterialTypeIdEnum.FC ||
 			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.QUIZ ||
-			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.DC
+			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.DC ||
+			this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.FC
 		)
 		{
 			return true;
@@ -153,6 +155,26 @@ export class CrudCourseMaterialTypeComponent
 			return false;
 		}
 	}
+
+	/**
+	 * Gets if reward visible
+	 */
+	 get ifRewardVisible()
+	 {
+		 if (
+			 this._courseMaterialTypeId === CourseMaterialTypeIdEnum.QUIZ ||
+			 this._courseMaterialTypeId === CourseMaterialTypeIdEnum.DC ||
+			 this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.QUIZ ||
+			 this.courseMaterialTypeIdFromModel === CourseMaterialTypeIdEnum.DC
+		 )
+		 {
+			 return true;
+		 }
+		 else
+		 {
+			 return false;
+		 }
+	 }
 
 	/**
 	 * Gets operation type
