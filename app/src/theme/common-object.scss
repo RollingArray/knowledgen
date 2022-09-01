@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-08-12 11:40:23
+ * Last modified  : 2022-08-24 08:57:27
  */
 
 /* Change autocomplete styles in WebKit */
@@ -50,6 +50,11 @@ ion-col {
 
 .card-no-shadow {
   box-shadow: none !important;
+}
+
+.card-solid-shadow {
+  border: 1px solid var(--ion-color-primary);
+  box-shadow: 15px 15px var(--ion-color-primary);
 }
 
 .selector {
@@ -176,7 +181,7 @@ td:last-child {
 /*toast*/
 .custom-toast {
 	--background: var(--ion-color-success) !important;
-	--color: var(--ion-color-secondary) !important;
+	--color: white !important;
 	font-weight: 300 !important;
 	font-size: 16px !important;
 	text-align: center;
@@ -196,6 +201,9 @@ td:last-child {
 	}
 }
 
+.margin-auto{
+  margin: auto;
+}
 /*Variable margin left */
 @for $i from 1 through 500 {
 	.margin-left-#{$i}-px {
