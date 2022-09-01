@@ -37,6 +37,7 @@ import { take } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
 import { AlertController } from "@ionic/angular";
 import { AlertService } from "src/app/shared/service/alert.service";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 
 /**
  * @description Injectable
@@ -296,5 +297,65 @@ export class CourseMaterialMenuStateFacade
 					}
 				}
 			)
+	}
+
+	/**
+	 * Gets specific property of menu
+	 * @param property 
+	 * @returns  
+	 */
+	public getSpecificPropertyOfMenu(property: string)
+	{
+		let menuProperty = '';
+		this.selectedMenuArticle$
+			.pipe(take(1))
+			.subscribe(menuSelect =>
+			{
+				switch (menuSelect.menuType)
+				{
+					case MenuTypeEnum.PARENT_MENU:
+
+						this
+							.parentMenuByArticleId$(menuSelect.articleId)
+							.pipe(take(1))
+							.subscribe((parentMenuModel: ParentMenuModel) =>
+							{
+								if (parentMenuModel)
+								{
+									menuProperty = parentMenuModel[property];
+								}
+							});
+
+						break;
+
+					case MenuTypeEnum.CHILD_MENU:
+						this.childMenuByArticleId$(menuSelect.articleId)
+							.pipe(take(1))
+							.subscribe((childMenuModel: ChildMenuModel) =>
+							{
+								if (childMenuModel)
+								{
+									menuProperty = childMenuModel[property];
+								}
+							});
+						break;
+					case MenuTypeEnum.SUB_CHILD_MENU:
+						this.subChildMenuByArticleId$(menuSelect.articleId)
+							.pipe(take(1))
+							.subscribe((subChildMenuModel: SubChildMenuModel) =>
+							{
+								if (subChildMenuModel)
+								{
+									menuProperty = subChildMenuModel[property];
+								}
+							});
+						break;
+
+					default:
+						break;
+				}
+			});
+
+		return menuProperty;
 	}
 }
