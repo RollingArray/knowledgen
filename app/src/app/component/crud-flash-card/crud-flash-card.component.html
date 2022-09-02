@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-01 20:42:15
+ * Last modified  : 2022-09-02 09:26:36
  */
 -->
 
@@ -99,7 +99,7 @@
 									class="float-left"
 									(click)="previousCard()"
 								>
-									Previous
+								<ion-icon [src]="stringKey.ICON_LEFT_ARROW"></ion-icon>
 								</ion-button>
 								<ion-button
 									*ngIf="
@@ -111,7 +111,7 @@
 									class="float-right"
 									(click)="nextCard()"
 								>
-									Next
+									<ion-icon [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
 								</ion-button>
 							</ion-card>
 							<ion-card
@@ -317,7 +317,7 @@
 						class="float-left"
 						(click)="previousCard()"
 					>
-						Previous
+						<ion-icon [src]="stringKey.ICON_LEFT_ARROW"></ion-icon>
 					</ion-button>
 					<ion-button
 						*ngIf="
@@ -327,7 +327,7 @@
 						class="float-right"
 						(click)="nextCard()"
 					>
-						Next
+						<ion-icon [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
 					</ion-button>
 				</ion-card>
 				<ion-card class="text-center margin-10-px card-no-shadow">
