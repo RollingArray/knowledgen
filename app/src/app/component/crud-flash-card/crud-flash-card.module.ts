@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-08-24 13:57:59
+ * Last modified  : 2022-09-02 15:52:59
  */
 
 import { NgModule } from '@angular/core';
@@ -25,13 +25,13 @@ import { EditButtonModule } from '../button/edit-button/edit-button.component.mo
 import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
 import { CopyButtonModule } from '../button/copy-button/copy-button.component.module';
 import { CourseMaterialAssignmentStateModule } from 'src/app/state/course-material-assignment/course-material-assignment.state.module';
-import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 import { AssignmentInstructionsModule } from '../assignment-instructions/assignment-instructions.module';
 import { ArticleSessionModule } from '../article-session/article-session.module';
 import { CourseMaterialFlashCardStateModule } from 'src/app/state/course-material-flash-card/course-material-flash-card.state.module';
 import { CrudFlashCardComponent } from './crud-flash-card.component';
 import { CrudRevisionFlashCardModule } from '../crud-revision-flash-card/crud-revision-flash-card.module';
 import { ImageHolderModule } from '../image-holder/image-holder.module';
+import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 
 @NgModule({
 	imports: [

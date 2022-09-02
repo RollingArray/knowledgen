@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-08-18 08:29:18
+ * Last modified  : 2022-09-02 20:44:15
  */
 
 import { environment } from "../../../environments/environment";
@@ -102,4 +102,7 @@ export class ApiUrls
 	public static readonly COURSE_MATERIAL_FLASH_CARD_EDIT: string = ApiUrls.COURSE_MATERIAL_FLASH_CARD_BASE + "/edit";
 	public static readonly COURSE_MATERIAL_FLASH_CARD_DELETE: string = ApiUrls.COURSE_MATERIAL_FLASH_CARD_BASE + "/delete";
 
+	public static readonly COURSE_MATERIAL_REVISION_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/revision";
+	public static readonly COURSE_MATERIAL_REVISION_ADD: string = ApiUrls.COURSE_MATERIAL_REVISION_BASE + "/add";
+	public static readonly COURSE_MATERIAL_REVISION: string = ApiUrls.COURSE_MATERIAL_REVISION_BASE + "/all";
 }

@@ -36,7 +36,8 @@
 		"stop": "Stop",
 		"learningPath": "Add To Learning Path",
 		"share": "Share",
-		"timer": "Timer"
+		"timer": "Timer",
+		"setDate": "Set Next Revision On"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -110,7 +111,8 @@
 		"timeL4": "It’s the little things that matter !! stay focused ",
 		"timeL5": "Your are just in time !! stay focused ",
 		"timeL6": "Do more practice !! Way to go ",
-		"fcSession": "Flash card sessions over time"
+		"fcSession": "Flash card sessions over time",
+		"nextRevision": "Next Revision"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -145,7 +147,8 @@
 		"editFlashCard": "Provide updated details of the the question on front card and answer on back card. Save the changes once you are satisfied with the content",
 		"deleteFlashCard": "Deleting question",
 		"selectAudio": "Record an audio clip bu using your device microphone. Save the image if you are satisfied with the audio",
-		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time mgiht be a helpfull indecator, that with each iteration you are able to recall the question much quicker"
+		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time mgiht be a helpfull indecator, that with each iteration you are able to recall the question much quicker",
+		"nextRevision": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner."
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -326,7 +329,7 @@
 		"deleteLearningPath": "Course Material removed from your learning path successfully!!",
 		"newFlashCard": "Flash Card has been saved, you can update any time",
 		"editFlashCard": "Flash Card has been updated successfullt",
-		"deleteFlashCard": "Flash Card has been deleted successfullt"
+		"articleRevision": "Article has been addedd for revision successfullt"
 	},
 	"validation": {
 		"required": "Please provide the details"

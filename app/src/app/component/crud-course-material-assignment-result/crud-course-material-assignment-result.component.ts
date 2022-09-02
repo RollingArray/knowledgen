@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-08-31 16:46:09
+ * Last modified  : 2022-09-02 15:01:56
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -88,7 +88,12 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 * Result type of crud course material assignment result component
 	 */
 	private _resultType: ResultTypeEnum;
-	
+
+	/**
+	 * Space repetition day of crud course material assignment result component
+	 */
+	private _spaceRepetitionDay: string;
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -100,7 +105,7 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 * Description  of article session component
 	 */
 	public selectedMenuArticle$: Observable<MenuSelectModel>;
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -135,10 +140,31 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		return this._resultType;
 	}
 
+	/**
+	 * Sets result type
+	 */
 	public set resultType(value: ResultTypeEnum)
 	{
 		this._resultType = value;
 	}
+
+	/**
+	 * Gets space repetition day
+	 */
+	public get spaceRepetitionDay()
+	{
+		return this._spaceRepetitionDay;
+	}
+
+	/**
+	 * Sets space repetition day
+	 */
+	public set spaceRepetitionDay(value: string)
+	{
+		this._spaceRepetitionDay = value;
+	}
+
+
 
 	/**
 	 * -------------------------------------------------|
@@ -298,19 +324,19 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 					'formInfo.minute',
 					'formInfo.second',
 					'formInfo.millisecond',
-					
+
 				]).pipe(takeUntil(this.unsubscribe))
 				.subscribe(async data =>
 				{
 					localization = data;
 				});
-			
+
 			const timeArray = time.split(":");
 			const hour = parseInt(timeArray[0]) !== 0 ? `${parseInt(timeArray[0])} ${localization['formInfo.minute']}` : '';
 			const minute = parseInt(timeArray[1]) !== 0 ? `${parseInt(timeArray[1])} ${localization['formInfo.second']}` : '';
 			const seconds = parseInt(timeArray[2]) !== 0 ? `${parseInt(timeArray[2])} ${localization['formInfo.millisecond']}` : '';
-			
-			return `${hour} ${minute} ${seconds}`;	
+
+			return `${hour} ${minute} ${seconds}`;
 		}
 	}
 
@@ -322,11 +348,11 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	{
 
 		let title = '';
-		
+
 		if (this._resultType === ResultTypeEnum.SCORE)
 		{
-			const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100; 
-		
+			const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100;
+
 			if (resultPercentage >= 0 && resultPercentage <= 30)
 			{
 				title = 'pageTitle.resultLow';
@@ -344,40 +370,54 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		{
 			// get article completion time
 			const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
-			
+
 			// get maximum time allowed for each question
 			const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
-			
+
 			// find best active recall time in percentage 
-			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100; 
-		
+			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
+
+			// get number of days for space repetition based on active recall time percentage
+			let numberOfDays = 0;
+
 			// set result title based on percentage
 			if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
 			{
 				title = 'pageTitle.timeL1';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[5];
 			}
 			else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
 			{
 				title = 'pageTitle.timeL2';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[4];
 			}
 			else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
 			{
 				title = 'pageTitle.timeL3';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[3];
 			}
 			else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
 			{
 				title = 'pageTitle.timeL4';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[2];
 			}
 			else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
 			{
 				title = 'pageTitle.timeL4';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[1];
 			}
 			else if (bestActiveRecallTimePercentage > 100)
 			{
 				title = 'pageTitle.timeL6';
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[0];
 			}
+
+			// get date for next reversion
+			const millisecondsInADay = 24 * 60 * 60 * 1000;
+			const setDate = new Date(Date.now() + numberOfDays * millisecondsInADay); 
+			this._spaceRepetitionDay = setDate.toISOString().split('T')[0];
 		}
-		
+
 		return title;
 	}
 }

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-08-24 08:57:27
+ * Last modified  : 2022-09-02 10:13:35
  */
 
 /* Change autocomplete styles in WebKit */
@@ -50,6 +50,10 @@ ion-col {
 
 .card-no-shadow {
   box-shadow: none !important;
+}
+
+.card-no-border {
+  border-radius: 0 !important;
 }
 
 .card-solid-shadow {
@@ -201,8 +205,13 @@ td:last-child {
 	}
 }
 
+/*Margin */
 .margin-auto{
   margin: auto;
+}
+
+.margin-0{
+  margin: 0 !important;
 }
 /*Variable margin left */
 @for $i from 1 through 500 {
@@ -238,7 +247,9 @@ td:last-child {
 		margin: #{$i}px;
 	}
 }
+/*Margin */
 
+/*padding */
 /*Variable padding */
 @for $i from 1 through 500 {
 	.padding-#{$i}-px {
@@ -258,6 +269,7 @@ td:last-child {
 		padding-bottom: #{$i}px;
 	}
 }
+/*padding */
 
 /*Variable width */
 @for $i from 1 through 500 {
@@ -366,4 +378,25 @@ td:last-child {
 }
 .font-color-danger {
 	color: var(--ion-color-danger) !important;
+}
+
+/*font-size*/
+.font-size-large {
+	font-size: large;
+}
+
+.font-size-large {
+	font-size: medium;
+}
+
+.font-size-larger {
+	font-size: larger;
+}
+
+.font-size-x-large {
+	font-size: x-large;
+}
+
+.font-size-xx-large {
+	font-size: xx-large;
 }

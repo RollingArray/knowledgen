@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-01 20:48:27
+ * Last modified  : 2022-09-02 21:53:03
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -429,6 +429,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	)
 	{
 		super(injector);
+		this.openCrudAssignmentResult();
 	}
 
 	/**

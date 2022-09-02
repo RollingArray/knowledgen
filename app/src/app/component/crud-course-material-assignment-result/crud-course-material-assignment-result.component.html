@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-08-30 09:34:43
+ * Last modified  : 2022-09-02 21:55:58
  */
 -->
 
@@ -43,7 +43,8 @@
 	></app-page-info-title>
 	<!-- page title -->
 
-	<div *ngIf="resultAvailable">
+	<!-- <div *ngIf="resultAvailable"> -->
+	<div>
 		<div class="back-overlay">
 			<!-- result type score -->
 			<ion-card
@@ -154,13 +155,23 @@
 						{{ "formInfo.completeAssignment" | translate }}
 					</ion-label>
 				</ion-item>
-				
+
+				<!-- next revision -->
+				<crud-next-revision
+					[spaceRepetitionDay]="spaceRepetitionDay"
+					[articleId]="(selectedMenuArticle$ | async).articleId"
+				></crud-next-revision>
+				<!-- next revision -->
 			</ion-card>
+			
 			<!-- result type time -->
 		</div>
 
 		<!-- leader board -->
-		<div class="margin-top-300-px" *ngIf="resultType === resultTypeEnum.SCORE">
+		<div
+			class="margin-top-300-px"
+			*ngIf="resultType === resultTypeEnum.SCORE"
+		>
 			<course-material-assignment-leader-board
 				*ngIf="resultType === resultTypeEnum.SCORE && resultAvailable"
 			></course-material-assignment-leader-board>

@@ -74,3 +74,14 @@
   --ion-color-shade: var(--ion-color-light-gradient-shade) !important;
   --ion-color-tint: var(--ion-color-light-gradient-tint) !important;
 }
+
+.ion-color-white {
+  --ion-color-base: var(--ion-color-white) !important;
+  --ion-color-base-rgb: var(--ion-color-white-rgb) !important;
+  --ion-color-contrast: var(--ion-color-white-contrast) !important;
+  --ion-color-contrast-rgb: var(
+    --ion-color-white-contrast-rgb
+  ) !important;
+  --ion-color-shade: var(--ion-color-white-shade) !important;
+  --ion-color-tint: var(--ion-color-white-tint) !important;
+}
