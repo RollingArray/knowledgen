@@ -1,0 +1,55 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Crud next revision component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-02 22:00:26 
+ * Last modified  : 2022-09-02 22:00:55
+ */
+-->
+
+<ion-card
+	class="padding-10-px card-no-shadow margin-0 card-no-border"
+	color="light"
+>
+	<ion-card-header>
+		<panel-header
+			[panelTitle]="'pageTitle.nextRevision' | translate"
+			[panelIcon]="stringKey.ICON_REVISION"
+			[panelColor]="stringKey.COLOR_LIGHT"
+			[fontColor]="stringKey.COLOR_PRIMARY"
+		></panel-header>
+		<panel-info
+			[panelColor]="stringKey.COLOR_LIGHT"
+			[title]="'pageSubTitle.nextRevision' | translate"
+		></panel-info>
+	</ion-card-header>
+</ion-card>
+
+<ion-card
+	class="padding-10-px card-no-shadow margin-0 card-no-border"
+	color="white"
+>
+	<ion-datetime
+		presentation="date"
+		class="margin-auto"
+		[value]="spaceRepetitionDay"
+		[(ngModel)]="spaceRepetitionDay"
+	></ion-datetime>
+</ion-card>
+<!-- next revision -->
+
+<ion-item
+	color="tertiary"
+	class="text-center cursor-pointer"
+	(click)="submit()"
+>
+	<ion-icon slot="end" [src]="stringKey.ICON_CALENDER"> </ion-icon>
+	<ion-label slot="end">
+		<b>{{ "button.setDate" | translate }} {{ spaceRepetitionDay }}</b>
+	</ion-label>
+</ion-item>

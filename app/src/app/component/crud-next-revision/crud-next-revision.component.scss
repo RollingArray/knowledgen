@@ -1,0 +1,64 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * long description for the file
+ *
+ * @summary Crud next revision component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-02 22:00:26 
+ * Last modified  : 2022-09-02 22:01:05
+ */
+
+
+.custom-field{
+    padding: 10px;
+}
+
+.back-overlay{
+    background-color: var(--ion-color-primary);
+    height: 200px;
+}
+
+.front-overlay{
+    border-radius: 20px;
+    margin: 20px;
+    position: absolute;
+    width: calc(100% - 40px);
+    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+    background-image: url("../../../assets/images/score.svg");
+    background-repeat: repeat-x;
+    background-color: var(--ion-color-light);
+    color: var(--ion-color-primary);
+}
+
+.score{
+	width: 150px;
+	height: 150px;
+	border-radius: 150px;
+	text-align: center;
+	margin: auto;
+	color: var(--ion-color-primary);
+	
+    .total{
+        font-size: 4em;
+	    font-weight: bold;
+        line-height: 100px;
+    }
+    .out-of{
+        font-size: 1em;
+	    font-weight: bold;
+        line-height: 50px;
+    }
+}
+
+.time{
+	width: 50%;
+	border-radius: 10px;
+	text-align: center;
+	margin: 50px auto;
+	color: var(--ion-color-primary);
+	font-size: 4em;
+    font-weight: bold;
+    line-height: 100px;
+}
