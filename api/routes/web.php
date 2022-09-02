@@ -315,6 +315,23 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     ]
                 );
             });
+
+            $router->group([
+                'prefix' => 'revision',
+            ], function () use ($router) {
+                $router->post(
+                    'add',
+                    [
+                        'uses' => 'CourseMaterialArticleRevisionController@add'
+                    ]
+                );
+                $router->post(
+                    'all',
+                    [
+                        'uses' => 'CourseMaterialArticleRevisionController@all'
+                    ]
+                );
+            });
         });
 
         $router->group([
