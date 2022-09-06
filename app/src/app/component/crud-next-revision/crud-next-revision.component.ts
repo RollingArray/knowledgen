@@ -18,6 +18,7 @@ import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Regex } from "src/app/shared/constant/regex.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
 import { ArticleModel } from "src/app/shared/model/article.model";
 import { ArticleRevisionService } from "src/app/shared/service/article-revision.service";
 import { LoadingService } from "src/app/shared/service/loading.service";
@@ -60,6 +61,11 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	readonly apiUrls = ApiUrls;
 
 	/**
+	 * Result type enum of crud next revision component
+	 */
+	readonly resultTypeEnum = ResultTypeEnum;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @input & @output Instance variable				|
@@ -67,11 +73,19 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	 */
 
 	/**
-	 * Description  of crud assignment quiz component
+	 * Description  of crud next revision component
 	 */
 	@Input() spaceRepetitionDay = '';
 
+	/**
+	 * Input  of crud next revision component
+	 */
 	@Input() articleId = '';
+
+	/**
+	 * Input  of crud next revision component
+	 */
+	@Input() resultType: ResultTypeEnum;
 
 	/**
 	 * -------------------------------------------------|
@@ -174,7 +188,7 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	{
 		this.initLoading();
 		const model: ArticleModel = {
-			articleId: '62fcb82724699', //this.articleId,
+			articleId: this.articleId,
 			articleRevisionDate: this.spaceRepetitionDay,
 			operationType: OperationsEnum.CREATE
 		};

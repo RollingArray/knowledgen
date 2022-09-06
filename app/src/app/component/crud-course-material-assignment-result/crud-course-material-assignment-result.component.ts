@@ -133,13 +133,87 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	}
 
 	/**
-	 * Gets result type
+	 * Gets result title
 	 */
-	public get resultType()
-	{
-		return this._resultType;
-	}
+	public resultTitle()
+	 {
+ 
+		 let title = '';
+ 
+		 if (this._resultType === ResultTypeEnum.SCORE)
+		 {
+			 const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100;
+ 
+			 if (resultPercentage >= 0 && resultPercentage <= 30)
+			 {
+				 title = 'pageTitle.resultLow';
+			 }
+			 else if (resultPercentage >= 31 && resultPercentage <= 70)
+			 {
+				 title = 'pageTitle.resultMid';
+			 }
+			 else if (resultPercentage >= 71 && resultPercentage <= 100)
+			 {
+				 title = 'pageTitle.resultTop';
+			 }
+		 }
+		 else if (this._resultType === ResultTypeEnum.TIME)
+		 {
+			 // get article completion time
+			 const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
+ 
+			 // get maximum time allowed for each question
+			 const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
+ 
+			 // find best active recall time in percentage 
+			 const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
+ 
+			 // get number of days for space repetition based on active recall time percentage
+			 let numberOfDays = 0;
+ 
+			 // set result title based on percentage
+			 if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
+			 {
+				 title = 'pageTitle.timeL1';
+			 }
+			 else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
+			 {
+				 title = 'pageTitle.timeL2';
+			 }
+			 else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
+			 {
+				 title = 'pageTitle.timeL3';
+			 }
+			 else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
+			 {
+				 title = 'pageTitle.timeL4';
+			 }
+			 else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
+			 {
+				 title = 'pageTitle.timeL4';
+			 }
+			 else if (bestActiveRecallTimePercentage > 100)
+			 {
+				 title = 'pageTitle.timeL6';
+			 }
+		 }
+ 
+		 else if (this._resultType === ResultTypeEnum.NONE)
+		 {
+			 //
+		 }
+ 
+		 return title;
+	 }
 
+	/**
+	 * Sets result type
+	 */
+	 public get resultType()
+	 {
+		 return this._resultType;
+	 }
+	
 	/**
 	 * Sets result type
 	 */
@@ -151,18 +225,76 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	/**
 	 * Gets space repetition day
 	 */
-	public get spaceRepetitionDay()
+	public spaceRepetitionDay()
 	{
-		return this._spaceRepetitionDay;
+		let setDate: Date;
+
+		if (this._resultType === ResultTypeEnum.SCORE)
+		{
+			// set revision for next day
+			setDate = new Date(Date.now() + 1);
+		}
+		else if (this._resultType === ResultTypeEnum.TIME)
+		{
+			// get article completion time
+			const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
+
+			// get maximum time allowed for each question
+			const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
+
+			// find best active recall time in percentage 
+			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
+
+			// get number of days for space repetition based on active recall time percentage
+			let numberOfDays = 0;
+
+			// set result title based on percentage
+			if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[5];
+			}
+			else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[4];
+			}
+			else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[3];
+			}
+			else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[2];
+			}
+			else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[1];
+			}
+			else if (bestActiveRecallTimePercentage > 100)
+			{
+				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[0];
+			}
+
+			// get date for next reversion
+			const millisecondsInADay = 24 * 60 * 60 * 1000;
+			setDate = new Date(Date.now() + numberOfDays * millisecondsInADay); 
+		}
+
+		else if (this._resultType === ResultTypeEnum.NONE)
+		{
+			// set revision for next day
+			setDate = new Date(Date.now() + 1); 
+		}
+
+		return setDate.toISOString().split('T')[0];
 	}
 
-	/**
-	 * Sets space repetition day
-	 */
-	public set spaceRepetitionDay(value: string)
-	{
-		this._spaceRepetitionDay = value;
-	}
+	// /**
+	//  * Sets space repetition day
+	//  */
+	// public set spaceRepetitionDay(value: string)
+	// {
+	// 	this._spaceRepetitionDay = value;
+	// }
 
 
 
@@ -198,16 +330,24 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		// get result type
 		this._resultType = this.navParams.get('resultType');
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-
-		// get act upon curd model from store
-		this.courseMaterialAssignmentStateFacade
+		if (this._resultType !== ResultTypeEnum.NONE)
+		{
+			// get act upon curd model from store
+			this.courseMaterialAssignmentStateFacade
 			.operationCourseMaterialAssignment$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(
 				data => this._courseMaterialAssignmentResult = data
 			);
 
-		this.submit();
+			this.submit();	
+		}
+		else
+		{
+			this._courseMaterialAssignmentResult = {
+				articleAssignmentCompletionTime: this.navParams.get('studyTime')
+			}
+		}
 	}
 
 	/**
@@ -338,86 +478,5 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 
 			return `${hour} ${minute} ${seconds}`;
 		}
-	}
-
-	/**
-	 * Results title
-	 * @returns  
-	 */
-	public resultTitle()
-	{
-
-		let title = '';
-
-		if (this._resultType === ResultTypeEnum.SCORE)
-		{
-			const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100;
-
-			if (resultPercentage >= 0 && resultPercentage <= 30)
-			{
-				title = 'pageTitle.resultLow';
-			}
-			else if (resultPercentage >= 31 && resultPercentage <= 70)
-			{
-				title = 'pageTitle.resultMid';
-			}
-			else if (resultPercentage >= 71 && resultPercentage <= 100)
-			{
-				title = 'pageTitle.resultTop';
-			}
-		}
-		else if (this._resultType === ResultTypeEnum.TIME)
-		{
-			// get article completion time
-			const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
-
-			// get maximum time allowed for each question
-			const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
-
-			// find best active recall time in percentage 
-			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
-
-			// get number of days for space repetition based on active recall time percentage
-			let numberOfDays = 0;
-
-			// set result title based on percentage
-			if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
-			{
-				title = 'pageTitle.timeL1';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[5];
-			}
-			else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
-			{
-				title = 'pageTitle.timeL2';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[4];
-			}
-			else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
-			{
-				title = 'pageTitle.timeL3';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[3];
-			}
-			else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
-			{
-				title = 'pageTitle.timeL4';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[2];
-			}
-			else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
-			{
-				title = 'pageTitle.timeL4';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[1];
-			}
-			else if (bestActiveRecallTimePercentage > 100)
-			{
-				title = 'pageTitle.timeL6';
-				numberOfDays = this.arrayKey.SPACE_REPETITION_DAYS[0];
-			}
-
-			// get date for next reversion
-			const millisecondsInADay = 24 * 60 * 60 * 1000;
-			const setDate = new Date(Date.now() + numberOfDays * millisecondsInADay); 
-			this._spaceRepetitionDay = setDate.toISOString().split('T')[0];
-		}
-
-		return title;
 	}
 }

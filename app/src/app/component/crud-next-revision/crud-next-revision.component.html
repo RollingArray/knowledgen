@@ -24,8 +24,15 @@
 			[fontColor]="stringKey.COLOR_PRIMARY"
 		></panel-header>
 		<panel-info
+			*ngIf="resultType === resultTypeEnum.SCORE"
 			[panelColor]="stringKey.COLOR_LIGHT"
-			[title]="'pageSubTitle.nextRevision' | translate"
+			[title]="'pageSubTitle.nextRevisionScore' | translate"
+		></panel-info>
+
+		<panel-info
+			*ngIf="resultType === resultTypeEnum.TIME || resultType === resultTypeEnum.NONE"
+			[panelColor]="stringKey.COLOR_LIGHT"
+			[title]="'pageSubTitle.nextRevisionTime' | translate"
 		></panel-info>
 	</ion-card-header>
 </ion-card>

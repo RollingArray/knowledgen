@@ -23,6 +23,7 @@ import { StringKey } from "src/app/shared/constant/string.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
 import { ArticleSessionModel } from "src/app/shared/model/article-session.model";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
 import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
@@ -38,6 +39,7 @@ import { CourseMaterialQuizStateFacade } from "src/app/state/course-material-qui
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
+import { CrudCourseMaterialAssignmentResultComponent } from "../crud-course-material-assignment-result/crud-course-material-assignment-result.component";
 
 @Component({
 	selector: 'crud-text-document',
@@ -454,6 +456,25 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	}
 
 	/**
+	 * Opens crud assignment result 
+	 */
+	 private async openCrudAssignmentResult()
+	 {
+		 const modal = await this.modalController.create({
+			 component: CrudCourseMaterialAssignmentResultComponent,
+			 cssClass: 'modal-view',
+			 backdropDismiss: false,
+			 componentProps: {
+				 resultType: ResultTypeEnum.NONE,
+				 studyTime: this._studyTime
+			 }
+		 });
+ 
+		 // present modal
+		 await modal.present();
+	 }
+	
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Private methods									|
@@ -639,6 +660,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 
 		this.initLoading();
 		this.articleSessionStateFacade.addNewArticleSession(model);
+		this.openCrudAssignmentResult();
 	 }
  
 	/**

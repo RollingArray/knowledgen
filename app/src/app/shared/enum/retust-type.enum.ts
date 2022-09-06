@@ -12,4 +12,5 @@
 export enum ResultTypeEnum{
 	SCORE = 'score',
 	TIME = 'time',
+	NONE = 'none'
 }

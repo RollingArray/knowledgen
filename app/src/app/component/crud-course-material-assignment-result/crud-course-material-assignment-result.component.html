@@ -15,7 +15,7 @@
 <ion-header [appScrollTracker]="scrollArea">
 	<ion-toolbar color="secondary">
 		<ion-title>
-			{{ "pageTitle.assignmentResult" | translate }}
+			{{ "pageTitle.sessionSummery" | translate }}
 		</ion-title>
 		<ion-buttons slot="end">
 			<ion-button
@@ -39,144 +39,140 @@
 >
 	<!-- page title -->
 	<app-page-info-title
-		[title]="'pageTitle.assignmentResult' | translate"
+		[title]="'pageTitle.sessionSummery' | translate"
 	></app-page-info-title>
 	<!-- page title -->
 
-	<!-- <div *ngIf="resultAvailable"> -->
-	<div>
-		<div class="back-overlay">
-			<!-- result type score -->
-			<ion-card
-				*ngIf="resultType === resultTypeEnum.SCORE"
-				class="front-overlay text-center height-460-px"
-				color="primary-gradient"
-			>
-				<br />
-				<h4>
-					<b>
-						{{ resultTitle() | translate }}
-					</b>
-				</h4>
-				<br />
-				<h4>
-					<b>
-						{{ "pageTitle.youScore" | translate }}
-					</b>
-				</h4>
-				<ion-card color="tertiary" class="score">
-					<div class="total">
-						{{
-							courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers
-						}}
-					</div>
-					<div class="out-of">
-						{{ "formInfo.outOf" | translate }}
-						{{
-							courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions
-						}}
-					</div>
-				</ion-card>
-				<br />
-				<h3>
-					{{ "formInfo.earned" | translate }}
-				</h3>
-				<ion-button color="success" mode="ios">
-					<ion-icon
-						[src]="stringKey.ICON_REWARD"
-						slot="start"
-					></ion-icon>
-					<ion-text class="font-size-20-px"
-						><b>{{
-							courseMaterialAssignmentResult.articleAssignmentCompletionReward
-						}}</b></ion-text
-					>
-					&nbsp;{{ "formInfo.point" | translate }}
-				</ion-button>
-				<br /><br />
-
-				<ion-item class="text-center">
-					<ion-label class="font-size-13-px">
-						<ion-icon
-							[src]="stringKey.ICON_TIME"
-							slot="start"
-						></ion-icon>
-						{{ "formInfo.took" | translate }}
-						&nbsp;<b>{{
-							splitTime(
-								courseMaterialAssignmentResult.articleAssignmentCompletionTime
-							)
-						}}</b
-						>&nbsp;
-						{{ "formInfo.completeAssignment" | translate }}
-					</ion-label>
-				</ion-item>
-			</ion-card>
-			<!-- result type score -->
-
-			<!-- result type time -->
-			<ion-card
-				*ngIf="resultType === resultTypeEnum.TIME"
-				class="front-overlay text-center"
-				color="primary-gradient"
-			>
-				<br />
-				<h4>
-					<b>
-						{{ resultTitle() | translate }}
-					</b>
-				</h4>
-				<br />
-				<h4>
-					<b>
-						{{ "pageTitle.activeRecall" | translate }}
-					</b>
-				</h4>
-				<ion-card color="tertiary" class="time">
+	<!-- time / score -->
+	<div
+		class="back-overlay"
+		*ngIf="resultType && resultType !== resultTypeEnum.NONE"
+	>
+		<!-- result type score -->
+		<ion-card
+			*ngIf="resultType === resultTypeEnum.SCORE"
+			class="front-overlay text-center height-460-px"
+			color="primary-gradient"
+		>
+			<br />
+			<h4>
+				<b>
+					{{ resultTitle() | translate }}
+				</b>
+			</h4>
+			<br />
+			<h4>
+				<b>
+					{{ "pageTitle.youScore" | translate }}
+				</b>
+			</h4>
+			<ion-card color="tertiary" class="score">
+				<div class="total">
 					{{
 						courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers
 					}}
-					sec
-				</ion-card>
-				<br />
-				<ion-item class="text-center">
-					<ion-label class="font-size-13-px">
-						<ion-icon
-							[src]="stringKey.ICON_TIME"
-							slot="start"
-						></ion-icon>
-						{{ "formInfo.took" | translate }}
-						&nbsp;<b>{{
-							splitTime(
-								courseMaterialAssignmentResult.articleAssignmentCompletionTime
-							)
-						}}</b
-						>&nbsp;
-						{{ "formInfo.completeAssignment" | translate }}
-					</ion-label>
-				</ion-item>
-
-				<!-- next revision -->
-				<crud-next-revision
-					[spaceRepetitionDay]="spaceRepetitionDay"
-					[articleId]="(selectedMenuArticle$ | async).articleId"
-				></crud-next-revision>
-				<!-- next revision -->
+				</div>
+				<div class="out-of">
+					{{ "formInfo.outOf" | translate }}
+					{{
+						courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions
+					}}
+				</div>
 			</ion-card>
-			
-			<!-- result type time -->
-		</div>
+			<br />
+			<h3>
+				{{ "formInfo.earned" | translate }}
+			</h3>
+			<ion-button color="success" mode="ios">
+				<ion-icon [src]="stringKey.ICON_REWARD" slot="start"></ion-icon>
+				<ion-text class="font-size-20-px"
+					><b>{{
+						courseMaterialAssignmentResult.articleAssignmentCompletionReward
+					}}</b></ion-text
+				>
+				&nbsp;{{ "formInfo.point" | translate }}
+			</ion-button>
+			<br /><br />
+		</ion-card>
+		<!-- result type score -->
 
-		<!-- leader board -->
-		<div
-			class="margin-top-300-px"
-			*ngIf="resultType === resultTypeEnum.SCORE"
+		<!-- result type time -->
+		<ion-card
+			*ngIf="resultType === resultTypeEnum.TIME"
+			class="front-overlay text-center"
+			color="primary-gradient"
 		>
-			<course-material-assignment-leader-board
-				*ngIf="resultType === resultTypeEnum.SCORE && resultAvailable"
-			></course-material-assignment-leader-board>
-		</div>
-		<!-- leader board -->
+			<br />
+			<h4>
+				<b>
+					{{ resultTitle() | translate }}
+				</b>
+			</h4>
+			<br />
+			<h4>
+				<b>
+					{{ "pageTitle.activeRecall" | translate }}
+				</b>
+			</h4>
+			<ion-card color="tertiary" class="time">
+				{{
+					courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers
+				}}
+				<br />
+				<span class="font-size-small">{{
+					"formInfo.second" | translate
+				}}</span>
+			</ion-card>
+			<br />
+		</ion-card>
+
+		<!-- result type time -->
 	</div>
+	<!-- time / score -->
+
+	<!-- dummy top margin -->
+	<div
+		*ngIf="resultType && resultType !== resultTypeEnum.NONE"
+		class="margin-top-250-px"
+	>
+		&nbsp;
+	</div>
+	<!-- dummy top margin -->
+
+	<!-- total session time -->
+	<ion-card>
+		<ion-item class="text-center">
+			<ion-label class="font-size-13-px">
+				<ion-icon [src]="stringKey.ICON_TIME" slot="start"></ion-icon>
+				{{ "formInfo.took" | translate }}
+				&nbsp;<b>{{
+					splitTime(
+						courseMaterialAssignmentResult.articleAssignmentCompletionTime
+					)
+				}}</b
+				>&nbsp;
+				{{ "formInfo.completeAssignment" | translate }}
+			</ion-label>
+		</ion-item>
+	</ion-card>
+	<!-- total session time -->
+
+	<!-- leader board -->
+	<div *ngIf="resultType && resultType === resultTypeEnum.SCORE">
+		<course-material-assignment-leader-board
+			*ngIf="resultType === resultTypeEnum.SCORE && resultAvailable"
+		></course-material-assignment-leader-board>
+	</div>
+	<!-- leader board -->
+
+	<!-- next revision -->
+	<ion-card>
+		<crud-next-revision
+			[resultType]="resultType"
+			[spaceRepetitionDay]="spaceRepetitionDay()"
+			[articleId]="(selectedMenuArticle$ | async).articleId"
+		></crud-next-revision>
+	</ion-card>
+	<!-- next revision -->
 </ion-content>
 <!-- body -->

@@ -21,6 +21,7 @@ import { StringKey } from "src/app/shared/constant/string.constant";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { QuizTypeEnum } from "src/app/shared/enum/quiz-type.enum";
+import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
 import { AssignmentTimeModel } from "src/app/shared/model/assignment-time.model";
 import { CourseMaterialAssignmentResultModel } from "src/app/shared/model/course-material-assignment-result.model";
 import { CourseMaterialQuizAnswerModel } from "src/app/shared/model/course-material-quiz-answer.model";
@@ -631,6 +632,9 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			component: CrudCourseMaterialAssignmentResultComponent,
 			cssClass: 'modal-view',
 			backdropDismiss: false,
+			componentProps: {
+				resultType: ResultTypeEnum.SCORE
+			}
 		});
 
 		// present modal

@@ -27,6 +27,7 @@ import { AssignmentInstructionsModule } from '../assignment-instructions/assignm
 import { ArticleSessionModule } from '../article-session/article-session.module';
 import { ArticleSessionStateModule } from 'src/app/state/article-session/article-session.state.module';
 import { RootStateModule } from 'src/app/state/root/root.state.module';
+import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 
 @NgModule({
 	imports: [
@@ -46,7 +47,8 @@ import { RootStateModule } from 'src/app/state/root/root.state.module';
 		AssignmentInstructionsModule,
 		ArticleSessionModule,
 		ArticleSessionStateModule,
-		RootStateModule
+		RootStateModule,
+		CrudCourseMaterialAssignmentResultModule
 	],
 
 	declarations: [CrudTextDocumentComponent],
