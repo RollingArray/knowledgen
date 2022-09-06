@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
+use App\Http\Services\CourseMaterialArticleRevisionService;
 use App\Models\CourseMaterialArticleRevisionModel;
 
 class CourseMaterialArticleRevisionController extends Controller
@@ -17,6 +18,8 @@ class CourseMaterialArticleRevisionController extends Controller
 	protected $jwtAuthServiceInterface;
 
 	protected $courseMaterialAssignmentResultServiceInterface;
+
+	protected $courseMaterialArticleRevisionService;
 			
 	/**
 	 * __construct
@@ -24,9 +27,11 @@ class CourseMaterialArticleRevisionController extends Controller
 	 * @return void
 	 */
 	public function __construct(
-		JWTAuthServiceInterface $jwtAuthServiceInterface
+		JWTAuthServiceInterface $jwtAuthServiceInterface,
+		CourseMaterialArticleRevisionService $courseMaterialArticleRevisionService,
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
+		$this->courseMaterialArticleRevisionService = $courseMaterialArticleRevisionService;
 	}
 
 	/**
@@ -44,6 +49,18 @@ class CourseMaterialArticleRevisionController extends Controller
 	}
 
 	/**
+	 * rules
+	 *
+	 * @return void
+	 */
+	public function allRules()
+	{
+		return [
+			'article_revision_date' => 'required|date'
+		];
+	}
+
+	/**
 	 * custom messages
 	 *
 	 * @return void
@@ -53,6 +70,41 @@ class CourseMaterialArticleRevisionController extends Controller
 		return [
 			//
 		];
+	}
+
+	/**
+	 * all
+	 *
+	 * @param  mixed $request
+	 * @return void
+	 */
+	public function all(Request $request)
+	{
+		$token = $request->header('Auth');
+        $userId = $request->header('UserId');
+
+        //creating a validator
+        $validator = Validator::make($request->all(), $this->allRules(), $this->customMessages());
+
+        //if validation fails 
+        if ($validator->fails()) {
+            return response(
+                array(
+                    'error' => true,
+                    'message' => $validator->errors()->all()
+                ),
+                400
+            );
+        }
+
+		$data = $this->courseMaterialArticleRevisionService->getRevisionsByDate($userId, $request->input('article_revision_date'));
+
+		return $this->jwtAuthServiceInterface->sendBackToClient(
+			$token, 
+			$userId, 
+			'data', 
+			$data
+		);
 	}
 
 	/**
@@ -80,17 +132,30 @@ class CourseMaterialArticleRevisionController extends Controller
             );
         }
 
-		//creating a new model
-        $model = new CourseMaterialArticleRevisionModel();
+		
+		
+		$model = $this->courseMaterialArticleRevisionService->getAllRevisionsByDate($userId, $request->input('article_revision_date'));
+		
+		// if no data found
+		if(!$model){
 
-		//adding values to the model
-		$model->article_revision_id = uniqid();
-        $model->article_id = $request->input('article_id');
-		$model->user_id = $userId;
-		$model->article_revision_date = $request->input('article_revision_date');
-        
-		//saving the model to database
-        $model->save();
+			//creating a new model
+			$model = new CourseMaterialArticleRevisionModel();
+
+			//adding values to the model
+			$model->article_revision_id = uniqid();
+			$model->article_id = $request->input('article_id');
+			$model->user_id = $userId;
+			$model->article_revision_date = $request->input('article_revision_date');
+			
+			//saving the model to database
+			$model->save();
+		}
+		// if data found
+		else{
+			// return to client
+		}
+		
 
 		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);

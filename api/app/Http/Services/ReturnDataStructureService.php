@@ -35,7 +35,7 @@ class ReturnDataStructureService implements ReturnDataStructureServiceInterface
 
         //echo "$passedData".json_encode($passedData);
 
-        if ($passedData) {
+        if (count($passedData) > 0) {
             $responseData['success'] = true;
             $responseData['data'] = $passedData;
         } else {
