@@ -112,7 +112,9 @@
 		"timeL5": "Your are just in time !! stay focused ",
 		"timeL6": "Do more practice !! Way to go ",
 		"fcSession": "Flash card sessions over time",
-		"nextRevision": "Next Revision"
+		"nextRevision": "Next Revision",
+		"myRevisions": "My Revisions",
+		"revision": "Revision(s) On"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -142,13 +144,14 @@
 		"quizSession": "Quiz session time over iterations graph will show the amount of time you have taken in each iteration while taking this quiz. A gradual decreased time mgiht be a helpfull indecator that with each iteration you are able to answer the question much quicker",
 		"addToLearningPath": "Find the content summery of the material below. Add the material to learning path to study the material and track progress",
 		"deleteLearningPath": "Deleting Learning Path",
-		"myLearningPath": "My Learning Path if tied to your learning progress. As you complete articles and assignments provided in the course material, you will be able to see the progress in %.",
+		"myLearningPath": "My Learning Path is tied to your learning progress. As you complete articles and assignments provided in the course material, you will be able to see the progress in %.",
 		"addFlashCard": "Provide the question on front card and answer on back card. Save the changes once you are satisfied with the content",
 		"editFlashCard": "Provide updated details of the the question on front card and answer on back card. Save the changes once you are satisfied with the content",
 		"deleteFlashCard": "Deleting question",
 		"selectAudio": "Record an audio clip bu using your device microphone. Save the image if you are satisfied with the audio",
 		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time mgiht be a helpfull indecator, that with each iteration you are able to recall the question much quicker",
-		"nextRevision": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner."
+		"nextRevision": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner.",
+		"myRevisions": "My Revisions lists the list of revisions by date. Select to date to get the list of revision for that day"
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -251,7 +254,8 @@
 		"noQuizSession": "No quiz session data available !!",
 		"noMyLearningPath": "You have not yet addedd any course to yout learning path !!",
 		"noCard": "No card has been found. Add your card !!",
-		"noFlashCardSession": "No session data available for this flash card !!"
+		"noFlashCardSession": "No session data available for this flash card !!",
+		"noRevisionData": "No revision data available !!"
 	},
 	"loading": { 
 		"wait": "Loading ... Please wait",
