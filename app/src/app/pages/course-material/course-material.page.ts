@@ -295,7 +295,6 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		// on model dismiss
 		modal.onDidDismiss().then((data) =>
 		{
-			console.log(data);
 			const modalData: ModalData = data.data;
 			if (modalData.cancelled)
 			{

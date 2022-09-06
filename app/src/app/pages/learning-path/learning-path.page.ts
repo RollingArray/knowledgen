@@ -143,7 +143,6 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 	 */
 	async ngOnInit()
 	{
-		console.log('a');
 		this.translateService
 			.get('loading.holdTight')
 			.pipe(takeUntil(this.unsubscribe))

@@ -505,8 +505,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	{
 
 		const courseMaterialFlashCardModel: CourseMaterialFlashCardModel = this.buildDataModelToPass();
-		console.log(courseMaterialFlashCardModel);
-
+		
 		switch (this._courseMaterialFlashCard.operationType)
 		{
 			case OperationsEnum.CREATE:

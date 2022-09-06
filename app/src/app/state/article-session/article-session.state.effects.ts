@@ -93,7 +93,6 @@ export class ArticleSessionStateEffects {
 							// if success response
 							if (data.success) {
 
-								console.log(data.resource.data);
 								// store newly added object
 								return ARTICLE_SESSION_ACTIONS.STORE_NEWLY_ADDED_ARTICLE_SESSION({ payload: data.resource.data });
 							}

@@ -195,6 +195,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 */
 	gotoPage(articleId  : string)
 	{
+		
 		this.selectedArticle = articleId as string;
 	}
 	
