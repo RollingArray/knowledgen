@@ -6,5 +6,5 @@ Interface CourseMaterialArticleRevisionServiceInterface
 {
     public function getRevisionsByDate($userId, $articleRevisionDate);
 
-    public function getAllRevisionsByDate($userId, $articleRevisionDate);
+    public function getAllRevisionsByDate($userId, $articleRevisionDate, $articleId);
 }

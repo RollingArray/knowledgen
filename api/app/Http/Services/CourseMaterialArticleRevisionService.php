@@ -52,7 +52,7 @@ class CourseMaterialArticleRevisionService implements CourseMaterialArticleRevis
 			return $this->returnDataStructureServiceInterface->generateServiceReturnDataStructure($rows);
     }
 
-	public function getAllRevisionsByDate($userId, $articleRevisionDate)
+	public function getAllRevisionsByDate($userId, $articleRevisionDate, $articleId)
     {
         return CourseMaterialArticleRevisionModel::select(
 			'tbl_users.user_id', 
@@ -74,7 +74,8 @@ class CourseMaterialArticleRevisionService implements CourseMaterialArticleRevis
 				'tbl_course_material_article.article_id','=','tbl_course_material_article_revision.article_id'
 			)
 			->where('tbl_users.user_id', '=', $userId)
-            ->where('article_revision_date', '=', $articleRevisionDate)
+            ->where('tbl_course_material_article_revision.article_revision_date', '=', $articleRevisionDate)
+			->where('tbl_course_material_article_revision.article_id', '=', $articleId)
 			->first();
     }
 }

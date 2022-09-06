@@ -134,7 +134,11 @@ class CourseMaterialArticleRevisionController extends Controller
 
 		
 		
-		$model = $this->courseMaterialArticleRevisionService->getAllRevisionsByDate($userId, $request->input('article_revision_date'));
+		$model = $this->courseMaterialArticleRevisionService->getAllRevisionsByDate(
+			$userId, 
+			$request->input('article_revision_date'),
+			$request->input('article_id')
+		);
 		
 		// if no data found
 		if(!$model){
@@ -156,7 +160,6 @@ class CourseMaterialArticleRevisionController extends Controller
 			// return to client
 		}
 		
-
 		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
     }
