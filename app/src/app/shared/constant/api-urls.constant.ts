@@ -104,5 +104,5 @@ export class ApiUrls
 
 	public static readonly COURSE_MATERIAL_REVISION_BASE: string = ApiUrls.COURSE_MATERIAL_ARTICLE_BASE + "/revision";
 	public static readonly COURSE_MATERIAL_REVISION_ADD: string = ApiUrls.COURSE_MATERIAL_REVISION_BASE + "/add";
-	public static readonly COURSE_MATERIAL_REVISION: string = ApiUrls.COURSE_MATERIAL_REVISION_BASE + "/all";
+	public static readonly COURSE_MATERIAL_REVISION_ALL: string = ApiUrls.COURSE_MATERIAL_REVISION_BASE + "/all";
 }

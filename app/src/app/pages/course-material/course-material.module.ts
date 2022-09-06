@@ -43,6 +43,10 @@ const routes: Routes = [
 	{
 		path: ":courseMaterialId/articles",
 		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
+	},
+	{
+		path: ":courseMaterialId/articles/:articleId",
+		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
 	}
 ];
 

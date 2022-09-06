@@ -1,0 +1,126 @@
+<!-- 
+/**
+* © Rolling Array https://rollingarray.co.in/
+*
+* long description for the file
+*
+* @summary Course material page template
+* @author code@rollingarray.co.in
+*
+* Created at     : 2022-01-16 08:18:18 
+ * Last modified  : 2022-01-26 22:29:36
+*/	
+ -->
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title> {{'pageTitle.myRevisions' | translate}} </ion-title>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+<ion-content #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="'pageTitle.myRevisions' | translate"
+		[info]="'pageSubTitle.myRevisions' | translate"
+	>
+	</app-page-info-title>
+	<!-- page title -->
+
+	<!-- refresh btn -->
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<!-- refresh btn -->
+
+	<!-- calender -->
+	<calender (emitAvailabilityDate)="loadRevisionData($event)"></calender>
+	<!-- calender -->
+
+	<ion-item color="tertiary" class="cursor-pointer">
+		<ion-icon [src]="stringKey.ICON_CALENDER" size="large"></ion-icon>
+		&nbsp;&nbsp;
+		<h2>
+			<b>{{'pageTitle.revision' | translate}} - {{selectedDate}}</b>
+		</h2>
+	</ion-item>
+
+	<!-- no data -->
+	<app-no-data
+		[courseMaterial]="true"
+		*ngIf="!(hasData$ | async)"
+		[text]="errorMessage"
+	></app-no-data>
+	<!-- no data -->
+
+	<!-- data container -->
+	<ng-container *ngIf="(hasData$ | async)">
+		<ion-grid class="margin-top-10-px">
+			<ion-row *ngFor="let eachRevision of (articleRevisions$ | async)">
+				<ion-col sizeLg="1" sizeMd="1" sizeSm="2" sizeXl="1" sizeXs="2">
+					<div class="index-col">
+						<div class="index">
+							<ion-icon
+								*ngIf="eachRevision.courseMaterialTypeId === courseMaterialTypeIdEnum.FC"
+								slot="start"
+								[src]="stringKey.ICON_FLASH_CARD"
+							>
+							</ion-icon>
+							<ion-icon
+								*ngIf="eachRevision.courseMaterialTypeId === courseMaterialTypeIdEnum.TD"
+								slot="start"
+								[src]="stringKey.ICON_TEXT_DOC"
+							>
+							</ion-icon>
+							<ion-icon
+								*ngIf="eachRevision.courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+								slot="start"
+								[src]="stringKey.ICON_QUIZ"
+							>
+							</ion-icon>
+						</div>
+					</div>
+				</ion-col>
+				<ion-col
+					sizeLg="11"
+					sizeMd="11"
+					sizeSm="10"
+					sizeXl="11"
+					sizeXs="10"
+				>
+					<!-- each container -->
+					<ion-card>
+						<ion-card-title>
+							<ion-item>
+								<b> {{eachRevision.articleTitle}} </b>
+							</ion-item>
+						</ion-card-title>
+						<ion-card-content>
+							{{eachRevision.articleSummery}}
+						</ion-card-content>
+
+						<ion-grid>
+							<!-- operation tool -->
+							<ion-row>
+								<ion-col>
+									<div class="margin-10-px float-right">
+										<view-button
+											(event)="navigateToArticle(eachRevision.courseMaterialId, eachRevision.articleId)
+                			"
+										></view-button>
+									</div>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+						<!--  -->
+					</ion-card>
+					<!-- each container -->
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ng-container>
+	<!-- data container -->
+</ion-content>

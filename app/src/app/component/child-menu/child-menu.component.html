@@ -16,6 +16,7 @@
 	*ngFor="let eachMenu of (childMenu$ | async)">
 	<!-- menu title -->
 	<ion-item
+		[color]="(selectedMenuArticle$ | async).articleId === eachMenu.childArticleId ? 'tertiary' : ''"
 		lines="none"
 		(click)="navigateToCourseMaterialArticle(eachMenu)">
 		<ion-icon

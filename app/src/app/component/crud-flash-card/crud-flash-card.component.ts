@@ -429,7 +429,6 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	)
 	{
 		super(injector);
-		this.openCrudAssignmentResult();
 	}
 
 	/**
@@ -458,7 +457,6 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 					this.courseMaterialFlashCard$ = this.courseMaterialFlashCardStateFacade.allCourseMaterialFlashCardByArticleId$(this._selectedMenu.articleId);
 					this.hasData$ = this.courseMaterialFlashCardStateFacade.courseMaterialArticleHasQuizData$(this._selectedMenu.articleId);
 
-					console.log(this.courseMaterialFlashCard$.subscribe(data => data));
 					// if no data available ... make a api request, else work with store data
 					this.hasData$
 						.pipe(takeUntil(this.unsubscribe))

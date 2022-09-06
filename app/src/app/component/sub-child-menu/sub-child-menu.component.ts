@@ -8,7 +8,7 @@
  *
  * Created at     : 2022-07-04 20:05:19 
  * Last modified  : 2022-08-06 07:37:01
- */ 
+ */
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -77,22 +77,27 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Description  of course material page
 	 */
-	subChildMenu$!: Observable<SubChildMenuModel[]>;
+	 public subChildMenu$!: Observable<SubChildMenuModel[]>;
 
 	/**
 	 * Total number of sub child menu$ of sub child menu component
 	 */
-	totalNumberOfSubChildMenu$!: Observable<number>;
+	 public totalNumberOfSubChildMenu$!: Observable<number>;
 
 	/**
 	 * Course material$ of sub child menu component
 	 */
-	courseMaterial$!: Observable<CourseMaterialModel>;
+	 public courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	 public hasData$!: Observable<boolean>;
+
+	/**
+	 * Selected menu article$ of knowledge base article component
+	 */
+	 public selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
 	 * -------------------------------------------------|
@@ -153,6 +158,10 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 		this.subChildMenu$ = this.courseMaterialMenuStateFacade.subChildMenuByChildId$(this.childArticleId);
 		this.totalNumberOfSubChildMenu$ = this.courseMaterialMenuStateFacade.totalNumberOfSubChildMenu$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		
+		// Selects menu if article id available from param
+		this.selectMenuOnParamArticle();
 	}
 
 	/**
@@ -163,22 +172,49 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	 */
 
 	/**
+	 * Selects menu on param article
+	 */
+	 private selectMenuOnParamArticle()
+	 {
+		 const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+		 if (articleId)
+		 {
+			 this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(articleId)
+				 .pipe(takeUntil(this.unsubscribe))
+				 .subscribe((subChildMenuModel: SubChildMenuModel) =>
+				 {
+					 if (subChildMenuModel)
+					 {
+						 const menuSelectModel: MenuSelectModel = {
+							 articleId: subChildMenuModel.subChildArticleId,
+							 articleStatus: subChildMenuModel.articleStatus,
+							 courseMaterialId: subChildMenuModel.courseMaterialId,
+							 menuType: MenuTypeEnum.SUB_CHILD_MENU,
+							 courseMaterialType: subChildMenuModel.courseMaterialTypeId
+						 };
+						 this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+					 }
+				 });
+		 }
+	 }
+	
+	/**
 	 * Opens crud course material
 	 */
-	 private async openCrudCourseMaterialType()
-	 {
-		 const modal = await this.modalController.create({
-			 component: CrudCourseMaterialTypeComponent,
-			 cssClass: 'modal-view',
-			 backdropDismiss: false,
-			 componentProps: {
-				 menuType: MenuTypeEnum.SUB_CHILD_MENU
-			 }
-		 });
- 
-		 // present modal
-		 await modal.present();
-	 }
+	private async openCrudCourseMaterialType()
+	{
+		const modal = await this.modalController.create({
+			component: CrudCourseMaterialTypeComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+			componentProps: {
+				menuType: MenuTypeEnum.SUB_CHILD_MENU
+			}
+		});
+
+		// present modal
+		await modal.present();
+	}
 
 	/**
 	 * -------------------------------------------------|
@@ -210,7 +246,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 		}
 
 		this.courseMaterialMenuStateFacade.actUponSubChildMenu(subChildMenuModel, OperationsEnum.CREATE);
-		
+
 		this.openCrudCourseMaterialType();
 	}
 
@@ -235,74 +271,74 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	 * @param eachMenu 
 	 * @returns  
 	 */
-	 public getMenuIcon(eachMenu: SubChildMenuModel)
-	 {
-		 return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === eachMenu.courseMaterialTypeId)[0].icon;
-	 }
-	
+	public getMenuIcon(eachMenu: SubChildMenuModel)
+	{
+		return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === eachMenu.courseMaterialTypeId)[0].icon;
+	}
+
 	/**
 	 * Edits child menu
 	 * @param eachMenu 
 	 */
-	 public editSubChildMenu(eachMenu: ChildMenuModel)
-	 {
-		 const subChildMenuModel: SubChildMenuModel = {
-			 ...eachMenu,
-			 operationType: OperationsEnum.EDIT
-		 }
-		
+	public editSubChildMenu(eachMenu: ChildMenuModel)
+	{
+		const subChildMenuModel: SubChildMenuModel = {
+			...eachMenu,
+			operationType: OperationsEnum.EDIT
+		}
+
 		this.courseMaterialMenuStateFacade.actUponSubChildMenu(subChildMenuModel, OperationsEnum.EDIT);
- 
-		 this.openCrudCourseMaterialType();
-	 }
- 
+
+		this.openCrudCourseMaterialType();
+	}
+
 	/**
 	 * Deletes child menu
 	 * @param eachMenu 
 	 */
 	public deleteSubChildMenu(eachMenu: SubChildMenuModel)
-	 {
-		 this.translateService
-			  .get([
-				  'actionAlert.confirm',
-				  'actionAlert.delete',
-				  'option.yes',
-				  'option.no',
-			  ]).pipe(takeUntil(this.unsubscribe))
-			  .subscribe(async data =>
-			  {
-  
-				  const alert = await this.alertController.create({
-					  header: `${data['actionAlert.confirm']}`,
-					  subHeader: data['actionAlert.delete'],
-					  cssClass: 'custom-alert',
-					  mode: 'md',
-					  buttons: [
-						  {
-							  cssClass: 'ok-button ',
-							  text: data['option.yes'],
-							  handler: (_) =>
-							  {
-								 const subChildMenuModel: SubChildMenuModel = {
-									 ...eachMenu,
-									 operationType: OperationsEnum.DELETE
-								 }
-							 
-								 this.courseMaterialMenuStateFacade.actUponSubChildMenu(subChildMenuModel, OperationsEnum.DELETE);
-						 
-								 this.openCrudCourseMaterialType();
-							  }
-						  },
-						  {
-							  cssClass: 'cancel-button',
-							  text: data['option.no'],
-							  handler: () =>
-							  {
-							  }
-						  }
-					  ]
-				  });
-				  await alert.present();
-			  });
-	 }
+	{
+		this.translateService
+			.get([
+				'actionAlert.confirm',
+				'actionAlert.delete',
+				'option.yes',
+				'option.no',
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				const alert = await this.alertController.create({
+					header: `${data['actionAlert.confirm']}`,
+					subHeader: data['actionAlert.delete'],
+					cssClass: 'custom-alert',
+					mode: 'md',
+					buttons: [
+						{
+							cssClass: 'ok-button ',
+							text: data['option.yes'],
+							handler: (_) =>
+							{
+								const subChildMenuModel: SubChildMenuModel = {
+									...eachMenu,
+									operationType: OperationsEnum.DELETE
+								}
+
+								this.courseMaterialMenuStateFacade.actUponSubChildMenu(subChildMenuModel, OperationsEnum.DELETE);
+
+								this.openCrudCourseMaterialType();
+							}
+						},
+						{
+							cssClass: 'cancel-button',
+							text: data['option.no'],
+							handler: () =>
+							{
+							}
+						}
+					]
+				});
+				await alert.present();
+			});
+	}
 }

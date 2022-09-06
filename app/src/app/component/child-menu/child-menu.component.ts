@@ -74,22 +74,27 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Description  of course material page
 	 */
-	childMenu$!: Observable<ChildMenuModel[]>;
+	public childMenu$!: Observable<ChildMenuModel[]>;
 
 	/**
 	 * Total number of sub child menu$ of sub child menu component
 	 */
-	totalNumberOfChildMenu$!: Observable<number>;
+	public totalNumberOfChildMenu$!: Observable<number>;
 
 	/**
 	 * Course material$ of child menu component
 	 */
-	courseMaterial$!: Observable<CourseMaterialModel>;
+	public courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	public hasData$!: Observable<boolean>;
+
+	/**
+	 * Selected menu article$ of knowledge base article component
+	 */
+	public selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
 	 * -------------------------------------------------|
@@ -149,6 +154,10 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	{
 		this.childMenu$ = this.courseMaterialMenuStateFacade.childMenuByParentMenuId$(this.parentArticleId);
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+
+		// Selects menu if article id available from param
+		this.selectMenuOnParamArticle();
 	}
 
 	/**
@@ -157,6 +166,33 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Selects menu on param article
+	 */
+	private selectMenuOnParamArticle()
+	{
+		const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+		if (articleId)
+		{
+			this.courseMaterialMenuStateFacade.childMenuByArticleId$(articleId)
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe((childMenuModel: ChildMenuModel) =>
+				{
+					if (childMenuModel)
+					{
+						const menuSelectModel: MenuSelectModel = {
+							articleId: childMenuModel.childArticleId,
+							articleStatus: childMenuModel.articleStatus,
+							courseMaterialId: childMenuModel.courseMaterialId,
+							menuType: MenuTypeEnum.CHILD_MENU,
+							courseMaterialType: childMenuModel.courseMaterialTypeId
+						}
+						this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+					}
+				});
+		}
+	}
 
 	/**
 	 * Opens crud course material

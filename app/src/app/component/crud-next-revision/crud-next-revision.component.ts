@@ -19,7 +19,7 @@ import { Regex } from "src/app/shared/constant/regex.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ArticleModel } from "src/app/shared/model/article.model";
-import { ArticleRepetitionService } from "src/app/shared/service/article-Repetition.service";
+import { ArticleRevisionService } from "src/app/shared/service/article-revision.service";
 import { LoadingService } from "src/app/shared/service/loading.service";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
@@ -115,7 +115,7 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 		injector: Injector,
 		private translateService: TranslateService,
 		private rootStateFacade: RootStateFacade,
-		private articleRepetitionService: ArticleRepetitionService,
+		private articleRevisionService: ArticleRevisionService,
 		private loadingService: LoadingService,
 		private toastService: ToastService
 	)
@@ -179,8 +179,8 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 			operationType: OperationsEnum.CREATE
 		};
 
-		this.articleRepetitionService
-			.crudArticleRepetition(model)
+		this.articleRevisionService
+			.crudArticleRevision(model)
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(articleModel =>
 			{

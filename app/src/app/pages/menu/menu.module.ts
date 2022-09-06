@@ -46,6 +46,10 @@ const routes: Routes = [
 				path: 'learning/path',
 				loadChildren: () => import('../learning-path/learning-path.module').then(m => m.LearningPathPageModule)
 			},
+			{
+				path: 'revision',
+				loadChildren: () => import('../revision/revision.module').then(m => m.RevisionPageModule)
+			},
 		]
 	},
 	

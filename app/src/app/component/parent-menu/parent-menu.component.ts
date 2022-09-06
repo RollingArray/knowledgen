@@ -49,6 +49,11 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 
 	/**
+	 * Course material id of parent menu component
+	 */
+	 private _courseMaterialId: string;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable								|
@@ -57,32 +62,32 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Description  of course material page
 	 */
-	parentMenuMenu$!: Observable<ParentMenuModel[]>;
+	public parentMenuMenu$!: Observable<ParentMenuModel[]>;
 
 	/**
 	 * Course material owner$ of parent menu component
 	 */
-	courseMaterialOwner$!: Observable<string>;
+	 public courseMaterialOwner$!: Observable<string>;
 
 	/**
 	 * Logged in user id$ of parent menu component
 	 */
-	loggedInUserId$: Observable<string>;
+	 public loggedInUserId$: Observable<string>;
 
 	/**
 	 * Course material$ of parent menu component
 	 */
-	courseMaterial$!: Observable<CourseMaterialModel>;
-
-	/**
-	 * Course material id of parent menu component
-	 */
-	private _courseMaterialId: string;
+	 public courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	 public hasData$!: Observable<boolean>;
+
+	/**
+	 * Selected menu article$ of knowledge base article component
+	 */
+	 public selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
 	 * -------------------------------------------------|
@@ -114,7 +119,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	{
 		return this._courseMaterialId;
 	}
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -153,13 +158,40 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			});
 		this.loadData();
 	}
-
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Selects menu on param article
+	 */
+	private selectMenuOnParamArticle()
+	{
+		const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+		if (articleId)
+		{
+			this.courseMaterialMenuStateFacade.parentMenuByArticleId$(articleId)
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe((parentMenuModel: ParentMenuModel) =>
+				{
+					if (parentMenuModel)
+					{
+						const menuSelectModel: MenuSelectModel = {
+							articleId: parentMenuModel.parentArticleId,
+							articleStatus: parentMenuModel.articleStatus,
+							courseMaterialId: parentMenuModel.courseMaterialId,
+							menuType: MenuTypeEnum.PARENT_MENU,
+							courseMaterialType: parentMenuModel.courseMaterialTypeId
+						}
+						this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+					}
+				});
+		}
+	}
 
 	/**
 	 * Gets course material material
@@ -203,18 +235,18 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * Gets course material id
 	 * @returns  
 	 */
-	 private getCourseMaterialId()
-	 {
-		 if (this.learningPathCourseMaterialId)
-		 {
-			 return this.learningPathCourseMaterialId;
-		 }
- 
-		 else
-		 {
-			 return this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
-		 }
-	 }
+	private getCourseMaterialId()
+	{
+		if (this.learningPathCourseMaterialId)
+		{
+			return this.learningPathCourseMaterialId;
+		}
+
+		else
+		{
+			return this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+		}
+	}
 
 	/**
 	 * -------------------------------------------------|
@@ -234,6 +266,10 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);
 		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._courseMaterialId);
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		
+		// Selects menu if article id available from param
+		this.selectMenuOnParamArticle();
 	}
 
 	/**
@@ -255,7 +291,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE
 		}
-	
+
 		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.CREATE);
 
 		this.openCrudCourseMaterialType();
@@ -266,16 +302,16 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * @param parentMenuModel 
 	 */
 	public navigateToCourseMaterialArticle(parentMenuModel: ParentMenuModel)
-	 {
-		 const menuSelectModel: MenuSelectModel = {
-			 articleId: parentMenuModel.parentArticleId,
-			 articleStatus: parentMenuModel.articleStatus,
-			 courseMaterialId: parentMenuModel.courseMaterialId,
-			 menuType: MenuTypeEnum.PARENT_MENU,
-			 courseMaterialType: parentMenuModel.courseMaterialTypeId
-		 }
-		 this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
-	 }
+	{
+		const menuSelectModel: MenuSelectModel = {
+			articleId: parentMenuModel.parentArticleId,
+			articleStatus: parentMenuModel.articleStatus,
+			courseMaterialId: parentMenuModel.courseMaterialId,
+			menuType: MenuTypeEnum.PARENT_MENU,
+			courseMaterialType: parentMenuModel.courseMaterialTypeId
+		}
+		this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+	}
 
 	/**
 	 * Gets menu icon
@@ -297,7 +333,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			...eachMenu,
 			operationType: OperationsEnum.EDIT
 		}
-	
+
 		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.EDIT);
 
 		this.openCrudCourseMaterialType();
@@ -310,46 +346,46 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	public deleteParentMenu(eachMenu: ParentMenuModel)
 	{
 		this.translateService
-			 .get([
-				 'actionAlert.delete',
-				 'actionAlert.deleteMenu',
-				 'option.yes',
-				 'option.no',
-			 ]).pipe(takeUntil(this.unsubscribe))
-			 .subscribe(async data =>
-			 {
- 
-				 const alert = await this.alertController.create({
-					 header: `${data['actionAlert.delete']}`,
-					 subHeader: data['actionAlert.deleteMenu'],
-					 cssClass: 'custom-alert',
-					 mode: 'md',
-					 buttons: [
-						 {
-							 cssClass: 'ok-button ',
-							 text: data['option.yes'],
-							 handler: (_) =>
-							 {
+			.get([
+				'actionAlert.delete',
+				'actionAlert.deleteMenu',
+				'option.yes',
+				'option.no',
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				const alert = await this.alertController.create({
+					header: `${data['actionAlert.delete']}`,
+					subHeader: data['actionAlert.deleteMenu'],
+					cssClass: 'custom-alert',
+					mode: 'md',
+					buttons: [
+						{
+							cssClass: 'ok-button ',
+							text: data['option.yes'],
+							handler: (_) =>
+							{
 								const parentMenuModel: ParentMenuModel = {
 									...eachMenu,
 									operationType: OperationsEnum.DELETE
 								}
-							
+
 								this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.DELETE);
-						
+
 								this.openCrudCourseMaterialType();
-							 }
-						 },
-						 {
-							 cssClass: 'cancel-button',
-							 text: data['option.no'],
-							 handler: () =>
-							 {
-							 }
-						 }
-					 ]
-				 });
-				 await alert.present();
-			 });
+							}
+						},
+						{
+							cssClass: 'cancel-button',
+							text: data['option.no'],
+							handler: () =>
+							{
+							}
+						}
+					]
+				});
+				await alert.present();
+			});
 	}
 }

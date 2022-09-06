@@ -24,7 +24,7 @@ import { LocalStorageService } from "./local-storage.service";
 @Injectable({
 	providedIn: "root"
 })
-export class ArticleRepetitionService extends BaseService<ArticleModel> {
+export class ArticleRevisionService extends BaseService<ArticleModel> {
 	/**
 	 * Creates an instance of article text document service.
 	 * @param httpClient 
@@ -55,17 +55,17 @@ export class ArticleRepetitionService extends BaseService<ArticleModel> {
 	 * @param articleSessionModel 
 	 * @returns article sessions 
 	 */
-	// getArticleSessions(articleSessionModel: ArticleSessionModel): Observable<BaseModel>
-	//  {
-	// 	 return this.post(ApiUrls.COURSE_MATERIAL_SESSION_TIME_ALL, articleSessionModel);
-	//  }
+	getArticleRevision(articleModel: ArticleModel): Observable<BaseModel>
+	 {
+		 return this.post(ApiUrls.COURSE_MATERIAL_REVISION_ALL, articleModel);
+	 }
  
 	/**
-	 * Params article repetition service
+	 * Params article revision service
 	 * @param articleModel 
-	 * @returns article repetition 
+	 * @returns article revision 
 	 */
-	crudArticleRepetition(articleModel: ArticleModel): Observable<ArticleModel>
+	crudArticleRevision(articleModel: ArticleModel): Observable<ArticleModel>
 	{
 		return this.post(ApiUrls.COURSE_MATERIAL_REVISION_ADD, articleModel);
 	}

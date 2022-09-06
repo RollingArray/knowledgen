@@ -52,6 +52,12 @@ export class ArrayKey
 					icon: StringKey.ICON_RIGHT_ARROW,
 					allowAccess: [UserTypeEnum.Student]
 				},
+				{
+					title: 'pageTitle.myRevisions',
+					url: ['revision'],
+					icon: StringKey.ICON_RIGHT_ARROW,
+					allowAccess: [UserTypeEnum.Student]
+				},
 			]
 		},
 		{
