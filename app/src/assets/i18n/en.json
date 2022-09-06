@@ -99,7 +99,7 @@
 		"welcome" : "Welcome To",
 		"courseContentCoverageOverTime": "Course Content Coverage",
 		"courseContentTimeCoverageOverTime": "Course Time Coverage",
-		"assignmentsScoreAnalysis": "Assignments Score Analysis",
+		"assignmentsScoreAnalysis": "Session Score Analysis",
 		"addFlashCard": "Add New Flash Card",
 		"editFlashCard": "Edit Flash Card",
 		"deleteFlashCard": "Delete Flash Card",
@@ -114,7 +114,8 @@
 		"fcSession": "Flash card sessions over time",
 		"nextRevision": "Next Revision",
 		"myRevisions": "My Revisions",
-		"revision": "Revision(s) On"
+		"revision": "Revision(s) On",
+		"sessionSummery": "Session Summery"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -150,8 +151,10 @@
 		"deleteFlashCard": "Deleting question",
 		"selectAudio": "Record an audio clip bu using your device microphone. Save the image if you are satisfied with the audio",
 		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time mgiht be a helpfull indecator, that with each iteration you are able to recall the question much quicker",
-		"nextRevision": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner.",
-		"myRevisions": "My Revisions lists the list of revisions by date. Select to date to get the list of revision for that day"
+		"nextRevisionScore": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner.",
+		"myRevisions": "My Revisions lists the list of revisions by date. Select to date to get the list of revision for that day",
+		"nextRevisionTime": "Select the date and set your next revision for this session"
+		
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -186,12 +189,12 @@
 		"visibilityLive": "This content is currently in live mode and visible to public. To update the content, change visibility to preview",
 		"visibilityPreview": "This content is currently in preview mode and visible to private. Any changes to the content can be made",
 		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further",
-		"contentDuration": "Select the duration (in minute) to complete the assignment",
-		"contentReward": "Select the reward after successfully completing the assignment",
+		"contentDuration": "Select the duration (in minute) to complete the session",
+		"contentReward": "Select the reward after successfully completing the session",
 		"minute": "min",
 		"hour": "hr",
-		"second": "sec",
-		"millisecond": "ms",
+		"second": "second(s)",
+		"millisecond": "millisecond(s)",
 		"point": "point(s)",
 		"articleDuration": "Total duration to complete the content",
 		"articleReward": "Total reward to earn after successfully completing the content",
@@ -199,7 +202,7 @@
 		"outOf": "Out Of",
 		"earned": "You have earned",
 		"took": "You took",
-		"completeAssignment": "to complete the assignment",
+		"completeAssignment": "to complete the session",
 		"leaderBoard": "See where you stand",
 		"rank": "Rank",
 		"trackStudy": "Track study time",
@@ -357,8 +360,8 @@
 		"poor": "Poor"
 	},
 	"quizInstructions": {
-		"i1": "Tap on <b>Start Timer</b> when you are ready to take the assignment",
-		"i2": "The <b>Timer</b> will start as soon as the assignment starts",
+		"i1": "Tap on <b>Start Timer</b> when you are ready to take the session",
+		"i2": "The <b>Timer</b> will start as soon as the session starts",
 		"i3": "<b>Points<b> are equally devided accross questions based on <b>Total Reward<b>",
 		"i4": "<b>No</b> negative marking",
 		"i5": "Tap on <b>Options<b> to select the correct answer",
