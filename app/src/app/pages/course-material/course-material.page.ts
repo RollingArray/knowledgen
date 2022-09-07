@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-08-08 20:44:34
+ * Last modified  : 2022-09-07 13:09:20
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -59,12 +59,17 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	/**
 	 * Description  of course material page
 	 */
-	courseMaterials$!: Observable<CourseMaterialModel[]>;
+	 public courseMaterials$!: Observable<CourseMaterialModel[]>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	 public hasData$!: Observable<boolean>;
+
+	/**
+	 * Loading indicator status$ of course material page
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -173,6 +178,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	)
 	{
 		super(injector);
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 	}
 
 	/**
@@ -369,14 +375,8 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 */
 	async getCourseMaterialMaterial()
 	{
-		this.translateService
-			.get('loading.myCourseMaterial')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-
+		await this.rootStateFacade.startLoading('');
+		
 		if (this.isUserTypeTeacher)
 		{
 			this.courseMaterialStateFacade.requestCourseMaterial();

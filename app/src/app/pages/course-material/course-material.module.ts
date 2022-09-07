@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-08-08 10:41:44
+ * Last modified  : 2022-09-07 13:07:10
  */
 
 
@@ -19,6 +19,7 @@ import { CommonButtonModule } from "src/app/component/button/common-button/commo
 import { DeleteButtonModule } from "src/app/component/button/delete-button/delete-button.component.module";
 import { EditButtonModule } from "src/app/component/button/edit-button/edit-button.component.module";
 import { ViewButtonModule } from "src/app/component/button/view-button/view-button.component.module";
+import { ContentLoadingModule } from "src/app/component/content-loading/content-loading.module";
 import { CourseMaterialLayoutModule } from "src/app/component/course-material-layout/course-material-layout.component.module";
 import { CrudCourseMaterialModule } from "src/app/component/crud-course-material/crud-course-material.module";
 import { CrudLearningPathModule } from "src/app/component/crud-learning-path/crud-learning-path.module";
@@ -72,6 +73,7 @@ const routes: Routes = [
 		CrudLearningPathModule,
 		CourseMaterialLayoutModule,
 		LearningPathStateModule,
+		ContentLoadingModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [CourseMaterialPage],

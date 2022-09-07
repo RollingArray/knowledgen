@@ -7,7 +7,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-08-08 10:41:08
+ * Last modified  : 2022-09-07 13:57:05
 */	
  -->
 <!-- header -->
@@ -27,7 +27,7 @@
 		</ion-buttons>
 		<ion-buttons
 			slot="end"
-			(click)="loadData()">
+			(click)="getCourseMaterialMaterial()">
 			<ion-icon
 				slot="start"
 				[src]="stringKey.ICON_REFRESH">
@@ -74,14 +74,18 @@
 	<!-- no data -->
 	<app-no-data
 		[courseMaterial]="true"
-		*ngIf="!(hasData$ | async)"
-		[text]="errorMessage">
-	</app-no-data>
+		*ngIf="!(hasData$ | async) && !(loadingIndicatorStatus$ | async)"
+		[text]="errorMessage"
+	></app-no-data>
 	<!-- no data -->
+
+	<!-- content loading -->
+	<content-loading [gridContent]="true" *ngIf="(loadingIndicatorStatus$ | async)" ></content-loading>
+	<!-- content loading -->
 
 	<!-- data container -->
 	<ng-container
-		*ngIf="(hasData$ | async)">
+		*ngIf="(hasData$ | async) && !(loadingIndicatorStatus$ | async)">
 		<ion-grid>
 			<ion-row>
 				<ion-col
@@ -133,6 +137,7 @@
 							<common-button
 								*ngIf="!eachCourseMaterials.addedToLearningPath"
 								class="float-right"
+								[color]="stringKey.COLOR_TERTIARY"
 								[title] = "'button.learningPath' | translate"
 								[icon] = "stringKey.ICON_ADD"
 								(event) = "onLearningPathAction(eachCourseMaterials)

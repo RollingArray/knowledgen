@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-09-02 10:41:25
+ * Last modified  : 2022-09-07 13:12:50
  */
 
 
@@ -704,7 +704,7 @@ export class StringKey {
 	public static readonly COLOR_PRIMARY_GRADIENT: string = "primary-gradient";
 	public static readonly COLOR_LIGHT_GRADIENT: string = "light-gradient";
 	public static readonly COLOR_SECONDARY: string = "secondary";
-	public static readonly COLOR_TERNARY: string = "tertiary";
+	public static readonly COLOR_TERTIARY: string = "tertiary";
 	public static readonly COLOR_SUCCESS: string = "success";
 	public static readonly COLOR_WARNING: string = "warning";
 	public static readonly COLOR_DANGER: string = "danger";
