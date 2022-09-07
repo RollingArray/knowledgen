@@ -9,7 +9,7 @@ export const environment = {
 	version: "15.104.134.12112",
 	level: 'Local',
 	firebaseConfig: {
-		apiKey: "AIzaSyBEFrQ-",
+		apiKey: "",
 		authDomain: "",
 		projectId: "",
 		storageBucket: "",

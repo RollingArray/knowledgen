@@ -25,7 +25,7 @@
 		</ion-title>
 		<ion-buttons
 			slot="start"
-			*ngIf="(backAvailable | async) === operationsEnum.END">
+			*ngIf="(studyTimerStatus$ | async) === operationsEnum.END">
 			<ion-back-button
 				defaultHref="go/course/material">
 			</ion-back-button>

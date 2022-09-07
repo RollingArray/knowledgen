@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-25 18:45:51
+ * Last modified  : 2022-09-07 12:47:22
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -60,12 +60,17 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 	/**
 	 * Description  of course material page
 	 */
-	articleRevisions$!: Observable<CourseMaterialMenuModel[]>;
+	public articleRevisions$!: Observable<CourseMaterialMenuModel[]>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	 public hasData$!: Observable<boolean>;
+
+	/**
+	 * Loading indicator status$ of revision page
+	 */
+	 public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -111,6 +116,7 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 	 */
 	async ngOnInit()
 	{
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 		this.translateService
 			.get('loading.holdTight')
 			.pipe(takeUntil(this.unsubscribe))
@@ -169,9 +175,7 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 								this.errorMessage = data;
 							});
 
-						this.getRevision(articleRevisionDate);
-
-
+						this.getRevision(this._selectedDate);
 					}
 				}
 			);
@@ -184,13 +188,7 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 	 */
 	async getRevision(articleRevisionDate: string)
 	{
-		this.translateService
-			.get('loading.myRevisions')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		this.rootStateFacade.startLoading('');
 
 		const myRevisionsModel: CourseMaterialMenuModel = {
 			articleRevisionDate: articleRevisionDate

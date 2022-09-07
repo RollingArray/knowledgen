@@ -270,6 +270,8 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 		
 		// Selects menu if article id available from param
 		this.selectMenuOnParamArticle();
+
+		
 	}
 
 	/**

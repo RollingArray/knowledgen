@@ -15,6 +15,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { ViewButtonModule } from "src/app/component/button/view-button/view-button.component.module";
 import { CalenderModule } from "src/app/component/calender/calender.component.module";
+import { ContentLoadingModule } from "src/app/component/content-loading/content-loading.module";
 import { CustomFieldsModule } from "src/app/component/custom-fields/custom-fields-fields.component.module";
 import { NoDataModule } from "src/app/component/no-data/no-data.component.module";
 import { PageInfoTitleModule } from "src/app/component/page-info-title/page-info-title.component.module";
@@ -50,6 +51,7 @@ const routes: Routes = [
 		CalenderModule,
 		TimePipeModule,
 		ViewButtonModule,
+		ContentLoadingModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [RevisionPage],

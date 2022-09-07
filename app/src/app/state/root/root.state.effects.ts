@@ -96,7 +96,7 @@ export class RootStateEffects
 				// merge all
 				mergeMap((action) =>
 				{
-					this.loadingService.present(action.payload);
+					//this.loadingService.present(action.payload);
 					return [
 						ROOT_ACTIONS.NOOP()
 					];
@@ -116,7 +116,7 @@ export class RootStateEffects
 				// merge all
 				mergeMap((action) =>
 				{
-					this.loadingService.dismiss();
+					//this.loadingService.dismiss();
 					return [
 						ROOT_ACTIONS.NOOP()
 					];

@@ -8,7 +8,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-01-26 22:29:36
+ * Last modified  : 2022-09-07 12:46:16
 */	
  -->
 <!-- header -->
@@ -17,6 +17,14 @@
 		<ion-title> {{'pageTitle.myRevisions' | translate}} </ion-title>
 		<ion-buttons slot="start">
 			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-buttons
+			slot="end"
+			(click)="loadRevisionData(selectedDate)">
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_REFRESH">
+			</ion-icon>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -51,11 +59,15 @@
 	<!-- no data -->
 	<app-no-data
 		[courseMaterial]="true"
-		*ngIf="!(hasData$ | async)"
+		*ngIf="!(hasData$ | async) && !(loadingIndicatorStatus$ | async)"
 		[text]="errorMessage"
 	></app-no-data>
 	<!-- no data -->
 
+	<!-- content loading -->
+	<content-loading [generalContent]="true" ></content-loading>
+	<!-- content loading -->
+	
 	<!-- data container -->
 	<ng-container *ngIf="(hasData$ | async)">
 		<ion-grid class="margin-top-10-px">

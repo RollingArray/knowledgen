@@ -160,7 +160,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * Article session analysis$ of article session component
 	 */
 	public articleSessionAnalysis$: Observable<ArticleSessionAnalysisModel>;
-	
+
 
 	/**
 	 * -------------------------------------------------|
@@ -201,9 +201,9 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * Gets data loading
 	 */
 	get dataLoading()
-	 {
-		 return this._dataLoading;
-	 }
+	{
+		return this._dataLoading;
+	}
 
 
 
@@ -240,6 +240,42 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	ngOnInit()
 	{
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		this._dataLoading = true;
+		this.selectedMenuArticle$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(_selectedMenu =>
+			{
+				this._selectedMenu = _selectedMenu;
+				this.hasData$ = this.articleSessionStateFacade.selectArticleSessionHasData$(_selectedMenu.articleId);
+				this.articleSessionAnalysis$ = this.articleSessionStateFacade.selectArticleSessionAnalysis$(_selectedMenu.articleId);
+
+				this.articleSessionStateFacade
+					.selectArticleSessionByArticleId$(_selectedMenu.articleId)
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe(async articleSession =>
+					{
+						// if no data, get data over network
+						if (!articleSession)
+						{
+							this.getArticleSession();
+						}
+
+						// else build chart
+						else
+						{
+							this._dataLoading = false;
+
+							this.buildChartData(articleSession);
+
+							this.buildChartLabel(articleSession);
+
+							this.buildChartOptions();
+
+							await this.buildChart();
+						}
+					})
+			}
+			);
 	}
 
 	/**
@@ -247,46 +283,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 */
 	ngAfterViewInit()
 	{
-		this._dataLoading = true;
-		
-		setTimeout(() =>
-		{
-			this.selectedMenuArticle$
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(_selectedMenu =>
-				{
-					this._selectedMenu = _selectedMenu;
-					this.hasData$ = this.articleSessionStateFacade.selectArticleSessionHasData$(_selectedMenu.articleId);
-					this.articleSessionAnalysis$ = this.articleSessionStateFacade.selectArticleSessionAnalysis$(_selectedMenu.articleId);
-					
-					this.articleSessionStateFacade
-						.selectArticleSessionByArticleId$(_selectedMenu.articleId)
-						.pipe(takeUntil(this.unsubscribe))
-						.subscribe(async articleSession =>
-						{
-							// if no data, get data over network
-							if (!articleSession)
-							{
-								this.getArticleSession();
-							}
 
-							// else build chart
-							else
-							{
-								this._dataLoading = false;
-
-								this.buildChartData(articleSession);
-
-								this.buildChartLabel(articleSession);
-
-								this.buildChartOptions();
-
-								await this.buildChart();
-							}
-						})
-				}
-				);
-		}, 0);
 	}
 
 	/**
@@ -300,45 +297,45 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * Builds chart label
 	 * @param articleSession 
 	 */
-	 private buildChartLabel(articleSession: ArticleSessionModel)
-	 {
-		 this._chartLabels = [];
-		 articleSession.articleSessionsCreatedOn.map((eachDate, index) =>
-		 {
-			 this._chartLabels = [
-				 ...this._chartLabels,
-				 index + 1
-			 ];
-		 });
-	 }
- 
-	 /**
-	  * Builds chart data
-	  * @param articleSession 
-	  */
-	 private buildChartData(articleSession: ArticleSessionModel)
-	 {
-		 this.translateService
-			 .get([
-				 'formInfo.sessionProgress',
-			 ]).pipe(takeUntil(this.unsubscribe))
-			 .subscribe(async data =>
-			 {
- 
-				 this._chartData = [
-					 {
-						 data: articleSession.articleSessions,
-						 borderColor: this.chartDataColor,
-						 backgroundColor: "#003566",
-						 label: `${data['formInfo.sessionProgress']}`,
-						 tension: 0.5
- 
-					 },
-				 ];
- 
-			 });
-	 }
-	
+	private buildChartLabel(articleSession: ArticleSessionModel)
+	{
+		this._chartLabels = [];
+		articleSession.articleSessionsCreatedOn.map((eachDate, index) =>
+		{
+			this._chartLabels = [
+				...this._chartLabels,
+				index + 1
+			];
+		});
+	}
+
+	/**
+	 * Builds chart data
+	 * @param articleSession 
+	 */
+	private buildChartData(articleSession: ArticleSessionModel)
+	{
+		this.translateService
+			.get([
+				'formInfo.sessionProgress',
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				this._chartData = [
+					{
+						data: articleSession.articleSessions,
+						borderColor: this.chartDataColor,
+						backgroundColor: "#003566",
+						label: `${data['formInfo.sessionProgress']}`,
+						tension: 0.5
+
+					},
+				];
+
+			});
+	}
+
 	/**
 	 * Submits answers
 	 */
@@ -416,7 +413,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 					datasets: this._chartData,
 				},
 				options: this._chartOptions
-			})	
+			})
 		}
 	}
 

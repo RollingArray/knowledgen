@@ -80,6 +80,11 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	hasData$!: Observable<boolean>;
 
 	/**
+	 * Study timer status$ of course material details page
+	 */
+	studyTimerStatus$: Observable<OperationsEnum>;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -89,14 +94,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	get articleMenuClosed()
 	{
 		return this._articleMenuClosed;
-	}
-
-	/**
-	 * Gets back available
-	 */
-	get backAvailable()
-	{
-		return this.rootStateFacade.studyTimerStatus$;
 	}
 	
 	/**
@@ -130,6 +127,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	async ngOnInit()
 	{
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+		this.studyTimerStatus$ = this.rootStateFacade.studyTimerStatus$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
 		this.firstParentMenuId$

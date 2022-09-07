@@ -272,6 +272,7 @@ td:last-child {
 /*padding */
 
 /*Variable width */
+
 @for $i from 1 through 500 {
 	.width-#{$i}-px {
 		width: #{$i}px;
@@ -289,6 +290,13 @@ td:last-child {
 @for $i from 1 through 50 {
 	.font-size-#{$i}-px {
 		font-size: #{$i}px !important;
+	}
+}
+
+/*Variable border-radius */
+@for $i from 1 through 500 {
+	.border-radius-#{$i}-px {
+		border-radius: #{$i}px;
 	}
 }
 
