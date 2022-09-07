@@ -8,7 +8,7 @@
 * @author code@rollingarray.co.in
 *
 * Created at     : 2022-01-16 08:18:18 
- * Last modified  : 2022-09-07 12:46:16
+ * Last modified  : 2022-09-07 12:57:34
 */	
  -->
 <!-- header -->
@@ -65,11 +65,11 @@
 	<!-- no data -->
 
 	<!-- content loading -->
-	<content-loading [generalContent]="true" ></content-loading>
+	<content-loading [generalContent]="true" *ngIf="(loadingIndicatorStatus$ | async)"></content-loading>
 	<!-- content loading -->
 	
 	<!-- data container -->
-	<ng-container *ngIf="(hasData$ | async)">
+	<ng-container *ngIf="(hasData$ | async) && !(loadingIndicatorStatus$ | async)">
 		<ion-grid class="margin-top-10-px">
 			<ion-row *ngFor="let eachRevision of (articleRevisions$ | async)">
 				<ion-col sizeLg="1" sizeMd="1" sizeSm="2" sizeXl="1" sizeXs="2">

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-08-08 20:54:50
+ * Last modified  : 2022-09-07 12:52:34
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -55,17 +55,22 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 	/**
 	 * Description  of course material page
 	 */
-	courseMaterials$!: Observable<LearningPathModel[]>;
+	public courseMaterials$!: Observable<LearningPathModel[]>;
 
 	/**
 	 * Determines whether data has
 	 */
-	hasData$!: Observable<boolean>;
+	public hasData$!: Observable<boolean>;
 
 	/**
 	 * Learning path total progress percentage$ of learning path page
 	 */
-	learningPathTotalProgressPercentage$: Observable<string[]>;
+	public learningPathTotalProgressPercentage$: Observable<string[]>;
+
+	/**
+	 * Loading indicator status$ of learning path page
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -98,6 +103,11 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 		return this.userType === UserTypeEnum.Student ? true : false;
 	}
 
+	/**
+	 * Status color icon
+	 * @param courseMaterialProgress 
+	 * @returns  
+	 */
 	public statusColorIcon(courseMaterialProgress: number)
 	{
 		if (courseMaterialProgress === 0)
@@ -143,6 +153,7 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 	 */
 	async ngOnInit()
 	{
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 		this.translateService
 			.get('loading.holdTight')
 			.pipe(takeUntil(this.unsubscribe))
@@ -257,14 +268,7 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 	 */
 	async getLearningPathMaterial()
 	{
-		this.translateService
-			.get('loading.myLearningPath')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-
+		await this.rootStateFacade.startLoading('');
 		this.learningPathStateFacade.requestLearningPath();
 	}
 
