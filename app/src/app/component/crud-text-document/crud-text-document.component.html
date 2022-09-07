@@ -7,24 +7,44 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-09-07 20:06:17
+ * Last modified  : 2022-09-07 21:49:58
  */
 -->
 <!-- article owner toolbar -->
 
 <!-- content loading -->
-<content-loading [generalContent]="true" *ngIf="(loadingIndicatorStatus$ | async)" ></content-loading>
+<content-loading
+	[generalContent]="true"
+	*ngIf="loadingIndicatorStatus$ | async"
+></content-loading>
 <!-- content loading -->
 
-<div *ngIf="(this.courseMaterial$ | async) && isMaterialOwner">
+<div
+	*ngIf="
+		(this.courseMaterial$ | async) &&
+		isMaterialOwner &&
+		!(loadingIndicatorStatus$ | async)
+	"
+>
 	<!-- fab -->
-	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="!isContentLive">
-		<ion-fab-button *ngIf="(articleTextDocument$|async) === undefined && !showSave" color="tertiary"
-			(click)="addNewContent()">
+	<ion-fab
+		slot="fixed"
+		vertical="top"
+		horizontal="end"
+		*ngIf="!isContentLive"
+	>
+		<ion-fab-button
+			*ngIf="(articleTextDocument$ | async) === undefined && !showSave"
+			color="tertiary"
+			(click)="addNewContent()"
+		>
 			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
 		</ion-fab-button>
-		<ion-fab-button *ngIf="(articleTextDocument$|async) !== undefined && !showSave" color="tertiary"
-			(click)="editContent()">
+		<ion-fab-button
+			*ngIf="(articleTextDocument$ | async) !== undefined && !showSave"
+			color="tertiary"
+			(click)="editContent()"
+		>
 			<ion-icon [src]="stringKey.ICON_EDIT"></ion-icon>
 		</ion-fab-button>
 		<ion-fab-button *ngIf="showSave" color="tertiary" (click)="submit()">
@@ -34,69 +54,85 @@
 	<!-- fab -->
 
 	<!-- toolbar -->
-	<ion-card  *ngIf="showSave">
+	<ion-card *ngIf="showSave">
 		<html-content-toolbar></html-content-toolbar>
 	</ion-card>
 	<!-- toolbar -->
 
 	<!-- no data -->
-	<ion-card class="card-no-shadow" *ngIf="(articleTextDocument$|async) === undefined && !showSave">
+	<ion-card
+		class="card-no-shadow"
+		*ngIf="(articleTextDocument$ | async) === undefined && !showSave"
+	>
 		<p class="text-center">
-			<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA"></ion-icon>
+			<ion-icon
+				class="font-size-100-px"
+				[src]="stringKey.ICON_NO_DATA"
+			></ion-icon>
 		</p>
 		<ion-text color="dark">
 			<h4 class="text-center">
 				<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-				{{ 'noData.noContent' | translate }}
+				{{ "noData.noContent" | translate }}
 			</h4>
 		</ion-text>
-
 	</ion-card>
 	<!-- no data -->
 </div>
 <!-- article owner toolbar -->
 
-<div #contentTopScrollView>
+<div #contentTopScrollView *ngIf="!(loadingIndicatorStatus$ | async)">
 	<!-- study instructions -->
 	<assignment-instructions
-		*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
-		[isMaterialOwner]= "isMaterialOwner"
-		[isContentLive]= "isContentLive"
+		*ngIf="
+			(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive
+		"
+		[isMaterialOwner]="isMaterialOwner"
+		[isContentLive]="isContentLive"
 		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"
 		(startAssignmentEvent)="startStudySession()"
-		(submitAssignmentEvent) = "submitStudySession($event)"
+		(submitAssignmentEvent)="submitStudySession($event)"
 	>
 	</assignment-instructions>
 	<!-- study instructions -->
 
 	<!-- article-session -->
 	<article-session
-		#scroll 
-		*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
-		[isMaterialOwner]= "isMaterialOwner"
-		[isContentLive]= "isContentLive"
+		#scroll
+		*ngIf="
+			(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive
+		"
+		[isMaterialOwner]="isMaterialOwner"
+		[isContentLive]="isContentLive"
 		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"
 	></article-session>
 	<!-- article-session -->
 </div>
 
-
 <!-- content -->
-<div 
-	class="para" 
-	#editableTextDocument 
-></div>
+<div class="para" #editableTextDocument></div>
 <!-- content -->
 
 <!-- content not live message -->
-<ion-card class="card-no-shadow" *ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && !isContentLive">
+<ion-card
+	class="card-no-shadow"
+	*ngIf="
+		(this.courseMaterial$ | async) &&
+		!isMaterialOwner &&
+		!isContentLive &&
+		!(loadingIndicatorStatus$ | async)
+	"
+>
 	<p class="text-center">
-		<ion-icon class="font-size-100-px" [src]="stringKey.ICON_NO_DATA"></ion-icon>
+		<ion-icon
+			class="font-size-100-px"
+			[src]="stringKey.ICON_NO_DATA"
+		></ion-icon>
 	</p>
 	<ion-text color="dark">
 		<h4 class="text-center">
 			<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-			{{ 'noData.availableSoonContent' | translate }}
+			{{ "noData.availableSoonContent" | translate }}
 		</h4>
 	</ion-text>
 </ion-card>

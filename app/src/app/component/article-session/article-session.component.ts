@@ -6,10 +6,10 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-04 20:10:12 
- * Last modified  : 2022-09-07 19:52:55
+ * Last modified  : 2022-09-07 20:52:45
  */
 
-import { Component, OnInit, Injector, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Injector, Input, ViewChild, Inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -25,6 +25,7 @@ import { Chart, ChartOptions, ChartType, registerables } from 'chart.js';
 import { TranslateService } from "@ngx-translate/core";
 import { ArticleSessionAnalysisModel } from "src/app/shared/model/article-session-analysis.model";
 import { CharacteristicsEnum } from "src/app/shared/enum/characteristics.enum";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
 	selector: 'article-session',
@@ -170,11 +171,6 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 */
 
 	/**
-	 * View child of performance over review component
-	 */
-	@ViewChild('chart') chart;
-
-	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -228,6 +224,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private articleSessionStateFacade: ArticleSessionStateFacade,
 		private translateService: TranslateService,
+		@Inject(DOCUMENT) document: Document
 	)
 	{
 		super(injector);
@@ -406,7 +403,9 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 		}
 		else
 		{
-			this._barChart = new Chart(this.chart.nativeElement, {
+			const canvas = <HTMLCanvasElement> document.getElementById('chart');
+			const ctx = canvas.getContext('2d');
+			this._barChart = new Chart(ctx, {
 				type: this._chartType,
 				data: {
 					labels: this._chartLabels,

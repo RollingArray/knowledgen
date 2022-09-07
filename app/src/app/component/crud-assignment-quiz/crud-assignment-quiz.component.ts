@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-08-07 07:18:52
+ * Last modified  : 2022-09-07 20:17:25
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -197,6 +197,11 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	public hasData$!: Observable<boolean>;
 
+	/**
+	 * Loading indicator status$ of crud assignment quiz component
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
+
 
 	/**
 	 * -------------------------------------------------|
@@ -377,6 +382,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	ngOnInit()
 	{
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 	}
 
@@ -485,13 +491,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			articleId: this._selectedMenu.articleId
 		};
 
-		this.translateService
-			.get('loading.wait')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		await this.rootStateFacade.startLoading('');
 
 		this.courseMaterialQuizStateFacade.requestCourseMaterialQuiz(model);
 	}
@@ -508,16 +508,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	private initLoading()
 	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		this.rootStateFacade.startLoading('');
 	}
 
 	/**

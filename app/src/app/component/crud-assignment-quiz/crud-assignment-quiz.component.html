@@ -7,12 +7,16 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-08-04 17:53:09
+ * Last modified  : 2022-09-07 21:49:55
  */
 -->
 
+<!-- content loading -->
+<content-loading [generalContent]="true" *ngIf="(loadingIndicatorStatus$ | async)" ></content-loading>
+<!-- content loading -->
+
 <!-- article owner toolbar -->
-<div *ngIf="this.courseMaterial$ | async">
+<div *ngIf="(this.courseMaterial$ | async) && !(loadingIndicatorStatus$ | async)">
 	<!-- add new question -->
 	<ion-fab slot="fixed" vertical="top" horizontal="end" *ngIf="isMaterialOwner && !isContentLive">
 		<ion-fab-button color="tertiary" (click)="addNewQuestion()">

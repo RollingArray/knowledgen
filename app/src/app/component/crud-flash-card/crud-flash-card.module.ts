@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-02 15:52:59
+ * Last modified  : 2022-09-07 21:02:55
  */
 
 import { NgModule } from '@angular/core';
@@ -32,6 +32,7 @@ import { CrudFlashCardComponent } from './crud-flash-card.component';
 import { CrudRevisionFlashCardModule } from '../crud-revision-flash-card/crud-revision-flash-card.module';
 import { ImageHolderModule } from '../image-holder/image-holder.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 
 @NgModule({
 	imports: [
@@ -56,7 +57,8 @@ import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-materia
 		AssignmentInstructionsModule,
 		ArticleSessionModule,
 		CrudRevisionFlashCardModule,
-		ImageHolderModule
+		ImageHolderModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudFlashCardComponent],

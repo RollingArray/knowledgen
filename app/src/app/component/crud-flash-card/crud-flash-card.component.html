@@ -7,12 +7,19 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-02 09:26:36
+ * Last modified  : 2022-09-07 21:49:51
  */
 -->
 
+<!-- content loading -->
+<content-loading
+	[generalContent]="true"
+	*ngIf="loadingIndicatorStatus$ | async"
+></content-loading>
+<!-- content loading -->
+
 <!-- article owner toolbar -->
-<div *ngIf="this.courseMaterial$ | async">
+<div *ngIf="(this.courseMaterial$ | async) && !(loadingIndicatorStatus$ | async)">
 	<!-- add new question -->
 	<ion-fab
 		slot="fixed"

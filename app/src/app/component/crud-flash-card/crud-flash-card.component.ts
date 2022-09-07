@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-02 21:53:03
+ * Last modified  : 2022-09-07 21:04:57
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -236,6 +236,11 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	public hasData$!: Observable<boolean>;
 
+	/**
+	 * Loading indicator status$ of crud flash card component
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
+
 
 	/**
 	 * -------------------------------------------------|
@@ -436,6 +441,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	ngOnInit()
 	{
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 	}
 
@@ -590,13 +596,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			articleId: this._selectedMenu.articleId
 		};
 
-		this.translateService
-			.get('loading.wait')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		await this.rootStateFacade.startLoading('');
 
 		this.courseMaterialFlashCardStateFacade.requestCourseMaterialFlashCard(model);
 	}
@@ -613,16 +613,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	private initLoading()
 	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		this.rootStateFacade.startLoading('');
 	}
 
 	/**

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-09-07 20:06:36
+ * Last modified  : 2022-09-07 20:29:27
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -433,14 +433,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 			articleId: this._selectedMenu.articleId
 		};
 
-		this.translateService
-			.get('loading.wait')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-
+		this.rootStateFacade.startLoading('');
 		this.articleTextDocumentStateFacade.requestArticleTextDocument(articleTextDocumentModel);
 	}
 
