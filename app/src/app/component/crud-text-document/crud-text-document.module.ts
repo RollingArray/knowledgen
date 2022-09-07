@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-08-04 19:50:53
+ * Last modified  : 2022-09-07 20:00:28
  */
 
 import { NgModule } from '@angular/core';
@@ -28,6 +28,7 @@ import { ArticleSessionModule } from '../article-session/article-session.module'
 import { ArticleSessionStateModule } from 'src/app/state/article-session/article-session.state.module';
 import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 
 @NgModule({
 	imports: [
@@ -48,7 +49,8 @@ import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-materia
 		ArticleSessionModule,
 		ArticleSessionStateModule,
 		RootStateModule,
-		CrudCourseMaterialAssignmentResultModule
+		CrudCourseMaterialAssignmentResultModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudTextDocumentComponent],

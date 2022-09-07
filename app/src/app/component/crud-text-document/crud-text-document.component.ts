@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-08-04 19:59:37
+ * Last modified  : 2022-09-07 20:06:36
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -81,7 +81,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	  * @input & @output Instance variable				 |
 	  * -------------------------------------------------|
 	  */
-	
+
 	/**
 	 * Description  of crud text document component
 	 */
@@ -96,7 +96,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Input  of crud text document component
 	 */
 	@Input() public articleTitleView: ElementRef;
-	
+
 
 	/**
 	 * -------------------------------------------------|
@@ -133,7 +133,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Modal data of menu page
 	 */
 	private _modalData: ModalData;
-	
+
 	/**
 	 * Article text document content of crud text document component
 	 */
@@ -154,7 +154,12 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	/**
 	 * Course material$ of crud text document component
 	 */
-	courseMaterial$!: Observable<CourseMaterialModel>;
+	public courseMaterial$!: Observable<CourseMaterialModel>;
+
+	/**
+	 * Loading indicator status$ of crud text document component
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -171,7 +176,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * View child of crud text document component
 	 */
 	@ViewChild('contentTopScrollView') contentTopScrollView: ElementRef;
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -260,7 +265,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Study session submitted of crud text document component
 	 */
 	private _studySessionSubmitted = false;
- 
+
 	/**
 	 * Assignment time of crud text document component
 	 */
@@ -314,7 +319,8 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	)
 	{
 		super(injector);
-		this.initLoading();
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
+		//this.initLoading();
 	}
 
 	/**
@@ -375,49 +381,49 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * Documents mode for visitor
 	 * @param articleTextDocumentModel 
 	 */
-	 private documentModeForVisitor(articleTextDocumentModel: ArticleTextDocumentModel)
-	 {
-		 if (!articleTextDocumentModel)
-		 {
-			 this.getArticleTextDocument();
-		 }
- 
-		 // if object os not in preview
-		 else if (articleTextDocumentModel.articleStatus !== ArticleStatusTypeEnum.PREVIEW)
-		 {
-			 this._articleTextDocumentContent = articleTextDocumentModel.articleTextDocumentContent;
-		 }
-	 }
- 
-	 /**
-	  * Documents mode for owner
-	  * @param articleTextDocumentModel 
-	  */
-	 private documentModeForOwner(articleTextDocumentModel: ArticleTextDocumentModel)
-	 {
-		 if (!articleTextDocumentModel)
-		 {
- 
-			 this.getArticleTextDocument();
-			 this._operationType = OperationsEnum.CREATE;
-			 this._showSave = false;
-		 }
- 
- 
- 
-		 // show content, consider edit
-		 else
-		 {
-			 // fill content, make non editable
-			 (this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
-			 (this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = articleTextDocumentModel.articleTextDocumentContent;
- 
-			 //
-			 this._operationType = OperationsEnum.EDIT;
-			 this._showSave = false;
-		 }
-	 }
-	
+	private documentModeForVisitor(articleTextDocumentModel: ArticleTextDocumentModel)
+	{
+		if (!articleTextDocumentModel)
+		{
+			this.getArticleTextDocument();
+		}
+
+		// if object os not in preview
+		else if (articleTextDocumentModel.articleStatus !== ArticleStatusTypeEnum.PREVIEW)
+		{
+			this._articleTextDocumentContent = articleTextDocumentModel.articleTextDocumentContent;
+		}
+	}
+
+	/**
+	 * Documents mode for owner
+	 * @param articleTextDocumentModel 
+	 */
+	private documentModeForOwner(articleTextDocumentModel: ArticleTextDocumentModel)
+	{
+		if (!articleTextDocumentModel)
+		{
+
+			this.getArticleTextDocument();
+			this._operationType = OperationsEnum.CREATE;
+			this._showSave = false;
+		}
+
+
+
+		// show content, consider edit
+		else
+		{
+			// fill content, make non editable
+			(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
+			(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = articleTextDocumentModel.articleTextDocumentContent;
+
+			//
+			this._operationType = OperationsEnum.EDIT;
+			this._showSave = false;
+		}
+	}
+
 	/**
 	 * Descriptions crud text document component
 	 */
@@ -458,22 +464,22 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	/**
 	 * Opens crud assignment result 
 	 */
-	 private async openCrudAssignmentResult()
-	 {
-		 const modal = await this.modalController.create({
-			 component: CrudCourseMaterialAssignmentResultComponent,
-			 cssClass: 'modal-view',
-			 backdropDismiss: false,
-			 componentProps: {
-				 resultType: ResultTypeEnum.NONE,
-				 studyTime: this._studyTime
-			 }
-		 });
- 
-		 // present modal
-		 await modal.present();
-	 }
-	
+	private async openCrudAssignmentResult()
+	{
+		const modal = await this.modalController.create({
+			component: CrudCourseMaterialAssignmentResultComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+			componentProps: {
+				resultType: ResultTypeEnum.NONE,
+				studyTime: this._studyTime
+			}
+		});
+
+		// present modal
+		await modal.present();
+	}
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -486,16 +492,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 */
 	private initLoading()
 	{
-		const loading = this.loading;
-		
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		this.rootStateFacade.startLoading('');
 	}
 
 	/**
@@ -561,16 +558,16 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	/**
 	 * Scrolls to article content
 	 */
-	 private scrollToArticleContent()
-	 {
-		 const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
-		 const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
-		 const deltaMargin = 40;
-		 const scrollY = pageBaseHeight + parentArticleTitleViewHeight + deltaMargin;
-		 const scrollX = 0;
-		 const animationDelay = 1500;
-		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
-	 }
+	private scrollToArticleContent()
+	{
+		const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
+		const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
+		const deltaMargin = 40;
+		const scrollY = pageBaseHeight + parentArticleTitleViewHeight + deltaMargin;
+		const scrollX = 0;
+		const animationDelay = 1500;
+		this.articleView.scrollToPoint(scrollX, scrollY, animationDelay);
+	}
 
 	/**
 	 * -------------------------------------------------|
@@ -644,7 +641,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	 * @param studyTime 
 	 */
 	public submitStudySession(studyTime: string)
-	 {
+	{
 		this._studySessionSubmitted = true;
 		this._studySessionInitiated = false;
 		this._studyTime = studyTime;
@@ -652,7 +649,7 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		// remove content
 		(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
 		(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = '';
-	
+
 		const model: ArticleSessionModel = {
 			articleId: this._selectedMenu.articleId,
 			articleSessionTime: this._studyTime,
@@ -661,20 +658,20 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		this.initLoading();
 		this.articleSessionStateFacade.addNewArticleSession(model);
 		this.openCrudAssignmentResult();
-	 }
- 
+	}
+
 	/**
 	 * Starts study session
 	 */
 	public startStudySession()
-	 {
-		 this._studySessionInitiated = true;
-		this._studySessionSubmitted = false; 
-		
+	{
+		this._studySessionInitiated = true;
+		this._studySessionSubmitted = false;
+
 		// fill content, make non editable
 		(this.editableTextDocument.nativeElement as HTMLCanvasElement).contentEditable = "false";
 		(this.editableTextDocument.nativeElement as HTMLCanvasElement).innerHTML = this._articleTextDocumentContent;
-		
+
 		// scroll to content
 		this.scrollToArticleContent();
 	}

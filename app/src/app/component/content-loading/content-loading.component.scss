@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-07 11:51:57 
- * Last modified  : 2022-09-07 12:46:04
+ * Last modified  : 2022-09-07 19:51:09
  */
 
 @keyframes placeHolderShimmer {
@@ -24,7 +24,7 @@ div {
 	animation-name: placeHolderShimmer;
 	animation-timing-function: linear;
 	background: #f6f7f8;
-	background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+	background: linear-gradient(to right, rgb(178, 178, 251) 8%, rgb(125, 178, 251) 18%, rgb(178, 178, 251) 33%);
 	background-size: 1000px 104px;
 }
 

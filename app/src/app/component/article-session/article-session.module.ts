@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-04 20:10:12 
- * Last modified  : 2022-08-04 20:11:06
+ * Last modified  : 2022-09-07 19:35:37
  */
 
 import { CommonModule } from "@angular/common";
@@ -17,6 +17,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { SharedModule } from "src/app/shared/module/shared.module";
 import { ArticleSessionStateModule } from "src/app/state/article-session/article-session.state.module";
 import { CourseMaterialMenuStateModule } from "src/app/state/course-material-menu/course-material-menu.state.module";
+import { ContentLoadingModule } from "../content-loading/content-loading.module";
 import { PanelHeaderModule } from "../panel-header/panel-header.component.module";
 import { PanelInfoModule } from "../panel-info/panel-info.component.module";
 import { ArticleSessionComponent } from "./article-session.component";
@@ -31,7 +32,8 @@ import { ArticleSessionComponent } from "./article-session.component";
 		CourseMaterialMenuStateModule,
 		ArticleSessionStateModule,
 		PanelHeaderModule,
-		PanelInfoModule
+		PanelInfoModule,
+		ContentLoadingModule
 	],
 
 	declarations: [ArticleSessionComponent],

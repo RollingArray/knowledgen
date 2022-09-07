@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-07 11:51:57 
- * Last modified  : 2022-09-07 16:30:54
+ * Last modified  : 2022-09-07 19:41:03
  */
 
 import { Component, Input, OnInit } from '@angular/core';
@@ -51,6 +51,11 @@ export class ContentLoadingComponent implements OnInit {
 	 * Input  of content loading component
 	 */
 	@Input() menuContent = false;
+
+	/**
+	 * Input  of content loading component
+	 */
+	@Input() graphContent = false;
 	
 	/**
 	 * Creates an instance of image holder component.
