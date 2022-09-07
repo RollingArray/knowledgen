@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-07-27 19:28:19
+ * Last modified  : 2022-09-07 14:50:01
  */
 
 
@@ -96,7 +96,11 @@ export class RootStateEffects
 				// merge all
 				mergeMap((action) =>
 				{
-					//this.loadingService.present(action.payload);
+					// if loading has text
+					if (action.payload !== '')
+					{
+						this.loadingService.present(action.payload);	
+					}
 					return [
 						ROOT_ACTIONS.NOOP()
 					];
@@ -116,7 +120,7 @@ export class RootStateEffects
 				// merge all
 				mergeMap((action) =>
 				{
-					//this.loadingService.dismiss();
+					this.loadingService.dismiss();
 					return [
 						ROOT_ACTIONS.NOOP()
 					];

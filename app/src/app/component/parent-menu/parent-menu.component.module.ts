@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-08-06 07:43:27
+ * Last modified  : 2022-09-07 16:28:18
  */
 
 import { NgModule } from '@angular/core';
@@ -21,6 +21,7 @@ import { I18nModule } from 'src/app/shared/module/i18n.module';
 import { CourseMaterialStateModule } from 'src/app/state/course-material/course-material.state.module';
 import { CrudCourseMaterialTypeModule } from '../crud-course-material-type/crud-course-material-type.module';
 import { CommonButtonModule } from '../button/common-button/common-button.component.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -32,7 +33,8 @@ import { CommonButtonModule } from '../button/common-button/common-button.compon
 		RootStateModule,
 		ChildMenuModule,
 		I18nModule,
-		CommonButtonModule
+		CommonButtonModule,
+		ContentLoadingModule
 	],
 
 	declarations: [ParentMenuComponent],

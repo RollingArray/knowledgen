@@ -7,67 +7,57 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-09-07 13:12:57
+ * Last modified  : 2022-09-07 16:35:56
  */ 
 -->
 
+
 <!-- header -->
-<ion-header
-	[appScrollTracker]="scrollArea">
-	<ion-toolbar
-		color="primary">
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
 		<ion-title>
-			{{
-			pageTitle
-			|
-			translate
-			}}
+			{{ pageTitle | translate }}
 		</ion-title>
-		<ion-buttons
-			slot="end">
+		<ion-buttons slot="end">
 			<ion-button
 				mode="ios"
 				fill="outline"
 				color="tertiary"
-				(click)="closeModal()">
-				{{
-				'button.discard'
-				|
-				translate
-				}}
+				(click)="closeModal()"
+			>
+				{{ "button.discard" | translate }}
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <!-- header -->
 
-<ion-content
-	lines="none"
-	#scrollArea
-	scrollEvents="true">
+<ion-content lines="none" #scrollArea scrollEvents="true">
 	<!-- page title -->
 	<app-page-info-title
-		[title]="pageTitle | translate "
-		[info]="pageSubTitle | translate ">
+		[title]="pageTitle | translate"
+		[info]="pageSubTitle | translate"
+	>
 	</app-page-info-title>
 
 	<!-- course material layout -->
 	<course-material-layout
-		[courseMaterialId]="learningPath.courseMaterialId">
+		[courseMaterialId]="learningPath.courseMaterialId"
+	>
 	</course-material-layout>
 	<!-- course material layout -->
 
 	<!-- add to path -->
-	<ion-grid>
+	<ion-grid *ngIf="!(loadingIndicatorStatus$ | async)">
 		<ion-row>
 			<ion-col>
 				<common-button
 					(event)="submit()"
 					class="margin-20-px float-right"
-					[title]="'button.learningPath'
-					|
-					translate" [color]="stringKey.COLOR_TERTIARY"
-					[icon]="stringKey.ICON_ADD">
+					[title]="'button.learningPath' | translate"
+					[color]="stringKey.COLOR_TERTIARY"
+					[icon]="stringKey.ICON_ADD"
+				>
 				</common-button>
 			</ion-col>
 		</ion-row>
@@ -76,8 +66,9 @@
 
 	<!-- parent menu -->
 	<parent-menu
-		[showSummery]=true
-		[learningPathCourseMaterialId]="learningPath.courseMaterialId">
+		[showSummery]="true"
+		[learningPathCourseMaterialId]="learningPath.courseMaterialId"
+	>
 	</parent-menu>
 	<!-- parent menu -->
 </ion-content>

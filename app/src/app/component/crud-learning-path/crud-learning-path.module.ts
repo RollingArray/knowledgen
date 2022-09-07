@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-08-07 07:23:58
+ * Last modified  : 2022-09-07 14:55:09
  */ 
 
 import { NgModule } from '@angular/core';
@@ -21,6 +21,7 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 import { ParentMenuModule } from '../parent-menu/parent-menu.component.module';
 import { CourseMaterialLayoutModule } from '../course-material-layout/course-material-layout.component.module';
 import { CommonButtonModule } from '../button/common-button/common-button.component.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 
 @NgModule({
 	imports: [
@@ -34,7 +35,8 @@ import { CommonButtonModule } from '../button/common-button/common-button.compon
 		SharedModule,
 		ParentMenuModule,
 		CourseMaterialLayoutModule,
-		CommonButtonModule
+		CommonButtonModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudLearningPathComponent],

@@ -6,11 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-08-08 21:02:33
+ * Last modified  : 2022-09-07 17:10:08
  */
 
 import { Component, OnInit, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs/internal/Observable";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -82,6 +83,8 @@ export class CrudLearningPathComponent extends BaseFormComponent implements OnIn
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
+	
+	 public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -207,10 +210,13 @@ export class CrudLearningPathComponent extends BaseFormComponent implements OnIn
 	{
 		super(injector);
 
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
+
 		// get act upon curd model from store
 		this.learningPathStateFacade.operationLearningPath$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(
+				
 				data => this._learningPath = data
 			);
 
@@ -242,23 +248,6 @@ export class CrudLearningPathComponent extends BaseFormComponent implements OnIn
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
 
 	/**
 	 * @description Cruds operation completion
@@ -351,7 +340,7 @@ export class CrudLearningPathComponent extends BaseFormComponent implements OnIn
 	 */
 	async submit()
 	{
-		this.initLoading();
+		this.rootStateFacade.startLoading('');
 		this.launchOperation();
 		this.crudOperationCompletion();
 	}

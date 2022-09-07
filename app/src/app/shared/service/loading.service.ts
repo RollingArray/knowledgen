@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-17 12:21:36 
- * Last modified  : 2022-01-14 18:34:44
+ * Last modified  : 2022-09-07 14:49:56
  */
 
 
@@ -61,13 +61,16 @@ export class LoadingService {
 	 */
 	async dismiss() {
 
-		this.loadingController.getTop().then(() => {
-			this._isLoading = false;
-			this.loadingController
-				.dismiss()
-				.then(() => {
-					// loading dismiss
-				});
-		});
+		if (this._isLoading)
+		{
+			this.loadingController.getTop().then(() => {
+				this._isLoading = false;
+				this.loadingController
+					.dismiss()
+					.then(() => {
+						// loading dismiss
+					});
+			});	
+		}
 	}
 }

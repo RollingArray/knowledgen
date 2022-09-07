@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-08-06 07:37:20
+ * Last modified  : 2022-09-07 16:29:35
  */
 
 import { Component, OnInit, Injector, Input } from "@angular/core";
@@ -87,7 +87,12 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Selected menu article$ of knowledge base article component
 	 */
-	 public selectedMenuArticle$: Observable<MenuSelectModel>;
+	public selectedMenuArticle$: Observable<MenuSelectModel>;
+	
+	/**
+	 * Loading indicator status$ of parent menu component
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>
 
 	/**
 	 * -------------------------------------------------|
@@ -149,13 +154,15 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	async ngOnInit()
 	{
-		this.translateService
-			.get('loading.holdTight')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				this.errorMessage = data;
-			});
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
+		
+		// this.translateService
+		// 	.get('loading.holdTight')
+		// 	.pipe(takeUntil(this.unsubscribe))
+		// 	.subscribe(async (data: string) =>
+		// 	{
+		// 		this.errorMessage = data;
+		// 	});
 		this.loadData();
 	}
 	
@@ -171,25 +178,28 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 */
 	private selectMenuOnParamArticle()
 	{
-		const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
-		if (articleId)
+		if (this.activatedRoute.snapshot.paramMap.get('articleId'))
 		{
-			this.courseMaterialMenuStateFacade.parentMenuByArticleId$(articleId)
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe((parentMenuModel: ParentMenuModel) =>
-				{
-					if (parentMenuModel)
+			const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+			if (articleId)
+			{
+				this.courseMaterialMenuStateFacade.parentMenuByArticleId$(articleId)
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe((parentMenuModel: ParentMenuModel) =>
 					{
-						const menuSelectModel: MenuSelectModel = {
-							articleId: parentMenuModel.parentArticleId,
-							articleStatus: parentMenuModel.articleStatus,
-							courseMaterialId: parentMenuModel.courseMaterialId,
-							menuType: MenuTypeEnum.PARENT_MENU,
-							courseMaterialType: parentMenuModel.courseMaterialTypeId
+						if (parentMenuModel)
+						{
+							const menuSelectModel: MenuSelectModel = {
+								articleId: parentMenuModel.parentArticleId,
+								articleStatus: parentMenuModel.articleStatus,
+								courseMaterialId: parentMenuModel.courseMaterialId,
+								menuType: MenuTypeEnum.PARENT_MENU,
+								courseMaterialType: parentMenuModel.courseMaterialTypeId
+							}
+							this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
 						}
-						this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
-					}
-				});
+					});
+			}	
 		}
 	}
 
@@ -202,13 +212,15 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			courseMaterialId: this._courseMaterialId
 		};
 
-		this.translateService
-			.get('loading.wait')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
+		// this.translateService
+		// 	.get('loading.wait')
+		// 	.pipe(takeUntil(this.unsubscribe))
+		// 	.subscribe(async (data: string) =>
+		// 	{
+		// 		await this.rootStateFacade.startLoading(data);
+		// 	});
+		
+			this.rootStateFacade.startLoading('');
 
 		this.courseMaterialMenuStateFacade.requestCourseMaterial(courseMaterialModel);
 	}
