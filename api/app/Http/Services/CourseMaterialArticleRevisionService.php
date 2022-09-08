@@ -35,6 +35,7 @@ class CourseMaterialArticleRevisionService implements CourseMaterialArticleRevis
 			'tbl_course_material_article.article_title',
 			'tbl_course_material_article.course_material_type_id',
 			'tbl_course_material_article.article_summery',
+			'tbl_course_material_article.article_status',
 			'tbl_course_material_article_revision.article_revision_date'
 			)
 			->join(
@@ -61,6 +62,7 @@ class CourseMaterialArticleRevisionService implements CourseMaterialArticleRevis
 			'tbl_course_material_article_revision.article_id',
 			'tbl_course_material_article.course_material_id',
 			'tbl_course_material_article.article_title',
+			'tbl_course_material_article.article_status',
 			'tbl_course_material_article.course_material_type_id',
 			'tbl_course_material_article.article_summery',
 			'tbl_course_material_article_revision.article_revision_date'
