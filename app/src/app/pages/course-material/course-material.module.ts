@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-09-07 13:07:10
+ * Last modified  : 2022-09-08 09:26:16
  */
 
 
@@ -43,10 +43,6 @@ const routes: Routes = [
 	},
 	{
 		path: ":courseMaterialId/articles",
-		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
-	},
-	{
-		path: ":courseMaterialId/articles/:articleId",
 		loadChildren: () => import('../course-material-details/course-material-details.module').then( m => m.CourseMaterialDetailsPageModule),
 	}
 ];

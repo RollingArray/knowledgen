@@ -11,17 +11,123 @@
  */
  -->
 <!-- header -->
-<ion-header>
-	<ion-toolbar color="primary">
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-	</ion-toolbar>
-</ion-header>
-<!-- header -->
-<ion-content>
-	<!-- no data -->
-	<app-no-data [courseMaterial]="true" *ngIf="noTopic" [text]="'noData.noTopic' | translate"></app-no-data>
-	<!-- no data -->
-	<!-- page title -->
+<ion-content #articleView>
+	<!-- article title -->
+	<div
+		#articleTitleView
+		class="article-title"
+		*ngIf="
+			(selectedMenuArticle$ | async).articleId &&
+			articleTitle !== 'noData.contentDeleted'
+		"
+	>
+		<ion-item>
+			<ion-thumbnail slot="start">
+				<ion-icon
+					[src]="
+						getMenuIcon(
+							(selectedMenuArticle$ | async).courseMaterialType
+						)
+					"
+					class="font-size-50-px"
+				>
+				</ion-icon>
+			</ion-thumbnail>
+			{{ articleTitle }}
+		</ion-item>
+	</div>
+	<!-- article title -->
+
+	<!-- live / preview message -->
+	<ion-card
+		*ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner"
+		[color]="
+			visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'
+		"
+	>
+		<ion-card-content>
+			<ion-item lines="none" color="none">
+				<p>{{ visibilityInfo | translate }}</p>
+				<ion-button
+					slot="end"
+					color="danger"
+					(click)="changeVisibility()"
+					*ngIf="
+						visibilityInfo !== 'formInfo.visibilityLiveNoChange'
+							? true
+							: false
+					"
+				>
+					{{ "button.changeVisibility" | translate }}
+				</ion-button>
+			</ion-item>
+		</ion-card-content>
+	</ion-card>
+	<!-- live / preview message -->
+
+	<!-- show assignment properties for material owner even if not live -->
+	<assignment-properties
+		*ngIf="
+			(isMaterialOwner &&
+				(courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
+			courseMaterialType === courseMaterialTypeIdEnum.DC ||
+			courseMaterialType === courseMaterialTypeIdEnum.FC))
+		"
+		[articleCompletionTime]="articleCompletionTime"
+		[articleCompletionReward]="articleCompletionReward"
+	>
+	</assignment-properties>
+	<!-- show assignment properties for material owner even if not live -->
+
+	<!-- show assignment properties for visitor if live -->
+	<assignment-properties
+		#assignmentPropertiesView
+		*ngIf="
+			(!isMaterialOwner &&
+				isContentLive &&
+				(courseMaterialType === courseMaterialTypeIdEnum.QUIZ ||
+			courseMaterialType === courseMaterialTypeIdEnum.DC ||
+			courseMaterialType === courseMaterialTypeIdEnum.FC))
+		"
+		[articleCompletionTime]="articleCompletionTime"
+		[articleCompletionReward]="articleCompletionReward"
+	>
+	</assignment-properties>
+	<!-- show assignment properties for visitor if live -->
+
+	<div *ngIf="(selectedMenuArticle$ | async).articleId">
+		<!-- crud-text-document -->
+		<crud-text-document
+			[articleTitleView]="articleTitleView"
+			[articleView]="articleView"
+			[isContentLive]="isContentLive"
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.TD"
+		>
+		</crud-text-document>
+		<!-- crud-text-document -->
+
+		<!-- crud-assignment-quiz -->
+		<crud-assignment-quiz
+			[assignmentPropertiesView]="assignmentPropertiesView"
+			[articleTitleView]="articleTitleView"
+			[articleView]="articleView"
+			[articleCompletionReward]="articleCompletionReward"
+			[isContentLive]="isContentLive"
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.QUIZ"
+		>
+		</crud-assignment-quiz>
+		<!-- crud-assignment-quiz -->
+
+		<!-- crud-flash-card -->
+		<crud-flash-card
+			[assignmentPropertiesView]="assignmentPropertiesView"
+			[articleTitleView]="articleTitleView"
+			[articleView]="articleView"
+			[articleCompletionReward]="articleCompletionReward"
+			[isContentLive]="isContentLive"
+			*ngIf="courseMaterialType === courseMaterialTypeIdEnum.FC"
+		>
+		</crud-flash-card>
+		<!-- crud-flash-card -->
+	</div>
 </ion-content>

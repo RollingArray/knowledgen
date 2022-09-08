@@ -125,3 +125,16 @@ ion-card-title{
     font-weight: 700;
     font-size: 18px;
 }
+
+.article-title {
+    margin: 20px 20px 20px 20px;
+
+    ion-item {
+        ion-icon {
+            margin: 0 10px 0 10px;
+        }
+        font-size: 30px;
+        font-weight: bold;
+        color: var(--ion-color-semi-dark);
+    }
+}

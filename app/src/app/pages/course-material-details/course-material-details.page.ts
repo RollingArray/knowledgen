@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-08-02 20:27:36
+ * Last modified  : 2022-09-08 10:19:39
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -23,6 +23,7 @@ import { CourseMaterialStateModel } from 'src/app/state/course-material/course-m
 import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { ParentMenuComponent } from 'src/app/component/parent-menu/parent-menu.component';
 import { PopoverController } from '@ionic/angular';
+import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
 
 @Component({
 	selector: "project-users",
@@ -85,6 +86,11 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	studyTimerStatus$: Observable<OperationsEnum>;
 
 	/**
+	 * Selected menu article$ of course material details page
+	 */
+	selectedMenuArticle$: Observable<MenuSelectModel>;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -126,17 +132,19 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 */
 	async ngOnInit()
 	{
+		this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.studyTimerStatus$ = this.rootStateFacade.studyTimerStatus$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
-		this.firstParentMenuId$
+		this.selectedMenuArticle$
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(articleId =>
+			.subscribe(menuSelectModel =>
 			{
-				if (articleId)
+				if (menuSelectModel.articleId)
 				{
-					this.selectedArticle = articleId as string;
+					this.router.navigate(['article', menuSelectModel.articleId], { relativeTo: this.activatedRoute });
 				}
 				else
 				{
