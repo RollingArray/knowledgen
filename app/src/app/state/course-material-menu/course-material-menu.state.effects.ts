@@ -12,7 +12,7 @@
 import { Injectable } from "@angular/core";
 import { concat, EMPTY } from "rxjs";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map, catchError, switchMap } from "rxjs/operators";
+import { mergeMap, map, catchError, switchMap, take } from "rxjs/operators";
 import { COURSE_MATERIAL_MENU_ACTIONS } from "./course-material-menu.state.actions";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "../root/root.state.facade";
@@ -24,6 +24,7 @@ import { COURSE_MATERIAL_ACTIONS } from "../course-material/course-material.stat
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
+import { CourseMaterialMenuStateFacade } from "./course-material-menu.state.facade";
 
 
 @Injectable()
@@ -44,7 +45,8 @@ export class CourseMaterialMenuStateEffects
 		private actions$: Actions,
 		private courseMaterialMenuService: CourseMaterialMenuService,
 		private toastService: ToastService,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade
 	) { }
 
 
@@ -62,7 +64,7 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.getCourseMaterialMenu(action.payload).pipe(
 						mergeMap((data) =>
 						{
-							let firstArticle: MenuSelectModel;
+							let storableArticle: MenuSelectModel;
 
 							let parentMenus: ParentMenuModel[] = [];
 
@@ -74,7 +76,7 @@ export class CourseMaterialMenuStateEffects
 							this.rootStateFacade.stopLoading();
 
 							const courseMaterial = data.data.courseMaterial;
-							
+
 							// if success response
 							if (data.success)
 							{
@@ -88,9 +90,9 @@ export class CourseMaterialMenuStateEffects
 										// get first article from the top parent menu list
 										if (index == 0)
 										{
-											
+
 											// build first selected menu as first parent menu
-											firstArticle = {
+											storableArticle = {
 												articleId: eachParentMenu.parentArticleId,
 												articleStatus: eachParentMenu.articleStatus,
 												courseMaterialId: eachParentMenu.courseMaterialId,
@@ -99,8 +101,9 @@ export class CourseMaterialMenuStateEffects
 												articleCompletionTime: eachParentMenu.articleCompletionTime,
 												articleCompletionReward: eachParentMenu.articleCompletionReward
 											};
+
 										}
-										
+
 										const courseMaterialParentMenuModel: ParentMenuModel = {
 											parentArticleId: eachParentMenu.parentArticleId,
 											parentArticleOrder: eachParentMenu.parentArticleOrder,
@@ -168,7 +171,42 @@ export class CourseMaterialMenuStateEffects
 												}
 											});
 										}
+
+
 									});
+
+									// compare selected menu and first menu
+									this.courseMaterialMenuStateFacade.selectedMenuArticle$
+										.pipe(take(1))
+										.subscribe(
+											selectedMenu =>
+											{
+												if (selectedMenu)
+												{
+													let menuType: MenuTypeEnum = this.getSelectedArticleMenuType(parentMenus, selectedMenu, childMenus, subChildMenus);
+
+													// if both are same material, save selectedMenu
+													if (selectedMenu.courseMaterialId === storableArticle.courseMaterialId)
+													{
+														// build first selected menu as first parent menu
+														storableArticle = {
+															articleId: selectedMenu.articleId,
+															articleStatus: selectedMenu.articleStatus,
+															courseMaterialId: selectedMenu.courseMaterialId,
+															courseMaterialType: selectedMenu.courseMaterialType,
+															menuType: menuType,
+														};
+													}
+
+													// else keep storableArticle as first article
+													else
+													{
+														// 
+													}
+												}
+											}
+										)
+
 								}
 
 								return [
@@ -178,10 +216,10 @@ export class CourseMaterialMenuStateEffects
 											payloadParentMenu: parentMenus,
 											payloadChildMenu: childMenus,
 											payloadSubChildMenu: subChildMenus
-	
+
 										}),
-									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({payload: firstArticle})
-								]; 
+									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: storableArticle })
+								];
 							}
 
 
@@ -271,7 +309,7 @@ export class CourseMaterialMenuStateEffects
 	/**
 	 * @description Add new category$ of global skill category state effects
 	 */
-	 editParentMenu$ = createEffect(
+	editParentMenu$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -309,12 +347,12 @@ export class CourseMaterialMenuStateEffects
 					),
 				),
 			),
-	 );
-	
+	);
+
 	/**
 	 * @description Add new category$ of global skill category state effects
 	 */
-	 deleteParentMenu$ = createEffect(
+	deleteParentMenu$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -357,7 +395,7 @@ export class CourseMaterialMenuStateEffects
 	/**
 	 * Add new sub child menu$ of course material menu state effects
 	 */
-	 addNewChildMenu$ = createEffect(
+	addNewChildMenu$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -402,8 +440,8 @@ export class CourseMaterialMenuStateEffects
 					),
 				),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Edit child menu$ of course material menu state effects
 	 */
@@ -445,8 +483,8 @@ export class CourseMaterialMenuStateEffects
 					),
 				),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Delete child menu$ of course material menu state effects
 	 */
@@ -489,7 +527,7 @@ export class CourseMaterialMenuStateEffects
 				),
 			),
 	);
-	
+
 	/**
 	 * Add new sub child menu$ of course material menu state effects
 	 */
@@ -543,7 +581,7 @@ export class CourseMaterialMenuStateEffects
 	/**
 	 * Edit child menu$ of course material menu state effects
 	 */
-	 editSubChildMenu$ = createEffect(
+	editSubChildMenu$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -581,8 +619,8 @@ export class CourseMaterialMenuStateEffects
 					),
 				),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Delete child menu$ of course material menu state effects
 	 */
@@ -665,7 +703,7 @@ export class CourseMaterialMenuStateEffects
 			),
 	);
 
-	
+
 
 	/**
 	 * Complete child menu add operation$ of course material menu state effects
@@ -691,8 +729,8 @@ export class CourseMaterialMenuStateEffects
 				),
 				map(action => COURSE_MATERIAL_MENU_ACTIONS.CHILD_MENU_UPDATED_SUCCESS()),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Complete child menu delete operation$ of course material menu state effects
 	 */
@@ -709,7 +747,7 @@ export class CourseMaterialMenuStateEffects
 	/**
 	 * Complete child menu add operation$ of course material menu state effects
 	 */
-	 completeSubChildMenuAddOperation$ = createEffect(
+	completeSubChildMenuAddOperation$ = createEffect(
 		() =>
 			this.actions$.pipe(
 				ofType(
@@ -717,8 +755,8 @@ export class CourseMaterialMenuStateEffects
 				),
 				map(action => COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_ADDED_SUCCESS()),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Complete sub child menu update operation$ of course material menu state effects
 	 */
@@ -730,8 +768,8 @@ export class CourseMaterialMenuStateEffects
 				),
 				map(action => COURSE_MATERIAL_MENU_ACTIONS.SUB_CHILD_MENU_UPDATED_SUCCESS()),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Complete sub child menu delete operation$ of course material menu state effects
 	 */
@@ -789,4 +827,35 @@ export class CourseMaterialMenuStateEffects
 				map(action => COURSE_MATERIAL_MENU_ACTIONS.CRUD_SUCCESS_SUB_CHILD_MENU()),
 			),
 	);
+
+	/**
+	 * Gets selected article menu type
+	 * @param parentMenus 
+	 * @param selectedMenu 
+	 * @param childMenus 
+	 * @param subChildMenus 
+	 * @returns  
+	 */
+	private getSelectedArticleMenuType(parentMenus: ParentMenuModel[], selectedMenu: MenuSelectModel, childMenus: ChildMenuModel[], subChildMenus: SubChildMenuModel[])
+	{
+		const foundInParentMenu = parentMenus.filter(menu => menu.parentArticleId === selectedMenu.articleId).length > 0 ? true : false;
+		const foundInChildMenu = childMenus.filter(menu => menu.childArticleId === selectedMenu.articleId).length > 0 ? true : false;
+		const foundInSubChildMenu = subChildMenus.filter(menu => menu.subChildArticleId === selectedMenu.articleId).length > 0 ? true : false;
+
+		let menuType: MenuTypeEnum;
+
+		if (foundInParentMenu)
+		{
+			menuType = MenuTypeEnum.PARENT_MENU;
+		}
+		else if (foundInChildMenu)
+		{
+			menuType = MenuTypeEnum.CHILD_MENU;
+		}
+		else if (foundInSubChildMenu)
+		{
+			menuType = MenuTypeEnum.SUB_CHILD_MENU;
+		}
+		return menuType;
+	}
 }

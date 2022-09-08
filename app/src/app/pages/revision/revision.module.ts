@@ -24,6 +24,7 @@ import { PanelInfoModule } from "src/app/component/panel-info/panel-info.compone
 import { I18nModule } from "src/app/shared/module/i18n.module";
 import { SharedModule } from "src/app/shared/module/shared.module";
 import { TimePipeModule } from "src/app/shared/pipe/time.pipe";
+import { CourseMaterialMenuStateModule } from "src/app/state/course-material-menu/course-material-menu.state.module";
 import { RevisionStateModule } from "src/app/state/revision/Revision.state.module";
 import { RootStateModule } from "src/app/state/root/root.state.module";
 import { RevisionPage } from "./revision.page";
@@ -52,6 +53,7 @@ const routes: Routes = [
 		TimePipeModule,
 		ViewButtonModule,
 		ContentLoadingModule,
+		CourseMaterialMenuStateModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [RevisionPage],

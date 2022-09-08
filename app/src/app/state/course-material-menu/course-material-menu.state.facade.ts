@@ -306,6 +306,7 @@ export class CourseMaterialMenuStateFacade
 	 */
 	public getSpecificPropertyOfMenu(property: string)
 	{
+
 		let menuProperty = '';
 		this.selectedMenuArticle$
 			.pipe(take(1))
@@ -313,6 +314,7 @@ export class CourseMaterialMenuStateFacade
 			{
 				switch (menuSelect.menuType)
 				{
+					
 					case MenuTypeEnum.PARENT_MENU:
 
 						this
@@ -355,7 +357,6 @@ export class CourseMaterialMenuStateFacade
 						break;
 				}
 			});
-
 		return menuProperty;
 	}
 }

@@ -15,9 +15,12 @@ import { Observable } from "rxjs";
 import { takeUntil, take } from "rxjs/operators";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ArticleModel } from "src/app/shared/model/article.model";
 import { CourseMaterialMenuModel } from "src/app/shared/model/course-material-menu.model";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { RevisionStateFacade } from "src/app/state/revision/revision.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 
@@ -105,7 +108,8 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 		injector: Injector,
 		private revisionStateFacade: RevisionStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private translateService: TranslateService
+		private translateService: TranslateService,
+		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade
 	)
 	{
 		super(injector);
@@ -140,7 +144,52 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * -------------------------------------------------|
 	 */
 
-
+	/**
+	 * Gets selected article menu type from material menus
+	 * @param articleId 
+	 * @returns  
+	 */
+	 private getSelectedArticleMenuTypeFromMaterialMenus(articleId: string)
+	 {
+		 let menuType: MenuTypeEnum;
+ 
+		 this.courseMaterialMenuStateFacade
+			 .parentMenuByArticleId$(articleId)
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(menuModel =>
+			 {
+				 if (menuModel)
+				 {
+					 menuType = MenuTypeEnum.PARENT_MENU;
+				 }
+			 });
+	 
+			 this.courseMaterialMenuStateFacade
+			 .childMenuByArticleId$(articleId)
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(menuModel =>
+			 {
+				 if (menuModel)
+				 {
+					 menuType = MenuTypeEnum.CHILD_MENU;
+				 }
+			 });
+		 
+			 this.courseMaterialMenuStateFacade
+			 .subChildMenuByArticleId$(articleId)
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(menuModel =>
+			 {
+				 if (menuModel)
+				 {
+					 menuType = MenuTypeEnum.SUB_CHILD_MENU;
+				 }
+			 });
+		 
+		 
+		 return menuType;
+	 }
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -200,8 +249,20 @@ export class RevisionPage extends BaseViewComponent implements OnInit, OnDestroy
 	 * Navigates to learning path details
 	 * @param courseMaterialId 
 	 */
-	public navigateToArticle(courseMaterialId: string, articleId: string)
+	public navigateToArticle(revision: CourseMaterialMenuModel)
 	{
-		this.router.navigate([`/go/course/material/${courseMaterialId}/articles/${articleId}`]);
+		// save menu as selected
+		const menuSelectModel: MenuSelectModel = {
+			articleId: revision.articleId,
+			articleStatus: revision.articleStatus,
+			courseMaterialId: revision.courseMaterialId,
+			menuType: this.getSelectedArticleMenuTypeFromMaterialMenus(revision.articleId),
+			courseMaterialType: revision.courseMaterialTypeId
+		};
+		
+		this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+
+		// navigate to page
+		this.router.navigate([`/go/course/material/${revision.courseMaterialId}/articles/article/${revision.articleId}`]);
 	}
 }

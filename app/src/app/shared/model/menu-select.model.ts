@@ -15,6 +15,6 @@ import { MenuTypeEnum } from '../enum/menu-type.enum';
 import { ArticleModel } from './article.model';
 
 export interface MenuSelectModel extends ArticleModel {
-	menuType: MenuTypeEnum,
+	menuType?: MenuTypeEnum,
 	courseMaterialType: CourseMaterialTypeIdEnum
 }

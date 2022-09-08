@@ -155,14 +155,6 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	async ngOnInit()
 	{
 		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
-		
-		// this.translateService
-		// 	.get('loading.holdTight')
-		// 	.pipe(takeUntil(this.unsubscribe))
-		// 	.subscribe(async (data: string) =>
-		// 	{
-		// 		this.errorMessage = data;
-		// 	});
 		this.loadData();
 	}
 	
@@ -212,15 +204,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			courseMaterialId: this._courseMaterialId
 		};
 
-		// this.translateService
-		// 	.get('loading.wait')
-		// 	.pipe(takeUntil(this.unsubscribe))
-		// 	.subscribe(async (data: string) =>
-		// 	{
-		// 		await this.rootStateFacade.startLoading(data);
-		// 	});
-		
-			this.rootStateFacade.startLoading('');
+		this.rootStateFacade.startLoading('');
 
 		this.courseMaterialMenuStateFacade.requestCourseMaterial(courseMaterialModel);
 	}
