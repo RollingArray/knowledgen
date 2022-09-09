@@ -17,9 +17,21 @@
 		<ion-title>
 			{{ pageTitle | translate }}
 		</ion-title>
-		<ion-buttons slot="end" *ngIf="courseMaterialQuiz.operationType !== operationsEnum.DELETE">
-			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
-				translate }}</ion-button>
+		<ion-buttons
+			slot="end"
+			*ngIf="
+				courseMaterialQuiz.operationType !== operationsEnum.DELETE &&
+				!(modalLoadingIndicatorStatus$ | async)
+			"
+		>
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()"
+			>
+				{{ "button.discard" | translate }}</ion-button
+			>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -27,10 +39,28 @@
 
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
 	<!-- page title -->
-	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
-	
+	<app-page-info-title
+		[title]="pageTitle | translate"
+		[info]="pageSubTitle | translate"
+	></app-page-info-title>
+
+	<!-- content loading -->
+	<content-loading
+		[formContent]="true"
+		*ngIf="modalLoadingIndicatorStatus$ | async"
+	></content-loading>
+	<!-- content loading -->
+
 	<!-- save btn -->
-	<ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="courseMaterialQuiz.operationType !== operationsEnum.DELETE">
+	<ion-fab
+		slot="fixed"
+		vertical="bottom"
+		horizontal="end"
+		*ngIf="
+			courseMaterialQuiz.operationType !== operationsEnum.DELETE &&
+			!(modalLoadingIndicatorStatus$ | async)
+		"
+	>
 		<ion-fab-button color="tertiary" (click)="submit()">
 			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
 		</ion-fab-button>
@@ -38,61 +68,107 @@
 	<!-- save btn -->
 
 	<!-- form -->
-	<ion-grid>
+	<ion-grid *ngIf="!(modalLoadingIndicatorStatus$ | async)">
 		<ion-row>
 			<ion-col>
 				<!-- question -->
 				<ion-card color="secondary">
 					<ion-item color="secondary" lines="none">
-						<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-						<p>{{ 'formInfo.question' | translate }}</p>
+						<ion-icon
+							[src]="stringKey.ICON_FORM"
+							slot="start"
+						></ion-icon>
+						<p>{{ "formInfo.question" | translate }}</p>
 					</ion-item>
 					<ion-card lines="none" color="light">
 						<html-content-toolbar></html-content-toolbar>
-						<div class="editable-content" #questionDocument contenteditable="true">
-							{{courseMaterialQuiz.question}}
+						<div
+							class="editable-content"
+							#questionDocument
+							contenteditable="true"
+						>
+							{{ courseMaterialQuiz.question }}
 						</div>
 					</ion-card>
 				</ion-card>
 				<!-- question -->
-				
+
 				<!-- answer type -->
 				<ion-card color="tertiary" *ngIf="courseMaterialQuiz.quizType">
 					<ion-segment [value]="courseMaterialQuiz.quizType">
-						<ion-segment-button (click)="addAnswerType(quizTypeEnum.MCQ)" [value]="quizTypeEnum.MCQ">
-							{{ 'formInfo.mcq' | translate }}
+						<ion-segment-button
+							(click)="addAnswerType(quizTypeEnum.MCQ)"
+							[value]="quizTypeEnum.MCQ"
+						>
+							{{ "formInfo.mcq" | translate }}
 							<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
 						</ion-segment-button>
-						<ion-segment-button (click)="addAnswerType(quizTypeEnum.TF)" [value]="quizTypeEnum.TF">
-							{{ 'formInfo.tf' | translate }}
+						<ion-segment-button
+							(click)="addAnswerType(quizTypeEnum.TF)"
+							[value]="quizTypeEnum.TF"
+						>
+							{{ "formInfo.tf" | translate }}
 							<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
 						</ion-segment-button>
 					</ion-segment>
 				</ion-card>
 				<!-- answer type -->
-				
+
 				<!-- answers -->
-				<ion-card color="secondary" *ngIf="courseMaterialQuiz.options.length">
+				<ion-card
+					color="secondary"
+					*ngIf="courseMaterialQuiz.options.length"
+				>
 					<ion-item color="secondary" lines="none">
-						<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-						<p>{{ 'formInfo.answer' | translate }}</p>
+						<ion-icon
+							[src]="stringKey.ICON_FORM"
+							slot="start"
+						></ion-icon>
+						<p>{{ "formInfo.answer" | translate }}</p>
 					</ion-item>
 					<div *ngFor="let answer of courseMaterialQuiz.options">
 						<!-- MCQ -->
-						<ion-card color="light" *ngIf="courseMaterialQuiz.quizType === quizTypeEnum.MCQ">
+						<ion-card
+							color="light"
+							*ngIf="
+								courseMaterialQuiz.quizType === quizTypeEnum.MCQ
+							"
+						>
 							<html-content-toolbar></html-content-toolbar>
-							<div class="editable-content" [id]="answer.answerId" contenteditable="true">
-								{{answer.answer}}
+							<div
+								class="editable-content"
+								[id]="answer.answerId"
+								contenteditable="true"
+							>
+								{{ answer.answer }}
 							</div>
-							<ion-grid >
+							<ion-grid>
 								<ion-row>
 									<ion-col>
-										<ion-button class="margin-10-px" [color]="answer.isCorrect ? 'success' : 'medium'" (click)="answerCheck(answer)">
-											<ion-icon [src]="stringKey.ICON_CHECK"></ion-icon>
+										<ion-button
+											class="margin-10-px"
+											[color]="
+												answer.isCorrect
+													? 'success'
+													: 'medium'
+											"
+											(click)="answerCheck(answer)"
+										>
+											<ion-icon
+												[src]="stringKey.ICON_CHECK"
+											></ion-icon>
 										</ion-button>
 									</ion-col>
-									<ion-col *ngIf="courseMaterialQuiz.operationType !== operationsEnum.DELETE">
-										<delete-button class="float-right margin-10-px" (event)="removeAnswer(answer)"></delete-button>	
+									<ion-col
+										*ngIf="
+											courseMaterialQuiz.operationType !==
+											operationsEnum.DELETE
+										"
+									>
+										<delete-button
+											class="float-right margin-10-px"
+											(event)="removeAnswer(answer)"
+										></delete-button>
 									</ion-col>
 								</ion-row>
 							</ion-grid>
@@ -100,17 +176,35 @@
 						<!-- MCQ -->
 
 						<!-- TF -->
-						<ion-card color="light" *ngIf="courseMaterialQuiz.quizType === quizTypeEnum.TF">
-							<ion-grid >
+						<ion-card
+							color="light"
+							*ngIf="
+								courseMaterialQuiz.quizType === quizTypeEnum.TF
+							"
+						>
+							<ion-grid>
 								<ion-row>
 									<ion-col>
-										<ion-button class="margin-10-px" [color]="answer.isCorrect ? 'success' : 'medium'" (click)="answerCheck(answer)">
-											<ion-icon [src]="stringKey.ICON_CHECK"></ion-icon>
+										<ion-button
+											class="margin-10-px"
+											[color]="
+												answer.isCorrect
+													? 'success'
+													: 'medium'
+											"
+											(click)="answerCheck(answer)"
+										>
+											<ion-icon
+												[src]="stringKey.ICON_CHECK"
+											></ion-icon>
 										</ion-button>
 									</ion-col>
 									<ion-col>
-										<div class="editable-content" [id]="answer.answerId">
-											{{answer.answer}}
+										<div
+											class="editable-content"
+											[id]="answer.answerId"
+										>
+											{{ answer.answer }}
 										</div>
 									</ion-col>
 								</ion-row>

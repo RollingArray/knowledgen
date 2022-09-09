@@ -28,6 +28,7 @@ import { CourseMaterialQuizStateFacade } from 'src/app/state/course-material-qui
 import { DOCUMENT } from '@angular/common';
 import { UtilityService } from 'src/app/shared/service/utility.service';
 import { take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'crud-quiz-question',
@@ -89,13 +90,17 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	 */
 	private _courseMaterialQuizAnswers: CourseMaterialQuizAnswerModel[] = [];
 
-
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable						|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Description  of crud quiz question component
+	 */
+	public modalLoadingIndicatorStatus$: Observable<boolean>;
 
 	/**
 	 * -------------------------------------------------|
@@ -257,7 +262,13 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 		private utilityService: UtilityService
 	)
 	{
+		
 		super(injector);
+
+		// check status of modal indicator status
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+		
+		this.modalLoadingIndicatorStatus$.subscribe(data => console.log(data));
 
 		// get act upon curd model from store
 		this.courseMaterialQuizStateFacade
@@ -309,23 +320,6 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	 */
 
 	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
-
-	/**
 	 * @description Cruds operation completion
 	 */
 	private crudOperationCompletion()
@@ -335,13 +329,19 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(async (operationsStatus: OperationsEnum) =>
 			{
+				
+				
 				switch (operationsStatus)
 				{
 					case OperationsEnum.SUCCESS:
 
 						const response = this.response;
+
 						if (response)
 						{
+							// remove loading indicator
+							this.rootStateFacade.stopModalLoading();
+							
 							// show tost
 							this.translateService
 							.get(response)
@@ -515,7 +515,7 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	{
 		if (this.ifFormValid())
 		{
-			this.initLoading();
+			this.rootStateFacade.startModalLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();	
 		}

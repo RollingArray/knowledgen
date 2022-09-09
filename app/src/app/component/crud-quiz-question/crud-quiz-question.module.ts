@@ -18,10 +18,10 @@ import { RouterModule } from '@angular/router';
 import { CrudQuizQuestionComponent } from './crud-quiz-question.component';
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
-import { KeywordModule } from '../keyword/keyword.component.module';
 import { HtmlContentToolbarModule } from '../html-content-toolbar/html-content-toolbar.module';
-import { CourseMaterialQuizStateModule } from 'src/app/state/course-material-quiz/course-material-quiz.state.module';
 import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { RootStateModule } from 'src/app/state/root/root.state.module';
 
 @NgModule({
 	imports: [
@@ -34,7 +34,9 @@ import { DeleteButtonModule } from '../button/delete-button/delete-button.compon
 		PageInfoTitleModule,
 		SharedModule,
 		HtmlContentToolbarModule,
-		DeleteButtonModule
+		DeleteButtonModule,
+		ContentLoadingModule,
+		RootStateModule
 	],
 
 	declarations: [CrudQuizQuestionComponent],

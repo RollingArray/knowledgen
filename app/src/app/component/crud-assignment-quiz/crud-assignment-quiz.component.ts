@@ -547,6 +547,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			.subscribe(async (operationsStatus: OperationsEnum) =>
 			{
 
+				console.log(operationsStatus);
 				// track operation status and  
 				switch (operationsStatus)
 				{
