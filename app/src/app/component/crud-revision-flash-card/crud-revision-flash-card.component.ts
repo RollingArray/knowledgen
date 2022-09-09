@@ -12,6 +12,7 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -125,6 +126,11 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	 * @public Instance variable						|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Description  of crud revision flash card component
+	 */
+	public modalLoadingIndicatorStatus$: Observable<boolean>;
 
 	/**
 	 * -------------------------------------------------|
@@ -334,6 +340,9 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	{
 		super(injector);
 
+		// check status of modal indicator status
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+		
 		// get act upon curd model from store
 		this.courseMaterialFlashCardStateFacade.operationCourseMaterialFlashCard$
 			.pipe(takeUntil(this.unsubscribe))
@@ -441,23 +450,6 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	 */
 
 	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
-
-	/**
 	 * @description Cruds operation completion
 	 */
 	private crudOperationCompletion()
@@ -472,6 +464,9 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 				{
 					case OperationsEnum.SUCCESS:
 
+						// remove loading indicator
+						this.rootStateFacade.stopModalLoading();
+						
 						const response = this.response;
 
 						// show tost
@@ -552,7 +547,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 				});
 		} else
 		{
-			this.initLoading();
+			this.rootStateFacade.startModalLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();
 		}

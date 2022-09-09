@@ -20,6 +20,7 @@ import { CourseMaterialFlashCardStateModule } from "src/app/state/course-materia
 import { DeleteButtonModule } from "../button/delete-button/delete-button.component.module";
 import { ContentAudioModule } from "../content-audio/content-audio.module";
 import { ContentImageModule } from "../content-image/content-image.module";
+import { ContentLoadingModule } from "../content-loading/content-loading.module";
 import { HtmlContentToolbarModule } from "../html-content-toolbar/html-content-toolbar.module";
 import { ImageHolderModule } from "../image-holder/image-holder.module";
 import { PageInfoTitleModule } from "../page-info-title/page-info-title.component.module";
@@ -40,7 +41,8 @@ import { CrudRevisionFlashCardComponent } from "./crud-revision-flash-card.compo
 		CourseMaterialFlashCardStateModule,
 		ContentImageModule,
 		ImageHolderModule,
-		ContentAudioModule
+		ContentAudioModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudRevisionFlashCardComponent],

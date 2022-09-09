@@ -86,9 +86,6 @@ export class CourseMaterialFlashCardStateEffects {
 				mergeMap(action =>
 					this.courseMaterialFlashCardService.crudCourseMaterialFlashCard(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
@@ -125,9 +122,6 @@ export class CourseMaterialFlashCardStateEffects {
 				mergeMap(action =>
 					this.courseMaterialFlashCardService.crudCourseMaterialFlashCard(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
@@ -163,9 +157,6 @@ export class CourseMaterialFlashCardStateEffects {
 				mergeMap(action =>
 					this.courseMaterialFlashCardService.crudCourseMaterialFlashCard(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
