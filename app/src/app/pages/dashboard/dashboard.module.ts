@@ -15,6 +15,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { AnalysisBoothModule } from "src/app/component/analysis-booth/analysis-booth.module";
 import { AssignmentsScoreAnalysisModule } from "src/app/component/assignments-score-analysis/assignments-score-analysis.module";
+import { ContentLoadingModule } from "src/app/component/content-loading/content-loading.module";
 import { CourseContentCoverageModule } from "src/app/component/course-content-coverage/course-content-coverage.module";
 import { CourseContentTimeCoverageModule } from "src/app/component/course-content-time-coverage/course-content-time-coverage.module";
 import { NoDataModule } from "src/app/component/no-data/no-data.component.module";
@@ -50,6 +51,7 @@ const routes: Routes = [
 		CourseContentTimeCoverageModule,
 		AssignmentsScoreAnalysisModule,
 		AnalysisBoothModule,
+		ContentLoadingModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [DashboardPage],

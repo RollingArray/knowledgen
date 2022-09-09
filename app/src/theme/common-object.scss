@@ -230,7 +230,7 @@ td:last-child {
 /*Variable margin top */
 @for $i from 1 through 500 {
 	.margin-top-#{$i}-px {
-		margin-top: #{$i}px;
+		margin-top: #{$i}px !important;
 	}
 }
 

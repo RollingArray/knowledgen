@@ -11,6 +11,91 @@
  */
  -->
 
+ <!-- graphContent -->
+<ng-container *ngIf="graphContent">
+	<ion-grid class="margin-10-px">
+		<ion-row>
+			<ion-col *ngFor="let eachLoop of [1, 2]">
+				<ion-grid>
+					<ion-row >
+						<ion-col>
+							<div
+								class="height-60-px width-30-px border-radius-10-px margin-top-140-px"
+							></div>
+						</ion-col>
+						<ion-col>
+							<div
+								class="height-80-px width-30-px border-radius-10-px margin-top-120-px"
+							></div>
+						</ion-col>
+						<ion-col>
+							<div
+								class="height-200-px width-30-px border-radius-10-px"
+							></div>
+						</ion-col>
+						<ion-col>
+							<div
+								class="height-20-px width-30-px border-radius-10-px margin-top-180-px"
+							></div>
+						</ion-col>
+						<ion-col>
+							<div
+								class="height-30-px width-30-px border-radius-10-px margin-top-170-px"
+							></div>
+						</ion-col>
+					</ion-row>
+					<ion-row>
+						<ion-col>
+							<ion-grid>
+								<ion-row>
+									<ion-col>
+										<ion-grid>
+											<ion-row>
+												<ion-col size="6">
+													<div
+														class="height-10-px border-radius-10-px margin-10-px"
+													></div>
+												</ion-col>
+											</ion-row>
+										</ion-grid>
+									</ion-col>
+								</ion-row>
+								<ion-row>
+									<ion-col>
+										<ion-grid>
+											<ion-row>
+												<ion-col size="4">
+													<div
+														class="height-10-px border-radius-10-px margin-10-px"
+													></div>
+												</ion-col>
+											</ion-row>
+										</ion-grid>
+									</ion-col>
+								</ion-row>
+								<ion-row>
+									<ion-col>
+										<ion-grid>
+											<ion-row>
+												<ion-col size="12">
+													<div
+														class="height-10-px border-radius-10-px margin-10-px"
+													></div>
+												</ion-col>
+											</ion-row>
+										</ion-grid>
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ng-container>
+<!-- graphContent -->
+
 <!-- generalContent -->
 <ng-container *ngIf="generalContent">
 	<ion-grid *ngFor="let eachLoop of [1, 2, 3]" class="margin-top-20-px">
@@ -603,3 +688,6 @@
 	</ion-grid>
 </ng-container>
 <!-- formContent -->
+
+
+

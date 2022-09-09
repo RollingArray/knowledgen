@@ -74,6 +74,11 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	hasStudentData$!: Observable<boolean>;
 
 	/**
+ * Loading indicator status$ of course material page
+ */
+	public loadingIndicatorStatus$: Observable<boolean>
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -170,6 +175,7 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	)
 	{
 		super(injector);
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
 	}
 
 	/**
@@ -177,13 +183,6 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	 */
 	async ngOnInit()
 	{
-		this.translateService
-			.get('loading.holdTight')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				this.errorMessage = data;
-			});
 		this.loadData();
 	}
 
@@ -225,14 +224,7 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	 */
 	async getDashboard()
 	{
-		this.translateService
-			.get('loading.wait')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-
+		this.rootStateFacade.startLoading('');
 		this.dashboardStateFacade.requestDashboardStudent();
 	}
 }

@@ -55,8 +55,13 @@
 	</ion-refresher>
 	<!-- refresh btn -->
 
+	<!-- content loading -->
+	<content-loading [gridContent]="true" [graphContent]="true" *ngIf="(loadingIndicatorStatus$ | async)"></content-loading>
+	<!-- content loading -->
+	
+
 	<!-- data container -->
-	<ng-container>
+	<ng-container *ngIf="!(loadingIndicatorStatus$ | async)">
 		<!-- profile -->
 		<div>
 			<ion-card
