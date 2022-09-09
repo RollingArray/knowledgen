@@ -145,7 +145,7 @@
 							<ion-grid>
 								<ion-row>
 									<ion-col>
-										<ion-button
+										<common-button
 											class="margin-10-px"
 											[color]="
 												answer.isCorrect
@@ -153,11 +153,9 @@
 													: 'medium'
 											"
 											(click)="answerCheck(answer)"
+											[icon]="stringKey.ICON_CHECK"
 										>
-											<ion-icon
-												[src]="stringKey.ICON_CHECK"
-											></ion-icon>
-										</ion-button>
+										</common-button>
 									</ion-col>
 									<ion-col
 										*ngIf="
@@ -185,7 +183,7 @@
 							<ion-grid>
 								<ion-row>
 									<ion-col>
-										<ion-button
+										<common-button
 											class="margin-10-px"
 											[color]="
 												answer.isCorrect
@@ -193,11 +191,9 @@
 													: 'medium'
 											"
 											(click)="answerCheck(answer)"
+											[icon]="stringKey.ICON_CHECK"
 										>
-											<ion-icon
-												[src]="stringKey.ICON_CHECK"
-											></ion-icon>
-										</ion-button>
+										</common-button>
 									</ion-col>
 									<ion-col>
 										<div

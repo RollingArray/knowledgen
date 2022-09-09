@@ -22,6 +22,7 @@ import { HtmlContentToolbarModule } from '../html-content-toolbar/html-content-t
 import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
 import { RootStateModule } from 'src/app/state/root/root.state.module';
+import { CommonButtonModule } from '../button/common-button/common-button.component.module';
 
 @NgModule({
 	imports: [
@@ -36,7 +37,8 @@ import { RootStateModule } from 'src/app/state/root/root.state.module';
 		HtmlContentToolbarModule,
 		DeleteButtonModule,
 		ContentLoadingModule,
-		RootStateModule
+		RootStateModule,
+		CommonButtonModule
 	],
 
 	declarations: [CrudQuizQuestionComponent],

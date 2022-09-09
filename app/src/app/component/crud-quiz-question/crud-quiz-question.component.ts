@@ -609,6 +609,7 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 			{
 				if (eachAnswer.answerId === answer.answerId)
 				{
+					console.log(document.getElementById(eachAnswer.answerId).innerHTML);
 					let option: CourseMaterialQuizAnswerModel = {
 						...eachAnswer,
 						answer: document.getElementById(eachAnswer.answerId).innerHTML,
