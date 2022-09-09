@@ -596,7 +596,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			articleId: this._selectedMenu.articleId
 		};
 
-		await this.rootStateFacade.startLoading('');
+		this.rootStateFacade.startLoading('');
 
 		this.courseMaterialFlashCardStateFacade.requestCourseMaterialFlashCard(model);
 	}
@@ -607,14 +607,6 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		this.rootStateFacade.startLoading('');
-	}
 
 	/**
 	 * Opens crud model
@@ -634,7 +626,20 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		// on model dismiss
 		modal.onDidDismiss().then((data) =>
 		{
-			//
+			switch (this._operationType)
+				{
+					case OperationsEnum.CREATE:
+						//this.openCrudModel();
+						break;
+					case OperationsEnum.EDIT:
+						//this.openCrudModel();
+						break;
+					case OperationsEnum.DELETE:
+						this.resetCard();
+						break;
+					default:
+						break;
+				}
 		});
 
 		// present modal
@@ -656,12 +661,15 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 				switch (operationsStatus)
 				{
 					case OperationsEnum.CREATE:
+						this._operationType = OperationsEnum.CREATE;
 						this.openCrudModel();
 						break;
 					case OperationsEnum.EDIT:
+						this._operationType = OperationsEnum.EDIT;
 						this.openCrudModel();
 						break;
 					case OperationsEnum.DELETE:
+						this._operationType = OperationsEnum.DELETE;
 						this.openCrudModel();
 						break;
 					default:
@@ -926,6 +934,23 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			this.trackCardFlip();
 		}, 0);
 	}
+
+	/**
+	 * Previous card
+	 */
+	 public resetCard()
+	 {
+		 this._flashCardAction = FlashCardActionEnum.NONE;
+		 this._cardIndex = 0;
+		 this.getSelectedCard();
+		 setTimeout(() =>
+		 {
+			 this._flashCardAction = FlashCardActionEnum.RIGHT;
+			 
+			 // track if card flipped
+			 this.trackCardFlip();
+		 }, 0);
+	 }
 
 	/**
 	 * Gets class

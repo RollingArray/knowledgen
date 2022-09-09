@@ -336,6 +336,7 @@
 		"deleteLearningPath": "Course Material removed from your learning path successfully!!",
 		"newFlashCard": "Flash Card has been saved, you can update any time",
 		"editFlashCard": "Flash Card has been updated successfully",
+		"deleteFlashCard": "Flash Card has been deleted successfully",
 		"articleRevision": "Article has been added for revision successfully"
 	},
 	"validation": {

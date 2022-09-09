@@ -356,7 +356,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 		//if the operation is delete, submit the data
 		if (this._courseMaterialFlashCard.operationType === OperationsEnum.DELETE)
 		{
-			this.submit();
+			this.checkIfWantToDelete();
 		}
 	}
 
@@ -441,6 +441,45 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 
 		return model;
 	}
+
+	/**
+	 * Checks if want to delete
+	 * @param selectedCourseMaterialModel 
+	 */
+	 private checkIfWantToDelete()
+	 {
+		 this.translateService
+			 .get([
+				 'actionAlert.confirm',
+				 'actionAlert.delete',
+				 'option.yes',
+				 'option.no',
+			 ]).pipe(takeUntil(this.unsubscribe))
+			 .subscribe(async data =>
+			 {
+ 
+				 const alert = await this.alertController.create({
+					 header: `${data['actionAlert.confirm']}`,
+					 subHeader: data['actionAlert.delete'],
+					 cssClass: 'custom-alert',
+					 mode: 'md',
+					 buttons: [
+						 {
+							 cssClass: 'ok-button ',
+							 text: data['option.yes'],
+							 handler: (_) => this.submit()
+						 },
+						 {
+							 cssClass: 'cancel-button',
+							 text: data['option.no'],
+							 handler: () => this.closeModal()
+						 }
+					 ]
+				 });
+				 await alert.present();
+			 });
+ 
+	 }
 
 	/**
 	 * -------------------------------------------------|
