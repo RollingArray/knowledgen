@@ -11,6 +11,7 @@
 
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { ArticleModel } from "src/app/shared/model/article.model";
 import { CourseMaterialMenuModel } from "src/app/shared/model/course-material-menu.model";
 import { REVISION_ACTIONS } from "./revision.state.actions";
 import { RevisionStateModel } from "./view/revision.state.model";
@@ -45,7 +46,15 @@ export class RevisionStateFacade {
 	/**
 	 * Requests revision
 	 */
-	public requestRevision(courseMaterialMenuModel: CourseMaterialMenuModel) {
-		this.revisionStore.dispatch(REVISION_ACTIONS.API_REQUEST_REVISION({payload: courseMaterialMenuModel}));
-	 }	
+	public requestRevision(articleModel: ArticleModel) {
+		this.revisionStore.dispatch(REVISION_ACTIONS.API_REQUEST_REVISION({payload: articleModel}));
+	}	
+	
+	/**
+	 * Requests add revision
+	 * @param articleModel 
+	 */
+	public requestAddRevision(articleModel: ArticleModel) {
+		this.revisionStore.dispatch(REVISION_ACTIONS.API_REQUEST_ADD_REVISION({payload: articleModel}));
+	}	
 }

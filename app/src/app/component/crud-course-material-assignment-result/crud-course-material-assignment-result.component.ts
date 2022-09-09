@@ -107,6 +107,11 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	public selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
+	 * Modal loading indicator status$ of crud course material assignment result component
+	 */
+	public modalLoadingIndicatorStatus$: Observable<boolean>;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -288,16 +293,6 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		return setDate.toISOString().split('T')[0];
 	}
 
-	// /**
-	//  * Sets space repetition day
-	//  */
-	// public set spaceRepetitionDay(value: string)
-	// {
-	// 	this._spaceRepetitionDay = value;
-	// }
-
-
-
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -330,6 +325,7 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 		// get result type
 		this._resultType = this.navParams.get('resultType');
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
 		if (this._resultType !== ResultTypeEnum.NONE)
 		{
 			// get act upon curd model from store
@@ -371,21 +367,6 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		// present loader
-		this.translateService
-			.get('loading.holdTightResult')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
 
 	/**
 	 * @description Cruds operation completion
@@ -431,7 +412,7 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 */
 	async submit()
 	{
-		this.initLoading();
+		this.rootStateFacade.startModalLoading();
 		this.launchOperation();
 		this.crudOperationCompletion();
 	}

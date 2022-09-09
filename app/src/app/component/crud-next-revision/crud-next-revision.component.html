@@ -12,51 +12,65 @@
  */
 -->
 
-<ion-card
-	class="padding-10-px card-no-shadow margin-0 card-no-border"
-	color="light"
->
-	<ion-card-header>
-		<panel-header
-			[panelTitle]="'pageTitle.nextRevision' | translate"
-			[panelIcon]="stringKey.ICON_REVISION"
-			[panelColor]="stringKey.COLOR_LIGHT"
-			[fontColor]="stringKey.COLOR_PRIMARY"
-		></panel-header>
-		<panel-info
-			*ngIf="resultType === resultTypeEnum.SCORE"
-			[panelColor]="stringKey.COLOR_LIGHT"
-			[title]="'pageSubTitle.nextRevisionScore' | translate"
-		></panel-info>
+<!-- content loading -->
+<content-loading
+	[formContent]="true"
+	*ngIf="modalLoadingIndicatorStatus$ | async"
+></content-loading>
+<!-- content loading -->
 
-		<panel-info
-			*ngIf="resultType === resultTypeEnum.TIME || resultType === resultTypeEnum.NONE"
-			[panelColor]="stringKey.COLOR_LIGHT"
-			[title]="'pageSubTitle.nextRevisionTime' | translate"
-		></panel-info>
-	</ion-card-header>
-</ion-card>
+<!-- no content -->
+<div *ngIf="!(modalLoadingIndicatorStatus$ | async)">
+	<ion-card
+		class="padding-10-px card-no-shadow margin-0 card-no-border"
+		color="light"
+	>
+		<ion-card-header>
+			<panel-header
+				[panelTitle]="'pageTitle.nextRevision' | translate"
+				[panelIcon]="stringKey.ICON_REVISION"
+				[panelColor]="stringKey.COLOR_LIGHT"
+				[fontColor]="stringKey.COLOR_PRIMARY"
+			></panel-header>
+			<panel-info
+				*ngIf="resultType === resultTypeEnum.SCORE"
+				[panelColor]="stringKey.COLOR_LIGHT"
+				[title]="'pageSubTitle.nextRevisionScore' | translate"
+			></panel-info>
 
-<ion-card
-	class="padding-10-px card-no-shadow margin-0 card-no-border"
-	color="white"
->
-	<ion-datetime
-		presentation="date"
-		class="margin-auto"
-		[value]="spaceRepetitionDay"
-		[(ngModel)]="spaceRepetitionDay"
-	></ion-datetime>
-</ion-card>
-<!-- next revision -->
+			<panel-info
+				*ngIf="
+					resultType === resultTypeEnum.TIME ||
+					resultType === resultTypeEnum.NONE
+				"
+				[panelColor]="stringKey.COLOR_LIGHT"
+				[title]="'pageSubTitle.nextRevisionTime' | translate"
+			></panel-info>
+		</ion-card-header>
+	</ion-card>
 
-<ion-item
-	color="tertiary"
-	class="text-center cursor-pointer"
-	(click)="submit()"
->
-	<ion-icon slot="end" [src]="stringKey.ICON_CALENDER"> </ion-icon>
-	<ion-label slot="end">
-		<b>{{ "button.setDate" | translate }} {{ spaceRepetitionDay }}</b>
-	</ion-label>
-</ion-item>
+	<ion-card
+		class="padding-10-px card-no-shadow margin-0 card-no-border"
+		color="white"
+	>
+		<ion-datetime
+			presentation="date"
+			class="margin-auto"
+			[value]="spaceRepetitionDay"
+			[(ngModel)]="spaceRepetitionDay"
+		></ion-datetime>
+	</ion-card>
+	<!-- next revision -->
+
+	<ion-item
+		color="tertiary"
+		class="text-center cursor-pointer"
+		(click)="submit()"
+	>
+		<ion-icon slot="end" [src]="stringKey.ICON_CALENDER"> </ion-icon>
+		<ion-label slot="end">
+			<b>{{ "button.setDate" | translate }} {{ spaceRepetitionDay }}</b>
+		</ion-label>
+	</ion-item>
+</div>
+<!-- no content -->

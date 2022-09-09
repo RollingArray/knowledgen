@@ -47,36 +47,52 @@ const reducer = createReducer(
 	})),
 
 	/**
+	 * Reducer for action - Start Modal Loading Indicator
+	 */
+	on(ROOT_ACTIONS.MODAL_LOADING_INDICATOR_START, (state, action) => ({
+		...state,
+		modalLoadingIndicatorStatus: true
+	})),
+
+	/**
+	 * Reducer for action - Stop Modal Loading Indicator
+	 */
+	on(ROOT_ACTIONS.MODAL_LOADING_INDICATOR_STOP, (state, action) => ({
+		...state,
+		modalLoadingIndicatorStatus: false
+	})),
+
+	/**
 	 * Reducer for action - Store Preferred Language
 	 */
-	 on(ROOT_ACTIONS.STORE_PREFERRED_LANGUAGE, (state, action) => ({
+	on(ROOT_ACTIONS.STORE_PREFERRED_LANGUAGE, (state, action) => ({
 		...state,
 		preferredLanguage: action.payload
-	 })),
+	})),
 
-	 /**
-	 * Reducer for action - Store Logged in user details
-	 */
-	 on(ROOT_ACTIONS.STORE_LOGGED_IN_USER_DETAILS, (state, action) => ({
+	/**
+	* Reducer for action - Store Logged in user details
+	*/
+	on(ROOT_ACTIONS.STORE_LOGGED_IN_USER_DETAILS, (state, action) => ({
 		...state,
 		loggedInUser: action.payload
-	 })),
+	})),
 
-	  /**
-	 * Reducer for action - Update user logged in status
-	 */
-	 on(ROOT_ACTIONS.UPDATE_USER_LOGGED_IN_STATUS, (state, action) => ({
+	/**
+   * Reducer for action - Update user logged in status
+   */
+	on(ROOT_ACTIONS.UPDATE_USER_LOGGED_IN_STATUS, (state, action) => ({
 		...state,
 		userLoggedInStatus: action.payload
-	 })),
+	})),
 
-	 /**
-	 * Reducer for action - Store study timer status
-	 */
-	 on(ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS, (state, action) => ({
+	/**
+	* Reducer for action - Store study timer status
+	*/
+	on(ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS, (state, action) => ({
 		...state,
 		studyTimerStatus: action.payload
-	 })),	 
+	})),
 );
 
 /**
@@ -85,6 +101,7 @@ const reducer = createReducer(
  * @param action 
  * @returns  
  */
-export function rootStateReducer(state: RootStateModel | undefined, action: Action) {
+export function rootStateReducer(state: RootStateModel | undefined, action: Action)
+{
 	return reducer(state, action);
 }

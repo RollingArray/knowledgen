@@ -14,6 +14,8 @@ export enum RootOperationsEnum {
 	HYDRATE_INITIAL_BROWSER_DATA = '[Root] Hydrate Initial Browser data',
 	LOADING_INDICATOR_START = '[Root] Start Loading Indicator',
 	LOADING_INDICATOR_STOP = '[Root] Stop Loading Indicator',
+	MODAL_LOADING_INDICATOR_START = '[Root] Start Modal Loading Indicator',
+	MODAL_LOADING_INDICATOR_STOP = '[Root] Stop Modal Loading Indicator',
 	SELECT_PREFERRED_LANGUAGE = '[Root] Select Preferred Language',
 	STORE_PREFERRED_LANGUAGE = '[Root] Store Preferred Language',
 	STORE_LOGGED_IN_USER_DETAILS = '[Root] Store Logged In User Details',

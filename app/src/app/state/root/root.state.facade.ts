@@ -27,6 +27,11 @@ export class RootStateFacade {
 	loadingIndicatorStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoadingIndicatorStatus);
 
 	/**
+	 * Modal loading indicator status$ of root state facade
+	 */
+	modalLoadingIndicatorStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectModalLoadingIndicatorStatus);
+
+	/**
 	 * Preferred language$ of root state facade
 	 */
 	preferredLanguage$ = this.store.select(ROOT_QUERY_SELECTOR.selectPreferredLanguage);
@@ -69,6 +74,20 @@ export class RootStateFacade {
 	 */
 	public stopLoading() {
 		this.store.dispatch(ROOT_ACTIONS.LOADING_INDICATOR_STOP());
+	}
+
+	/**
+	 * Starts modal loading
+	 */
+	public startModalLoading() {
+		this.store.dispatch(ROOT_ACTIONS.MODAL_LOADING_INDICATOR_START());
+	}
+
+	/**
+	 * Stops modal loading
+	 */
+	public stopModalLoading() {
+		this.store.dispatch(ROOT_ACTIONS.MODAL_LOADING_INDICATOR_STOP());
 	}
 
 	/**

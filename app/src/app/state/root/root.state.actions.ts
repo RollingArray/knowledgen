@@ -30,6 +30,20 @@ export const LOADING_INDICATOR_STOP = createAction(
 );
 
 /**
+ * @description Root action - Start Modal Loading Indicator
+ */
+ export const MODAL_LOADING_INDICATOR_START = createAction(
+	RootOperationsEnum.MODAL_LOADING_INDICATOR_START
+);
+
+/**
+ * @description Root action - Stop Modal Loading Indicator
+ */
+export const MODAL_LOADING_INDICATOR_STOP = createAction(
+	RootOperationsEnum.MODAL_LOADING_INDICATOR_STOP,
+);
+
+/**
  * @description Root action - Select Preferred Language
  */
 export const SELECT_PREFERRED_LANGUAGE = createAction(
@@ -145,6 +159,8 @@ export const NOOP = createAction(
 export const ROOT_ACTIONS = {
 	LOADING_INDICATOR_START,
 	LOADING_INDICATOR_STOP,
+	MODAL_LOADING_INDICATOR_START,
+	MODAL_LOADING_INDICATOR_STOP,
 	SELECT_PREFERRED_LANGUAGE,
 	STORE_PREFERRED_LANGUAGE,
 	HYDRATE_INITIAL_BROWSER_DATA,

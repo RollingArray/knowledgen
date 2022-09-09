@@ -56,6 +56,11 @@ export class ContentLoadingComponent implements OnInit {
 	 * Input  of content loading component
 	 */
 	@Input() graphContent = false;
+
+	/**
+	 * Input  of content loading component
+	 */
+	@Input() formContent = false;
 	
 	/**
 	 * Creates an instance of image holder component.

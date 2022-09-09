@@ -20,6 +20,7 @@ import { UserModel } from "src/app/shared/model/user.model";
  */
 export interface RootStateModel {
 	loadingIndicatorStatus: boolean;
+	modalLoadingIndicatorStatus: boolean;
 	preferredLanguage: string,
 	userLoggedInStatus: OperationsEnum,
 	loggedInUser: UserModel,
@@ -30,6 +31,7 @@ export interface RootStateModel {
  * @description Root initial state
  */
 export const INITIAL_ROOT_STATE: RootStateModel = {
+	modalLoadingIndicatorStatus: false,
 	loadingIndicatorStatus: false,
 	preferredLanguage: ArrayKey.LANGUAGES[0].code,
 	userLoggedInStatus: OperationsEnum.NOT_LOGGED_IN,

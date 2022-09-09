@@ -18,6 +18,8 @@ import { CrudNextRevisionComponent } from './crud-next-revision.component';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { PanelHeaderModule } from '../panel-header/panel-header.component.module';
 import { PanelInfoModule } from '../panel-info/panel-info.component.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { RevisionStateModule } from 'src/app/state/revision/Revision.state.module';
 
 @NgModule({
 	imports: [
@@ -26,7 +28,9 @@ import { PanelInfoModule } from '../panel-info/panel-info.component.module';
 		TranslateModule,
 		SharedModule,
 		PanelHeaderModule,
-		PanelInfoModule
+		PanelInfoModule,
+		ContentLoadingModule,
+		RevisionStateModule
 	],
 
 	declarations: [CrudNextRevisionComponent],

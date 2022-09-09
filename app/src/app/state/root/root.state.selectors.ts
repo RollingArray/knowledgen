@@ -29,6 +29,14 @@ export const selectLoadingIndicatorStatus: MemoizedSelector<RootStateModel, bool
 );
 
 /**
+ * @description Selector - Modal loading indicator status
+ */
+ export const selectModalLoadingIndicatorStatus: MemoizedSelector<RootStateModel, boolean> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): boolean => rootStateModel.modalLoadingIndicatorStatus
+);
+
+/**
  * @description Selector - Preferred Language
  */
 export const selectPreferredLanguage: MemoizedSelector<RootStateModel, string> = createSelector(
@@ -66,13 +74,16 @@ export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = cr
  export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
 	selectRootState,
 	(rootStateModel: RootStateModel): OperationsEnum => rootStateModel.studyTimerStatus
-);
+ );
+
+
 
 /**
  * export root state query to access all selectors
  */
 export const ROOT_QUERY_SELECTOR = {
 	selectLoadingIndicatorStatus,
+	selectModalLoadingIndicatorStatus,
 	selectPreferredLanguage,
 	selectUserLoggedInStatus,
 	selectLoggedInUser,

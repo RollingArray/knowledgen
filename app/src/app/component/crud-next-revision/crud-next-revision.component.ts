@@ -12,6 +12,7 @@
 
 import { Component, OnInit, Injector, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -23,6 +24,7 @@ import { ArticleModel } from "src/app/shared/model/article.model";
 import { ArticleRevisionService } from "src/app/shared/service/article-revision.service";
 import { LoadingService } from "src/app/shared/service/loading.service";
 import { ToastService } from "src/app/shared/service/toast.service";
+import { RevisionStateFacade } from "src/app/state/revision/revision.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
 
@@ -100,6 +102,7 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	 * @public Instance variable						|
 	 * -------------------------------------------------|
 	 */
+	 public modalLoadingIndicatorStatus$: Observable<boolean>;
 
 	/**
 	 * -------------------------------------------------|
@@ -131,7 +134,8 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 		private rootStateFacade: RootStateFacade,
 		private articleRevisionService: ArticleRevisionService,
 		private loadingService: LoadingService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private revisionStateFacade: RevisionStateFacade
 	)
 	{
 		super(injector);
@@ -142,7 +146,8 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	 */
 	ngOnInit()
 	{
-		//
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+		this.modalLoadingIndicatorStatus$.subscribe(data => console.log(data));
 	}
 
 	/**
@@ -158,21 +163,6 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		// present loader
-		this.translateService
-			.get('loading.holdTightResult')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
 
 	/**
 	 * -------------------------------------------------|
@@ -186,31 +176,13 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	 */
 	async submit()
 	{
-		this.initLoading();
+		this.rootStateFacade.startModalLoading();
 		const model: ArticleModel = {
 			articleId: this.articleId,
 			articleRevisionDate: this.spaceRepetitionDay,
 			operationType: OperationsEnum.CREATE
 		};
 
-		this.articleRevisionService
-			.crudArticleRevision(model)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(articleModel =>
-			{
-				this.loadingService.dismiss();
-				
-				// show tost
-				this.translateService
-					.get('response.articleRevision')
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async (data: string) =>
-					{
-						// success response
-						this.toastService.presentToast(
-							data
-						);
-					});
-			});
+		this.revisionStateFacade.requestAddRevision(model);
 	}
 }

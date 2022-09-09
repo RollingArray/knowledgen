@@ -320,7 +320,6 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 	{
 		super(injector);
 		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
-		//this.initLoading();
 	}
 
 	/**

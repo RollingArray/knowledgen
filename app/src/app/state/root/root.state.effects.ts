@@ -99,7 +99,7 @@ export class RootStateEffects
 					// if loading has text
 					if (action.payload !== '')
 					{
-						this.loadingService.present(action.payload);	
+						this.loadingService.present(action.payload);
 					}
 					return [
 						ROOT_ACTIONS.NOOP()
@@ -127,6 +127,47 @@ export class RootStateEffects
 				}),
 			),
 	);
+
+	/**
+	 * Start modal loading indicator$ of root state effects
+	 */
+	startModalLoadingIndicator$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.MODAL_LOADING_INDICATOR_START
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					// if any action
+					return [
+						ROOT_ACTIONS.NOOP()
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Stop modal loading indicator$ of root state effects
+	 */
+	stopModalLoadingIndicator$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.MODAL_LOADING_INDICATOR_STOP
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					// if any action
+					return [
+						ROOT_ACTIONS.NOOP()
+					];
+				}),
+			),
+	);
+
 
 	/**
 	 * Select preferred language$ of root state effects

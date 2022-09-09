@@ -23,6 +23,7 @@ import { CourseMaterialMenuStateModule } from 'src/app/state/course-material-men
 import { PanelHeaderModule } from '../panel-header/panel-header.component.module';
 import { PanelInfoModule } from '../panel-info/panel-info.component.module';
 import { CrudNextRevisionModule } from '../crud-next-revision/crud-next-revision.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 
 @NgModule({
 	imports: [
@@ -38,7 +39,8 @@ import { CrudNextRevisionModule } from '../crud-next-revision/crud-next-revision
 		CourseMaterialMenuStateModule,
 		PanelHeaderModule,
 		PanelInfoModule,
-		CrudNextRevisionModule
+		CrudNextRevisionModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudCourseMaterialAssignmentResultComponent],

@@ -21,7 +21,15 @@ import { RevisionOperationsEnum } from './revision-operations.enum';
 /**
  * @description Revision actions - Api Request Revisions
  */
-export const API_REQUEST_REVISION = createAction(
+ export const API_REQUEST_REVISION = createAction(
+	RevisionOperationsEnum.API_REQUEST_ADD_REVISION,
+	props<{ payload: ArticleModel }>()
+ );
+
+/**
+ * @description Revision actions - Api Request Add Revisions
+ */
+export const API_REQUEST_ADD_REVISION = createAction(
 	RevisionOperationsEnum.API_REQUEST_REVISION,
 	props<{ payload: ArticleModel }>()
 );
@@ -45,6 +53,7 @@ export const NOOP = createAction(
  * @description Export all
  */
 export const REVISION_ACTIONS = {
+	API_REQUEST_ADD_REVISION,
 	API_REQUEST_REVISION,
 	LOADED_REQUEST_REVISION,
 	NOOP,

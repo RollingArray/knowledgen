@@ -9,7 +9,9 @@
  * Last modified  : 2022-07-05 11:52:54
  */
 
-export enum RevisionOperationsEnum {
+export enum RevisionOperationsEnum
+{
+  API_REQUEST_ADD_REVISION = '[Revision] Api Request Add Revision',
   API_REQUEST_REVISION = '[Revision] Api Request Revision',
   LOADED_REQUEST_REVISION = '[Revision] Loaded Revision',
   NOOP = '[Revision] No Operation',
