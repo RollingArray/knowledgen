@@ -15,6 +15,7 @@ import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
@@ -285,6 +286,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			courseMaterialId: this.courseMaterialId,
 			articleTitle: '',
 			articleSummery: '',
+			articleStatus: ArticleStatusTypeEnum.PREVIEW,
 			articleCompletionReward: 10,
 			articleCompletionTime: 10,
 			operationType: OperationsEnum.CREATE

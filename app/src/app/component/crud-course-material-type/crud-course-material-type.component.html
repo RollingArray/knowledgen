@@ -18,8 +18,14 @@
 			{{ pageTitle | translate }}
 		</ion-title>
 		<ion-buttons slot="end">
-			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.discard' |
-				translate }}</ion-button>
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()"
+			>
+				{{ "button.discard" | translate }}</ion-button
+			>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -27,9 +33,20 @@
 
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
 	<!-- page title -->
-	<app-page-info-title [title]="pageTitle | translate " [info]="pageSubTitle | translate "></app-page-info-title>
+	<app-page-info-title
+		[title]="pageTitle | translate"
+		[info]="pageSubTitle | translate"
+	></app-page-info-title>
+
+	<!-- content loading -->
+	<content-loading
+		[formContent]="true"
+		*ngIf="modalLoadingIndicatorStatus$ | async"
+	></content-loading>
+	<!-- content loading -->
+
 	<!-- fab -->
-	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="!(modalLoadingIndicatorStatus$ | async)">
 		<ion-fab-button color="tertiary" (click)="submit()">
 			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
 		</ion-fab-button>
@@ -37,25 +54,48 @@
 	<!-- fab -->
 
 	<!-- form -->
-	<form [formGroup]="formGroup" (ngSubmit)="submit()" color="primary" lines="none">
+	<form
+		*ngIf="!(modalLoadingIndicatorStatus$ | async)"
+		[formGroup]="formGroup"
+		(ngSubmit)="submit()"
+		color="primary"
+		lines="none"
+	>
 		<ion-grid>
 			<ion-row>
 				<ion-col>
 					<!-- menu title -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-							<p>{{ 'formInfo.articleTitle' | translate }}</p>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.articleTitle" | translate }}</p>
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-input [disabled]="isOperationDelete" autocomplete="off" formControlName="articleTitle" type="text">
+								<ion-input
+									[disabled]="isOperationDelete"
+									autocomplete="off"
+									formControlName="articleTitle"
+									type="text"
+								>
 								</ion-input>
 							</ion-item>
-							<ion-card *ngIf="articleTitle.invalid && articleTitle.touched" color="warning">
+							<ion-card
+								*ngIf="
+									articleTitle.invalid && articleTitle.touched
+								"
+								color="warning"
+							>
 								<ion-item color="warning">
-									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
-									{{'validation.required'|translate}}
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									></ion-icon>
+									{{ "validation.required" | translate }}
 								</ion-item>
 							</ion-card>
 						</ion-card>
@@ -65,18 +105,36 @@
 					<!-- menu summery -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-							<p>{{ 'formInfo.articleSummery' | translate }}</p>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.articleSummery" | translate }}</p>
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-textarea [disabled]="isOperationDelete" autocomplete="off" formControlName="articleSummery" type="text">
+								<ion-textarea
+									[disabled]="isOperationDelete"
+									autocomplete="off"
+									formControlName="articleSummery"
+									type="text"
+								>
 								</ion-textarea>
 							</ion-item>
-							<ion-card *ngIf="articleSummery.invalid && articleSummery.touched" color="warning">
+							<ion-card
+								*ngIf="
+									articleSummery.invalid &&
+									articleSummery.touched
+								"
+								color="warning"
+							>
 								<ion-item color="warning">
-									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING"></ion-icon>
-									{{'validation.required'|translate}}
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									></ion-icon>
+									{{ "validation.required" | translate }}
 								</ion-item>
 							</ion-card>
 						</ion-card>
@@ -86,21 +144,47 @@
 					<!-- content type -->
 					<ion-card color="secondary" *ngIf="allowEditableFields">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-							<p>{{ 'formInfo.contentType' | translate }}</p>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.contentType" | translate }}</p>
 						</ion-item>
 						<ion-grid color="secondary">
 							<ion-row>
-								<ion-col size="6"  *ngFor="let courseMaterialType of arrayKey.COURSE_MATERIAL_TYPE">
-									<ion-card class="padding-10-px cursor-pointer" [color]="selectedCourseMaterialType(courseMaterialType)"
-										(click)="selectMaterialTypeId(courseMaterialType.id)">
-										<ion-icon size="large" [src]="courseMaterialType.icon"></ion-icon><br><br>
-										<ion-label class="segment">{{courseMaterialType.type | translate}}
+								<ion-col
+									size="6"
+									*ngFor="
+										let courseMaterialType of arrayKey.COURSE_MATERIAL_TYPE
+									"
+								>
+									<ion-card
+										class="padding-10-px cursor-pointer"
+										[color]="
+											selectedCourseMaterialType(
+												courseMaterialType
+											)
+										"
+										(click)="
+											selectMaterialTypeId(
+												courseMaterialType.id
+											)
+										"
+									>
+										<ion-icon
+											size="large"
+											[src]="courseMaterialType.icon"
+										></ion-icon
+										><br /><br />
+										<ion-label class="segment"
+											>{{
+												courseMaterialType.type
+													| translate
+											}}
 										</ion-label>
 									</ion-card>
 								</ion-col>
 							</ion-row>
-							
 						</ion-grid>
 					</ion-card>
 					<!-- content type -->
@@ -108,15 +192,23 @@
 					<!-- content duration -->
 					<ion-card color="secondary" *ngIf="ifTimeVisible">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-							<p>{{ 'formInfo.contentDuration' | translate }}</p>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.contentDuration" | translate }}</p>
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none">
-								<b>{{articleCompletionTime.value}}</b> &nbsp;{{ 'formInfo.minute' | translate }}
+								<b>{{ articleCompletionTime.value }}</b>
+								&nbsp;{{ "formInfo.minute" | translate }}
 							</ion-item>
 							<ion-item lines="none">
-								<ion-range [min]="0" [max]="180" formControlName="articleCompletionTime"></ion-range>
+								<ion-range
+									[min]="0"
+									[max]="180"
+									formControlName="articleCompletionTime"
+								></ion-range>
 							</ion-item>
 						</ion-card>
 					</ion-card>
@@ -125,15 +217,23 @@
 					<!-- content reward -->
 					<ion-card color="secondary" *ngIf="ifRewardVisible">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
-							<p>{{ 'formInfo.contentReward' | translate }}</p>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.contentReward" | translate }}</p>
 						</ion-item>
 						<ion-card lines="none" color="light">
 							<ion-item lines="none">
-								<b>{{articleCompletionReward.value}} </b>&nbsp;{{ 'formInfo.point' | translate }}
+								<b>{{ articleCompletionReward.value }} </b
+								>&nbsp;{{ "formInfo.point" | translate }}
 							</ion-item>
 							<ion-item lines="none">
-								<ion-range [min]="0" [max]="100" formControlName="articleCompletionReward"></ion-range>
+								<ion-range
+									[min]="0"
+									[max]="100"
+									formControlName="articleCompletionReward"
+								></ion-range>
 							</ion-item>
 						</ion-card>
 					</ion-card>

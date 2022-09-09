@@ -269,9 +269,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -319,9 +316,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -362,9 +356,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -405,9 +396,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -455,9 +443,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -498,9 +483,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -541,9 +523,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -591,9 +570,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{
@@ -634,9 +610,6 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudSubChildMenu(action.payload).pipe(
 						map((data) =>
 						{
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success)
 							{

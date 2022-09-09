@@ -20,6 +20,7 @@ import { CrudCourseMaterialTypeComponent } from './crud-course-material-type.com
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { KeywordModule } from '../keyword/keyword.component.module';
+import { ContentLoadingModule } from '../content-loading/content-loading.module';
 //import { CustomTitleModule } from '../custom-title/custom-title.module';
 //import { MessageModule } from '@rc-enterprise/message';
 
@@ -33,7 +34,8 @@ import { KeywordModule } from '../keyword/keyword.component.module';
 		RouterModule,
 		PageInfoTitleModule,
 		SharedModule,
-		KeywordModule
+		KeywordModule,
+		ContentLoadingModule
 	],
 
 	declarations: [CrudCourseMaterialTypeComponent],

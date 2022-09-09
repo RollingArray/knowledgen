@@ -29,6 +29,7 @@ import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
 import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
 import { NavParams } from '@ionic/angular';
 import { CourseMaterialTypeModel } from 'src/app/shared/model/course-material-type.model';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'crud-course-material-type',
@@ -118,7 +119,11 @@ export class CrudCourseMaterialTypeComponent
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
-
+	/**
+	 * Description  of crud course material type component
+	 */
+	public modalLoadingIndicatorStatus$: Observable<boolean>;
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -488,6 +493,10 @@ export class CrudCourseMaterialTypeComponent
 		super(injector);
 		this._menuType = this.navParams.get('menuType');
 		
+		// check status of modal indicator status
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+		
+		// build data based on menu type
 		this.buildSegmentedData();
 
 		// build form
@@ -696,23 +705,6 @@ export class CrudCourseMaterialTypeComponent
 	 */
 
 	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
-
-	/**
 	 * @description Cruds operation completion
 	 */
 	private crudOperationCompletion()
@@ -760,6 +752,9 @@ export class CrudCourseMaterialTypeComponent
 			case OperationsEnum.SUCCESS:
 				
 				const response = this.response;
+				
+				// remove loading indicator
+				this.rootStateFacade.stopModalLoading();
 				
 				// show tost
 				this.translateService
@@ -904,6 +899,7 @@ export class CrudCourseMaterialTypeComponent
 	 */
 	async submit()
 	{
+
 		if (this.formGroup.invalid)
 		{
 			this.translateService
@@ -919,7 +915,8 @@ export class CrudCourseMaterialTypeComponent
 				});
 		} else
 		{
-			this.initLoading();
+			console.log("delete");
+			this.rootStateFacade.startModalLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();
 		}
