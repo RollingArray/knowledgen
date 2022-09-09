@@ -50,7 +50,7 @@ export class CourseMaterialAssignmentStateEffects {
 					this.courseMaterialAssignmentService.assignmentResult(action.payload).pipe(
 						map((data) => {
 							// stop loader
-							this.rootStateFacade.stopLoading();
+							this.rootStateFacade.stopModalLoading();
 
 							// if success response
 							if (data.success) {
