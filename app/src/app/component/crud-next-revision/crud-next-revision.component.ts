@@ -147,7 +147,6 @@ export class CrudNextRevisionComponent extends BaseFormComponent implements OnIn
 	ngOnInit()
 	{
 		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
-		this.modalLoadingIndicatorStatus$.subscribe(data => console.log(data));
 	}
 
 	/**

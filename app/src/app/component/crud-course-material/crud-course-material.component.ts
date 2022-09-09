@@ -23,6 +23,7 @@ import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
 import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'crud-course-material',
@@ -80,6 +81,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
+	 public modalLoadingIndicatorStatus$: Observable<boolean>;
 
 	/**
 	 * -------------------------------------------------|
@@ -237,6 +239,9 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	{
 		super(injector);
 
+		// check status of modal indicator status
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+
 		// get act upon curd model from store
 		this.courseMaterialStateFacade.operationCourseMaterial$
 			.pipe(takeUntil(this.unsubscribe))
@@ -331,23 +336,6 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 
 	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		const loading = this.loading;
-
-		// present loader
-		this.translateService
-			.get(loading)
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
-
-	/**
 	 * @description Cruds operation completion
 	 */
 	private crudOperationCompletion()
@@ -364,6 +352,9 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 
 						const response = this.response;
 
+						// remove loading indicator
+						this.rootStateFacade.stopModalLoading();
+						
 						// show tost
 						this.translateService
 							.get(response)
@@ -442,7 +433,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 				});
 		} else
 		{
-			this.initLoading();
+			this.rootStateFacade.startModalLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();
 		}

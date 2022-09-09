@@ -135,9 +135,6 @@ export class CourseMaterialStateEffects {
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
@@ -181,9 +178,6 @@ export class CourseMaterialStateEffects {
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
@@ -220,9 +214,6 @@ export class CourseMaterialStateEffects {
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
 						map((data) => {
-							// stop loader
-							this.rootStateFacade.stopLoading();
-
 							// if success response
 							if (data.success) {
 
