@@ -316,6 +316,9 @@ export class CourseMaterialMenuStateEffects
 					this.courseMaterialMenuService.crudParentMenu(action.payload).pipe(
 						map((data) =>
 						{
+							// hide loading, applicable for change visibility section
+							this.rootStateFacade.stopLoading();
+
 							// if success response
 							if (data.success)
 							{

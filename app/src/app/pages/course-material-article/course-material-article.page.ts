@@ -358,21 +358,6 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	}
 
 	/**
-	 * @description Inits loading
-	 */
-	private initLoading()
-	{
-		// present loader
-		this.translateService
-			.get('loading.changeVisibility')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-	}
-
-	/**
 	 * @description Cruds operation completion
 	 */
 	private launchOperation()
@@ -556,7 +541,7 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 							text: data['option.yes'],
 							handler: (_) =>
 							{
-								this.initLoading();
+								this.rootStateFacade.startLoading('');
 								this.launchOperation();
 								this.crudOperationCompletion();
 							}
