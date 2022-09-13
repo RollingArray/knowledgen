@@ -8,29 +8,47 @@ use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
+use App\Http\Interfaces\LearningPathServiceInterface;
 use App\Models\CourseMaterialArticleModel;
 use App\Models\CourseMaterialMenuModel;
 use App\Models\CourseMaterialParentMenuModel;
 
 class CourseMaterialMenuController extends Controller
 {
-    /**
+	/**
 	 * jwtAuthServiceInterface
 	 *
 	 * @var mixed
 	 */
 	protected $jwtAuthServiceInterface;
-	
+
 	/**
 	 * courseMaterialArticleServiceInterface
 	 *
 	 * @var mixed
 	 */
 	protected $courseMaterialArticleServiceInterface;
-
+	
+	/**
+	 * courseMaterialMenuServiceInterface
+	 *
+	 * @var mixed
+	 */
 	protected $courseMaterialMenuServiceInterface;
-
+	
+	/**
+	 * courseMaterialServiceInterface
+	 *
+	 * @var mixed
+	 */
 	protected $courseMaterialServiceInterface;
+	
+	/**
+	 * learningPathServiceInterface
+	 *
+	 * @var mixed
+	 */
+	protected $learningPathServiceInterface;
 
 	/**
 	 * __construct
@@ -41,12 +59,15 @@ class CourseMaterialMenuController extends Controller
 		JWTAuthServiceInterface $jwtAuthServiceInterface,
 		CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
 		CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface,
-		CourseMaterialServiceInterface $courseMaterialServiceInterface
+		CourseMaterialServiceInterface $courseMaterialServiceInterface,
+		LearningPathServiceInterface $learningPathServiceInterface,
+
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
 		$this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
 		$this->courseMaterialMenuServiceInterface = $courseMaterialMenuServiceInterface;
 		$this->courseMaterialServiceInterface = $courseMaterialServiceInterface;
+		$this->learningPathServiceInterface = $learningPathServiceInterface;
 	}
 
 	/**
@@ -91,15 +112,18 @@ class CourseMaterialMenuController extends Controller
 			$request->input('course_material_id')
 		);
 
+		// ser add to learning path object along with course material
+		$courseMaterial['addedToLearningPath'] = $this->learningPathServiceInterface->checkIfCourseMaterialInLearningPath($request->header('UserId'), $request->input('course_material_id'));
+
 		$data = array(
 			'courseMaterial' => $courseMaterial,
 			'courseMaterialMenu' => $courseMaterialMenu
 		);
 
 		return $this->jwtAuthServiceInterface->sendBackToClient(
-			$request->header('Auth'), 
-			$request->header('UserId'), 
-			'data', 
+			$request->header('Auth'),
+			$request->header('UserId'),
+			'data',
 			$data
 		);
 	}
@@ -111,65 +135,65 @@ class CourseMaterialMenuController extends Controller
 	 * @return void
 	 */
 	public function add(Request $request)
-    {
+	{
 		$token = $request->header('Auth');
-        $userId = $request->header('UserId');
+		$userId = $request->header('UserId');
 
-        //creating a validator
-        $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
+		//creating a validator
+		$validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
 
-        //if validation fails 
-        if ($validator->fails()) {
-            return response(
-                array(
-                    'error' => true,
-                    'message' => $validator->errors()->all()
-                ),
-                400
-            );
-        }
+		//if validation fails 
+		if ($validator->fails()) {
+			return response(
+				array(
+					'error' => true,
+					'message' => $validator->errors()->all()
+				),
+				400
+			);
+		}
 
 		// generate article id
 		$articleId = uniqid();
 
 		// save course martial article model
 		//creating a new model
-        $model = new CourseMaterialArticleModel();
+		$model = new CourseMaterialArticleModel();
 
 		//adding values to the model
-        $model->course_material_id = $request->input('course_material_id');
-        $model->article_id = $articleId;
-        $model->article_title = $request->input('article_title');
+		$model->course_material_id = $request->input('course_material_id');
+		$model->article_id = $articleId;
+		$model->article_title = $request->input('article_title');
 		$model->article_summery = $request->input('article_summery');
 		$model->course_material_type_id = $request->input('course_material_type_id');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
-        
-        //saving the model to database
-        $model->save();
+
+		//saving the model to database
+		$model->save();
 
 		// save course martial sub child menu
-        //creating a new model
-        $model = new CourseMaterialParentMenuModel();
+		//creating a new model
+		$model = new CourseMaterialParentMenuModel();
 
 		//adding values to the model
-        $model->parent_article_id = $articleId;
+		$model->parent_article_id = $articleId;
 		$model->course_material_id = $request->input('course_material_id');
-        $model->parent_article_order = $request->input('parent_article_order');
+		$model->parent_article_order = $request->input('parent_article_order');
 
-        //saving the model to database
-        $model->save();
+		//saving the model to database
+		$model->save();
 
-		
+
 		// get the saved sub child mode;
 		$model = $this->courseMaterialMenuServiceInterface->getParentMenuById(
 			$request->input('course_material_id'),
 			$articleId
 		);
 
-        // return to client
+		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
-    }
+	}
 
 	/**
 	 * edit
@@ -178,40 +202,40 @@ class CourseMaterialMenuController extends Controller
 	 * @return void
 	 */
 	public function edit(Request $request)
-    {
+	{
 		$token = $request->header('Auth');
-        $userId = $request->header('UserId');
+		$userId = $request->header('UserId');
 
-        //creating a validator
-        $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
+		//creating a validator
+		$validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
 
-        //if validation fails 
-        if ($validator->fails()) {
-            return response(
-                array(
-                    'error' => true,
-                    'message' => $validator->errors()->all()
-                ),
-                400
-            );
-        }
+		//if validation fails 
+		if ($validator->fails()) {
+			return response(
+				array(
+					'error' => true,
+					'message' => $validator->errors()->all()
+				),
+				400
+			);
+		}
 
-        //find model
+		//find model
 		$model = $this->courseMaterialArticleServiceInterface->getCourseMaterialArticleById($request->input('parent_article_id'));
 
-        //modify values to the model
+		//modify values to the model
 		$model->article_title = $request->input('article_title');
 		$model->article_summery = $request->input('article_summery');
 		$model->article_status = $request->input('article_status');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
-        
-        //saving the model to database
-        $model->save();
 
-        // return to client
+		//saving the model to database
+		$model->save();
+
+		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
-    }
+	}
 
 	/**
 	 * delete
@@ -220,25 +244,25 @@ class CourseMaterialMenuController extends Controller
 	 * @return void
 	 */
 	public function delete(Request $request)
-    {
+	{
 		$token = $request->header('Auth');
-        $userId = $request->header('UserId');
+		$userId = $request->header('UserId');
 
-        //creating a validator
-        $validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
+		//creating a validator
+		$validator = Validator::make($request->all(), $this->rules(), $this->customMessages());
 
-        //if validation fails 
-        if ($validator->fails()) {
-            return response(
-                array(
-                    'error' => true,
-                    'message' => $validator->errors()->all()
-                ),
-                400
-            );
-        }
+		//if validation fails 
+		if ($validator->fails()) {
+			return response(
+				array(
+					'error' => true,
+					'message' => $validator->errors()->all()
+				),
+				400
+			);
+		}
 
-        //delete parent menu
+		//delete parent menu
 		$model = $this->courseMaterialMenuServiceInterface->deleteParentMenu(
 			$request->input('course_material_id'),
 			$request->input('parent_article_id')
@@ -249,7 +273,7 @@ class CourseMaterialMenuController extends Controller
 			$request->input('parent_article_id')
 		);
 
-        // return to client
+		// return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
-    }
+	}
 }
