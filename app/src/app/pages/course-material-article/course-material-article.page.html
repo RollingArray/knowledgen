@@ -7,12 +7,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-09-13 10:21:14
+ * Last modified  : 2022-09-13 12:24:40
  */
  -->
 <!-- header -->
 <ion-content #articleView>
-	<!-- article title -->
+	<!-- article title / summery -->
 	<div
 		#articleTitleView
 		class="article-title"
@@ -21,9 +21,11 @@
 			articleTitle !== 'noData.contentDeleted'
 		"
 	>
-		<ion-item>
+		<!-- article title -->
+		<ion-item lines="none">
 			<ion-thumbnail slot="start">
 				<ion-icon
+					color="primary"
 					[src]="
 						getMenuIcon(
 							(selectedMenuArticle$ | async).courseMaterialType
@@ -33,10 +35,28 @@
 				>
 				</ion-icon>
 			</ion-thumbnail>
-			{{ articleTitle }}
+			<ion-text color="primary">{{ articleTitle }}</ion-text>
 		</ion-item>
+		<!-- article title -->
+
+		<!-- article summery -->
+		<ion-item class="padding-left-20-px">
+			<ion-icon
+				class="font-size-medium"
+				color="medium"
+				[src]="
+						stringKey.ICON_INFO
+					"
+			>
+			</ion-icon>
+			<ion-label color="medium" class="ion-text-wrap font-size-15-px">
+				{{ articleSummery }}
+			</ion-label>
+			<!--  -->
+		</ion-item>
+		<!-- article summery -->
 	</div>
-	<!-- article title -->
+	<!-- article title / summery -->
 
 	<!-- content change visibility -->
 	<content-change-visibility></content-change-visibility>

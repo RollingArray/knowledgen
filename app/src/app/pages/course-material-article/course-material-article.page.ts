@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-13 10:21:53
+ * Last modified  : 2022-09-13 12:06:00
  */
 
 import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef, Injector, SimpleChanges } from "@angular/core";
@@ -169,6 +169,14 @@ export class CourseMaterialArticlePage extends BaseViewComponent implements OnIn
 	get articleTitle()
 	{
 		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleTitle');
+	}
+
+	/**
+	 * Gets article summery
+	 */
+	get articleSummery()
+	{
+		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleSummery');
 	}
 
 	/**
