@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-08 10:19:39
+ * Last modified  : 2022-09-13 19:19:54
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -47,7 +47,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * @private Instance variable								|
 	 * -------------------------------------------------|
 	 */
-	
+
 	/**
 	 * Article menu closed of course material details page
 	 */
@@ -59,7 +59,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * -------------------------------------------------|
 	 */
 	@ViewChild('articleMenu', { read: ElementRef, static: false }) articleMenu: ElementRef;
-	
+
 	/**
 	 * Description  of course material page
 	 */
@@ -101,7 +101,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	{
 		return this._articleMenuClosed;
 	}
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -132,25 +132,35 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 */
 	async ngOnInit()
 	{
+
 		this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.studyTimerStatus$ = this.rootStateFacade.studyTimerStatus$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
+
+	}
+
+	/**
+	 * Ions view did enter
+	 */
+	ionViewDidEnter()
+	{
 		this.selectedMenuArticle$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(menuSelectModel =>
 			{
 				if (menuSelectModel.articleId)
 				{
+
 					this.router.navigate(['article', menuSelectModel.articleId], { relativeTo: this.activatedRoute });
 				}
 				else
 				{
 					///
 				}
-				
+
 			});
 	}
 
@@ -161,7 +171,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * -------------------------------------------------|
 	 */
 
-	
+
 
 	/**
 	 * -------------------------------------------------|
@@ -174,7 +184,8 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 * @description Knowledges base navigation
 	 * @param ev 
 	 */
-	 async knowledgeBaseNavigation(ev: any) {
+	async knowledgeBaseNavigation(ev: any)
+	{
 		const popover = await this.popoverController.create({
 			component: ParentMenuComponent,
 			cssClass: 'popover-view',
@@ -187,30 +198,32 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		await popover.present();
 
 		// check the return data
-		popover.onDidDismiss().then(async data => {
-			if (data.data.returnData) {
+		popover.onDidDismiss().then(async data =>
+		{
+			if (data.data.returnData)
+			{
 				//this.gotoPage(data.data.returnData);
 			}
 
 		});
-	 }
-	
+	}
+
 	/**
 	 * Goto page
 	 * @param articleId 
 	 */
-	gotoPage(articleId  : string)
+	gotoPage(articleId: string)
 	{
-		
+
 		this.selectedArticle = articleId as string;
 	}
-	
+
 	/**
 	 * Shows menu
 	 */
 	public async showMenu()
 	{
 		this._articleMenuClosed = !this._articleMenuClosed;
-	} 	
+	}
 }
 
