@@ -3,11 +3,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material page template
+ * @summary Course material article page template
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-07-18 19:15:31
+ * Last modified  : 2022-09-13 10:21:14
  */
  -->
 <!-- header -->
@@ -38,32 +38,9 @@
 	</div>
 	<!-- article title -->
 
-	<!-- live / preview message -->
-	<ion-card
-		*ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner"
-		[color]="
-			visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'warning'
-		"
-	>
-		<ion-card-content>
-			<ion-item lines="none" color="none">
-				<p>{{ visibilityInfo | translate }}</p>
-				<ion-button
-					slot="end"
-					color="danger"
-					(click)="changeVisibility()"
-					*ngIf="
-						visibilityInfo !== 'formInfo.visibilityLiveNoChange'
-							? true
-							: false
-					"
-				>
-					{{ "button.changeVisibility" | translate }}
-				</ion-button>
-			</ion-item>
-		</ion-card-content>
-	</ion-card>
-	<!-- live / preview message -->
+	<!-- content change visibility -->
+	<content-change-visibility></content-change-visibility>
+	<!-- content change visibility -->
 
 	<!-- show assignment properties for material owner even if not live -->
 	<assignment-properties

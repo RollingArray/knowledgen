@@ -2,62 +2,55 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material page
+ * @summary Course material article page
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-20 01:40:34
+ * Last modified  : 2022-09-13 10:21:53
  */
 
- import { BaseViewComponent } from 'src/app/component/base/base-view.component';
- import { Component, OnInit, OnDestroy, Injector, OnChanges, ElementRef, Input, ViewChild, SimpleChanges } from '@angular/core';
- import { Observable } from 'rxjs';
- import { RootStateFacade } from 'src/app/state/root/root.state.facade';
- import { take, takeUntil } from 'rxjs/operators';
- import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
- import { TranslateService } from '@ngx-translate/core';
- import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
- import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
- import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
- import { CourseMaterialStateModel } from 'src/app/state/course-material/course-material/course-material.state.model';
- import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
-import { CookieService } from 'ngx-cookie-service';
-import { ArrayKey } from 'src/app/shared/constant/array.constant';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
-import { StringKey } from 'src/app/shared/constant/string.constant';
-import { ArticleStatusTypeEnum } from 'src/app/shared/enum/article-status-type.enum';
-import { CourseMaterialTypeIdEnum } from 'src/app/shared/enum/course-material-type-id.enum';
-import { ElementTypeEnum } from 'src/app/shared/enum/element-type.enum';
-import { MenuTypeEnum } from 'src/app/shared/enum/menu-type.enum';
-import { TitleTypeEnum } from 'src/app/shared/enum/title-type.enum';
-import { ArticleModel } from 'src/app/shared/model/article.model';
-import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
-import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
-import { SubChildMenuModel } from 'src/app/shared/model/sub-child-menu.model';
-import { ToastService } from 'src/app/shared/service/toast.service';
- 
- @Component({
-	 selector: "course-material-article",
-	 templateUrl: "./course-material-article.page.html",
-	 styleUrls: ["./course-material-article.page.scss"]
- })
- export class CourseMaterialArticlePage extends BaseViewComponent implements OnInit, OnDestroy, OnChanges
- {
-	 /**
-	 * -------------------------------------------------|
-	 * @description										|
-	 * Readonly properties								|
-	 * -------------------------------------------------|
+import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef, Injector, SimpleChanges } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
+import { Observable } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { BaseViewComponent } from "src/app/component/base/base-view.component";
+import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
+import { StringKey } from "src/app/shared/constant/string.constant";
+import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
+import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
+import { ElementTypeEnum } from "src/app/shared/enum/element-type.enum";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
+import { TitleTypeEnum } from "src/app/shared/enum/title-type.enum";
+import { ArticleModel } from "src/app/shared/model/article.model";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+
+@Component({
+	selector: "course-material-article",
+	templateUrl: "./course-material-article.page.html",
+	styleUrls: ["./course-material-article.page.scss"]
+})
+export class CourseMaterialArticlePage extends BaseViewComponent implements OnInit, OnDestroy, OnChanges
+{
+	/**
+	* -------------------------------------------------|
+	* @description										|
+	* Readonly properties								|
+	* -------------------------------------------------|
+	*/
+	/**
+	 * Description  of course material article page
 	 */
-	 /**
-	  * Description  of course material article page
-	  */
-	 readonly courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
-	 
-	 /**
-	  * Article id of course material article page
-	  */
-	 readonly articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+	readonly courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+
+	/**
+	 * Article id of course material article page
+	 */
+	readonly articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
 
 	/**
 	 * @description Title type enum of search skill component
@@ -155,7 +148,7 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	 * View child of knowledge base article component
 	 */
 	@ViewChild('assignmentPropertiesView', { read: ElementRef, static: false }) assignmentPropertiesView: ElementRef;
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -184,17 +177,6 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	get courseMaterialType()
 	{
 		return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('courseMaterialTypeId');
-	}
-
-	/**
-	 * Gets visibility info
-	 */
-	get visibilityInfo()
-	{
-		const visibility = 'formInfo.visibilityLive';
-		const articleStatus = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleStatus');
-		const courseMaterialTypeId = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('courseMaterialTypeId');
-		return this.selectArticleStatus(articleStatus, courseMaterialTypeId, visibility);
 	}
 
 	/**
@@ -268,17 +250,20 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private translateService: TranslateService,
-		private toastService: ToastService,
 		private cookieService: CookieService
 	)
 	{
 		super(injector);
 	}
-	 ngOnChanges(changes: SimpleChanges): void
-	 {
-		 throw new Error('Method not implemented.');
-	 }
+
+	/**
+	 * on changes
+	 * @param changes 
+	 */
+	ngOnChanges(changes: SimpleChanges): void
+	{
+		throw new Error('Method not implemented.');
+	}
 
 	/**
 	 * on init
@@ -289,7 +274,6 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-		this.checkArticleMenuType();
 	}
 
 	/**
@@ -298,204 +282,6 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * Selects article status
-	 * @param articleStatus 
-	 * @param visibility 
-	 * @returns  
-	 */
-	private selectArticleStatus(articleStatus: string, courseMaterialTypeId: string, visibility: string)
-	{
-		switch (articleStatus)
-		{
-			case ArticleStatusTypeEnum.LIVE:
-				visibility = 'formInfo.visibilityLive';
-
-				break;
-
-			case ArticleStatusTypeEnum.PREVIEW:
-				visibility = 'formInfo.visibilityPreview';
-
-				break;
-
-			default:
-				break;
-		}
-		return visibility;
-	}
-
-	/**
-	 * Checks article menu type
-	 */
-	private checkArticleMenuType()
-	{
-		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelect =>
-			{
-				switch (menuSelect.menuType)
-				{
-					case MenuTypeEnum.PARENT_MENU:
-						this._articleMenuType = MenuTypeEnum.PARENT_MENU;
-						this._articleId = menuSelect.articleId;
-						break;
-
-					case MenuTypeEnum.CHILD_MENU:
-						this._articleMenuType = MenuTypeEnum.CHILD_MENU;
-						this._articleId = menuSelect.articleId;
-						break;
-					case MenuTypeEnum.SUB_CHILD_MENU:
-						this._articleMenuType = MenuTypeEnum.SUB_CHILD_MENU;
-						this._articleId = menuSelect.articleId;
-						break;
-
-					default:
-						break;
-				}
-
-			});
-	}
-
-	/**
-	 * @description Cruds operation completion
-	 */
-	private launchOperation()
-	{
-		switch (this._articleMenuType)
-		{
-			case MenuTypeEnum.PARENT_MENU:
-
-				this.courseMaterialMenuStateFacade
-					.parentMenuByArticleId$(this._articleId)
-					.pipe(take(1))
-					.subscribe((parentMenuModel: ParentMenuModel) =>
-					{
-						if (parentMenuModel)
-						{
-							const model: ParentMenuModel = {
-								...parentMenuModel,
-								articleStatus: parentMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
-								operationType: OperationsEnum.EDIT
-							};
-
-							this.courseMaterialMenuStateFacade.editParentMenu(
-								model
-							);
-						}
-					});
-
-				break;
-
-			case MenuTypeEnum.CHILD_MENU:
-				this.courseMaterialMenuStateFacade
-					.childMenuByArticleId$(this._articleId)
-					.pipe(take(1))
-					.subscribe((childMenuModel: ChildMenuModel) =>
-					{
-						if (childMenuModel)
-						{
-							const model: ChildMenuModel = {
-								...childMenuModel,
-								articleStatus: childMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
-								operationType: OperationsEnum.EDIT
-							};
-
-							this.courseMaterialMenuStateFacade.editChildMenu(
-								model
-							);
-						}
-					});
-				break;
-			case MenuTypeEnum.SUB_CHILD_MENU:
-				this.courseMaterialMenuStateFacade
-					.subChildMenuByArticleId$(this._articleId)
-					.pipe(take(1))
-					.subscribe((subChildMenuModel: SubChildMenuModel) =>
-					{
-						if (subChildMenuModel)
-						{
-							const model: SubChildMenuModel = {
-								...subChildMenuModel,
-								articleStatus: subChildMenuModel.articleStatus === ArticleStatusTypeEnum.PREVIEW ? ArticleStatusTypeEnum.LIVE : ArticleStatusTypeEnum.PREVIEW,
-								operationType: OperationsEnum.EDIT
-							};
-
-							this.courseMaterialMenuStateFacade.editSubChildMenu(
-								model
-							);
-						}
-					});
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	/**
-	 * @description Cruds operation completion
-	 */
-	private crudOperationCompletion()
-	{
-		switch (this._articleMenuType)
-		{
-			case MenuTypeEnum.PARENT_MENU:
-				this.courseMaterialMenuStateFacade.parentMenuCurdOperationStatus$
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async (operationsStatus: OperationsEnum) =>
-					{
-						this.operationCompletionStatusFollowUp(operationsStatus);
-					});
-				break;
-			case MenuTypeEnum.CHILD_MENU:
-				this.courseMaterialMenuStateFacade.childMenuCurdOperationStatus$
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async (operationsStatus: OperationsEnum) =>
-					{
-						this.operationCompletionStatusFollowUp(operationsStatus);
-					});
-				break;
-			case MenuTypeEnum.SUB_CHILD_MENU:
-				this.courseMaterialMenuStateFacade.subChildMenuCurdOperationStatus$
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async (operationsStatus: OperationsEnum) =>
-					{
-						this.operationCompletionStatusFollowUp(operationsStatus);
-					});
-				break;
-			default:
-				break;
-		}
-	}
-
-	/**
-	 * Operations completion status follow up
-	 * @param operationsStatus 
-	 */
-	private operationCompletionStatusFollowUp(operationsStatus: OperationsEnum)
-	{
-		switch (operationsStatus)
-		{
-			case OperationsEnum.SUCCESS:
-
-				// show tost
-				this.translateService
-					.get('response.changeVisibility')
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async (data: string) =>
-					{
-						// success response
-						this.toastService.presentToast(data);
-					});
-
-				break;
-
-			default:
-				break;
-		}
-	}
-
 
 	/**
 	 * -------------------------------------------------|
@@ -513,49 +299,5 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	{
 		return ArrayKey.COURSE_MATERIAL_TYPE.filter(eachType => eachType.id === courseMaterialTypeId)[0].icon;
 	}
+}
 
-	/**
-	 * Changes visibility
-	 */
-	public changeVisibility()
-	{
-		this.translateService
-			.get([
-				'actionAlert.confirm',
-				'actionAlert.changeVisibilityGeneral',
-				'option.yes',
-				'option.no',
-			])
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data =>
-			{
-
-				const alert = await this.alertController.create({
-					header: `${data['actionAlert.confirm']}`,
-					subHeader: data['actionAlert.changeVisibilityGeneral'],
-					cssClass: 'custom-alert',
-					mode: 'md',
-					buttons: [
-						{
-							cssClass: 'ok-button ',
-							text: data['option.yes'],
-							handler: (_) =>
-							{
-								this.rootStateFacade.startLoading('');
-								this.launchOperation();
-								this.crudOperationCompletion();
-							}
-						},
-						{
-							cssClass: 'cancel-button',
-							text: data['option.no'],
-							handler: () => { }
-						}
-					]
-				});
-				await alert.present();
-			});
-	}
- }
- 
- 

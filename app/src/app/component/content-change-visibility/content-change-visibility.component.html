@@ -1,0 +1,72 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Content change visibility component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-13 10:47:19 
+ * Last modified  : 2022-09-13 10:47:58
+ */
+ -->
+
+<!-- live / preview message -->
+<ion-card
+	*ngIf="(selectedMenuArticle$ | async).articleId && isMaterialOwner"
+	[color]="visibilityInfo === 'formInfo.visibilityLive' ? 'success' : 'light'"
+>
+	<ion-card-content>
+		<!-- header if content text/document -->
+		<ion-card-header>
+			<panel-header
+				[panelTitle]="'pageTitle.contentVisibility' | translate"
+				[panelIcon]="
+					visibilityInfo === 'formInfo.visibilityLive'
+						? stringKey.ICON_VIEW
+						: stringKey.ICON_NO_VIEW
+				"
+				[panelColor]="
+					visibilityInfo === 'formInfo.visibilityLive'
+						? 'success'
+						: 'light'
+				"
+				[fontColor]="
+					visibilityInfo === 'formInfo.visibilityLive'
+						? 'light'
+						: 'primary'
+				"
+			></panel-header>
+			<panel-info
+				[panelColor]="
+					visibilityInfo === 'formInfo.visibilityLive'
+						? 'success'
+						: 'light'
+				"
+				[title]="visibilityInfo | translate"
+			></panel-info>
+		</ion-card-header>
+		<!-- header if content text/document -->
+		<common-button
+			(event)="changeVisibility()"
+			class="margin-20-px float-right"
+			[title]="
+				visibilityInfo === 'formInfo.visibilityLive'
+					? ('button.changeVisibilityPrivate' | translate)
+					: ('button.changeVisibilityLive' | translate)
+			"
+			[color]="stringKey.COLOR_TERTIARY"
+			[icon]="
+				visibilityInfo === 'formInfo.visibilityLive'
+					? stringKey.ICON_NO_VIEW
+					: stringKey.ICON_VIEW
+			"
+			*ngIf="
+				visibilityInfo !== 'formInfo.visibilityLiveNoChange'
+					? true
+					: false
+			"
+		>
+		</common-button>
+	</ion-card-content>
+</ion-card>
+<!-- live / preview message -->

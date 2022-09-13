@@ -1,5 +1,15 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Panel info component
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-13 09:45:15 
+ * Last modified  : 2022-09-13 09:46:15
+ */
+
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, Input, Output, EventEmitter, Injector } from '@angular/core';
+import { Component, OnInit, Input, Injector } from '@angular/core';
 
 @Component({
   selector: 'panel-info',

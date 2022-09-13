@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-09-07 13:12:50
+ * Last modified  : 2022-09-13 10:32:54
  */
 
 
@@ -597,6 +597,7 @@ export class StringKey {
 	public static readonly ICON_ADD_SQUARE: string = StringKey.ICON_BASE_PATH + "add-square.svg";
 	public static readonly ICON_EDIT: string = StringKey.ICON_BASE_PATH + "edit.svg";
 	public static readonly ICON_VIEW: string = StringKey.ICON_BASE_PATH + "view.svg";
+	public static readonly ICON_NO_VIEW: string = StringKey.ICON_BASE_PATH + "no-view.svg";
 	public static readonly ICON_CANCEL: string = StringKey.ICON_BASE_PATH + "cancel.svg";
 	public static readonly ICON_DELETE: string = StringKey.ICON_BASE_PATH + "delete.svg";
 	public static readonly ICON_SEARCH: string = StringKey.ICON_BASE_PATH + "search.svg";

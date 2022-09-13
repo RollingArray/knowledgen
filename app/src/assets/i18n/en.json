@@ -37,7 +37,9 @@
 		"learningPath": "Add To Learning Path",
 		"share": "Share",
 		"timer": "Timer",
-		"setDate": "Set Next Revision On"
+		"setDate": "Set Next Revision On",
+		"changeVisibilityPrivate": "Change Visibility To Private",
+		"changeVisibilityLive": "Change Visibility To Live"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -115,7 +117,8 @@
 		"nextRevision": "Next Revision",
 		"myRevisions": "My Revisions",
 		"revision": "Revision(s) On",
-		"sessionSummery": "Session Summery"
+		"sessionSummery": "Session Summery",
+		"contentVisibility": "Study Set Visibility"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -185,10 +188,10 @@
 		"tf": "True / False",
 		"question": "Provide your question",
 		"answer": "Provide set of answers",
-		"visibilityLiveNoChange": "This content is currently in live mode and visible to public. The content can not be updated",
-		"visibilityLive": "This content is currently in live mode and visible to public. To update the content, change visibility to preview",
-		"visibilityPreview": "This content is currently in preview mode and visible to private. Any changes to the content can be made",
-		"visibilityPreviewNoChange": "This content is currently in preview mode and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further",
+		"visibilityLiveNoChange": "This content is currently in <b>live mode</b> and visible to <b>public</b>. The content can not be updated",
+		"visibilityLive": "This content is currently in <b>live mode</b> and visible to <b>public</b>. To update the content, change visibility to <b>preview</b>",
+		"visibilityPreview": "This content is currently in <b>preview mode</b> and visible to <b>private</b>. Any changes to the content can be made",
+		"visibilityPreviewNoChange": "This content is currently in <b>preview mode</b> and visible to only content owner. Any changes to the content can be made. Once the content is live, it can not be changed any further",
 		"contentDuration": "Select the duration (in minute) to complete the session",
 		"contentReward": "Select the reward after successfully completing the session",
 		"minute": "min",
