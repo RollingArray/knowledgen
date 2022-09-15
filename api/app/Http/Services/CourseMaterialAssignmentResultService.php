@@ -105,6 +105,7 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
     public function getAllSession($userId){
         $tempRows = array();
         $sessions = $this->getAllStudyAssignmentSessionTimeAcross($userId);
+        $tempRows['study_points'] = $this->getTotalStudyPoints($userId);
         $tempRows['study_sessions'] = $this->getAllSessionTimeAcross($sessions);
         $tempRows['session_assignments'] = $this->getAllSessionAssignments($sessions);
         $tempRows['assignments_score_analysis'] = $this->getAssignmentsScoreAnalysis($sessions);
@@ -481,6 +482,21 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         return CourseMaterialArticleAssignmentResultModel::where('user_id', '=', $userId)
                 ->where('article_id', '=', $articleId)
                 ->exists();
+    }
+
+    /**
+     * Get max reward for user performing assignment
+     *
+     * @param  mixed $articleId
+     * @param  mixed $userId
+     * @return mixed
+     */
+    private function getTotalStudyPoints($userId){
+        return CourseMaterialArticleAssignmentResultModel::select(
+            'tbl_course_material_article_assignment_result.article_assignment_completion_reward'
+            )
+            ->where('tbl_course_material_article_assignment_result.user_id', '=', $userId)
+            ->sum('tbl_course_material_article_assignment_result.article_assignment_completion_reward');
     }
 
 }
