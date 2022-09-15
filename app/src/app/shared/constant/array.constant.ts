@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-08-23 14:14:07
+ * Last modified  : 2022-09-15 20:08:25
  */
 
 
@@ -17,6 +17,7 @@ import { CourseMaterialTypeModel } from '../model/course-material-type.model';
 import { LanguageModel } from '../model/language.model';
 import { RouteModel } from '../model/route.model';
 import { SlideModel } from '../model/slide.model';
+import { StudyPointGuardModel } from '../model/study-point-guard.model';
 import { ApiUrls } from './api-urls.constant';
 
 export class ArrayKey
@@ -1268,6 +1269,64 @@ export class ArrayKey
 	public static readonly SECONDARY_CARD_TOGGLE_ANIMATION_ADD_CLASS_SERIES: string[] = [
 		"display-none",
 	];
+
+	/**
+	 * Study point guard rails of array key
+	 */
+	public static readonly STUDY_POINT_GUARD_RAILS: StudyPointGuardModel[] = [
+		{
+			minValue: 0,
+			maxValue: 40,
+			level: 1
+		},
+		{
+			minValue: 41,
+			maxValue: 200,
+			level: 2
+		},
+		{
+			minValue: 201,
+			maxValue: 800,
+			level: 3
+		},
+		{
+			minValue: 801,
+			maxValue: 2500,
+			level: 4
+		},
+		{
+			minValue: 2501,
+			maxValue: 5000,
+			level: 5
+		},
+		{
+			minValue: 5001,
+			maxValue: 10000,
+			level: 6
+		},
+		{
+			minValue: 10001,
+			maxValue: 15000,
+			level: 7
+		},
+		{
+			minValue: 15001,
+			maxValue: 20000,
+			level: 8
+		},
+		{
+			minValue: 20001,
+			maxValue: 25000,
+			level: 9
+		},
+		{
+			minValue: 25001,
+			maxValue: 100000,
+			level: 10
+		}
+	];
+
+
 
 
 }

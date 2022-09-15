@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:08:58 
- * Last modified  : 2022-08-12 20:09:20
+ * Last modified  : 2022-09-15 18:12:14
  */
 
 
@@ -16,6 +16,7 @@ import { UserModel } from "./user.model"
 
 export interface DashboardStudentModel extends BaseModel, UserModel
 {
+	studyPoints: number,
 	studySessions: {
 		totalStudySessions: number,
 		totalCurrentMonthStudySessions: number,

@@ -5,33 +5,35 @@
  * @summary Dashboard page
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-08-12 20:08:19
+ * Created at     : 2022-08-12 20:05:53
+ * Last modified  : 2022-09-15 21:06:40
  */
 
-import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
-import { Observable } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { BaseViewComponent } from "src/app/component/base/base-view.component";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
-import { CharacteristicsEnum } from "src/app/shared/enum/characteristics.enum";
-import { OperationsEnum } from "src/app/shared/enum/operations.enum";
-import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
-import { DashboardStudentModel } from "src/app/shared/model/dashboard-student.model";
-import { LocalStorageService } from "src/app/shared/service/local-storage.service";
-import { DashboardStateFacade } from "src/app/state/dashboard/dashboard.state.facade";
-import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BaseViewComponent } from 'src/app/component/base/base-view.component';
+import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
+import { CharacteristicsEnum } from 'src/app/shared/enum/characteristics.enum';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { DashboardStudentModel } from 'src/app/shared/model/dashboard-student.model';
+import { StudyPointGuardModel } from 'src/app/shared/model/study-point-guard.model';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import { DashboardStateFacade } from 'src/app/state/dashboard/dashboard.state.facade';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 
 @Component({
-	selector: "dashboard",
-	templateUrl: "./dashboard.page.html",
-	styleUrls: ["./dashboard.page.scss"]
+	selector: 'dashboard',
+	templateUrl: './dashboard.page.html',
+	styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage extends BaseViewComponent implements OnInit, OnDestroy
+export class DashboardPage
+	extends BaseViewComponent
+	implements OnInit, OnDestroy
 {
-
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -66,17 +68,22 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	/**
 	 * Description  of dashboard page
 	 */
-	dashboardStudent$!: Observable<DashboardStudentModel>;
+	public dashboardStudent$!: Observable<DashboardStudentModel>;
 
 	/**
 	 * Determines whether student data$ has
 	 */
-	hasStudentData$!: Observable<boolean>;
+	public hasStudentData$!: Observable<boolean>;
 
 	/**
- * Loading indicator status$ of course material page
- */
-	public loadingIndicatorStatus$: Observable<boolean>
+	 * Loading indicator status$ of course material page
+	 */
+	public loadingIndicatorStatus$: Observable<boolean>;
+
+	/**
+	 * Today  of dashboard page
+	 */
+	public today: number = Date.now();
 
 	/**
 	 * -------------------------------------------------|
@@ -137,17 +144,100 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 		if (hr < 12)
 		{
 			greet = 'pageTitle.morning';
-		}
-		else if (hr >= 12 && hr <= 17)
+		} else if (hr >= 12 && hr <= 17)
 		{
 			greet = 'pageTitle.afternoon';
-		}
-		else if (hr >= 17 && hr <= 24)
+		} else if (hr >= 17 && hr <= 24)
 		{
 			greet = 'pageTitle.evening';
 		}
 
 		return greet;
+	}
+
+	/**
+	 * Gets point level image
+	 */
+	get pointLevelImage()
+	{
+		let pointLevelImage = '';
+		this.dashboardStudent$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((dashboardStudentModel: DashboardStudentModel) =>
+			{
+				const studyPoints = dashboardStudentModel.studyPoints;
+				const studyPointGuard: StudyPointGuardModel = this.arrayKey.STUDY_POINT_GUARD_RAILS.filter(eachGuar => studyPoints >= eachGuar.minValue && studyPoints <= eachGuar.maxValue)[0];
+				pointLevelImage = this.stringKey.IMAGE_BASE_PATH + `points-l${studyPointGuard.level}.svg`;
+			});
+
+		return pointLevelImage;
+	}
+
+	/**
+	 * Gets point level
+	 */
+	get pointLevel()
+	{
+		let pointLevel = 0;
+		this.dashboardStudent$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((dashboardStudentModel: DashboardStudentModel) =>
+			{
+				const studyPoints = dashboardStudentModel.studyPoints;
+				const studyPointGuard: StudyPointGuardModel = this.arrayKey.STUDY_POINT_GUARD_RAILS.filter(eachGuar => studyPoints >= eachGuar.minValue && studyPoints <= eachGuar.maxValue)[0];
+				pointLevel = studyPointGuard.level;
+			});
+
+		return pointLevel;
+	}
+
+	/**
+	 * Gets point level
+	 */
+	get pointForNextLevel()
+	{
+		let pointForNextLevel = 0;
+		this.dashboardStudent$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((dashboardStudentModel: DashboardStudentModel) =>
+			{
+				const studyPoints = dashboardStudentModel.studyPoints;
+				const studyPointGuard: StudyPointGuardModel = this.arrayKey.STUDY_POINT_GUARD_RAILS.filter(eachGuar => studyPoints >= eachGuar.minValue && studyPoints <= eachGuar.maxValue)[0];
+				pointForNextLevel = (studyPointGuard.maxValue - studyPoints) + 1;
+
+			});
+
+		return pointForNextLevel;
+	}
+
+	get pointLevelInfo()
+	{
+		let pointLevelInfo = '';
+
+		this.translateService
+			.get([
+				'pageSubTitle.pointGuard1',
+				'pageSubTitle.pointGuard2',
+				'pageSubTitle.pointGuard3',
+				'pageSubTitle.pointGuard4',
+				'pageSubTitle.pointGuard5',
+				'pageSubTitle.pointGuard6'
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				if (this.pointLevel !== this.arrayKey.STUDY_POINT_GUARD_RAILS[this.arrayKey.STUDY_POINT_GUARD_RAILS.length - 1].level)
+				{
+					pointLevelInfo = `${data['pageSubTitle.pointGuard1']} <b>  ${data['pageSubTitle.pointGuard2']} ${this.pointLevel}</b> ${data['pageSubTitle.pointGuard3']}  <b>${this.pointForNextLevel}</b> ${data['pageSubTitle.pointGuard4']} <b> ${data['pageSubTitle.pointGuard2']} ${this.pointLevel + 1}</b> ${data['pageSubTitle.pointGuard5']} `;
+				}
+				else
+				{
+					pointLevelInfo = `${data['pageSubTitle.pointGuard1']} <b>  ${data['pageSubTitle.pointGuard2']} ${this.pointLevel}</b> ${data['pageSubTitle.pointGuard6']}`;
+				}
+
+			});
+
+		return pointLevelInfo;
 	}
 
 	/**
@@ -158,12 +248,12 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 	 */
 	/**
 	 * Creates an instance of dashboard page.
-	 * @param injector 
-	 * @param dashboardStateFacade 
-	 * @param rootStateFacade 
-	 * @param translateService 
-	 * @param cookieService 
-	 * @param localStorageService 
+	 * @param injector
+	 * @param dashboardStateFacade
+	 * @param rootStateFacade
+	 * @param translateService
+	 * @param cookieService
+	 * @param localStorageService
 	 */
 	constructor(
 		injector: Injector,
@@ -171,11 +261,12 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
 		private cookieService: CookieService,
-		private localStorageService: LocalStorageService,
+		private localStorageService: LocalStorageService
 	)
 	{
 		super(injector);
-		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
+		this.loadingIndicatorStatus$ =
+			this.rootStateFacade.loadingIndicatorStatus$;
 	}
 
 	/**
@@ -201,22 +292,20 @@ export class DashboardPage extends BaseViewComponent implements OnInit, OnDestro
 		if (this.userType === UserTypeEnum.Student)
 		{
 			this.hasStudentData$ = this.dashboardStateFacade.hasStudentData$;
-			this.dashboardStudent$ = this.dashboardStateFacade.dashboardStudent$;
+			this.dashboardStudent$ =
+				this.dashboardStateFacade.dashboardStudent$;
 
 			// if no data available ... make a api request, else work with store data
 			this.hasStudentData$
 				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(
-					hasData =>
+				.subscribe((hasData) =>
+				{
+					if (!hasData)
 					{
-						if (!hasData)
-						{
-							this.getDashboard()
-						}
+						this.getDashboard();
 					}
-				);
+				});
 		}
-
 	}
 
 	/**

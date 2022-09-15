@@ -156,7 +156,13 @@
 		"fcSession": "Flash Card session time over iterations graph will show the amount of time you have taken in each iteration while taking these flash cards. A gradual decreased time might be a helpful indicator, that with each iteration you are able to recall the question much quicker",
 		"nextRevisionScore": "Based on your current progress in active recall time, the next revision date is suggested. But you can also select a different date. If you were able to quickly recall the answers, the date will be far, else the next revision date will be sooner.",
 		"myRevisions": "My Revisions lists the list of revisions by date. Select to date to get the list of revision for that day",
-		"nextRevisionTime": "Select the date and set your next revision for this session"
+		"nextRevisionTime": "Select the date and set your next revision for this session",
+		"pointGuard1": "You are now at ",
+		"pointGuard2": "Level ",
+		"pointGuard3": ". Get ",
+		"pointGuard4": " more points to earn your ",
+		"pointGuard5": " badge",
+		"pointGuard6": " .This is the highest level. Awesome!! You have earned all the badges"
 		
 	},
 	"formInfo": {

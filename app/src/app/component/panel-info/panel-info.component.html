@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 09:45:15 
- * Last modified  : 2022-09-13 10:00:38
+ * Last modified  : 2022-09-15 20:38:03
  */
  -->
  
@@ -17,5 +17,7 @@
 		[src]="!panelIcon ? stringKey.ICON_INFO : panelIcon"
 	></ion-icon>
 	<ion-spinner color="light" *ngIf="panelIcon === 'spinner'"></ion-spinner>
-	<p [innerHTML]="title"></p>
+	<p>
+		<ion-text [innerHTML]="title" [color]="fontColor" [class]="fontClass"></ion-text>
+	</p>
 </ion-item>

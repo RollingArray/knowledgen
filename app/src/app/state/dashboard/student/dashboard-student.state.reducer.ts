@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:11:17 
- * Last modified  : 2022-08-12 20:12:16
+ * Last modified  : 2022-09-15 18:12:48
  */
 
 import { createReducer, on, Action } from "@ngrx/store";
@@ -37,6 +37,7 @@ const reducer = createReducer(
 	 */
 	on(DASHBOARD_ACTIONS.LOADED_REQUEST_DASHBOARD_STUDENT, (state, action) => ({
 		...state,
+		studyPoints: action.payload.studyPoints,
 		sessionAssignments: action.payload.sessionAssignments,
 		studySessions: action.payload.studySessions,
 		assignmentsScoreAnalysis: action.payload.assignmentsScoreAnalysis,

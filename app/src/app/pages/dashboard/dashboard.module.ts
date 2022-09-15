@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-08-12 20:06:09
+ * Last modified  : 2022-09-15 17:08:28
  */
 
 import { CommonModule } from "@angular/common";
@@ -52,6 +52,7 @@ const routes: Routes = [
 		AssignmentsScoreAnalysisModule,
 		AnalysisBoothModule,
 		ContentLoadingModule,
+		PanelInfoModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [DashboardPage],

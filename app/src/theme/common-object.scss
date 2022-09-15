@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-09-13 12:13:52
+ * Last modified  : 2022-09-15 20:32:12
  */
 
 /* Change autocomplete styles in WebKit */
@@ -298,13 +298,6 @@ td:last-child {
 	}
 }
 
-/*Variable font size */
-@for $i from 1 through 50 {
-	.font-size-#{$i}-px {
-		font-size: #{$i}px !important;
-	}
-}
-
 /*Variable border-radius */
 @for $i from 1 through 500 {
 	.border-radius-#{$i}-px {
@@ -405,6 +398,14 @@ td:last-child {
 }
 
 /*font-size*/
+
+/*Variable font size */
+@for $i from 1 through 50 {
+	.font-size-#{$i}-px {
+		font-size: #{$i}px !important;
+	}
+}
+
 .font-size-large {
 	font-size: large;
 }

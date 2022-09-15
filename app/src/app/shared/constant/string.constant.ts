@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-09-13 10:32:54
+ * Last modified  : 2022-09-15 18:35:03
  */
 
 
@@ -698,6 +698,16 @@ export class StringKey {
 	public static readonly IMAGE_PLACEHOLDER: string = StringKey.IMAGE_BASE_PATH + "image-placeholder.svg";
 	public static readonly IMAGE_STUDENT_PROFILE: string = StringKey.IMAGE_BASE_PATH + "student-profile.svg";
 	public static readonly IMAGE_TEACHER_PROFILE: string = StringKey.IMAGE_BASE_PATH + "teacher-profile.svg";
+	public static readonly IMAGE_POINTS_L1: string = StringKey.IMAGE_BASE_PATH + "points-l1.svg";
+	public static readonly IMAGE_POINTS_L2: string = StringKey.IMAGE_BASE_PATH + "points-l2.svg";
+	public static readonly IMAGE_POINTS_L3: string = StringKey.IMAGE_BASE_PATH + "points-l3.svg";
+	public static readonly IMAGE_POINTS_L4: string = StringKey.IMAGE_BASE_PATH + "points-l4.svg";
+	public static readonly IMAGE_POINTS_L5: string = StringKey.IMAGE_BASE_PATH + "points-l5.svg";
+	public static readonly IMAGE_POINTS_L6: string = StringKey.IMAGE_BASE_PATH + "points-l6.svg";
+	public static readonly IMAGE_POINTS_L7: string = StringKey.IMAGE_BASE_PATH + "points-l7.svg";
+	public static readonly IMAGE_POINTS_L8: string = StringKey.IMAGE_BASE_PATH + "points-l8.svg";
+	public static readonly IMAGE_POINTS_L9: string = StringKey.IMAGE_BASE_PATH + "points-l9.svg";
+	public static readonly IMAGE_POINTS_L10: string = StringKey.IMAGE_BASE_PATH + "points-l10.svg";
 	
 	public static readonly IMAGE_PH: string = "https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=325427&theme=light";
 	

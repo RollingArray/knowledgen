@@ -5,7 +5,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 09:45:15 
- * Last modified  : 2022-09-13 09:46:15
+ * Last modified  : 2022-09-15 20:43:18
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -21,6 +21,8 @@ export class PanelInfoComponent extends BaseViewComponent implements OnInit {
   @Input() title = '';
   @Input() panelColor = '';
   @Input() panelIcon;
+  @Input() fontClass = 'font-size-15-px';
+  @Input() fontColor = 'medium';
   
   constructor(
     injector: Injector,
