@@ -1,0 +1,235 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary User peer component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-19 19:14:13 
+ * Last modified  : 2022-09-19 19:14:39
+ */
+-->
+
+<!-- header -->
+<ion-header [appScrollTracker]="scrollArea">
+	<ion-toolbar color="primary">
+		<ion-title>
+			{{ "pageTitle.peerLeaderBoard" | translate }}
+		</ion-title>
+		<ion-buttons slot="end" *ngIf="!(modalLoadingIndicatorStatus$ | async)">
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()"
+			>
+				{{ "button.discard" | translate }}</ion-button
+			>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+<!-- header -->
+
+<ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
+	<!-- page title -->
+	<app-page-info-title
+		[title]="'pageTitle.peerLeaderBoard' | translate"
+		[info]="'pageSubTitle.peerLeaderBoard' | translate"
+	></app-page-info-title>
+
+	<!-- content loading -->
+	<content-loading
+		[generalContent]="true"
+		*ngIf="modalLoadingIndicatorStatus$ | async"
+	></content-loading>
+	<!-- content loading -->
+
+	<!-- save btn -->
+	<ion-fab
+		slot="fixed"
+		vertical="bottom"
+		horizontal="end"
+		*ngIf="!(modalLoadingIndicatorStatus$ | async)"
+	>
+		<ion-fab-button color="tertiary" (click)="openCrudPeerDropSelector()">
+			<ion-icon [src]="stringKey.ICON_ADD"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<!-- save btn -->
+
+	<!-- peer list -->
+	<ion-card
+		color="none"
+		class="card-no-shadow"
+		*ngIf="!(modalLoadingIndicatorStatus$ | async)"
+	>
+		<ion-card-content>
+			<div *ngFor="let user of userPeers; let i = index">
+				<!-- position index badge -->
+				<div>
+					<ion-badge
+						mode="ios"
+						color="tertiary"
+						*ngIf="userPeers.length !== 1"
+					>
+						<h1>
+							<b>{{ i + 1 }}</b>
+						</h1>
+					</ion-badge>
+				</div>
+				<!-- position index badge -->
+
+				<!-- peers -->
+				<ion-card
+					*ngIf="user.userPeerId"
+					color="white"
+					class="margin-top-30-px padding-top-30-px"
+				>
+					<ion-item color="none">
+						<ion-avatar slot="start">
+							<img [src]="stringKey.ICON_USER" />
+						</ion-avatar>
+						<ion-label>
+							<b
+								><h2>
+									{{ user.userFirstName }}
+									{{ user.userLastName }}
+								</h2></b
+							>
+							<h4>
+								<ion-text color="medium">
+									{{ user.userEmail }}</ion-text
+								>
+							</h4>
+						</ion-label>
+					</ion-item>
+					<img
+						class="point-badge"
+						[src]="pointLevelImage(user.totalStudyPoints)"
+					/>
+					<ion-grid>
+						<ion-row>
+							<ion-col>
+								<delete-button
+									class="float-left padding-10-px text-center"
+									(event)="deletePeer(user)"
+								>
+								</delete-button>
+							</ion-col>
+							<ion-col>
+								<ion-card
+									mode="ios"
+									color="success"
+									class="padding-10-px text-center"
+								>
+									<ion-text class="font-size-20-px"
+										><b>{{
+											user.totalStudyPoints
+										}}</b></ion-text
+									>
+									&nbsp;{{ "formInfo.point" | translate }}
+								</ion-card>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+				</ion-card>
+				<!-- peers -->
+
+				<!-- you -->
+				<ion-card
+					*ngIf="!user.userPeerId"
+					color="white"
+					class="margin-top-30-px padding-top-30-px"
+				>
+					<ion-grid>
+						<ion-row>
+							<ion-col>
+								<ion-item color="none" lines="none">
+									<ion-avatar slot="start">
+										<img [src]="stringKey.ICON_USER" />
+									</ion-avatar>
+									<ion-label>
+										<b
+											><h1>
+												{{ "formInfo.you" | translate }}
+											</h1></b
+										>
+									</ion-label>
+								</ion-item>
+							</ion-col>
+							<ion-col>
+								<ion-card
+									mode="ios"
+									color="success"
+									class="padding-10-px text-center"
+								>
+									<ion-text class="font-size-20-px"
+										><b>{{
+											user.totalStudyPoints
+										}}</b></ion-text
+									>
+									&nbsp;{{ "formInfo.point" | translate }}
+								</ion-card>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+					<img
+						class="point-badge"
+						[src]="pointLevelImage(user.totalStudyPoints)"
+					/>
+				</ion-card>
+
+				<!-- you -->
+			</div>
+		</ion-card-content>
+	</ion-card>
+	<!-- peer list -->
+
+	<!-- no data -->
+	<app-no-data
+		[fontColor]="stringKey.COLOR_LIGHT"
+		[panelColor]="stringKey.COLOR_PRIMARY"
+		[courseMaterial]="true"
+		*ngIf="
+			!(userPeerHasData$ | async) &&
+			!(modalLoadingIndicatorStatus$ | async)
+		"
+		[text]="'noData.noPeer' | translate"
+	></app-no-data>
+	<!-- no data -->
+</ion-content>
+<!-- body -->
+
+<!-- drop selector back drop -->
+<div
+	#dropSelectorBackdrop
+	class="drop-selector-backdrop"
+	(click)="closeCrudPeerDropSelector()"
+></div>
+<!-- drop selector back drop -->
+
+<!-- drop selector -->
+<div #dropSelector class="drop-selector">
+	<!-- drop selector header -->
+	<ion-header>
+		<ion-toolbar color="secondary">
+			<ion-title slot="start">
+				{{ "pageTitle.addPeer" | translate }}
+			</ion-title>
+			<ion-buttons slot="end">
+				<ion-button
+					color="tertiary"
+					fill="outline"
+					(click)="closeCrudPeerDropSelector()"
+					>{{ "button.close" | translate }}</ion-button
+				>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<!-- drop selector header -->
+	<crud-peer
+		(submitPeerEvent)="closeCrudPeerDropSelector()"
+		#crudPeerDropSelector
+	></crud-peer>
+</div>
+<!-- drop selector -->
