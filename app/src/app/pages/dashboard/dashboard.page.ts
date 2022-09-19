@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53
- * Last modified  : 2022-09-16 19:08:22
+ * Last modified  : 2022-09-19 19:44:07
  */
 
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
@@ -170,7 +170,7 @@ export class DashboardPage
 				const studyPoints = dashboardStudentModel.studyPoints;
 
 				const studyPointGuard: StudyPointGuardModel = this.arrayKey.STUDY_POINT_GUARD_RAILS.filter(eachGuar => studyPoints >= eachGuar.minValue && studyPoints <= eachGuar.maxValue)[0];
-				pointLevelImage = this.dashboardStateFacade.pointLevelImage(studyPoints);
+				pointLevelImage = this.dashboardStateFacade.getPointLevelImageForStudyPoint(studyPoints);
 			});
 
 		return pointLevelImage;

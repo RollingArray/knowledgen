@@ -5,7 +5,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-19 19:14:13 
- * Last modified  : 2022-09-19 19:18:30
+ * Last modified  : 2022-09-19 19:43:51
  */
 
 import { Component, OnInit, Injector, ElementRef, ViewChild } from "@angular/core";
@@ -104,7 +104,7 @@ export class UserPeerComponent extends BaseFormComponent implements OnInit
 	 */
 	public pointLevelImage(studyPoints: number)
 	{
-		return this.dashboardStateFacade.pointLevelImage(studyPoints);
+		return this.dashboardStateFacade.getPointLevelImageForStudyPoint(studyPoints);
 	}
 
 	/**
