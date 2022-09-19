@@ -22,164 +22,160 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: #323433;
-  -webkit-box-shadow: 0 0 0px 1000px #eaeaeb inset;
-  transition: background-color 5000s ease-in-out 0s;
+	-webkit-text-fill-color: #323433;
+	-webkit-box-shadow: 0 0 0px 1000px #eaeaeb inset;
+	transition: background-color 5000s ease-in-out 0s;
 }
 
 /* popover*/
-.popover-arrow.sc-ion-popover-ios::after{
-  background-color: var(--ion-color-primary) !important;
+.popover-arrow.sc-ion-popover-ios::after {
+	background-color: var(--ion-color-primary) !important;
 }
 
-ion-modal{
-  --border-radius: 10px !important;
+ion-modal {
+	--border-radius: 10px !important;
 }
 ion-card {
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
-  margin: 16px;
+	border-radius: 8px;
+	font-size: 14px;
+	box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+	margin: 16px;
 }
 
 ion-grid,
 ion-col {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .card-no-shadow {
-  box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 .card-no-border {
-  border-radius: 0 !important;
+	border-radius: 0 !important;
 }
 
 .card-solid-shadow {
-  border: 1px solid var(--ion-color-primary);
-  box-shadow: 15px 15px var(--ion-color-primary);
+	border: 1px solid var(--ion-color-primary);
+	box-shadow: 15px 15px var(--ion-color-primary);
 }
 
 .selector {
-  cursor: pointer;
+	cursor: pointer;
 }
 
-.highlight{
-  background-color: var(--ion-color-primary) !important;
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
-  margin: 16px;
-  color: white;
+.highlight {
+	background-color: var(--ion-color-primary) !important;
+	border-radius: 8px;
+	font-size: 14px;
+	box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+	margin: 16px;
+	color: white;
 }
 
-.app-logo{
-  width: 80%; 
-  margin: 50px auto 0 auto;
+.app-logo {
+	width: 80%;
+	margin: 50px auto 0 auto;
 }
 /* Table properties*/
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
 }
 
 th {
-  background-color: var(--ion-color-light);
-  color: var(--ion-color-light-contrast);
-  text-align: center;
-  padding: 15px;
-  font-weight: bold;
-  font-size: 15px;
-  // border-right: 1px solid;
-  // border-color: var(--ion-color-primary);
+	background-color: var(--ion-color-light);
+	color: var(--ion-color-light-contrast);
+	text-align: center;
+	padding: 15px;
+	font-weight: bold;
+	font-size: 15px;
+	// border-right: 1px solid;
+	// border-color: var(--ion-color-primary);
 }
 th:last-child {
-  border-right: 0px;
+	border-right: 0px;
 }
 
 td,
 th {
-  white-space: nowrap;
-  overflow: hidden;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 td {
-  color: var(--ion-color-primary);
-  text-align: center;
-  padding: 5px;
-  font-size: 16px;
-  border-right: 1px solid;
-  border-color: var(--ion-color-medium);
-  line-height: 30px;
-  letter-spacing: 2px;
-  // background: url('/assets/custom-ion-icons/td-border.svg') bottom right no-repeat;
+	color: var(--ion-color-primary);
+	text-align: center;
+	padding: 5px;
+	font-size: 16px;
+	border-right: 1px solid;
+	border-color: var(--ion-color-medium);
+	line-height: 30px;
+	letter-spacing: 2px;
+	// background: url('/assets/custom-ion-icons/td-border.svg') bottom right no-repeat;
 }
 td:last-child {
-  border-right: 0px;
+	border-right: 0px;
 }
 
 #dum-height {
-  height: 70px;
+	height: 70px;
 }
 
 #overflow-content {
-  overflow-x: auto;
+	overflow-x: auto;
 }
 
 .footer-button {
-  height: 45px;
-  // width: 100px;
-  font-size: 20px;
-  margin: 10px;
-  --border-radius: 10px;
+	height: 45px;
+	// width: 100px;
+	font-size: 20px;
+	margin: 10px;
+	--border-radius: 10px;
 }
 
 .inline-button {
-  height: 45px;
-  // width: 100px;
-  font-size: 20px;
-  margin: 10px;
+	height: 45px;
+	// width: 100px;
+	font-size: 20px;
+	margin: 10px;
 }
 
-.card-button
-{
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
-  margin: 16px;
+.card-button {
+	border-radius: 8px;
+	font-size: 14px;
+	box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+	margin: 16px;
 }
 
 /*Text alignment*/
-.text-center{
-  text-align: center;
+.text-center {
+	text-align: center;
 }
-.text-left{
-  text-align: left;
+.text-left {
+	text-align: left;
 }
-.text-right{
-  text-align: right;
+.text-right {
+	text-align: right;
 }
-.text-justify{
-  text-align: justify;
+.text-justify {
+	text-align: justify;
 }
 
 /*cursor*/
-.cursor-pointer
-{
-  cursor: pointer;
+.cursor-pointer {
+	cursor: pointer;
 }
 
 /* Float */
-.float-right
-{
-  float: right; 
+.float-right {
+	float: right;
 }
 
-.float-left
-{
-  float: left; 
+.float-left {
+	float: left;
 }
 
 /*toast*/
@@ -196,7 +192,7 @@ td:last-child {
 	.width-#{$i}-p {
 		width: (100% - (100 - $i)) !important;
 	}
-  }
+}
 
 /*Variable font size */
 @for $i from 10 through 300 {
@@ -206,12 +202,12 @@ td:last-child {
 }
 
 /*Margin */
-.margin-auto{
-  margin: auto;
+.margin-auto {
+	margin: auto;
 }
 
-.margin-0{
-  margin: 0 !important;
+.margin-0 {
+	margin: 0 !important;
 }
 /*Variable margin left */
 @for $i from 1 through 500 {
@@ -305,31 +301,30 @@ td:last-child {
 	}
 }
 
-.link{
-  color: var(--ion-color-light);
-  text-decoration: underline;
-  cursor: pointer;
+.link {
+	color: var(--ion-color-light);
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 /* grid properties */
 
-.stretch-grid-full{
-    height: 100%;
-    display: flex;
-    flex-flow: column
-  }
+.stretch-grid-full {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
+}
 
-.stretch-grid-row-full
-{
-	flex-grow: 1
+.stretch-grid-row-full {
+	flex-grow: 1;
 }
 
 /* Variable display properties */
-.display-block{
+.display-block {
 	display: block;
 }
 
-.display-none{
+.display-none {
 	display: none;
 }
 
@@ -381,7 +376,6 @@ td:last-child {
 	}
 }
 
-
 /*font-color*/
 .font-color-success {
 	color: var(--ion-color-success) !important;
@@ -399,6 +393,23 @@ td:last-child {
 
 /*font-size*/
 
+// background-color
+.background-color-medium {
+	background-color: var(--ion-color-medium) !important;
+}
+
+.background-color-primary {
+	background-color: var(--ion-color-primary) !important;
+}
+
+.background-color-secondary {
+	background-color: var(--ion-color-secondary) !important;
+}
+
+.background-color-tertiary {
+	background-color: var(--ion-color-tertiary) !important;
+}
+
 /*Variable font size */
 @for $i from 1 through 50 {
 	.font-size-#{$i}-px {
@@ -410,7 +421,7 @@ td:last-child {
 	font-size: large;
 }
 .font-size-small {
-	font-size:small;
+	font-size: small;
 }
 
 .font-size-large {
@@ -432,3 +443,14 @@ td:last-child {
 .font-size-xx-large {
 	font-size: xx-large;
 }
+/*Variable font size */
+
+/*position */
+.position-relative {
+	position: relative;
+}
+
+.position-absolute {
+	position: absolute;
+}
+/*position */
