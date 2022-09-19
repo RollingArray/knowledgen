@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-08-12 20:19:00
+ * Last modified  : 2022-09-19 21:29:07
  */
 
 
@@ -528,5 +528,15 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		});
 
 		return await modal.present();
+	}
+
+	/**
+	 * Checks if menu should show
+	 * @param eachSubMenu 
+	 * @returns  
+	 */
+	public checkIfMenuShouldShow(eachSubMenu: RouteChildrenModel)
+	{
+		return eachSubMenu.allowAccess.filter(access => access === this.userType).length > 0 ? true : false;
 	}
 }

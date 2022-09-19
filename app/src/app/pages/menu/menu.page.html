@@ -8,7 +8,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-07-27 21:33:46
+ * Last modified  : 2022-09-19 20:54:57
  */
  -->
 <ion-app>
@@ -37,28 +37,25 @@
 							<ion-label> {{ p.title | translate }} </ion-label>
 						</ion-item>
 						<ion-menu-toggle auto-hide="false">
-							<ion-card class="cursor-pointer" *ngFor="let eachSubMenu of p.children">
-								<div *ngIf="eachSubMenu.url">
-									<ion-item lines="none" color="tertiary" (click)="gotoPage(eachSubMenu)"
-										routerDirection="root" routerLinkActive="active">
-										<ion-icon slot="start" [src]="eachSubMenu.icon"></ion-icon>
-										{{ eachSubMenu.title | translate }}
-										<ion-icon *ngIf="!eachSubMenu.allowMenuAccess" color="warning"
-											[src]="stringKey.ICON_RESTRICTED" slot="end"></ion-icon>
-
-									</ion-item>
-								</div>
-								<div *ngIf="eachSubMenu.action">
-									<ion-item lines="none" color="tertiary" (click)="gotoAction(eachSubMenu)"
-										routerDirection="root" routerLinkActive="active">
-										<ion-icon slot="start" [src]="eachSubMenu.icon"></ion-icon>
-										{{ eachSubMenu.title | translate }}
-										<ion-icon *ngIf="!eachSubMenu.allowMenuAccess" color="warning"
-											[src]="stringKey.ICON_RESTRICTED" slot="end"></ion-icon>
-
-									</ion-item>
-								</div>
-							</ion-card>
+							<div class="cursor-pointer" *ngFor="let eachSubMenu of p.children">
+								<ion-card class="cursor-pointer" *ngIf="checkIfMenuShouldShow(eachSubMenu)">
+									<div *ngIf="eachSubMenu.url">
+										<ion-item lines="none" color="tertiary" (click)="gotoPage(eachSubMenu)"
+											routerDirection="root" routerLinkActive="active">
+											<ion-icon slot="start" [src]="eachSubMenu.icon"></ion-icon>
+											{{ eachSubMenu.title | translate }}
+										</ion-item>
+									</div>
+									<div *ngIf="eachSubMenu.action">
+										<ion-item lines="none" color="tertiary" (click)="gotoAction(eachSubMenu)"
+											routerDirection="root" routerLinkActive="active">
+											<ion-icon slot="start" [src]="eachSubMenu.icon"></ion-icon>
+											{{ eachSubMenu.title | translate }}
+										</ion-item>
+									</div>
+								</ion-card>
+							</div>
+							
 						</ion-menu-toggle>
 					</ion-card>
 				</ion-menu-toggle>

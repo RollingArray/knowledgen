@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-09-15 20:08:25
+ * Last modified  : 2022-09-19 21:02:34
  */
 
 
@@ -39,7 +39,7 @@ export class ArrayKey
 					title: 'pageTitle.courseMaterials',
 					url: ['course', 'material'],
 					icon: StringKey.ICON_RIGHT_ARROW,
-					allowAccess: [UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher]
 				},
 				{
 					title: 'pageTitle.availabilityPlanner',
@@ -68,7 +68,7 @@ export class ArrayKey
 					title: 'pageTitle.selectlanguage',
 					action: 'changeLanguage',
 					icon: StringKey.ICON_LANGUAGE,
-					allowAccess: [UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher]
 				},
 			]
 		},
