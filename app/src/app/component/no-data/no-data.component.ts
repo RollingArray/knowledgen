@@ -31,6 +31,10 @@ export class NoDataComponent extends BaseViewComponent implements OnInit
 	 */
 	@Input() courseMaterial = false;
 
+	@Input() fontColor = 'dark';
+
+	@Input() panelColor = 'light';
+
 	/**
 	 * Creates an instance of no data component.
 	 * @param injector 
