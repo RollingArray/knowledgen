@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-07 20:17:25
+ * Last modified  : 2022-09-16 21:58:01
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -547,7 +547,6 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			.subscribe(async (operationsStatus: OperationsEnum) =>
 			{
 
-				console.log(operationsStatus);
 				// track operation status and  
 				switch (operationsStatus)
 				{
