@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-23 19:33:50 
- * Last modified  : 2022-01-20 01:35:49
+ * Last modified  : 2022-09-19 19:37:25
  */
 
 
@@ -31,8 +31,14 @@ export class NoDataComponent extends BaseViewComponent implements OnInit
 	 */
 	@Input() courseMaterial = false;
 
+	/**
+	 * Input  of no data component
+	 */
 	@Input() fontColor = 'dark';
 
+	/**
+	 * Input  of no data component
+	 */
 	@Input() panelColor = 'light';
 
 	/**
