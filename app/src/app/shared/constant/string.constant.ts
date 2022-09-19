@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-09-15 18:35:03
+ * Last modified  : 2022-09-15 21:26:01
  */
 
 
@@ -680,6 +680,8 @@ export class StringKey {
 	public static readonly ICON_MIC_ON: string = StringKey.ICON_BASE_PATH + "mic-on.svg";
 	public static readonly ICON_MIC_OFF: string = StringKey.ICON_BASE_PATH + "mic-off.svg";
 	public static readonly ICON_REVISION: string = StringKey.ICON_BASE_PATH + "revision.svg";
+	public static readonly ICON_VERIFIED_RESULT: string = StringKey.ICON_BASE_PATH + "verified-result.svg";
+	
 
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
