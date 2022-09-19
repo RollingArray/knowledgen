@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-09-15 21:08:39
+ * Last modified  : 2022-09-19 19:27:17
  */	
  -->
 <!-- header -->
@@ -43,7 +43,7 @@
 	<content-loading
 		[gridContent]="true"
 		[graphContent]="true"
-		*ngIf="(loadingIndicatorStatus$ | async)"
+		
 	>
 	</content-loading>
 	<!-- content loading -->
@@ -127,7 +127,8 @@
 				<!-- profile -->
 
 				<!-- points -->
-				<ion-col *ngIf="(hasStudentData$ | async)"
+				<ion-col
+					*ngIf="(hasStudentData$ | async)"
 					sizeLg="6"
 					sizeMd="6"
 					sizeXl="6"
@@ -145,7 +146,7 @@
 											[src]="stringKey.ICON_REWARD"
 											slot="start"
 										></ion-icon>
-										<ion-text class="font-size-20-px"
+										<ion-text class="font-size-30-px"
 											><b
 												>{{(dashboardStudent$ |
 												async).studyPoints}}</b
@@ -171,6 +172,18 @@
 										fontClass="font-size-20-px"
 									>
 									</panel-info>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col class="text-center">
+									<common-button
+										(event)="openUserPeers()"
+										class="float-right margin-10-px"
+										[color]="stringKey.COLOR_TERTIARY"
+										[title]="'button.compareFriends' | translate"
+										[icon]="stringKey.ICON_VERIFIED_RESULT"
+									>
+									</common-button>
 								</ion-col>
 							</ion-row>
 						</ion-grid>

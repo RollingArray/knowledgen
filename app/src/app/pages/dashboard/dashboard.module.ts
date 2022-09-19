@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-09-15 17:08:28
+ * Last modified  : 2022-09-16 19:06:30
  */
 
 import { CommonModule } from "@angular/common";
@@ -15,6 +15,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { IonicModule } from "@ionic/angular";
 import { AnalysisBoothModule } from "src/app/component/analysis-booth/analysis-booth.module";
 import { AssignmentsScoreAnalysisModule } from "src/app/component/assignments-score-analysis/assignments-score-analysis.module";
+import { CommonButtonModule } from "src/app/component/button/common-button/common-button.component.module";
 import { ContentLoadingModule } from "src/app/component/content-loading/content-loading.module";
 import { CourseContentCoverageModule } from "src/app/component/course-content-coverage/course-content-coverage.module";
 import { CourseContentTimeCoverageModule } from "src/app/component/course-content-time-coverage/course-content-time-coverage.module";
@@ -22,6 +23,7 @@ import { NoDataModule } from "src/app/component/no-data/no-data.component.module
 import { PageInfoTitleModule } from "src/app/component/page-info-title/page-info-title.component.module";
 import { PanelHeaderModule } from "src/app/component/panel-header/panel-header.component.module";
 import { PanelInfoModule } from "src/app/component/panel-info/panel-info.component.module";
+import { UserPeerModule } from "src/app/component/user-peer/user-peer.module";
 import { I18nModule } from "src/app/shared/module/i18n.module";
 import { SharedModule } from "src/app/shared/module/shared.module";
 import { DashboardStateModule } from "src/app/state/dashboard/dashboard.state.module";
@@ -53,6 +55,8 @@ const routes: Routes = [
 		AnalysisBoothModule,
 		ContentLoadingModule,
 		PanelInfoModule,
+		CommonButtonModule,
+		UserPeerModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [DashboardPage],

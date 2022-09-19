@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53
- * Last modified  : 2022-09-15 21:06:40
+ * Last modified  : 2022-09-16 19:08:22
  */
 
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
@@ -15,12 +15,14 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
+import { UserPeerComponent } from 'src/app/component/user-peer/user-peer.component';
 import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { CharacteristicsEnum } from 'src/app/shared/enum/characteristics.enum';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { DashboardStudentModel } from 'src/app/shared/model/dashboard-student.model';
 import { StudyPointGuardModel } from 'src/app/shared/model/study-point-guard.model';
+import { UserPeerModel } from 'src/app/shared/model/user-peer.model';
 import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { DashboardStateFacade } from 'src/app/state/dashboard/dashboard.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
@@ -166,8 +168,9 @@ export class DashboardPage
 			.subscribe((dashboardStudentModel: DashboardStudentModel) =>
 			{
 				const studyPoints = dashboardStudentModel.studyPoints;
+
 				const studyPointGuard: StudyPointGuardModel = this.arrayKey.STUDY_POINT_GUARD_RAILS.filter(eachGuar => studyPoints >= eachGuar.minValue && studyPoints <= eachGuar.maxValue)[0];
-				pointLevelImage = this.stringKey.IMAGE_BASE_PATH + `points-l${studyPointGuard.level}.svg`;
+				pointLevelImage = this.dashboardStateFacade.pointLevelImage(studyPoints);
 			});
 
 		return pointLevelImage;
@@ -280,9 +283,37 @@ export class DashboardPage
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
+	 * @Private methods									|
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
 	 * @Public methods									|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Opens crud learning path
+	 */
+	public async openUserPeers()
+	{
+		const modal = await this.modalController.create({
+			component: UserPeerComponent,
+			cssClass: 'modal-view',
+			backdropDismiss: false,
+		});
+
+		// on model dismiss
+		modal.onDidDismiss().then((data) =>
+		{
+			//
+		});
+
+		// present modal
+		await modal.present();
+	}
 
 	/**
 	 * @description Loads data
