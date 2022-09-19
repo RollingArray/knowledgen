@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-15 21:34:14 
- * Last modified  : 2022-09-02 20:44:15
+ * Last modified  : 2022-09-16 16:02:10
  */
 
 import { environment } from "../../../environments/environment";
@@ -21,10 +21,16 @@ export class ApiUrls
 	public static readonly RA: string = 'https://rollingarray.co.in/';
 	public static readonly FILE: string = ApiUrls.API_ENDPOINT + "file/";
 	// urls
-	public static readonly SIGN_IN: string = ApiUrls.API_BASE_PATH + "/user/sign/in";
-	public static readonly SIGN_UP: string = ApiUrls.API_BASE_PATH + "/user/sign/up";
-	public static readonly USER_ACTIVATE: string = ApiUrls.API_BASE_PATH + "/user/activate";
-	public static readonly USER_ACTIVATE_CODE_RESEND: string = ApiUrls.API_BASE_PATH + "/user/activate/code/resend";
+	public static readonly USER_BASE: string = ApiUrls.API_BASE_PATH + "/user";
+	public static readonly SIGN_IN: string = ApiUrls.USER_BASE + "/sign/in";
+	public static readonly SIGN_UP: string = ApiUrls.USER_BASE + "/sign/up";
+	public static readonly USER_ACTIVATE: string = ApiUrls.USER_BASE + "/activate";
+	public static readonly USER_ACTIVATE_CODE_RESEND: string = ApiUrls.USER_BASE + "/activate/code/resend";
+
+	public static readonly PEER_BASE: string = ApiUrls.USER_BASE + "/peer";
+	public static readonly PEER_ALL: string = ApiUrls.PEER_BASE + "/all";
+	public static readonly PEER_ADD: string = ApiUrls.PEER_BASE + "/add";
+	public static readonly PEER_DELETE: string = ApiUrls.PEER_BASE + "/delete";
 
 	public static readonly USER_DETAILS: string = ApiUrls.API_BASE_PATH + "/user/details";
 	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/edit";
