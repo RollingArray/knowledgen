@@ -162,6 +162,7 @@ $app->register(App\Providers\LearningPathProvider::class);
 $app->register(App\Providers\DashboardServiceProvider::class);
 $app->register(App\Providers\CourseMaterialFlashCardProvider::class);
 $app->register(App\Providers\CourseMaterialArticleRevisionServiceProvider::class);
+$app->register(App\Providers\UserPeerServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 

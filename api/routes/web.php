@@ -77,6 +77,30 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 'uses' => 'UserDetailController@edit'
             ]
         );
+
+        $router->group([
+            'prefix' => 'peer',
+        ], function () use ($router) {
+            $router->get(
+                'all',
+                [
+                    'uses' => 'UserPeerController@all'
+                ]
+            );
+            $router->post(
+                'add',
+                [
+                    'uses' => 'UserPeerController@add'
+                ]
+            );
+            $router->post(
+                'delete',
+                [
+                    'uses' => 'UserPeerController@delete'
+                ]
+            );
+        });
+
     });
 
     $router->group([

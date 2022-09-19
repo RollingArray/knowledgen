@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CourseMaterialArticleRevisionModel extends BaseModel{
+class UserPeerModel extends BaseModel{
 
     use HasFactory;
 
@@ -13,7 +13,7 @@ class CourseMaterialArticleRevisionModel extends BaseModel{
      *
      * @var string
      */
-    protected $table = 'tbl_course_material_article_revision';
+    protected $table = 'tbl_user_peer';
 
     
     /**
@@ -21,7 +21,7 @@ class CourseMaterialArticleRevisionModel extends BaseModel{
      *
      * @var string
      */
-    protected $primaryKey = 'article_revision_id';
+    protected $primaryKey = 'user_peer_id';
 
     protected $keyType = 'string';
 
@@ -33,18 +33,27 @@ class CourseMaterialArticleRevisionModel extends BaseModel{
      * @var array
      */
     protected $fillable = [
-        'article_revision_id',
-        'article_id',
+        'user_peer_id',
         'user_id',
-        'article_revision_date',
+        'peer_id',
     ];
 
     /**
-     * Relation - Belongs to Course Materiel Articles
+     * Relation - Belongs to user
      *
      * @return void
      */
-    public function materialArticle()
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relation - Belongs to user
+     *
+     * @return void
+     */
+    public function peer()
     {
         return $this->belongsTo(User::class);
     }

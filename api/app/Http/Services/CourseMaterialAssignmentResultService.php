@@ -491,7 +491,7 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      * @param  mixed $userId
      * @return mixed
      */
-    private function getTotalStudyPoints($userId){
+    public function getTotalStudyPoints($userId){
         return CourseMaterialArticleAssignmentResultModel::select(
             'tbl_course_material_article_assignment_result.article_assignment_completion_reward'
             )
