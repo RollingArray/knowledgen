@@ -1,0 +1,73 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Crud peer component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-19 19:32:06 
+ * Last modified  : 2022-09-19 19:32:29
+ */
+-->
+
+<!-- header -->
+<form
+	[formGroup]="formGroup"
+	lines="none"
+	*ngIf="!(modalLoadingIndicatorStatus$ | async)"
+>
+	<ion-grid>
+		<ion-row>
+			<ion-col color="secondary">
+				<!-- course name -->
+				<ion-card color="secondary">
+					<ion-item color="secondary" lines="none">
+						<ion-icon
+							[src]="stringKey.ICON_FORM"
+							slot="start"
+						></ion-icon>
+						<p>{{ "formInfo.emailPeer" | translate }}</p>
+					</ion-item>
+					<ion-card lines="none" color="light">
+						<ion-item lines="none" color="light">
+							<ion-input
+								autocomplete="off"
+								formControlName="userEmail"
+								type="text"
+							>
+							</ion-input>
+						</ion-item>
+						<ion-card
+							*ngIf="userEmail.invalid && userEmail.touched"
+							color="warning"
+						>
+							<ion-item color="warning">
+								<ion-icon
+									color="danger"
+									slot="start"
+									[src]="stringKey.ICON_WARNING"
+								></ion-icon>
+								{{ "validation.required" | translate }}
+							</ion-item>
+						</ion-card>
+					</ion-card>
+				</ion-card>
+				<!-- course name -->
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col>
+				<common-button
+					(event)="submit()"
+					class="float-right margin-10-px"
+					[color]="stringKey.COLOR_TERTIARY"
+					[title]="'button.add' | translate"
+					[icon]="stringKey.ICON_ADD"
+				>
+				</common-button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</form>
+
+<!-- body -->
