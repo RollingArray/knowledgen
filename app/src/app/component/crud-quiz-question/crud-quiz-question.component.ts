@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:38:45 
- * Last modified  : 2022-07-19 20:02:56
+ * Last modified  : 2022-09-16 21:58:10
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -609,7 +609,6 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 			{
 				if (eachAnswer.answerId === answer.answerId)
 				{
-					console.log(document.getElementById(eachAnswer.answerId).innerHTML);
 					let option: CourseMaterialQuizAnswerModel = {
 						...eachAnswer,
 						answer: document.getElementById(eachAnswer.answerId).innerHTML,
