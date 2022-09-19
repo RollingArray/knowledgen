@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-04-29 11:22:01 
- * Last modified  : 2022-07-27 19:18:53
+ * Last modified  : 2022-09-16 20:33:03
  */
 
 
@@ -22,6 +22,7 @@ export enum OperationsEnum
 	SUCCESS = 'SUCCESS',
 	FAIL = 'FAIL',
 	NONE = 'NONE',
+	OPERATION_COMPLETE = 'OPERATION COMPLETE',
 	REQUEST = 'REQUEST',
 	START = 'START',
 	END = 'END'
