@@ -39,7 +39,8 @@
 		"timer": "Timer",
 		"setDate": "Set Next Revision On",
 		"changeVisibilityPrivate": "Change Visibility To Private",
-		"changeVisibilityLive": "Change Visibility To Live"
+		"changeVisibilityLive": ",Change Visibility To Live",
+		"compareFriends": "Compare Leader Board with your Peer"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -118,7 +119,9 @@
 		"myRevisions": "My Revisions",
 		"revision": "Revision(s) On",
 		"sessionSummery": "Session Summery",
-		"contentVisibility": "Study Set Visibility"
+		"contentVisibility": "Study Set Visibility",
+		"peerLeaderBoard": "Peer Leader Board",
+		"addPeer": "Add Peer"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -162,8 +165,8 @@
 		"pointGuard3": ". Get ",
 		"pointGuard4": " more points to earn your ",
 		"pointGuard5": " badge",
-		"pointGuard6": " .This is the highest level. Awesome!! You have earned all the badges"
-		
+		"pointGuard6": " .This is the highest level. Awesome!! You have earned all the badges",
+		"peerLeaderBoard": "See where you stand against your peer. You can add or remove peers"
 	},
 	"formInfo": {
 		"intarest": "What are subjects / topics you are interested in to.",
@@ -238,7 +241,9 @@
 		"backMediaContent": "Add the media content to the back front side of the card (optional)",
 		"image": "Add Image",
 		"audio": "Record Audio",
-		"video": "Add Video"
+		"video": "Add Video",
+		"emailPeer": "Add email address of your peer",
+		"you": "You"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -267,7 +272,8 @@
 		"noMyLearningPath": "You have not yet added any course to your learning path !!",
 		"noCard": "No card has been found. Add your card !!",
 		"noFlashCardSession": "No session data available for this flash card !!",
-		"noRevisionData": "No revision data available !!"
+		"noRevisionData": "No revision data available !!",
+		"noPeer": "No Peer has been found. Add Peer !!"
 	},
 	"loading": { 
 		"wait": "Loading ... Please wait",
@@ -346,7 +352,9 @@
 		"newFlashCard": "Flash Card has been saved, you can update any time",
 		"editFlashCard": "Flash Card has been updated successfully",
 		"deleteFlashCard": "Flash Card has been deleted successfully",
-		"articleRevision": "Article has been added for revision successfully"
+		"articleRevision": "Article has been added for revision successfully",
+		"newPeer": "Peer has been added successfully",
+		"deletePeer": "Peer has been deleted successfully"
 	},
 	"validation": {
 		"required": "Please provide the details"
