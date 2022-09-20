@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:32:22 
- * Last modified  : 2022-09-20 15:36:20
+ * Last modified  : 2022-09-20 19:36:45
  */
 
 export enum RootOperationsEnum {
@@ -27,6 +27,7 @@ export enum RootOperationsEnum {
 	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = '[Root] Store Logged In User Details To Cookie',
 	STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE = '[Root] Store Update Logged In User Details To Cookie',
 
+	REQUEST_SIGN_OUT = '[Root] Request Sign Out',
 	DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE = '[Root] Delete Logged In User Details From Cookie',
 	DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE = '[Root] Delete Logged In User Details From Cookie',
 	DELETE_LOGGED_IN_USER_DETAILS_SUCCESS = '[Root] Delete Logged In User Details Success',

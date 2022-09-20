@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-09-20 15:44:55
+ * Last modified  : 2022-09-20 19:44:55
  */
 
 
@@ -524,6 +524,26 @@ export class RootStateEffects
 	);
 
 	/**
+	 * Delete logged in user of root state effects
+	 */
+	deleteLoggedInUser = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.REQUEST_SIGN_OUT
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					return [
+						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE(),
+						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE()
+					];
+				}),
+			),
+	 );
+	
+	/**
 	 * Delete logged in user from cookie$ of root state effects
 	 */
 	deleteLoggedInUserFromCookie$ = createEffect(
@@ -536,16 +556,21 @@ export class RootStateEffects
 				mergeMap((action) =>
 				{
 					const path = { path: environment.domain };
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_ID, path.path);
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, path.path);
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, path.path);
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_EMAIL, path.path);
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_SKILLS, path.path);
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_SESSION_ID, path.path);  
+					this.cookieService.delete(LocalStoreKey.LOGGED_IN_USER_TYPE, path.path);  
 
-					this.cookieService.deleteAll();
-					
 					return [
-						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE()
+						ROOT_ACTIONS.NOOP()
 					];
 				}),
 			),
-	 );
-	
+	);
+
 	/**
 	 * Delete logged in user from store$ of root state effects
 	 */
@@ -554,25 +579,6 @@ export class RootStateEffects
 			this.actions$.pipe(
 				ofType(
 					ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE
-				),
-				// merge all
-				mergeMap((action) =>
-				{
-					return [
-						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS()
-					];
-				}),
-			),
-	);
-
-	/**
-	 * Delete logged in user success$ of root state effects
-	 */
-	deleteLoggedInUserSuccess$ = createEffect(
-		() =>
-			this.actions$.pipe(
-				ofType(
-					ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS
 				),
 				// merge all
 				mergeMap((action) =>

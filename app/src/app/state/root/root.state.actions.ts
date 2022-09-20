@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:33:13 
- * Last modified  : 2022-09-20 15:37:34
+ * Last modified  : 2022-09-20 19:37:21
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -193,6 +193,14 @@ export const API_REQUEST_EDIT_LOGGED_IN_USER_FAIL = createAction(
 	RootOperationsEnum.API_REQUEST_EDIT_LOGGED_IN_USER_FAIL
 );
 
+
+/**
+* @description Root action - Request Sign Out
+*/
+export const REQUEST_SIGN_OUT = createAction(
+	RootOperationsEnum.REQUEST_SIGN_OUT
+);
+
 /**
 * @description Root action - Delete Logged In User Details From Cookie
 */
@@ -213,6 +221,7 @@ export const DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE = createAction(
 export const DELETE_LOGGED_IN_USER_DETAILS_SUCCESS = createAction(
 	RootOperationsEnum.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS
 );
+
 
 
 
@@ -253,6 +262,7 @@ export const ROOT_ACTIONS = {
 	STORE_STUDY_TIMER_STATUS,
 	API_REQUEST_EDIT_LOGGED_IN_USER,
 	API_REQUEST_EDIT_LOGGED_IN_USER_FAIL,
+	REQUEST_SIGN_OUT,
 	DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE,
 	DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE,
 	DELETE_LOGGED_IN_USER_DETAILS_SUCCESS,

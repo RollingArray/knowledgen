@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:39 
- * Last modified  : 2022-09-20 15:42:07
+ * Last modified  : 2022-09-20 19:37:40
  */
 
 import { Injectable } from '@angular/core';
@@ -194,7 +194,7 @@ export class RootStateFacade {
 	 */
 	 public deleteUser()
 	 {
-		 this.store.dispatch(ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE());
+		 this.store.dispatch(ROOT_ACTIONS.REQUEST_SIGN_OUT());
 	 }
 
 	

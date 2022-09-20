@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46
- * Last modified  : 2022-09-20 16:18:46
+ * Last modified  : 2022-09-20 19:32:04
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -338,8 +338,8 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 					handler: async () =>
 					{
 						//close the side menu and log out
-						this.menuController.close();
-						await this.userService.logout();
+						//this.menuController.close();
+						this.rootStateFacade.deleteUser();	
 					},
 				},
 			],
