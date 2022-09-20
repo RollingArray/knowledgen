@@ -5,55 +5,63 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-20 12:48:29 
- * Last modified  : 2022-09-20 12:51:40
+ * Last modified  : 2022-09-20 14:33:56
  */
 
 
 import { Injectable } from '@angular/core';
-import {
-	ActivatedRouteSnapshot,
-	RouterStateSnapshot,
-	CanActivate,
-	Router
-} from '@angular/router';
-import { LocalStoreKey } from '../constant/local-store-key.constant';
-import { CookieService } from 'ngx-cookie-service';
+import
+	{
+		ActivatedRouteSnapshot,
+		RouterStateSnapshot,
+		CanActivate,
+		Router
+	} from '@angular/router';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate
+{
 
 	/**
 	 * Creates an instance of auth guard.
 	 * @param router 
-	 * @param cookieService 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		private router: Router,
-		private cookieService: CookieService,
-	) {}
+		private rootStateFacade: RootStateFacade
+	) { }
 
 	/**
 	 * Determines whether activate can
-	 * @param route 
+	 * @param next 
 	 * @param state 
 	 * @returns  
 	 */
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+	canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
 	{
-		const token = this.cookieService.get(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`)
-		if (token)
-		{
-			// logged in so return true
-			
-			return true;
-		}
-
-		// not logged in so redirect to login page with the return url
-		this.router.navigate(['/sign-in'], {
-			// queryParams: { returnUrl: state.url }
-		});
-		return false;
+		return this.rootStateFacade.loggedInUserToken$.pipe(
+			map(token =>
+			{
+				if (token)
+				{
+					return true;
+				} else
+				{
+					this.router.navigate(['/sign-in']);
+				}
+			}),
+			catchError((err) =>
+			{
+				console.log(err);
+				this.router.navigate(['/sign-in']);
+				return of(false);
+			})
+		);
 	}
 }

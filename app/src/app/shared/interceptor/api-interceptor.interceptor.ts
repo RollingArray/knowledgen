@@ -1,3 +1,13 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Api interceptor
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-20 12:48:29 
+ * Last modified  : 2022-09-20 15:08:33
+ */
+
 import { Injectable } from '@angular/core';
 import
 {
@@ -8,18 +18,21 @@ import
 	HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { LocalStorageService } from '../service/local-storage.service';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor
 {
 	// Interceptor constructor
 	constructor(
-		private localStorageService: LocalStorageService,
-		private toastController: ToastController
-	) { }
+		private toastController: ToastController,
+		private rootStateFacade: RootStateFacade
+	)
+	{ 
+		//
+	}
 
 	// intecept
 	intercept(
@@ -29,19 +42,24 @@ export class ApiInterceptor implements HttpInterceptor
 	{
 
 		// add authorization header with jwt token if available
-		const currentUserToken: string = this.localStorageService.getToken();
-		const currentUserId: string = this.localStorageService.getActiveUserId();
-
-		// if token available add it as auth header
-		if (currentUserToken)
+		this.rootStateFacade.loggedInUserToken$.pipe(take(1)).subscribe(token =>
 		{
-			request = request.clone({
-				setHeaders: {
-					Auth: `${currentUserToken}`,
-					UserId: currentUserId
-				}
-			});
-		}
+			if (token)
+			{
+				this.rootStateFacade.loggedInUserId$.pipe(take(1)).subscribe(userId =>
+				{
+					request = request.clone({
+						setHeaders: {
+							Auth: `${token}`,
+							UserId: userId
+						}
+					});
+				});
+				
+			}
+		})
+		// if token available add it as auth header
+		
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) =>
 			{
