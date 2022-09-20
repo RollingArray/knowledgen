@@ -7,13 +7,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-09-19 20:13:44
+ * Last modified  : 2022-09-20 11:41:26
  */	
  -->
 <!-- header -->
 <ion-header [appScrollTracker]="scrollArea">
 	<ion-toolbar color="primary">
-		<ion-title> {{loggedInUser}} </ion-title>
+		<ion-title> {{(loggedInUserName$ | async)}} </ion-title>
 		<ion-buttons slot="start">
 			<ion-menu-button> </ion-menu-button>
 		</ion-buttons>
@@ -75,7 +75,7 @@
 												<ion-text
 													color="primary-gradient"
 												>
-													{{loggedInUser}} !!
+													{{(loggedInUserName$ | async)}} !!
 												</ion-text>
 											</b>
 										</h1>
@@ -113,12 +113,12 @@
 						<div>
 							<img
 								class="user-profile"
-								*ngIf="userType === userTypeEnum.Student"
+								*ngIf="(loggedInUserType$ | async) === userTypeEnum.Student"
 								[src]="stringKey.IMAGE_STUDENT_PROFILE"
 							/>
 							<img
 								class="user-profile"
-								*ngIf="userType === userTypeEnum.Teacher"
+								*ngIf="(loggedInUserType$ | async) === userTypeEnum.Teacher"
 								[src]="stringKey.IMAGE_TEACHER_PROFILE"
 							/>
 						</div>

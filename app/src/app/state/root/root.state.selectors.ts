@@ -6,11 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-09-20 07:29:03
+ * Last modified  : 2022-09-20 11:36:38
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { RootStateModel } from './root.state.model';
 import { ROOT_FEATURE_KEY } from './root.state.reducer';
@@ -69,6 +70,14 @@ export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = cr
 );
 
 /**
+ * @description Selector - Logged in User type
+ */
+ export const selectLoggedInUserType: MemoizedSelector<RootStateModel, UserTypeEnum> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): UserTypeEnum => rootStateModel.loggedInUser.userType
+);
+
+/**
  * @description Selector - Study timer status
  */
 export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
@@ -103,5 +112,6 @@ export const ROOT_QUERY_SELECTOR = {
 	selectLoggedInUser,
 	selectLoggedInUserId,
 	selectStudyTimerStatus,
-	selectLoggedInUserName
+	selectLoggedInUserName,
+	selectLoggedInUserType
 };

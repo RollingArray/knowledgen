@@ -6,24 +6,20 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53
- * Last modified  : 2022-09-19 19:44:07
+ * Last modified  : 2022-09-20 11:41:20
  */
 
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
 import { UserPeerComponent } from 'src/app/component/user-peer/user-peer.component';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { CharacteristicsEnum } from 'src/app/shared/enum/characteristics.enum';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { DashboardStudentModel } from 'src/app/shared/model/dashboard-student.model';
 import { StudyPointGuardModel } from 'src/app/shared/model/study-point-guard.model';
-import { UserPeerModel } from 'src/app/shared/model/user-peer.model';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 import { DashboardStateFacade } from 'src/app/state/dashboard/dashboard.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 
@@ -88,52 +84,21 @@ export class DashboardPage
 	public today: number = Date.now();
 
 	/**
+	 * Logged in user name$ of dashboard page
+	 */
+	public loggedInUserName$: Observable<string>;
+
+	/**
+	 * Logged in user type$ of dashboard page
+	 */
+	public loggedInUserType$: Observable<UserTypeEnum>
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * Gets description
-	 */
-	get userType()
-	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	}
-
-	/**
-	 * Gets whether is user type teacher
-	 */
-	get isUserTypeTeacher()
-	{
-		return this.userType === UserTypeEnum.Teacher ? true : false;
-	}
-
-	/**
-	 * Gets whether is user type student
-	 */
-	get isUserTypeStudent()
-	{
-		return this.userType === UserTypeEnum.Student ? true : false;
-	}
-
-	/**
-	 * Gets logged in user
-	 */
-	public get loggedInUser(): string
-	{
-		let loggedInUserName = '';
-		this.localStorageService
-			.getActiveUserName()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) =>
-			{
-				loggedInUserName = data;
-			});
-
-		return loggedInUserName;
-	}
 
 	/**
 	 * Gets greeting
@@ -251,25 +216,22 @@ export class DashboardPage
 	 */
 	/**
 	 * Creates an instance of dashboard page.
-	 * @param injector
-	 * @param dashboardStateFacade
-	 * @param rootStateFacade
-	 * @param translateService
-	 * @param cookieService
-	 * @param localStorageService
+	 * @param injector 
+	 * @param dashboardStateFacade 
+	 * @param rootStateFacade 
+	 * @param translateService 
 	 */
 	constructor(
 		injector: Injector,
 		private dashboardStateFacade: DashboardStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private translateService: TranslateService,
-		private cookieService: CookieService,
-		private localStorageService: LocalStorageService
+		private translateService: TranslateService
 	)
 	{
 		super(injector);
-		this.loadingIndicatorStatus$ =
-			this.rootStateFacade.loadingIndicatorStatus$;
+		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
+		this.loggedInUserName$ = this.rootStateFacade.loggedInUserName$;
+		this.loggedInUserType$ = this.rootStateFacade.loggedInUserType$;
 	}
 
 	/**
@@ -320,23 +282,30 @@ export class DashboardPage
 	 */
 	public loadData()
 	{
-		if (this.userType === UserTypeEnum.Student)
-		{
-			this.hasStudentData$ = this.dashboardStateFacade.hasStudentData$;
-			this.dashboardStudent$ =
-				this.dashboardStateFacade.dashboardStudent$;
-
-			// if no data available ... make a api request, else work with store data
-			this.hasStudentData$
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe((hasData) =>
+		this.loggedInUserType$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((userType) =>
+			{
+				if (userType === UserTypeEnum.Student)
 				{
-					if (!hasData)
-					{
-						this.getDashboard();
-					}
-				});
-		}
+					this.hasStudentData$ = this.dashboardStateFacade.hasStudentData$;
+					this.dashboardStudent$ =
+						this.dashboardStateFacade.dashboardStudent$;
+
+
+					// if no data available ... make a api request, else work with store data
+					this.hasStudentData$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((hasData) =>
+						{
+							if (!hasData)
+							{
+								this.getDashboard();
+							}
+						});
+				}
+			});
+
 	}
 
 	/**
