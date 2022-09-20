@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:39 
- * Last modified  : 2022-09-20 11:37:12
+ * Last modified  : 2022-09-20 11:47:16
  */
 
 import { Injectable } from '@angular/core';
@@ -66,7 +66,15 @@ export class RootStateFacade {
 	 */
 	loggedInUserType$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUserType);
 
-	
+	/**
+	 * If user teacher$ of root state facade
+	 */
+	ifUserTeacher$ = this.store.select(ROOT_QUERY_SELECTOR.selectIfUserTeacher);
+
+	/**
+	 * If user student$ of root state facade
+	 */
+	ifUserStudent$ = this.store.select(ROOT_QUERY_SELECTOR.selectIfUserStudent);
 	
 	/**
 	 * Creates an instance of auth state facade.

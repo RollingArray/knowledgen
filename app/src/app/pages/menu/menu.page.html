@@ -8,7 +8,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-09-19 20:54:57
+ * Last modified  : 2022-09-20 12:05:38
  */
  -->
 <ion-app>
@@ -70,15 +70,15 @@
 										<!-- <ion-button class="font-size-50-px" style="height: 100px; border-radius: 50px;">
 											sss
 										</ion-button> -->
-										<ion-icon *ngIf="isUserTypeTeacher" class="font-size-100-px"
+										<ion-icon *ngIf="(ifUserTeacher$ | async)" class="font-size-100-px"
 											[src]="stringKey.ICON_TEACHER"></ion-icon>
-										<ion-icon *ngIf="isUserTypeStudent" class="font-size-100-px"
+										<ion-icon *ngIf="(ifUserStudent$ | async)" class="font-size-100-px"
 											[src]="stringKey.ICON_STUDENT"></ion-icon>
 									</ion-col>
 								</ion-row>
 								<ion-row>
 									<ion-col>
-										<h2>{{loggedInUser}}</h2>
+										<h2>{{loggedInUserName$ | async}}</h2>
 									</ion-col>
 								</ion-row>
 							</ion-grid>

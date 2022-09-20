@@ -6,27 +6,30 @@
  * @summary Menu page
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-01 20:47:46 
- * Last modified  : 2022-09-19 21:29:07
+ * Created at     : 2021-11-01 20:47:46
+ * Last modified  : 2022-09-20 12:05:31
  */
 
-
 import { take, takeUntil } from 'rxjs/operators';
-import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
-import { BaseViewComponent } from "src/app/component/base/base-view.component";
-import { UserModel } from "src/app/shared/model/user.model";
-import { StringKey } from "src/app/shared/constant/string.constant";
-import { ModalData } from "src/app/shared/model/modal-data.model";
-import { LocalStorageService } from "src/app/shared/service/local-storage.service";
-import { LoadingService } from "src/app/shared/service/loading.service";
-import { DataCommunicationService } from "src/app/shared/service/data-communication.service";
-import { DataCommunicationModel } from "src/app/shared/model/data-communication.model";
-import { BaseModel } from "src/app/shared/model/base.model";
-import { UserProfileComponent } from "src/app/component/user-profile/user-profile.component";
-import { MenuController } from "@ionic/angular";
+import { ArrayKey } from 'src/app/shared/constant/array.constant';
+import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
+import { BaseViewComponent } from 'src/app/component/base/base-view.component';
+import { UserModel } from 'src/app/shared/model/user.model';
+import { StringKey } from 'src/app/shared/constant/string.constant';
+import { ModalData } from 'src/app/shared/model/modal-data.model';
+import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
+import { LoadingService } from 'src/app/shared/service/loading.service';
+import { DataCommunicationService } from 'src/app/shared/service/data-communication.service';
+import { DataCommunicationModel } from 'src/app/shared/model/data-communication.model';
+import { BaseModel } from 'src/app/shared/model/base.model';
+import { UserProfileComponent } from 'src/app/component/user-profile/user-profile.component';
+import { MenuController } from '@ionic/angular';
 import { UserService } from 'src/app/shared/service/user.service';
-import { RouteChildrenModel, RouteModel } from 'src/app/shared/model/route.model';
+import
+	{
+		RouteChildrenModel,
+		RouteModel,
+	} from 'src/app/shared/model/route.model';
 import { LearnMoreComponent } from 'src/app/component/learn-more/learn-more.component';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { UpdateCheckerService } from 'src/app/shared/service/update-checker.service';
@@ -39,14 +42,45 @@ import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { Alert } from 'selenium-webdriver';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from 'src/app/shared/service/alert.service';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
-	selector: "app-menu",
-	templateUrl: "./menu.page.html",
-	styleUrls: ["./menu.page.scss"],
+	selector: 'app-menu',
+	templateUrl: './menu.page.html',
+	styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 {
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @readonly properties                             |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * App environment of learn more component
+	 */
+	readonly appEnvironment = environment.level ? environment.level : '';
+
+	/**
+	 * App version of learn more component
+	 */
+	readonly appVersion = environment.version;
+
+	/**
+	 * User type enum of menu page
+	 */
+	readonly userTypeEnum = UserTypeEnum;
+
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @private Instance variable                       |
+	 * -------------------------------------------------|
+	 */
+
 	/**
 	 * User model of menu page
 	 */
@@ -93,33 +127,54 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	private _loadRoute: boolean = true;
 
 	/**
-	 * Gets logged in user
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @public Instance variable                        |
+	 * -------------------------------------------------|
 	 */
-	public get loggedInUser(): string
-	{
-		let loggedInUserName = '';
-		this.localStorageService
-			.getActiveUserName()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) =>
-			{
-				loggedInUserName = data;
-			});
 
-		return loggedInUserName;
-	}
+	/**
+	 * Description  of menu page
+	 */
+	public ifUserStudent$: Observable<boolean>;
+
+	/**
+	 * If user teacher$ of menu page
+	 */
+	public ifUserTeacher$: Observable<boolean>;
+
+	/**
+	 * Logged in user name$ of menu page
+	 */
+	public loggedInUserName$: Observable<string>;
+
+	/**
+	 * Logged in user id$ of menu page
+	 */
+	public loggedInUserId$: Observable<string>;
+
+	/**
+	 * Logged in user type$ of menu page
+	 */
+	public loggedInUserType$: Observable<UserTypeEnum>;
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Getter & Setters                                 |
+	 * -------------------------------------------------|
+	 */
 
 	/**
 	 * Gets pages
 	 */
 	public get pages(): RouteModel[]
 	{
-		this._pages.map(eachPage =>
+		this._pages.map((eachPage) =>
 		{
-			eachPage.children.map(eachPageChildren =>
+			eachPage.children.map((eachPageChildren) =>
 			{
 				eachPageChildren.allowMenuAccess = true;
-			})
+			});
 		});
 		return this._pages;
 	}
@@ -130,14 +185,6 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	public get hasData(): boolean
 	{
 		return this._hasData;
-	}
-
-	/**
-	 * Sets logged in user
-	 */
-	public set loggedInUser(value: string)
-	{
-		this._loggedInUser = value;
 	}
 
 	/**
@@ -164,99 +211,68 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		return this._loadRoute;
 	}
 
-	get userType()
-	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	}
-
-	get isUserTypeTeacher()
-	{
-		return this.userType === UserTypeEnum.Teacher ? true : false;
-	}
-
-	get isUserTypeStudent()
-	{
-		return this.userType === UserTypeEnum.Student ? true : false;
-	}
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @ViewChild Instance variable                     |
+	 * -------------------------------------------------|
+	 */
 
 	/**
-	 * App environment of learn more component
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Life cycle hook                                  |
+	 * -------------------------------------------------|
 	 */
-	readonly appEnvironment = environment.level ? environment.level : '';
 
-	/**
-	 * App version of learn more component
-	 */
-	readonly appVersion = environment.version;
-
-	/**
-	 * User type enum of menu page
-	 */
-	readonly userTypeEnum = UserTypeEnum;
 	/**
 	 * Creates an instance of menu page.
 	 * @param injector 
-	 * @param alertService 
 	 * @param menuController 
-	 * @param localStorageService 
-	 * @param loadingService 
 	 * @param dataCommunicationService 
 	 * @param userService 
+	 * @param updateCheckerService 
+	 * @param rootStateFacade 
+	 * @param translateService 
+	 * @param alertService 
 	 */
 	constructor(
 		injector: Injector,
 		private menuController: MenuController,
-		private localStorageService: LocalStorageService,
-		private loadingService: LoadingService,
 		private dataCommunicationService: DataCommunicationService,
 		private userService: UserService,
 		private updateCheckerService: UpdateCheckerService,
-		private cookieService: CookieService,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
 		private alertService: AlertService
 	)
 	{
-
 		super(injector);
-
+		this.ifUserStudent$ = this.rootStateFacade.ifUserStudent$;
+		this.ifUserTeacher$ = this.rootStateFacade.ifUserTeacher$;
+		this.loggedInUserName$ = this.rootStateFacade.loggedInUserName$;
+		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
+		this.loggedInUserType$ = this.rootStateFacade.loggedInUserType$;
 	}
 
 	/**
-	 * Registers back button
+	 * on init
 	 */
-	async registerBackButton()
-	{
-		this.platform.backButton
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async () =>
-			{
-				await this.userService.logout();
-			});
-	}
-
-	// Lifecycle hook: ngOnInit
 	async ngOnInit()
 	{
 		//
 	}
 
-	// Lifecycle hook: ionViewDidEnter
+	/**
+	 * Ions view did enter
+	 */
 	async ionViewDidEnter()
 	{
 		this.updateCheckerService.checkIfAppUpdateAvailable();
 
-		await this.passedProjectId();
-
-		await this.getCurrentUser();
-
-		await this.activeUserId();
-
 		await this.ifInvalidSession();
 
 		await this.registerBackButton();
-
-		this.loadData();
 	}
 
 	/**
@@ -267,79 +283,38 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		super.ngOnDestroy();
 	}
 
+	/**
+	 * Ions view did leave
+	 */
 	ionViewDidLeave()
 	{
 		window.location.reload;
 	}
 
 	/**
-	 * Loads data
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Private methods                                 |
+	 * -------------------------------------------------|
 	 */
-	async loadData()
-	{
-		//this.loadingService.present(`${StringKey.API_REQUEST_MESSAGE_1}`);
-	}
 
 	/**
-	 * Passed project id
+	 * Registers back button
 	 */
-	async passedProjectId()
+	private async registerBackButton()
 	{
-		this.activatedRoute.params
+		this.platform.backButton
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(params =>
+			.subscribe(async () =>
 			{
-				this._projectId = params.projectId;
+				await this.userService.logout();
 			});
-	}
-
-	/**
-	 * Gets current user
-	 */
-	async getCurrentUser()
-	{
-
-		this.localStorageService
-			.getActiveUserName()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) =>
-			{
-				this._loggedInUser = data;
-			});
-
-		await this.activeUserId();
-	}
-
-	/**
-	 * Actives user id
-	 * @returns  
-	 */
-	async activeUserId()
-	{
-		this._loggedInUserId = this.localStorageService.getActiveUserId();
-	}
-
-	/**
-	 * Actives user email
-	 * @returns  
-	 */
-	async activeUserEmail()
-	{
-		let activeUserEmail = "";
-		const observable = this.localStorageService
-			.getActiveUserEmail()
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((data: string) =>
-			{
-				activeUserEmail = data;
-			});
-		return activeUserEmail;
 	}
 
 	/**
 	 * invalid session
 	 */
-	async ifInvalidSession()
+	private async ifInvalidSession()
 	{
 		this.dataCommunicationService
 			.getMessage()
@@ -347,18 +322,17 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 			.subscribe((dataCommunicationModel: DataCommunicationModel) =>
 			{
 				//if the api response comes with invalid session, prompt user to re-sign in
-				if (dataCommunicationModel.message === "INVALID_SESSION")
+				if (dataCommunicationModel.message === 'INVALID_SESSION')
 				{
 					this.userService.logout();
 				}
 			});
 	}
 
-
 	/**
 	 * Presents logout alert confirm
 	 */
-	async presentLogoutAlertConfirm()
+	public async presentLogoutAlertConfirm()
 	{
 		const alert = await this.alertController.create({
 			header: `${StringKey.CONFIRM_ACTION}`,
@@ -366,7 +340,7 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 			buttons: [
 				{
 					text: `${StringKey.NO}`,
-					cssClass: "primary",
+					cssClass: 'primary',
 					handler: () => { },
 				},
 				{
@@ -385,9 +359,9 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 
 	/**
 	 * Views profile
-	 * @returns  
+	 * @returns
 	 */
-	async viewProfile()
+	public async viewProfile()
 	{
 		const modal = await this.modalController.create({
 			component: UserProfileComponent,
@@ -398,62 +372,17 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 
 		modal.onDidDismiss().then((data) =>
 		{
-			this._modalData = data.data;
-			if (this._modalData.cancelled)
-			{
-				//do not refresh the page
-			} else
-			{
-				this._loggedInUser = this.localStorageService.currentActiveUserName$.getValue();
-			}
+			//
 		});
 
 		return await modal.present();
 	}
 
-	/**
-	 * Goto my projects
-	 */
-	async gotoMyProjects()
-	{
-		this.router.navigate(["/go"]);
-	}
 
-	/**
-	 * Goto page
-	 * @param routeChildrenModel 
-	 */
-	async gotoPage(routeChildrenModel: RouteChildrenModel)
-	{
-
-		this.rootStateFacade
-			.studyTimerStatus$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(
-			studyTimerStatus =>
-			{
-				if (studyTimerStatus === OperationsEnum.END)
-				{
-					this.routePage(routeChildrenModel);
-				}
-				else
-				{
-					this.translateService
-						.get('actionAlert.ongoingActivity')
-						.pipe(take(1))
-						.subscribe(async data =>
-						{
-
-							await this.alertService.presentBasicAlert(data);
-						});
-				}
-			}
-		)
-	}
 
 	/**
 	 * Routes page
-	 * @param routeChildrenModel 
+	 * @param routeChildrenModel
 	 */
 	private routePage(routeChildrenModel: RouteChildrenModel)
 	{
@@ -469,12 +398,44 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	}
 
 	/**
-	 * Goto action
-	 * @param routeChildrenModel 
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Public methods                                  |
+	 * -------------------------------------------------|
 	 */
-	async gotoAction(routeChildrenModel: RouteChildrenModel)
-	{
 
+	/**
+	 * Goto page
+	 * @param routeChildrenModel
+	 */
+	public async gotoPage(routeChildrenModel: RouteChildrenModel)
+	{
+		this.rootStateFacade.studyTimerStatus$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((studyTimerStatus) =>
+			{
+				if (studyTimerStatus === OperationsEnum.END)
+				{
+					this.routePage(routeChildrenModel);
+				} else
+				{
+					this.translateService
+						.get('actionAlert.ongoingActivity')
+						.pipe(take(1))
+						.subscribe(async (data) =>
+						{
+							await this.alertService.presentBasicAlert(data);
+						});
+				}
+			});
+	}
+
+	/**
+	 * Goto action
+	 * @param routeChildrenModel
+	 */
+	public async gotoAction(routeChildrenModel: RouteChildrenModel)
+	{
 		switch (routeChildrenModel.action)
 		{
 			case 'changeLanguage':
@@ -488,18 +449,18 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 
 	/**
 	 * Learns more
-	 * @returns  
+	 * @returns
 	 */
 	public async learnMore()
 	{
 		const modal = await this.modalController.create({
 			component: LearnMoreComponent,
 			componentProps: {
-				data: {}
-			}
+				data: {},
+			},
 		});
 
-		modal.onDidDismiss().then(data =>
+		modal.onDidDismiss().then((data) =>
 		{
 			//
 		});
@@ -509,9 +470,9 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 
 	/**
 	 * Changes language
-	 * @returns  
+	 * @returns
 	 */
-	async changeLanguage()
+	public async changeLanguage()
 	{
 		const modal = await this.modalController.create({
 			component: SelectLanguageComponent,
@@ -524,7 +485,6 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 		{
 			//if app, initiate push notificaiton
 			window.location.reload();
-
 		});
 
 		return await modal.present();
@@ -532,11 +492,22 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 
 	/**
 	 * Checks if menu should show
-	 * @param eachSubMenu 
-	 * @returns  
+	 * @param eachSubMenu
+	 * @returns
 	 */
 	public checkIfMenuShouldShow(eachSubMenu: RouteChildrenModel)
 	{
-		return eachSubMenu.allowAccess.filter(access => access === this.userType).length > 0 ? true : false;
+		let allowed = false;
+		this.loggedInUserType$
+			.pipe(take(1))
+			.subscribe(async (userType) =>
+			{
+				allowed = eachSubMenu.allowAccess.filter(
+					(access) => access === userType
+				).length > 0
+					? true
+					: false;
+			});
+		return allowed;
 	}
 }

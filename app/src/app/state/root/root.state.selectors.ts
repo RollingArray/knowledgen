@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-09-20 11:36:38
+ * Last modified  : 2022-09-20 11:46:17
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
@@ -72,9 +72,25 @@ export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = cr
 /**
  * @description Selector - Logged in User type
  */
- export const selectLoggedInUserType: MemoizedSelector<RootStateModel, UserTypeEnum> = createSelector(
+export const selectLoggedInUserType: MemoizedSelector<RootStateModel, UserTypeEnum> = createSelector(
 	selectRootState,
 	(rootStateModel: RootStateModel): UserTypeEnum => rootStateModel.loggedInUser.userType
+);
+
+/**
+* @description Selector - If user teacher
+*/
+export const selectIfUserTeacher: MemoizedSelector<RootStateModel, boolean> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): boolean => rootStateModel.loggedInUser.userType === UserTypeEnum.Teacher ? true : false
+);
+
+/**
+* @description Selector - If user student
+*/
+export const selectIfUserStudent: MemoizedSelector<RootStateModel, boolean> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): boolean => rootStateModel.loggedInUser.userType === UserTypeEnum.Student ? true : false
 );
 
 /**
@@ -88,16 +104,16 @@ export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, Operations
 /**
  * @description Selector - Logged in user name
  */
- export const selectLoggedInUserName: MemoizedSelector<RootStateModel, string> = createSelector(
+export const selectLoggedInUserName: MemoizedSelector<RootStateModel, string> = createSelector(
 	selectRootState,
-	 (rootStateModel: RootStateModel): string =>
-	 {
+	(rootStateModel: RootStateModel): string =>
+	{
 		const firstName = rootStateModel.loggedInUser.userFirstName;
 		const lastName = rootStateModel.loggedInUser.userLastName;
 		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.slice(1);
 		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.slice(1);
 
-		return firstNameCapitalized + " " + lastNameCapitalized;	
+		return firstNameCapitalized + " " + lastNameCapitalized;
 	}
 );
 
@@ -113,5 +129,7 @@ export const ROOT_QUERY_SELECTOR = {
 	selectLoggedInUserId,
 	selectStudyTimerStatus,
 	selectLoggedInUserName,
-	selectLoggedInUserType
+	selectLoggedInUserType,
+	selectIfUserTeacher,
+	selectIfUserStudent
 };
