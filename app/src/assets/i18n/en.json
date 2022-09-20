@@ -169,7 +169,7 @@
 		"peerLeaderBoard": "See where you stand against your peer. You can add or remove peers"
 	},
 	"formInfo": {
-		"intarest": "What are subjects / topics you are interested in to.",
+		"interest": "What are subjects / topics you are interested in to.",
 		"yourCred": "Your credential, you use this email to sign in",
 		"firstName": "First Name",
 		"lastName": "First Name",
