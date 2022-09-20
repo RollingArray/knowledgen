@@ -1,6 +1,16 @@
-<ion-avatar>
-	<span>{{getUserNameInitials(user?.userFirstName,user?.userLastName)}}</span>
-	<div class="type" *ngIf="icon">
-		<ion-icon slot="start" [src]="icon"></ion-icon>
-	</div>
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Avatar component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-20 11:18:54 
+ * Last modified  : 2022-09-20 11:19:17
+ */	
+ -->
+<ion-avatar
+	[class]="profileSize === 'large' ? 'avatar-large' : 'avatar-normal'"
+>
+	<span *ngIf="firstName && lastName">{{ userNameInitials }}</span>
 </ion-avatar>
