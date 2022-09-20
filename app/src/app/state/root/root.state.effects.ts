@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-09-07 14:50:01
+ * Last modified  : 2022-09-20 08:01:56
  */
 
 
@@ -303,6 +303,61 @@ export class RootStateEffects
 	);
 
 	/**
+	 * Api request edit logged in user$ of root state effects
+	 */
+	apiRequestEditLoggedInUser$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.API_REQUEST_EDIT_LOGGED_IN_USER
+				),
+				mergeMap(action =>
+					this.userService.userProfileUpdate(action.payload).pipe(
+						mergeMap((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopModalLoading();
+
+							// if success response
+							if (data.success)
+							{
+								const userModel: UserModel = {
+									userEmail: action.payload.userEmail,
+									userFirstName: action.payload.userFirstName,
+									userLastName: action.payload.userLastName,
+									userSkills: action.payload.userSkills,
+								};
+
+								// store newly added skill
+								return [
+									ROOT_ACTIONS.STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE({ payload: userModel }),
+									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS({ payload: userModel }),
+								];
+							}
+							// response fail
+							else
+							{
+
+								// if error message
+								if (data.message)
+								{
+									data.message.map(eachMessage =>
+									{
+										this.toastService.presentToast(eachMessage);
+									})
+								}
+
+								return [ROOT_ACTIONS.API_REQUEST_EDIT_LOGGED_IN_USER_FAIL()];
+							}
+
+						}),
+						catchError(() => EMPTY)
+					),
+				),
+			),
+	);
+
+	/**
 	 * Store logged in user to cookie$ of root state effects
 	 */
 	storeLoggedInUserToCookie$ = createEffect(
@@ -318,6 +373,32 @@ export class RootStateEffects
 
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_TYPE, action.payload.userType, path);
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_ID, action.payload.userId, path);
+					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, action.payload.userFirstName, path);
+					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, action.payload.userLastName, path);
+					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, action.payload.userEmail, path);
+					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_SKILLS, action.payload.userSkills, path);
+
+					return [
+						ROOT_ACTIONS.NOOP()
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Store updated logged in user to cookie$ of root state effects
+	 */
+	storeUpdatedLoggedInUserToCookie$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					const path = { path: environment.domain };
+
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_FIRST_NAME, action.payload.userFirstName, path);
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_LAST_NAME, action.payload.userLastName, path);
 					this.cookieService.set(LocalStoreKey.LOGGED_IN_USER_EMAIL, action.payload.userEmail, path);
