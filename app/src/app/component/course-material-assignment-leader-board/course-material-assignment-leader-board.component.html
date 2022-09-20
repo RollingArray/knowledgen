@@ -20,9 +20,10 @@
         <div *ngFor="let user of courseMaterialAssignmentLeaderBoard; let i = index">
             <ion-card color="light" class="margin-top-30-px padding-top-30-px">
                 <ion-item color="none">
-                    <ion-avatar slot="start">
-                        <img [src]="stringKey.ICON_USER" />
-                    </ion-avatar>
+                    <avatar *ngIf="user"
+                        [firstName]="user.userFirstName"
+                        [lastName]="user.userLastName"
+                    ></avatar>
                     <ion-label>
                         <b><h2>{{user.userFirstName}} {{user.userFirstName}}</h2></b>
                         <h4><ion-text color="medium"> {{user.userEmail}}</ion-text></h4>

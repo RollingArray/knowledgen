@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { CourseMaterialAssignmentLeaderBoardComponent } from './course-material-assignment-leader-board.component';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { AvatarModule } from '../avatar/avatar.component.module';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
 		IonicModule, 
 		FormsModule,
 		SharedModule,
-		TranslateModule
+		TranslateModule,
+		AvatarModule
 	],
 
 	declarations: [CourseMaterialAssignmentLeaderBoardComponent],

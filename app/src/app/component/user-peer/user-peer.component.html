@@ -86,9 +86,10 @@
 					class="margin-top-30-px padding-top-30-px"
 				>
 					<ion-item color="none">
-						<ion-avatar slot="start">
-							<img [src]="stringKey.ICON_USER" />
-						</ion-avatar>
+						<avatar *ngIf="user"
+							[firstName]="user.userFirstName"
+							[lastName]="user.userLastName"
+						></avatar>
 						<ion-label>
 							<b
 								><h2>
@@ -145,9 +146,10 @@
 						<ion-row>
 							<ion-col>
 								<ion-item color="none" lines="none">
-									<ion-avatar slot="start">
-										<img [src]="stringKey.ICON_USER" />
-									</ion-avatar>
+									<avatar *ngIf="loggedInUser$"
+										[firstName]="(loggedInUser$ | async).userFirstName"
+										[lastName]="(loggedInUser$ | async).userLastName"
+									></avatar>
 									<ion-label>
 										<b
 											><h1>

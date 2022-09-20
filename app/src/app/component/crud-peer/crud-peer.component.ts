@@ -5,7 +5,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-19 19:32:06 
- * Last modified  : 2022-09-20 07:31:45
+ * Last modified  : 2022-09-20 07:33:04
  */
 
 import { TranslateService } from '@ngx-translate/core';
@@ -135,7 +135,6 @@ export class CrudPeerComponent extends BaseFormComponent implements OnInit
 	 * @param alertService 
 	 * @param userPeerStateFacade 
 	 * @param rootStateFacade 
-	 * @param localStorageService 
 	 */
 	constructor(
 		injector: Injector,

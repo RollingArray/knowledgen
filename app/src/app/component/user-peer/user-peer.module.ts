@@ -27,6 +27,7 @@ import { UserPeerStateModule } from 'src/app/state/user-peer/user-peer.state.mod
 import { CrudPeerModule } from '../crud-peer/crud-peer.module';
 import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
 import { NoDataModule } from '../no-data/no-data.component.module';
+import { AvatarModule } from '../avatar/avatar.component.module';
 
 @NgModule({
 	imports: [
@@ -47,7 +48,8 @@ import { NoDataModule } from '../no-data/no-data.component.module';
 		UserPeerStateModule,
 		CrudPeerModule,
 		DeleteButtonModule,
-		NoDataModule
+		NoDataModule,
+		AvatarModule
 	],
 
 	declarations: [UserPeerComponent],

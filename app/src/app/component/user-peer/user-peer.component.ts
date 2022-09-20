@@ -17,6 +17,7 @@ import { ModuleEnum } from "src/app/shared/enum/module.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { DashboardStudentModel } from "src/app/shared/model/dashboard-student.model";
 import { UserPeerModel } from "src/app/shared/model/user-peer.model";
+import { UserModel } from "src/app/shared/model/user.model";
 import { LocalStorageService } from "src/app/shared/service/local-storage.service";
 import { DashboardStateFacade } from "src/app/state/dashboard/dashboard.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
@@ -83,6 +84,11 @@ export class UserPeerComponent extends BaseFormComponent implements OnInit
 	 * Dashboard student$ of user peer component
 	 */
 	public dashboardStudent$: Observable<DashboardStudentModel>;
+
+	/**
+	 * Logged in user$ of user peer component
+	 */
+	public loggedInUser$: Observable<UserModel>;
 
 	/**
 	 * -------------------------------------------------|
@@ -176,6 +182,7 @@ export class UserPeerComponent extends BaseFormComponent implements OnInit
 	 */
 	private loadData()
 	{
+		this.loggedInUser$ = this.rootStateFacade.loggedInUser$;
 		this.dashboardStudent$ = this.dashboardStateFacade.dashboardStudent$;
 		this.userPeerHasData$ = this.userPeerStateFacade.userPeerHasData$;
 		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
