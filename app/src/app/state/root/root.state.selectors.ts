@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-07-27 19:39:41
+ * Last modified  : 2022-09-20 07:29:03
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
@@ -31,7 +31,7 @@ export const selectLoadingIndicatorStatus: MemoizedSelector<RootStateModel, bool
 /**
  * @description Selector - Modal loading indicator status
  */
- export const selectModalLoadingIndicatorStatus: MemoizedSelector<RootStateModel, boolean> = createSelector(
+export const selectModalLoadingIndicatorStatus: MemoizedSelector<RootStateModel, boolean> = createSelector(
 	selectRootState,
 	(rootStateModel: RootStateModel): boolean => rootStateModel.modalLoadingIndicatorStatus
 );
@@ -71,12 +71,26 @@ export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = cr
 /**
  * @description Selector - Study timer status
  */
- export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
+export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, OperationsEnum> = createSelector(
 	selectRootState,
 	(rootStateModel: RootStateModel): OperationsEnum => rootStateModel.studyTimerStatus
- );
+);
 
+/**
+ * @description Selector - Logged in user name
+ */
+ export const selectLoggedInUserName: MemoizedSelector<RootStateModel, string> = createSelector(
+	selectRootState,
+	 (rootStateModel: RootStateModel): string =>
+	 {
+		const firstName = rootStateModel.loggedInUser.userFirstName;
+		const lastName = rootStateModel.loggedInUser.userLastName;
+		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.slice(1);
 
+		return firstNameCapitalized + " " + lastNameCapitalized;	
+	}
+);
 
 /**
  * export root state query to access all selectors
@@ -88,5 +102,6 @@ export const ROOT_QUERY_SELECTOR = {
 	selectUserLoggedInStatus,
 	selectLoggedInUser,
 	selectLoggedInUserId,
-	selectStudyTimerStatus
+	selectStudyTimerStatus,
+	selectLoggedInUserName
 };

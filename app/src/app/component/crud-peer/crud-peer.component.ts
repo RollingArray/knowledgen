@@ -5,27 +5,23 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-19 19:32:06 
- * Last modified  : 2022-09-19 19:34:30
+ * Last modified  : 2022-09-20 07:31:45
  */
 
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Injector, EventEmitter, Output } from "@angular/core";
 import { takeUntil } from "rxjs/operators";
-import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Regex } from "src/app/shared/constant/regex.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
-import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
-import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { Observable } from 'rxjs';
 import { UserPeerStateFacade } from 'src/app/state/user-peer/user-peer.state.facade';
 import { UserPeerModel } from 'src/app/shared/model/user-peer.model';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
 
 @Component({
 	selector: 'crud-peer',
@@ -123,23 +119,6 @@ export class CrudPeerComponent extends BaseFormComponent implements OnInit
  
 		 return response;
 	 }
-	
-	/**
-	 * Gets logged in user
-	 */
-	 public get loggedInUser(): string
-	 {
-		 let loggedInUserName = '';
-		 this.localStorageService
-			 .getActiveUserName()
-			 .pipe(takeUntil(this.unsubscribe))
-			 .subscribe((data: string) =>
-			 {
-				 loggedInUserName = data;
-			 });
- 
-		 return loggedInUserName;
-	 }
 
 	/**
 	 * -------------------------------------------------|
@@ -164,8 +143,7 @@ export class CrudPeerComponent extends BaseFormComponent implements OnInit
 		private translateService: TranslateService,
 		private alertService: AlertService,
 		private userPeerStateFacade: UserPeerStateFacade,
-		private rootStateFacade: RootStateFacade,
-		private localStorageService: LocalStorageService
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:39 
- * Last modified  : 2022-07-27 19:30:33
+ * Last modified  : 2022-09-20 07:29:37
  */
 
 import { Injectable } from '@angular/core';
@@ -55,6 +55,11 @@ export class RootStateFacade {
 	 * Study timer status$ of root state facade
 	 */
 	studyTimerStatus$ = this.store.select(ROOT_QUERY_SELECTOR.selectStudyTimerStatus);
+
+	/**
+	 * Logged in user name$ of root state facade
+	 */
+	loggedInUserName$ = this.store.select(ROOT_QUERY_SELECTOR.selectLoggedInUserName);
 	
 	/**
 	 * Creates an instance of auth state facade.
