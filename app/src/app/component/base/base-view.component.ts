@@ -93,15 +93,4 @@ export abstract class BaseViewComponent implements OnInit, OnDestroy {
 		});
 		toast.present();
 	}
-
-	//get user full name
-	getUserFullName(firstName, lastName) {
-		const firstNameCapitalized = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-		const lastNameCapitalized = lastName.charAt(0).toUpperCase() + lastName.slice(1);
-		return firstNameCapitalized + " " + lastNameCapitalized;
-	}
-
-	getUserNameInitials(firstName, lastName) {
-		return firstName[0].toUpperCase() + "" + lastName[0].toUpperCase();
-	}
 }
