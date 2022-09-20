@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:33:13 
- * Last modified  : 2022-09-20 07:49:44
+ * Last modified  : 2022-09-20 15:37:34
  */
 
 import { createAction, props } from '@ngrx/store';
@@ -125,8 +125,24 @@ export const STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE = createAction(
 /**
  * @description Root action - Store Logged In User Details To Cookie
  */
- export const STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE = createAction(
-	RootOperationsEnum.STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE,
+ export const STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE = createAction(
+	RootOperationsEnum.STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE,
+	props<{ payload: UserModel }>()
+ );
+
+ /**
+ * @description Root action - Store Logged In User Token To Cookie
+ */
+  export const STORE_UPDATED_LOGGED_IN_USER_TOKEN_TO_COOKIE = createAction(
+	RootOperationsEnum.STORE_UPDATED_LOGGED_IN_USER_TOKEN_TO_COOKIE,
+	props<{ payload: UserModel }>()
+  );
+
+  /**
+* @description Root action - Store Update Logged In User Token
+*/
+export const STORE_UPDATED_LOGGED_IN_USER_TOKEN = createAction(
+	RootOperationsEnum.STORE_UPDATED_LOGGED_IN_USER_TOKEN,
 	props<{ payload: UserModel }>()
 );
 
@@ -177,6 +193,31 @@ export const API_REQUEST_EDIT_LOGGED_IN_USER_FAIL = createAction(
 	RootOperationsEnum.API_REQUEST_EDIT_LOGGED_IN_USER_FAIL
 );
 
+/**
+* @description Root action - Delete Logged In User Details From Cookie
+*/
+export const DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE = createAction(
+	RootOperationsEnum.DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE
+);
+
+/**
+* @description Root action - Delete Logged In User Details From Store
+*/
+export const DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE = createAction(
+	RootOperationsEnum.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE
+);
+
+/**
+* @description Root action - Delete Logged In User Details Success
+*/
+export const DELETE_LOGGED_IN_USER_DETAILS_SUCCESS = createAction(
+	RootOperationsEnum.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS
+);
+
+
+
+
+
 
 /**
  * @description Root action - No Operation
@@ -203,12 +244,17 @@ export const ROOT_ACTIONS = {
 	UPDATE_USER_LOGGED_IN_STATUS,
 	API_REQUEST_ACCOUNT_VERIFICATION,
 	STORE_LOGGED_IN_USER_DETAILS_TO_COOKIE,
-	STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE,
+	STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE,
+	STORE_UPDATED_LOGGED_IN_USER_TOKEN,
+	STORE_UPDATED_LOGGED_IN_USER_TOKEN_TO_COOKIE,
 	API_REQUEST_SIGN_UP,
 	STUDY_TIMER_START,
 	STUDY_TIMER_STOP,
 	STORE_STUDY_TIMER_STATUS,
 	API_REQUEST_EDIT_LOGGED_IN_USER,
 	API_REQUEST_EDIT_LOGGED_IN_USER_FAIL,
+	DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE,
+	DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE,
+	DELETE_LOGGED_IN_USER_DETAILS_SUCCESS,
 	NOOP
 };

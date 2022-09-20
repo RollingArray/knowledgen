@@ -6,48 +6,42 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-26 10:03:16 
- * Last modified  : 2022-07-26 10:03:34
+ * Last modified  : 2022-09-20 15:51:51
  */
-
-
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
 import { Observable } from "rxjs";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { ApiUrls } from "../constant/api-urls.constant";
 import { BaseModel } from "../model/base.model";
 import { CourseMaterialAssignmentResultModel } from "../model/course-material-assignment-result.model";
 import { BaseService } from "./base.service";
-import { DataCommunicationService } from "./data-communication.service";
-import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class CourseMaterialAssignmentService extends BaseService<BaseModel> {
 	/**
-	 * Creates an instance of course material assignment service.
+	 * Creates an instance of user peer service.
 	 * @param httpClient 
-	 * @param localStorageService 
 	 * @param alertController 
-	 * @param dataCommunicationService 
 	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
-	constructor(
+	 constructor(
 		httpClient: HttpClient,
-		localStorageService: LocalStorageService,
 		alertController: AlertController,
-		dataCommunicationService: DataCommunicationService,
-		toastController: ToastController
+		toastController: ToastController,
+		rootStateFacade: RootStateFacade
 	)
 	{
 		super(
 			httpClient,
-			localStorageService,
 			alertController,
-			dataCommunicationService,
-			toastController
+			toastController,
+			rootStateFacade
 		);
 	}
 

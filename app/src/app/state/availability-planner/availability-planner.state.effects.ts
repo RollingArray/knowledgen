@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 11:56:15 
- * Last modified  : 2022-07-05 12:00:04
+ * Last modified  : 2022-09-20 16:12:53
  */
 
 
@@ -14,7 +14,7 @@
 import { Injectable } from "@angular/core";
 import { EMPTY } from "rxjs";
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map, catchError } from "rxjs/operators";
+import { mergeMap, map, catchError, withLatestFrom } from "rxjs/operators";
 import { AvailabilityPlannerService } from "src/app/shared/service/availability-planner.service";
 import { AVAILABILITY_PLANNER_ACTIONS } from "./availability-planner.state.actions";
 import { ToastService } from "src/app/shared/service/toast.service";
@@ -27,10 +27,10 @@ export class AvailabilityPlannerStateEffects {
 	categoryService: any;
 
 	/**
-	 * Creates an instance of policy state effects.
+	 * Creates an instance of availability planner state effects.
 	 * @param actions$ 
-	 * @param localStorageService 
-	 * @param privacyPolicyService 
+	 * @param availabilityPlannerService 
+	 * @param toastService 
 	 * @param rootStateFacade 
 	 */
 	constructor(
@@ -50,9 +50,14 @@ export class AvailabilityPlannerStateEffects {
 				ofType(
 					AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_AVAILABILITY_PLANNER
 				),
-				mergeMap(action =>
 
-					this.availabilityPlannerService.getAvailabilityPlanner(action.payload).pipe(
+				// get logged in user type
+				withLatestFrom(
+					this.rootStateFacade.loggedInUserType$
+				),
+				mergeMap(([action,userType]) =>
+
+					this.availabilityPlannerService.getAvailabilityPlanner(action.payload, userType).pipe(
 						map((data) =>
 						{
 							
@@ -86,8 +91,12 @@ export class AvailabilityPlannerStateEffects {
 				ofType(
 					AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_ADD_NEW_AVAILABILITY_PLANNER
 				),
-				mergeMap(action =>
-					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload).pipe(
+				// get logged in user type
+				withLatestFrom(
+					this.rootStateFacade.loggedInUserType$
+				),
+				mergeMap(([action,userType]) =>
+					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload, userType).pipe(
 						map((data) => {
 							// stop loader
 							this.rootStateFacade.stopLoading();
@@ -125,8 +134,12 @@ export class AvailabilityPlannerStateEffects {
 				ofType(
 					AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_EDIT_AVAILABILITY_PLANNER
 				),
-				mergeMap(action =>
-					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload).pipe(
+				// get logged in user type
+				withLatestFrom(
+					this.rootStateFacade.loggedInUserType$
+				),
+				mergeMap(([action,userType]) =>
+					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload, userType).pipe(
 						map((data) => {
 							// stop loader
 							this.rootStateFacade.stopLoading();
@@ -164,8 +177,12 @@ export class AvailabilityPlannerStateEffects {
 				ofType(
 					AVAILABILITY_PLANNER_ACTIONS.API_REQUEST_DELETE_AVAILABILITY_PLANNER
 				),
-				mergeMap(action =>
-					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload).pipe(
+				// get logged in user type
+				withLatestFrom(
+					this.rootStateFacade.loggedInUserType$
+				),
+				mergeMap(([action,userType]) =>
+					this.availabilityPlannerService.crudTeacherAvailabilityPlanner(action.payload, userType).pipe(
 						map((data) => {
 							// stop loader
 							this.rootStateFacade.stopLoading();

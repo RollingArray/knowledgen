@@ -1,52 +1,65 @@
-import { DataCommunicationService } from "./data-communication.service";
-import { AlertController } from "@ionic/angular";
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@mindtree.com
- * @create date 2019-07-11 09:49:17
- * @modify date 2019-07-11 09:49:17
- * @desc [description]
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Registered user service
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-20 15:47:11 
+ * Last modified  : 2022-09-20 15:47:27
  */
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 
-// service
-import { LocalStorageService } from "./local-storage.service";
+
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { AlertController, ToastController } from "@ionic/angular";
+import { Observable } from "rxjs";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { ApiUrls } from "../constant/api-urls.constant";
+import { BaseModel } from "../model/base.model";
+import { UserModel } from "../model/user.model";
 import { BaseService } from "./base.service";
 
-// model
-import { BaseModel } from "../model/base.model";
-
-// constant
-import { ApiUrls } from "../constant/api-urls.constant";
-import { UserModel } from "../model/user.model";
 
 @Injectable({
 	providedIn: "root",
 })
 export class RegisteredUserService extends BaseService<UserModel> {
 	/**
-	 * @param  {HttpClient} httpClient
+	 * Creates an instance of user peer service.
+	 * @param httpClient 
+	 * @param alertController 
+	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
-	constructor(
+	 constructor(
 		httpClient: HttpClient,
-		localStorageService: LocalStorageService,
 		alertController: AlertController,
-		dataCommunicationService: DataCommunicationService
-	) {
+		toastController: ToastController,
+		rootStateFacade: RootStateFacade
+	)
+	{
 		super(
 			httpClient,
-			localStorageService,
 			alertController,
-			dataCommunicationService
+			toastController,
+			rootStateFacade
 		);
 	}
   
+	/**
+	 * Signs in
+	 * @param userModel 
+	 * @returns in 
+	 */
 	signIn(userModel: UserModel): Observable<BaseModel> {
 		return this.post(`${ApiUrls.SIGN_IN}`, userModel);
 	}
 
+	/**
+	 * Gets user
+	 * @param userModel 
+	 * @returns user 
+	 */
 	getUser(userModel: UserModel): Observable<BaseModel> {
 		return this.post(`${ApiUrls.USER_DETAILS}`, userModel);
 	}

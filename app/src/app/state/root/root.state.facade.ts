@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:39 
- * Last modified  : 2022-09-20 12:19:49
+ * Last modified  : 2022-09-20 15:42:07
  */
 
 import { Injectable } from '@angular/core';
@@ -176,8 +176,27 @@ export class RootStateFacade {
 	 */
 	public userProfileUpdate(user: UserModel)
 	{
-		console.log("a");
 		this.store.dispatch(ROOT_ACTIONS.API_REQUEST_EDIT_LOGGED_IN_USER({payload: user}));
 	}
+
+	/**
+	 * Updates user token
+	 * @param user 
+	 */
+	public updateUserToken(user: UserModel)
+	{
+		this.store.dispatch(ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_TOKEN({payload: user}));
+	}
+
+	/**
+	 * Updates user token
+	 * @param user 
+	 */
+	 public deleteUser()
+	 {
+		 this.store.dispatch(ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE());
+	 }
+
+	
 
 }

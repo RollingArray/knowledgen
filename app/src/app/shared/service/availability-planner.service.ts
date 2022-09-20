@@ -6,61 +6,54 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:27:57 
- * Last modified  : 2022-01-22 17:08:17
+ * Last modified  : 2022-09-20 16:11:31
  */
-
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { ApiUrls } from "../constant/api-urls.constant";
-import { LocalStoreKey } from "../constant/local-store-key.constant";
 import { OperationsEnum } from "../enum/operations.enum";
 import { UserTypeEnum } from "../enum/user-type.enum";
 import { AvailabilityPlannerModel } from "../model/availability-planner.model";
 import { BaseModel } from "../model/base.model";
-
-import { UserModel } from "../model/user.model";
 import { BaseService } from "./base.service";
-import { DataCommunicationService } from "./data-communication.service";
-import { LocalStorageService } from "./local-storage.service";
-
 
 @Injectable({
 	providedIn: "root"
 })
 export class AvailabilityPlannerService extends BaseService<BaseModel> {
 	/**
-	 * @param  {HttpClient} httpClient
+	 * Creates an instance of user peer service.
+	 * @param httpClient 
+	 * @param alertController 
+	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		httpClient: HttpClient,
-		localStorageService: LocalStorageService,
 		alertController: AlertController,
-		dataCommunicationService: DataCommunicationService,
 		toastController: ToastController,
-		private cookieService: CookieService
+		rootStateFacade: RootStateFacade
 	)
 	{
 		super(
 			httpClient,
-			localStorageService,
 			alertController,
-			dataCommunicationService,
-			toastController
+			toastController,
+			rootStateFacade
 		);
 	}
 
 	/**
-	 * Gets course material
-	 * @param userModel 
-	 * @returns course material 
+	 * Gets availability planner
+	 * @param availabilityPlannerModel 
+	 * @returns availability planner 
 	 */
-	getAvailabilityPlanner(availabilityPlannerModel: AvailabilityPlannerModel): Observable<BaseModel>
+	getAvailabilityPlanner(availabilityPlannerModel: AvailabilityPlannerModel, userType: UserTypeEnum): Observable<BaseModel>
 	{
-		const userType = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
 		if (userType === UserTypeEnum.Student)
 		{
 			return this.post(`${ApiUrls.STUDENT_AVAILABILITY_PLANNER}`, availabilityPlannerModel);
@@ -73,14 +66,12 @@ export class AvailabilityPlannerService extends BaseService<BaseModel> {
 	}
 
 	/**
-	 * Cruds course material
+	 * Cruds teacher availability planner
 	 * @param availabilityPlannerModel 
-	 * @returns course material 
+	 * @returns teacher availability planner 
 	 */
-	crudTeacherAvailabilityPlanner(availabilityPlannerModel: AvailabilityPlannerModel): Observable<AvailabilityPlannerModel>
+	crudTeacherAvailabilityPlanner(availabilityPlannerModel: AvailabilityPlannerModel, userType: UserTypeEnum): Observable<AvailabilityPlannerModel>
 	{
-		const userType = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-		
 		switch (availabilityPlannerModel.operationType)
 		{
 			case OperationsEnum.CREATE:

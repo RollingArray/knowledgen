@@ -1,33 +1,25 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
- *
- * @summary ChildMenu component
+ * @summary Calender component
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-08-02 20:21:05
+ * Last modified  : 2022-09-20 16:19:57
  */
 
 
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
 import { Component, OnInit, ViewChild, Injector, Input, EventEmitter, Output } from "@angular/core";
-import { IonSlides, ModalController, PickerController } from "@ionic/angular";
-import { StringKey } from "src/app/shared/constant/string.constant";
-import { SlideModel } from "src/app/shared/model/slide.model";
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import { ArrayKey } from 'src/app/shared/constant/array.constant';
+import { IonSlides, PickerController } from "@ionic/angular";
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
-import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
 import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
 import { DateModel } from 'src/app/shared/model/date.model';
-import { WeekDay } from '@angular/common';
 
 @Component({
 	selector: "calender",

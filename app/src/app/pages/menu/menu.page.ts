@@ -7,42 +7,32 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46
- * Last modified  : 2022-09-20 12:05:31
+ * Last modified  : 2022-09-20 16:18:46
  */
 
-import { take, takeUntil } from 'rxjs/operators';
-import { ArrayKey } from 'src/app/shared/constant/array.constant';
-import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
-import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { UserModel } from 'src/app/shared/model/user.model';
-import { StringKey } from 'src/app/shared/constant/string.constant';
-import { ModalData } from 'src/app/shared/model/modal-data.model';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import { LoadingService } from 'src/app/shared/service/loading.service';
-import { DataCommunicationService } from 'src/app/shared/service/data-communication.service';
-import { DataCommunicationModel } from 'src/app/shared/model/data-communication.model';
-import { BaseModel } from 'src/app/shared/model/base.model';
-import { UserProfileComponent } from 'src/app/component/user-profile/user-profile.component';
-import { MenuController } from '@ionic/angular';
-import { UserService } from 'src/app/shared/service/user.service';
-import
-	{
-		RouteChildrenModel,
-		RouteModel,
-	} from 'src/app/shared/model/route.model';
-import { LearnMoreComponent } from 'src/app/component/learn-more/learn-more.component';
-import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
-import { UpdateCheckerService } from 'src/app/shared/service/update-checker.service';
-import { environment } from 'src/environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
-import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
-import { RootStateFacade } from 'src/app/state/root/root.state.facade';
-import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
-import { Alert } from 'selenium-webdriver';
-import { TranslateService } from '@ngx-translate/core';
-import { AlertService } from 'src/app/shared/service/alert.service';
-import { Observable } from 'rxjs/internal/Observable';
+import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
+import { MenuController } from "@ionic/angular";
+import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
+import { takeUntil, take } from "rxjs/operators";
+import { BaseViewComponent } from "src/app/component/base/base-view.component";
+import { LearnMoreComponent } from "src/app/component/learn-more/learn-more.component";
+import { SelectLanguageComponent } from "src/app/component/select-language/select-language.component";
+import { UserProfileComponent } from "src/app/component/user-profile/user-profile.component";
+import { ArrayKey } from "src/app/shared/constant/array.constant";
+import { StringKey } from "src/app/shared/constant/string.constant";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
+import { DataCommunicationModel } from "src/app/shared/model/data-communication.model";
+import { ModalData } from "src/app/shared/model/modal-data.model";
+import { RouteModel, RouteChildrenModel } from "src/app/shared/model/route.model";
+import { UserModel } from "src/app/shared/model/user.model";
+import { AlertService } from "src/app/shared/service/alert.service";
+import { DataCommunicationService } from "src/app/shared/service/data-communication.service";
+import { UpdateCheckerService } from "src/app/shared/service/update-checker.service";
+import { UserService } from "src/app/shared/service/user.service";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { environment } from "src/environments/environment";
 
 @Component({
 	selector: 'app-menu',

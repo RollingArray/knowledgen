@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:11:59 
- * Last modified  : 2022-08-08 20:33:10
+ * Last modified  : 2022-09-20 15:10:18
  */
 
 import { Injectable } from "@angular/core";
@@ -30,16 +30,13 @@ import { CourseMaterialMenuStateFacade } from "./course-material-menu.state.faca
 @Injectable()
 export class CourseMaterialMenuStateEffects
 {
-	categoriesService: any;
-	//rootStateFacade: any;
-	categoryService: any;
-
 	/**
-	 * Creates an instance of policy state effects.
+	 * Creates an instance of course material menu state effects.
 	 * @param actions$ 
-	 * @param localStorageService 
-	 * @param privacyPolicyService 
+	 * @param courseMaterialMenuService 
+	 * @param toastService 
 	 * @param rootStateFacade 
+	 * @param courseMaterialMenuStateFacade 
 	 */
 	constructor(
 		private actions$: Actions,

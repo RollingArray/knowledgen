@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 10:15:11 
- * Last modified  : 2022-09-02 20:52:03
+ * Last modified  : 2022-09-20 16:18:34
  */
 
 import { HttpClient } from "@angular/common/http";
@@ -15,12 +15,10 @@ import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
 import { Subscription, Observable, of } from "rxjs";
 import { map, catchError } from "rxjs/operators";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { StringKey } from "../constant/string.constant";
 import { BaseModel } from "../model/base.model";
 import { UserModel } from "../model/user.model";
-import { DataCommunicationService } from "./data-communication.service";
-import { LocalStorageService } from "./local-storage.service";
-import { UserService } from "./user.service";
 
 @Injectable({
 	providedIn: "root",
@@ -34,7 +32,7 @@ export abstract class BaseService<T extends BaseModel> {
 	/**
 	 * User model of base service
 	 */
-	private userModel: UserModel;
+	private _userModel: UserModel;
 
 	/**
 	 * Subscription  of base service
@@ -44,16 +42,15 @@ export abstract class BaseService<T extends BaseModel> {
 	/**
 	 * Creates an instance of base service.
 	 * @param httpClient 
-	 * @param localStorageService 
 	 * @param alertController 
-	 * @param dataCommunicationService 
+	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		private httpClient: HttpClient,
-		public localStorageService: LocalStorageService,
 		public alertController: AlertController,
-		private dataCommunicationService: DataCommunicationService,
-		private toastController: ToastController
+		private toastController: ToastController,
+		public rootStateFacade: RootStateFacade
 
 	) { }
 
@@ -68,15 +65,6 @@ export abstract class BaseService<T extends BaseModel> {
 	onDestroy()
 	{
 		this.subscription.unsubscribe();
-	}
-
-	/**
-	 * Gets local storage service
-	 * @returns local storage service 
-	 */
-	getLocalStorageService(): LocalStorageService
-	{
-		return this.localStorageService;
 	}
 
 	/**
@@ -137,14 +125,10 @@ export abstract class BaseService<T extends BaseModel> {
 					//if api token has updated, update in local service
 					if (response.token)
 					{
-						this.userModel = {
+						this._userModel = {
 							token: response.token,
 						};
-						const subscribe = this.localStorageService
-							.updateActiveUserToken(this.userModel)
-							.subscribe();
-
-						this.subscription.add(subscribe);
+						this.rootStateFacade.updateUserToken(this._userModel);
 					}
 				}
 				else
@@ -196,24 +180,6 @@ export abstract class BaseService<T extends BaseModel> {
 	}
 
 	/**
-	 * Updates token for current user
-	 * @param response 
-	 */
-	async updateTokenForCurrentUser(response: BaseModel)
-	{
-		// build
-		this.userModel = {
-			userId: response.userId,
-			token: response.token,
-		};
-
-		const subscribe = await this.localStorageService
-			.setActiveUser(this.userModel)
-			.subscribe();
-		this.subscription.add(subscribe);
-	}
-
-	/**
 	 * Puts base service
 	 * @param url 
 	 * @param data 
@@ -249,8 +215,6 @@ export abstract class BaseService<T extends BaseModel> {
 	 */
 	errorAlert(message: string)
 	{
-		//this.dataComunicaitonService.currentMessage("message").;
-
 		return this.alertController
 			.create({
 				header: this.stringKey.APP_NAME,

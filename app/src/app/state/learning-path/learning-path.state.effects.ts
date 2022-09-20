@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-08-08 21:04:45
+ * Last modified  : 2022-09-20 15:10:10
  */
 
 import { Injectable } from "@angular/core";
@@ -32,10 +32,10 @@ export class LearningPathStateEffects {
 	categoryService: any;
 
 	/**
-	 * Creates an instance of policy state effects.
+	 * Creates an instance of learning path state effects.
 	 * @param actions$ 
-	 * @param localStorageService 
-	 * @param privacyPolicyService 
+	 * @param learningPathService 
+	 * @param toastService 
 	 * @param rootStateFacade 
 	 */
 	constructor(

@@ -6,46 +6,46 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:27:57 
- * Last modified  : 2022-07-19 18:52:22
+ * Last modified  : 2022-09-20 15:50:27
  */
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { ApiUrls } from "../constant/api-urls.constant";
 import { OperationsEnum } from "../enum/operations.enum";
 import { BaseModel } from "../model/base.model";
 import { CourseMaterialQuizModel } from "../model/course-material-quiz.model";
 import { BaseService } from "./base.service";
-import { DataCommunicationService } from "./data-communication.service";
-import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class CourseMaterialQuizService extends BaseService<BaseModel> {
 	/**
-	 * @param  {HttpClient} httpClient
+	 * Creates an instance of user peer service.
+	 * @param httpClient 
+	 * @param alertController 
+	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
-	constructor(
+	 constructor(
 		httpClient: HttpClient,
-		localStorageService: LocalStorageService,
 		alertController: AlertController,
-		dataCommunicationService: DataCommunicationService,
 		toastController: ToastController,
-		private cookieService: CookieService
+		rootStateFacade: RootStateFacade
 	)
 	{
 		super(
 			httpClient,
-			localStorageService,
 			alertController,
-			dataCommunicationService,
-			toastController
+			toastController,
+			rootStateFacade
 		);
-	}
+	 }
+	
 
 	/**
 	 * Gets course material quiz

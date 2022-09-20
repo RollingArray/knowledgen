@@ -1,13 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
- *
- * @summary Calender module
+ * @summary Calender component module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48
- * Last modified  : 2022-01-20 15:10:09
+ * Created at     : 2021-11-11 16:33:48 
+ * Last modified  : 2022-09-20 16:20:22
  */
 
 import { NgModule } from '@angular/core';

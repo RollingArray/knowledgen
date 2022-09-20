@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:39:06 
- * Last modified  : 2022-09-20 08:01:56
+ * Last modified  : 2022-09-20 15:44:55
  */
 
 
@@ -330,7 +330,7 @@ export class RootStateEffects
 
 								// store newly added skill
 								return [
-									ROOT_ACTIONS.STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE({ payload: userModel }),
+									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE({ payload: userModel }),
 									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS({ payload: userModel }),
 								];
 							}
@@ -392,7 +392,7 @@ export class RootStateEffects
 		() =>
 			this.actions$.pipe(
 				ofType(
-					ROOT_ACTIONS.STORE_UPDATED_IN_USER_DETAILS_TO_COOKIE
+					ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE
 				),
 				// merge all
 				mergeMap((action) =>
@@ -495,6 +495,93 @@ export class RootStateEffects
 				{
 					return [
 						ROOT_ACTIONS.STORE_STUDY_TIMER_STATUS({ payload: action.payload })
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Store updated user token$ of root state effects
+	 */
+	storeUpdatedUserToken$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_TOKEN
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					const path = { path: environment.domain };
+
+					this.cookieService.set(LocalStoreKey.LOGGED_IN_SESSION_ID, action.payload.token, path);
+					
+					return [
+						ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_TOKEN_TO_COOKIE({ payload: action.payload })
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Delete logged in user from cookie$ of root state effects
+	 */
+	deleteLoggedInUserFromCookie$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_COOKIE
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					const path = { path: environment.domain };
+
+					this.cookieService.deleteAll();
+					
+					return [
+						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE()
+					];
+				}),
+			),
+	 );
+	
+	/**
+	 * Delete logged in user from store$ of root state effects
+	 */
+	deleteLoggedInUserFromStore$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					return [
+						ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS()
+					];
+				}),
+			),
+	);
+
+	/**
+	 * Delete logged in user success$ of root state effects
+	 */
+	deleteLoggedInUserSuccess$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(
+					ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_SUCCESS
+				),
+				// merge all
+				mergeMap((action) =>
+				{
+					//reload window 
+					window.location.reload()
+					
+					return [
+						ROOT_ACTIONS.NOOP()
 					];
 				}),
 			),

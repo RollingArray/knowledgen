@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-09-19 21:02:34
+ * Last modified  : 2022-09-20 15:59:51
  */
 
 
@@ -45,7 +45,7 @@ export class ArrayKey
 					title: 'pageTitle.availabilityPlanner',
 					url: ['availability', 'planner'],
 					icon: StringKey.ICON_RIGHT_ARROW,
-					allowAccess: [UserTypeEnum.Teacher]
+					allowAccess: [UserTypeEnum.Teacher, UserTypeEnum.Student]
 				},
 				{
 					title: 'pageTitle.myLearningPath',

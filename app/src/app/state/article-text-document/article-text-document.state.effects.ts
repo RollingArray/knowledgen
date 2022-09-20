@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-05 11:56:15 
- * Last modified  : 2022-07-06 20:31:26
+ * Last modified  : 2022-09-20 15:09:46
  */
 
 
@@ -25,10 +25,10 @@ import { ArticleTextDocumentService } from "src/app/shared/service/article-text-
 export class ArticleTextDocumentStateEffects {
 	
 	/**
-	 * Creates an instance of policy state effects.
+	 * Creates an instance of article text document state effects.
 	 * @param actions$ 
-	 * @param localStorageService 
-	 * @param privacyPolicyService 
+	 * @param articleTextDocumentService 
+	 * @param toastService 
 	 * @param rootStateFacade 
 	 */
 	constructor(

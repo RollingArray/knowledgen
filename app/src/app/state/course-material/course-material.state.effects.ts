@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 19:06:25 
- * Last modified  : 2022-07-05 14:47:03
+ * Last modified  : 2022-09-20 15:10:04
  */
 
 import { Injectable } from "@angular/core";
@@ -32,10 +32,10 @@ export class CourseMaterialStateEffects {
 	categoryService: any;
 
 	/**
-	 * Creates an instance of policy state effects.
+	 * Creates an instance of course material state effects.
 	 * @param actions$ 
-	 * @param localStorageService 
-	 * @param privacyPolicyService 
+	 * @param courseMaterialService 
+	 * @param toastService 
 	 * @param rootStateFacade 
 	 */
 	constructor(

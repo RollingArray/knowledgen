@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:13 
- * Last modified  : 2022-09-20 07:56:30
+ * Last modified  : 2022-09-20 15:40:43
  */
 
 
@@ -103,6 +103,14 @@ const reducer = createReducer(
 		 userLastName: action.payload.userLastName,
 		 userEmail: action.payload.userEmail,
 		 userSkills: action.payload.userSkills,
+	 })),
+	 
+	 /**
+   * Reducer for action - Update user token
+   */
+	  on(ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_TOKEN, (state, action) => ({
+		...state,
+		token: action.payload.token,
 	})),
 
 	/**
@@ -112,6 +120,16 @@ const reducer = createReducer(
 		...state,
 		studyTimerStatus: action.payload
 	})),
+
+	/**
+	* Reducer for action - Delete user details from store
+	*/
+	on(ROOT_ACTIONS.DELETE_LOGGED_IN_USER_DETAILS_FROM_STORE, (state, action) => ({
+		...state,
+		INITIAL_ROOT_STATE
+	})),
+
+	
 );
 
 /**

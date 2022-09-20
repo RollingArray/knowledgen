@@ -6,51 +6,45 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-16 20:55:01 
- * Last modified  : 2022-08-03 15:33:21
+ * Last modified  : 2022-09-20 15:58:10
  */
 
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertController, ToastController } from "@ionic/angular";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { ApiUrls } from "../constant/api-urls.constant";
 import { OperationsEnum } from "../enum/operations.enum";
 import { ArticleTextDocumentModel } from "../model/article-text-document.model";
 import { BaseModel } from "../model/base.model";
 import { BaseService } from "./base.service";
-import { DataCommunicationService } from "./data-communication.service";
-import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
 	providedIn: "root"
 })
 export class ArticleTextDocumentService extends BaseService<ArticleTextDocumentModel> {
 	/**
-	 * Creates an instance of article text document service.
+	 * Creates an instance of user peer service.
 	 * @param httpClient 
-	 * @param localStorageService 
 	 * @param alertController 
-	 * @param dataCommunicationService 
 	 * @param toastController 
+	 * @param rootStateFacade 
 	 */
-	constructor(
+	 constructor(
 		httpClient: HttpClient,
-		localStorageService: LocalStorageService,
 		alertController: AlertController,
-		dataCommunicationService: DataCommunicationService,
-		toastController: ToastController
+		toastController: ToastController,
+		rootStateFacade: RootStateFacade
 	)
 	{
 		super(
 			httpClient,
-			localStorageService,
 			alertController,
-			dataCommunicationService,
-			toastController
+			toastController,
+			rootStateFacade
 		);
 	}
-
 	/**
 	 * Gets article text document
 	 * @param articleTextDocumentModel 
