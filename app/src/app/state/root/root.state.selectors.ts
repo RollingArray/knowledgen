@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-14 18:41:39 
- * Last modified  : 2022-09-20 11:46:17
+ * Last modified  : 2022-09-20 12:19:18
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from '@ngrx/store';
@@ -62,11 +62,19 @@ export const selectLoggedInUser: MemoizedSelector<RootStateModel, UserModel> = c
 );
 
 /**
- * @description Selector - Logged in Userid
+ * @description Selector - Logged in User id
  */
 export const selectLoggedInUserId: MemoizedSelector<RootStateModel, string> = createSelector(
 	selectRootState,
 	(rootStateModel: RootStateModel): string => rootStateModel.loggedInUser.userId
+);
+
+/**
+ * @description Selector - Logged in User token
+ */
+ export const selectLoggedInUserToken: MemoizedSelector<RootStateModel, string> = createSelector(
+	selectRootState,
+	(rootStateModel: RootStateModel): string => rootStateModel.loggedInUser.token
 );
 
 /**
@@ -101,6 +109,8 @@ export const selectStudyTimerStatus: MemoizedSelector<RootStateModel, Operations
 	(rootStateModel: RootStateModel): OperationsEnum => rootStateModel.studyTimerStatus
 );
 
+
+
 /**
  * @description Selector - Logged in user name
  */
@@ -131,5 +141,6 @@ export const ROOT_QUERY_SELECTOR = {
 	selectLoggedInUserName,
 	selectLoggedInUserType,
 	selectIfUserTeacher,
-	selectIfUserStudent
+	selectIfUserStudent,
+	selectLoggedInUserToken
 };

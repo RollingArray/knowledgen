@@ -1,11 +1,14 @@
-import { LocalStorageService } from '../service/local-storage.service';
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@mindtree.com
- * @create date 2019-07-11 09:53:43
- * @modify date 2019-07-11 09:53:43
- * @desc [description]
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Auth guard
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-20 12:48:29 
+ * Last modified  : 2022-09-20 12:51:40
  */
+
+
 import { Injectable } from '@angular/core';
 import {
 	ActivatedRouteSnapshot,
@@ -13,7 +16,8 @@ import {
 	CanActivate,
 	Router
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { LocalStoreKey } from '../constant/local-store-key.constant';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,22 +25,28 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
 
 	/**
-	 * Auth guard constructor
-	 * @param  {Router} private router
-	 * @param  {LocalStorageService} private localStorageService
+	 * Creates an instance of auth guard.
+	 * @param router 
+	 * @param cookieService 
 	 */
 	constructor(
 		private router: Router,
-		private localStorageService: LocalStorageService
+		private cookieService: CookieService,
 	) {}
 
 	/**
-	 * @param  {ActivatedRouteSnapshot} route
-	 * @param  {RouterStateSnapshot} state
+	 * Determines whether activate can
+	 * @param route 
+	 * @param state 
+	 * @returns  
 	 */
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-		if (this.localStorageService.getToken()) {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+	{
+		const token = this.cookieService.get(`${LocalStoreKey.LOGGED_IN_SESSION_ID}`)
+		if (token)
+		{
 			// logged in so return true
+			
 			return true;
 		}
 
