@@ -6,16 +6,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-13 12:06:00
+ * Last modified  : 2022-09-21 21:09:19
  */
 
 import { Component, OnInit, OnDestroy, OnChanges, ViewChild, ElementRef, Injector, SimpleChanges } from "@angular/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
@@ -229,8 +227,13 @@ export class CourseMaterialArticlePage extends BaseViewComponent implements OnIn
 			{
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user id
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUserId) =>
+						{
+							isMaterialOwner = loggedInUserId === data.userId ? true : false
+						});
 				}
 			});
 
@@ -257,8 +260,7 @@ export class CourseMaterialArticlePage extends BaseViewComponent implements OnIn
 		injector: Injector,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
-		private rootStateFacade: RootStateFacade,
-		private cookieService: CookieService
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);
