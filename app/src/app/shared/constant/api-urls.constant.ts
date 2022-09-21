@@ -14,7 +14,8 @@ import { environment } from "../../../environments/environment";
 
 export class ApiUrls
 {
-	public static readonly ROOT_APP_URL_AFTER_AUTH: string = '/go/dashboard';
+	public static readonly STUDENT_ROOT_APP_URL_AFTER_AUTH: string = '/go/dashboard';
+	public static readonly TEACHER_ROOT_APP_URL_AFTER_AUTH: string = '/go/course/material';
 	public static readonly API_ENDPOINT: string = environment.apiEndpoint;
 	public static readonly API_VERSION: string = "v1";
 	public static readonly API_BASE_PATH: string = ApiUrls.API_ENDPOINT + ApiUrls.API_VERSION;

@@ -18,6 +18,7 @@ import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { EventPageEnum } from "src/app/shared/enum/event-page.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
 import { PlatformHelper } from "src/app/shared/helper/platform.helper";
 import { ModalData } from "src/app/shared/model/modal-data.model";
 import { UserModel } from "src/app/shared/model/user.model";
@@ -244,7 +245,25 @@ export class AccountVerificationComponent
 				if (status === OperationsEnum.SIGNED_IN_VERIFIED)
 				{
 					this.dismissModal();
-					this.router.navigate([this.apiUrls.ROOT_APP_URL_AFTER_AUTH]);
+
+					// check user type
+					this.rootStateFacade.loggedInUserType$
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe((userType) => {
+						if (userType === UserTypeEnum.Student)
+						{
+							this.router.navigate([
+								this.apiUrls.STUDENT_ROOT_APP_URL_AFTER_AUTH,
+							]);
+						} 
+						
+						else if (userType === UserTypeEnum.Teacher)
+						{
+							this.router.navigate([
+								this.apiUrls.TEACHER_ROOT_APP_URL_AFTER_AUTH,
+							]);
+						}
+					});
 				}
 			});
 	}

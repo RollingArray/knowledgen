@@ -17,6 +17,7 @@ import { AnalyticsService } from 'src/app/shared/service/analytics.service';
 import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
 import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 
 @Component({
 	selector: 'app-front',
@@ -106,10 +107,26 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 		this.rootStateFacade.loggedInUserId$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe((userId) => {
-				if (userId) {
-					this.router.navigate([
-						this.apiUrls.ROOT_APP_URL_AFTER_AUTH,
-					]);
+				if (userId)
+				{
+					// check user type
+					this.rootStateFacade.loggedInUserType$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((userType) => {
+							if (userType === UserTypeEnum.Student)
+							{
+								this.router.navigate([
+									this.apiUrls.STUDENT_ROOT_APP_URL_AFTER_AUTH,
+								]);
+							} 
+							
+							else if (userType === UserTypeEnum.Teacher)
+							{
+								this.router.navigate([
+									this.apiUrls.TEACHER_ROOT_APP_URL_AFTER_AUTH,
+								]);
+							}
+						});
 				} else {
 					// check intro status, if intro not yet done, add intro
 				}
