@@ -7,17 +7,15 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:05:19 
- * Last modified  : 2022-09-07 21:52:29
+ * Last modified  : 2022-09-21 21:02:35
  */
 
 import { Component, OnInit, Input, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -78,27 +76,27 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Description  of course material page
 	 */
-	 public subChildMenu$!: Observable<SubChildMenuModel[]>;
+	public subChildMenu$!: Observable<SubChildMenuModel[]>;
 
 	/**
 	 * Total number of sub child menu$ of sub child menu component
 	 */
-	 public totalNumberOfSubChildMenu$!: Observable<number>;
+	public totalNumberOfSubChildMenu$!: Observable<number>;
 
 	/**
 	 * Course material$ of sub child menu component
 	 */
-	 public courseMaterial$!: Observable<CourseMaterialModel>;
+	public courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
 	 * Determines whether data has
 	 */
-	 public hasData$!: Observable<boolean>;
+	public hasData$!: Observable<boolean>;
 
 	/**
 	 * Selected menu article$ of knowledge base article component
 	 */
-	 public selectedMenuArticle$: Observable<MenuSelectModel>;
+	public selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
 	 * -------------------------------------------------|
@@ -119,8 +117,13 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 			{
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user id
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUserId) =>
+						{
+							isMaterialOwner = loggedInUserId === data.userId ? true : false
+						});
 				}
 			});
 
@@ -144,7 +147,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 		injector: Injector,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService,
+		private rootStateFacade: RootStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade
 	)
 	{
@@ -160,7 +163,7 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 		this.totalNumberOfSubChildMenu$ = this.courseMaterialMenuStateFacade.totalNumberOfSubChildMenu$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this.courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-		
+
 		// Selects menu if article id available from param
 		this.selectMenuOnParamArticle();
 	}
@@ -175,30 +178,30 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Selects menu on param article
 	 */
-	 private selectMenuOnParamArticle()
-	 {
-		 const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
-		 if (articleId)
-		 {
-			 this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(articleId)
-				 .pipe(takeUntil(this.unsubscribe))
-				 .subscribe((subChildMenuModel: SubChildMenuModel) =>
-				 {
-					 if (subChildMenuModel)
-					 {
-						 const menuSelectModel: MenuSelectModel = {
-							 articleId: subChildMenuModel.subChildArticleId,
-							 articleStatus: subChildMenuModel.articleStatus,
-							 courseMaterialId: subChildMenuModel.courseMaterialId,
-							 menuType: MenuTypeEnum.SUB_CHILD_MENU,
-							 courseMaterialType: subChildMenuModel.courseMaterialTypeId
-						 };
-						 this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
-					 }
-				 });
-		 }
-	 }
-	
+	private selectMenuOnParamArticle()
+	{
+		const articleId = this.activatedRoute.snapshot.paramMap.get('articleId');
+		if (articleId)
+		{
+			this.courseMaterialMenuStateFacade.subChildMenuByArticleId$(articleId)
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe((subChildMenuModel: SubChildMenuModel) =>
+				{
+					if (subChildMenuModel)
+					{
+						const menuSelectModel: MenuSelectModel = {
+							articleId: subChildMenuModel.subChildArticleId,
+							articleStatus: subChildMenuModel.articleStatus,
+							courseMaterialId: subChildMenuModel.courseMaterialId,
+							menuType: MenuTypeEnum.SUB_CHILD_MENU,
+							courseMaterialType: subChildMenuModel.courseMaterialTypeId
+						};
+						this.courseMaterialMenuStateFacade.storeSelectedMenu(menuSelectModel);
+					}
+				});
+		}
+	}
+
 	/**
 	 * Opens crud course material
 	 */
