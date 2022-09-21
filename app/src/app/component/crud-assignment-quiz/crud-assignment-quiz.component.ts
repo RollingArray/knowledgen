@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-16 21:58:01
+ * Last modified  : 2022-09-21 20:56:26
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -107,7 +107,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	@Input() public assignmentPropertiesView: ElementRef;
 
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -218,7 +218,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 * View child of crud text document component
 	 */
 	@ViewChild('contentTopScrollView') contentTopScrollView: ElementRef;
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -275,8 +275,15 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user id
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUserIf) =>
+						{
+							isMaterialOwner = loggedInUserIf === data.userId ? true : false
+						});
+
+
 				}
 			});
 
@@ -635,17 +642,17 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	/**
 	 * Scrolls to article content
 	 */
-	 private scrollToArticleContent()
-	 {
-		 const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
-		 const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
-		 const parentAssignmentPropertiesViewViewHeight = this.assignmentPropertiesView.nativeElement.offsetHeight;
-		 const deltaMargin = 40;
-		 const scrollY = pageBaseHeight + parentArticleTitleViewHeight + parentAssignmentPropertiesViewViewHeight + deltaMargin;
-		 const scrollX = 0;
-		 const animationDelay = 1500;
-		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
-	 }
+	private scrollToArticleContent()
+	{
+		const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
+		const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
+		const parentAssignmentPropertiesViewViewHeight = this.assignmentPropertiesView.nativeElement.offsetHeight;
+		const deltaMargin = 40;
+		const scrollY = pageBaseHeight + parentArticleTitleViewHeight + parentAssignmentPropertiesViewViewHeight + deltaMargin;
+		const scrollX = 0;
+		const animationDelay = 1500;
+		this.articleView.scrollToPoint(scrollX, scrollY, animationDelay);
+	}
 
 
 	/**
