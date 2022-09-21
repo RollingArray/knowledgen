@@ -32,31 +32,31 @@ export class ArrayKey
 				{
 					title: 'pageTitle.dashboard',
 					url: ['dashboard'],
-					icon: StringKey.ICON_RIGHT_ARROW,
+					icon: StringKey.ICON_DASHBOARD,
 					allowAccess: [UserTypeEnum.Student]
 				},
 				{
 					title: 'pageTitle.courseMaterials',
 					url: ['course', 'material'],
-					icon: StringKey.ICON_RIGHT_ARROW,
+					icon: StringKey.ICON_COURSE_MATERIAL,
 					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher]
 				},
 				{
 					title: 'pageTitle.availabilityPlanner',
 					url: ['availability', 'planner'],
-					icon: StringKey.ICON_RIGHT_ARROW,
+					icon: StringKey.ICON_TIME,
 					allowAccess: [UserTypeEnum.Teacher, UserTypeEnum.Student]
 				},
 				{
 					title: 'pageTitle.myLearningPath',
 					url: ['learning', 'path'],
-					icon: StringKey.ICON_RIGHT_ARROW,
+					icon: StringKey.ICON_LEARN,
 					allowAccess: [UserTypeEnum.Student]
 				},
 				{
 					title: 'pageTitle.myRevisions',
 					url: ['revision'],
-					icon: StringKey.ICON_RIGHT_ARROW,
+					icon: StringKey.ICON_REVISION,
 					allowAccess: [UserTypeEnum.Student]
 				},
 			]
