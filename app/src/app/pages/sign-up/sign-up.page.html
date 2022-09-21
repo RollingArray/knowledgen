@@ -7,51 +7,89 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:17:44 
- * Last modified  : 2022-01-27 10:06:20
+ * Last modified  : 2022-09-21 10:15:27
  */
  -->
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-buttons slot="end">
-			<ion-button mode="ios" fill="outline" color="tertiary" (click)="goBack()">
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="goBack()"
+			>
 				{{ 'button.discard' | translate }}
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 <ion-content lines="none" color="primary">
+	<div class="identity-image"></div>
 	<form [formGroup]="formGroup" color="primary" lines="none">
 		<ion-grid lines="none">
 			<ion-row justify-content-center lines="none">
-				<ion-col align-self-center size="12" size-lg="6" size-md="6" size-sm="6" offset-lg="3" offset-md="3"
-					offset-sm="3" lines="none" class="text-center">
+				<ion-col
+					align-self-center
+					size="12"
+					size-lg="6"
+					size-md="6"
+					size-sm="6"
+					offset-lg="3"
+					offset-md="3"
+					offset-sm="3"
+					lines="none"
+					class="text-center"
+				>
 					<!-- app icon -->
-					<ion-icon class="font-size-250-px" [src]="stringKey.IMAGE_ICON"></ion-icon>
+					<ion-icon
+						class="font-size-250-px"
+						[src]="stringKey.IMAGE_ICON"
+					></ion-icon>
 					<!-- app icon -->
 
 					<!-- page title -->
-					<app-page-info-title [title]="'button.signUp' | translate"
-						[info]="'pageSubTitle.signUp' | translate">
+					<app-page-info-title
+						[title]="'button.signUp' | translate"
+						[info]="'pageSubTitle.signUp' | translate"
+					>
 					</app-page-info-title>
 					<!-- page title -->
 
 					<!-- email -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
-							<ion-icon [src]="stringKey.ICON_FORM" slot="start"></ion-icon>
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
 							<p>{{ 'formInfo.yourCred' | translate }}</p>
 						</ion-item>
 
 						<!-- email -->
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-label position="floating">{{ 'formInfo.email' | translate }}</ion-label>
-								<ion-input autocomplete="off" formControlName="userEmail" type="text">
+								<ion-label position="floating"
+									>{{ 'formInfo.email' | translate
+									}}</ion-label
+								>
+								<ion-input
+									autocomplete="off"
+									formControlName="userEmail"
+									type="text"
+								>
 								</ion-input>
 							</ion-item>
-							<ion-card *ngIf="userEmail.invalid && userEmail.touched" color="warning">
+							<ion-card
+								*ngIf="userEmail.invalid && userEmail.touched"
+								color="warning"
+							>
 								<ion-item color="warning">
-									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									>
 									</ion-icon>
 									{{ 'validation.required' | translate }}
 								</ion-item>
@@ -71,13 +109,27 @@
 						<!-- first name -->
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-label position="floating">{{ 'formInfo.firstName' | translate }}</ion-label>
-								<ion-input autocomplete="off" formControlName="userFirstName" type="text">
+								<ion-label position="floating"
+									>{{ 'formInfo.firstName' | translate
+									}}</ion-label
+								>
+								<ion-input
+									autocomplete="off"
+									formControlName="userFirstName"
+									type="text"
+								>
 								</ion-input>
 							</ion-item>
-							<ion-card *ngIf="userFirstName.invalid && userFirstName.touched" color="warning">
+							<ion-card
+								*ngIf="userFirstName.invalid && userFirstName.touched"
+								color="warning"
+							>
 								<ion-item color="warning">
-									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									>
 									</ion-icon>
 									{{ 'validation.required' | translate }}
 								</ion-item>
@@ -87,13 +139,27 @@
 						<!-- last name -->
 						<ion-card lines="none" color="light">
 							<ion-item lines="none" color="light">
-								<ion-label position="floating">{{ 'formInfo.lastName' | translate }}</ion-label>
-								<ion-input autocomplete="off" formControlName="userLastName" type="text">
+								<ion-label position="floating"
+									>{{ 'formInfo.lastName' | translate
+									}}</ion-label
+								>
+								<ion-input
+									autocomplete="off"
+									formControlName="userLastName"
+									type="text"
+								>
 								</ion-input>
 							</ion-item>
-							<ion-card *ngIf="userLastName.invalid && userLastName.touched" color="warning">
+							<ion-card
+								*ngIf="userLastName.invalid && userLastName.touched"
+								color="warning"
+							>
 								<ion-item color="warning">
-									<ion-icon color="danger" slot="start" [src]="stringKey.ICON_WARNING">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									>
 									</ion-icon>
 									{{ 'validation.required' | translate }}
 								</ion-item>
@@ -106,25 +172,47 @@
 				</ion-col>
 			</ion-row>
 			<ion-row justify-content-center lines="none">
-				<ion-col align-self-center size="12" size-lg="6" size-md="6" size-sm="6" offset-lg="3" offset-md="3"
-					offset-sm="3" lines="none" class="text-center">
+				<ion-col
+					align-self-center
+					size="12"
+					size-lg="6"
+					size-md="6"
+					size-sm="6"
+					offset-lg="3"
+					offset-md="3"
+					offset-sm="3"
+					lines="none"
+					class="text-center"
+				>
 					<ion-grid>
 						<ion-row>
 							<ion-col>
-								<ion-card color="tertiary" (click)="submitData(userTypeEnum.Teacher)">
+								<ion-card
+									color="tertiary"
+									(click)="submitData(userTypeEnum.Teacher)"
+								>
 									<ion-grid>
 										<ion-row>
 											<ion-col>
 												<!-- <ion-button class="font-size-50-px" style="height: 100px; border-radius: 50px;">
 													sss
 												</ion-button> -->
-												<ion-icon class="font-size-100-px" [src]="stringKey.ICON_TEACHER">
+												<ion-icon
+													class="font-size-100-px"
+													[src]="stringKey.ICON_TEACHER"
+												>
 												</ion-icon>
 											</ion-col>
 										</ion-row>
 										<ion-row>
 											<ion-col>
-												<ion-label>&nbsp; <b>{{ 'button.enrollMentor' | translate }}</b>
+												<ion-label
+													>&nbsp;
+													<b
+														>{{
+														'button.enrollMentor' |
+														translate }}</b
+													>
 												</ion-label>
 												<br />
 												<br />
@@ -134,20 +222,32 @@
 								</ion-card>
 							</ion-col>
 							<ion-col>
-								<ion-card color="tertiary" (click)="submitData(userTypeEnum.Teacher)">
+								<ion-card
+									color="tertiary"
+									(click)="submitData(userTypeEnum.Teacher)"
+								>
 									<ion-grid>
 										<ion-row>
 											<ion-col>
 												<!-- <ion-button class="font-size-50-px" style="height: 100px; border-radius: 50px;">
 													sss
 												</ion-button> -->
-												<ion-icon class="font-size-100-px" [src]="stringKey.ICON_STUDENT">
+												<ion-icon
+													class="font-size-100-px"
+													[src]="stringKey.ICON_STUDENT"
+												>
 												</ion-icon>
 											</ion-col>
 										</ion-row>
 										<ion-row>
 											<ion-col>
-												<ion-label>&nbsp; <b>{{ 'button.enrollMentee' | translate }}</b>
+												<ion-label
+													>&nbsp;
+													<b
+														>{{
+														'button.enrollMentee' |
+														translate }}</b
+													>
 												</ion-label>
 												<br /><br />
 											</ion-col>

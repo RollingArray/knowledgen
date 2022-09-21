@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-09-15 20:32:12
+ * Last modified  : 2022-09-21 10:02:46
  */
 
 /* Change autocomplete styles in WebKit */
@@ -27,6 +27,13 @@ select:-webkit-autofill:focus {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
+.identity-image{
+	background-image: url("../assets/images/app_background_icon.svg");
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+  }
+  
 /* popover*/
 .popover-arrow.sc-ion-popover-ios::after {
 	background-color: var(--ion-color-primary) !important;

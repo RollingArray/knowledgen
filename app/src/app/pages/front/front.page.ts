@@ -6,62 +6,96 @@
  * @summary Front page
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-12-26 11:14:11 
- * Last modified  : 2022-08-12 13:02:28
+ * Created at     : 2021-12-26 11:14:11
+ * Last modified  : 2022-09-21 10:33:33
  */
-
 
 import { takeUntil } from 'rxjs/operators';
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { PlatformHelper } from 'src/app/shared/helper/platform.helper';
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
-import { LocalStorageService } from 'src/app/shared/service/local-storage.service';
-import { IntroComponent } from 'src/app/component/intro/intro.component';
 import { AnalyticsService } from 'src/app/shared/service/analytics.service';
 import { EventPageEnum } from 'src/app/shared/enum/event-page.enum';
 import { SelectLanguageComponent } from 'src/app/component/select-language/select-language.component';
-import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
 
 @Component({
-	selector: "app-front",
-	templateUrl: "./front.page.html",
-	styleUrls: ["./front.page.scss"],
+	selector: 'app-front',
+	templateUrl: './front.page.html',
+	styleUrls: ['./front.page.scss'],
 })
 export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
-	
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @readonly properties                             |
+	 * -------------------------------------------------|
+	 */
+
 	/**
 	 * Year  of front page
 	 */
-	readonly year = new Date().getFullYear();
+	 readonly year = new Date().getFullYear();
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @private Instance variable                       |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @public Instance variable                        |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Getter & Setters                                 |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @ViewChild Instance variable                     |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * Life cycle hook                                  |
+	 * -------------------------------------------------|
+	 */
 
 	/**
 	 * Creates an instance of front page.
 	 * @param injector 
-	 * @param localStorageService 
-	 * @param platformHelper 
+	 * @param analyticsService 
+	 * @param rootStateFacade 
 	 */
 	constructor(
 		injector: Injector,
-		private localStorageService: LocalStorageService,
-		private platformHelper: PlatformHelper,
-		private analyticsService: AnalyticsService
+		private analyticsService: AnalyticsService,
+		private rootStateFacade: RootStateFacade
 	) {
 		super(injector);
 
 		/*
 		Log event
 		*/
-		this.analyticsService.log('', EventPageEnum.FRONT,
-			{
-				'data': ''
-			}
-		);
+		this.analyticsService.log('', EventPageEnum.FRONT, {
+			data: '',
+		});
 	}
 
 	/**
 	 * on destroy
 	 */
-	 ngOnDestroy() {
+	ngOnDestroy() {
 		super.ngOnDestroy();
 	}
 
@@ -69,56 +103,38 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 * on init
 	 */
 	async ngOnInit() {
-		if (await this.activeUserId()) {
-			this.router.navigate([this.apiUrls.ROOT_APP_URL_AFTER_AUTH]);
-		}
-		else{
-			this.localStorageService
-				.getIntroStatus()
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(
-					(data: string) => {
-						if (data !== 'done') {
-							//this.loadIntro();
-						}
-					}
-				);
-		}
-	}
-	
-	/**
-	 * Actives user id
-	 * @returns  
-	 */
-	async activeUserId() {
-		return this.localStorageService.getActiveUserId();
+		this.rootStateFacade.loggedInUserId$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((userId) => {
+				if (userId) {
+					this.router.navigate([
+						this.apiUrls.ROOT_APP_URL_AFTER_AUTH,
+					]);
+				} else {
+					// check intro status, if intro not yet done, add intro
+				}
+			});
 	}
 
 	/**
-	 * Loads intro
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Private methods                                 |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * -------------------------------------------------|
+	 * @description                                     |
+	 * @Public methods                                  |
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Descriptions front page
 	 * @returns  
 	 */
-	async loadIntro() {
-		const modal = await this.modalController.create({
-			component: IntroComponent,
-			componentProps: {
-				data: "none",
-			},
-		});
-
-		modal.onDidDismiss().then((data) => {
-			//if app, initiate push notificaiton
-			if (this.platformHelper.isApp()) {
-
-			}
-		});
-
-		return await modal.present();
-
-	}
-
-	async changeLanguage()
-	{
+	public async changeLanguage() {
 		const modal = await this.modalController.create({
 			component: SelectLanguageComponent,
 			componentProps: {

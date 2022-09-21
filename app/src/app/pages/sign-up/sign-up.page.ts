@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:17:44
- * Last modified  : 2022-09-20 12:16:06
+ * Last modified  : 2022-09-21 10:23:22
  */
 
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
@@ -191,44 +191,6 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy
 	}
 
 	/**
-	 * Submits data
-	 */
-	private async submitData(userTypeEnum: UserTypeEnum)
-	{
-		// build data userModel
-		const form = this.formGroup.value;
-		const userModel = {
-			userFirstName: form.userFirstName,
-			userLastName: form.userLastName,
-			userEmail: form.userEmail,
-			userType: userTypeEnum,
-		};
-
-		// loader
-		this.translateService
-			.get('loading.signIngUp')
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(async (data: string) =>
-			{
-				await this.rootStateFacade.startLoading(data);
-			});
-
-		// sign in
-		this.rootStateFacade.signUp(userModel);
-
-		// track user status
-		this.rootStateFacade.selectUserLoggedInStatus$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe((status) =>
-			{
-				if (status === OperationsEnum.SIGNED_UP)
-				{
-					this.loadAccountVerification(userModel);
-				}
-			});
-	}
-
-	/**
 	 * Loads account verification
 	 * @param userModel 
 	 * @returns  
@@ -256,6 +218,44 @@ export class SignUpPage extends BaseFormComponent implements OnInit, OnDestroy
 	 * @Public methods                                  |
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Submits data
+	 */
+	 public async submitData(userTypeEnum: UserTypeEnum)
+	 {
+		 // build data userModel
+		 const form = this.formGroup.value;
+		 const userModel = {
+			 userFirstName: form.userFirstName,
+			 userLastName: form.userLastName,
+			 userEmail: form.userEmail,
+			 userType: userTypeEnum,
+		 };
+ 
+		 // loader
+		 this.translateService
+			 .get('loading.signIngUp')
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(async (data: string) =>
+			 {
+				 await this.rootStateFacade.startLoading(data);
+			 });
+ 
+		 // sign in
+		 this.rootStateFacade.signUp(userModel);
+ 
+		 // track user status
+		 this.rootStateFacade.selectUserLoggedInStatus$
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe((status) =>
+			 {
+				 if (status === OperationsEnum.SIGNED_UP)
+				 {
+					 this.loadAccountVerification(userModel);
+				 }
+			 });
+	 }
 
 	/**
 	 * Submits sign up page
