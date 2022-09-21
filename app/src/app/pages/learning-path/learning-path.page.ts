@@ -6,19 +6,16 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-07 12:52:34
+ * Last modified  : 2022-09-21 21:05:38
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { BaseViewComponent } from "src/app/component/base/base-view.component";
 import { CrudLearningPathComponent } from "src/app/component/crud-learning-path/crud-learning-path.component";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
-import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
 import { LearningPathModel } from "src/app/shared/model/learning-path.model";
 import { LearningPathStateFacade } from "src/app/state/learning-path/learning-path.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
@@ -80,30 +77,6 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 	 */
 
 	/**
-	 * Gets description
-	 */
-	get userType()
-	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	}
-
-	/**
-	 * Gets whether is user type teacher
-	 */
-	get isUserTypeTeacher()
-	{
-		return this.userType === UserTypeEnum.Teacher ? true : false;
-	}
-
-	/**
-	 * Gets whether is user type student
-	 */
-	get isUserTypeStudent()
-	{
-		return this.userType === UserTypeEnum.Student ? true : false;
-	}
-
-	/**
 	 * Status color icon
 	 * @param courseMaterialProgress 
 	 * @returns  
@@ -142,7 +115,6 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 		private learningPathStateFacade: LearningPathStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService
 	)
 	{
 		super(injector);
