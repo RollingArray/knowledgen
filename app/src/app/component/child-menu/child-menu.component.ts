@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-09-07 21:52:06
+ * Last modified  : 2022-09-21 20:47:26
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
@@ -23,6 +23,7 @@ import { CourseMaterialModel } from "src/app/shared/model/course-material.model"
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseViewComponent } from "../base/base-view.component";
 import { CrudCourseMaterialTypeComponent } from "../crud-course-material-type/crud-course-material-type.component";
 
@@ -116,8 +117,12 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 			{
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user type
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUser) => {
+							isMaterialOwner = loggedInUser === data.userId ? true : false
+						});
 				}
 			});
 
@@ -142,7 +147,8 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService
+		private cookieService: CookieService,
+		private rootStateFacade: RootStateFacade
 	)
 	{
 		super(injector);
