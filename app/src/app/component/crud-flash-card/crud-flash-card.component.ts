@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-07 21:04:57
+ * Last modified  : 2022-09-21 20:59:54
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -17,7 +17,6 @@ import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { FlashCardActionEnum } from "src/app/shared/enum/flash-card-action.enum";
@@ -111,7 +110,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	@Input() public assignmentPropertiesView: ElementRef;
 
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -257,7 +256,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 * View child of crud text document component
 	 */
 	@ViewChild('contentTopScrollView') contentTopScrollView: ElementRef;
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -314,8 +313,13 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user id
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUserId) =>
+						{
+							isMaterialOwner = loggedInUserId === data.userId ? true : false
+						});
 				}
 			});
 
@@ -482,7 +486,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 
 									// add all flash cards to track time
 									this.addFlashCardsToTrackTime();
-									
+
 									// track card time
 									this.trackCardSpendTime(OperationsEnum.START);
 								}
@@ -509,20 +513,20 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	private getSelectedCard()
 	{
-		
+
 		this._selectedCard = null;
-		 this.courseMaterialFlashCard$
-			 .pipe(takeUntil(this.unsubscribe))
-			 .subscribe(
-				 data =>
-				 {
-					 this._courseMaterialFlashCard = data;
-					 // initiate first card
-					 this._selectedCard = data[this._cardIndex];
-					 this._flashCardAction = FlashCardActionEnum.RIGHT;
-				 }
-			 );
-	 }
+		this.courseMaterialFlashCard$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(
+				data =>
+				{
+					this._courseMaterialFlashCard = data;
+					// initiate first card
+					this._selectedCard = data[this._cardIndex];
+					this._flashCardAction = FlashCardActionEnum.RIGHT;
+				}
+			);
+	}
 
 	/**
 	 * Adds flash cards to track time
@@ -536,21 +540,21 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 				flashCards =>
 				{
 					flashCards.map(eachFlashCard =>
-						{
-							const flashCardAssignmentTimeModel: FlashCardAssignmentTimeModel = {
-								cardId: eachFlashCard.cardId,
-								startTime: 0,
-								endTime: 0,
-								spendTime: 0
-							};
-				
-							this._flashCardAssignmentTime = [
-								...this._flashCardAssignmentTime,
-								flashCardAssignmentTimeModel
-							];
-						});
+					{
+						const flashCardAssignmentTimeModel: FlashCardAssignmentTimeModel = {
+							cardId: eachFlashCard.cardId,
+							startTime: 0,
+							endTime: 0,
+							spendTime: 0
+						};
+
+						this._flashCardAssignmentTime = [
+							...this._flashCardAssignmentTime,
+							flashCardAssignmentTimeModel
+						];
+					});
 				});
-		
+
 	}
 
 	/**
@@ -574,7 +578,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 					const spendTime = endTime - eachFlashCard.startTime;
 					eachFlashCard.endTime = endTime;
 					eachFlashCard.spendTime = spendTime;
-				}	
+				}
 			}
 			spendTime = [
 				...spendTime,
@@ -582,9 +586,9 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			]
 		});
 
-		
+
 		// return best active recall time
-		this._bestActiveRecallTime =  Math.round(this.statisticsService.median(spendTime));
+		this._bestActiveRecallTime = Math.round(this.statisticsService.median(spendTime));
 	}
 
 	/**
@@ -627,19 +631,19 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		modal.onDidDismiss().then((data) =>
 		{
 			switch (this._operationType)
-				{
-					case OperationsEnum.CREATE:
-						//this.openCrudModel();
-						break;
-					case OperationsEnum.EDIT:
-						//this.openCrudModel();
-						break;
-					case OperationsEnum.DELETE:
-						this.resetCard();
-						break;
-					default:
-						break;
-				}
+			{
+				case OperationsEnum.CREATE:
+					//this.openCrudModel();
+					break;
+				case OperationsEnum.EDIT:
+					//this.openCrudModel();
+					break;
+				case OperationsEnum.DELETE:
+					this.resetCard();
+					break;
+				default:
+					break;
+			}
 		});
 
 		// present modal
@@ -716,30 +720,30 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	/**
 	 * Scrolls to article content
 	 */
-	 private scrollToArticleContent()
-	 {
-		 const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
-		 const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
-		 const parentAssignmentPropertiesViewViewHeight = this.assignmentPropertiesView.nativeElement.offsetHeight;
-		 const deltaMargin = 40;
-		 const scrollY = pageBaseHeight + parentArticleTitleViewHeight + parentAssignmentPropertiesViewViewHeight + deltaMargin;
-		 const scrollX = 0;
-		 const animationDelay = 1500;
-		 this.articleView.scrollToPoint(scrollX,  scrollY , animationDelay);
-	 }
+	private scrollToArticleContent()
+	{
+		const pageBaseHeight = this.contentTopScrollView.nativeElement.offsetHeight;
+		const parentArticleTitleViewHeight = this.articleTitleView.nativeElement.offsetHeight;
+		const parentAssignmentPropertiesViewViewHeight = this.assignmentPropertiesView.nativeElement.offsetHeight;
+		const deltaMargin = 40;
+		const scrollY = pageBaseHeight + parentArticleTitleViewHeight + parentAssignmentPropertiesViewViewHeight + deltaMargin;
+		const scrollX = 0;
+		const animationDelay = 1500;
+		this.articleView.scrollToPoint(scrollX, scrollY, animationDelay);
+	}
 
 	/**
 	 * Tracks card flip
 	 */
 	private trackCardFlip()
-	 {
-		 if (this._cardFlipped)
-		 {
-			 const primaryCardId = 'back ' + this._selectedCard.cardId;
-			 const secondaryCardId = 'front ' + this._selectedCard.cardId;
-			 this.toggleCard(primaryCardId, secondaryCardId, false);
-		 }
-	 }
+	{
+		if (this._cardFlipped)
+		{
+			const primaryCardId = 'back ' + this._selectedCard.cardId;
+			const secondaryCardId = 'front ' + this._selectedCard.cardId;
+			this.toggleCard(primaryCardId, secondaryCardId, false);
+		}
+	}
 
 	/**
 	 * -------------------------------------------------|
@@ -761,9 +765,9 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			frontMedia: '',
 			frontContent: '',
 			backMediaType: MediaTypeEnum.NONE,
-			backMedia : '',
-			backContent : '',
-			backContentMore : '',
+			backMedia: '',
+			backContent: '',
+			backContentMore: '',
 			operationType: OperationsEnum.CREATE
 		};
 
@@ -874,13 +878,13 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 			this._flashCardAction = FlashCardActionEnum.FLIP;
 			document.getElementById(primaryCardId).classList.remove('display-block');
 			document.getElementById(primaryCardId).classList.add('display-none');
-			
+
 			document.getElementById(secondaryCardId).classList.remove('display-none');
 			document.getElementById(secondaryCardId).classList.add('display-block');
 
 			this._cardFlipped = cardFlipped;
 		}
-		
+
 	}
 
 	/**
@@ -908,7 +912,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		}, 0);
 	}
 
-	
+
 
 	/**
 	 * Previous card
@@ -917,7 +921,7 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	{
 		// track previous card end time before moving next card
 		this.trackCardSpendTime(OperationsEnum.END);
-		
+
 		this._flashCardAction = FlashCardActionEnum.NONE;
 		//this._resetFlashCard = false;
 		this._cardIndex--;
@@ -938,19 +942,19 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	/**
 	 * Previous card
 	 */
-	 public resetCard()
-	 {
-		 this._flashCardAction = FlashCardActionEnum.NONE;
-		 this._cardIndex = 0;
-		 this.getSelectedCard();
-		 setTimeout(() =>
-		 {
-			 this._flashCardAction = FlashCardActionEnum.RIGHT;
-			 
-			 // track if card flipped
-			 this.trackCardFlip();
-		 }, 0);
-	 }
+	public resetCard()
+	{
+		this._flashCardAction = FlashCardActionEnum.NONE;
+		this._cardIndex = 0;
+		this.getSelectedCard();
+		setTimeout(() =>
+		{
+			this._flashCardAction = FlashCardActionEnum.RIGHT;
+
+			// track if card flipped
+			this.trackCardFlip();
+		}, 0);
+	}
 
 	/**
 	 * Gets class
@@ -959,9 +963,10 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	getClass(type: string)
 	{
-		const commonClass= "animate__animated flash-card card-solid-shadow"
+		const commonClass = "animate__animated flash-card card-solid-shadow"
 		const displayNone = type === 'front' ? 'display-block' : 'display-none';
-		switch (this._flashCardAction) {
+		switch (this._flashCardAction)
+		{
 			case FlashCardActionEnum.FLIP:
 				return `${commonClass} animate__flipInX ${displayNone}`;
 				break;
