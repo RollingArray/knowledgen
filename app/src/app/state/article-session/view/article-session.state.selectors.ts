@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-03 16:41:21 
- * Last modified  : 2022-08-12 12:04:50
+ * Last modified  : 2022-09-21 17:58:10
  */
 
 
@@ -127,7 +127,16 @@ export const gapAnalysis = (last: number, secondLast: number) =>
 	let articleSessionAnalysis: ArticleSessionAnalysisModel;
 	const gapBetweenLast2Time = last - secondLast;
 	const inPercentage = ((Math.abs(gapBetweenLast2Time) / secondLast) * 100).toFixed(2);
-	if (gapBetweenLast2Time === 0)
+	
+	if (secondLast === 0 )
+	{
+		articleSessionAnalysis = {
+			characteristics: CharacteristicsEnum.NO_DATA,
+			value: '0'
+		}
+	}
+
+	else if (gapBetweenLast2Time === 0)
 	{
 		articleSessionAnalysis = {
 			characteristics: CharacteristicsEnum.NEUTRAL,

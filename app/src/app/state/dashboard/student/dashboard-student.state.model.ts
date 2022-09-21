@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:11:17 
- * Last modified  : 2022-09-15 18:14:15
+ * Last modified  : 2022-09-21 17:49:22
  */
 
 
@@ -45,7 +45,18 @@ export const INITIAL_DASHBOARD_STUDENT_STATE: DashboardStudentStateModel = {
             totalFillBlankAssessments: 0,
             totalCurrentMonthFillBlankAssessments: 0,
             totalPreviousMonthFillBlankAssessments: 0
-        }
+        },
+        textDocumentAssessment: {
+			totalTextDocumentAssessments: 0,
+			totalCurrentMonthTextDocumentAssessments: 0,
+			totalPreviousMonthTextDocumentAssessments: 0
+		},
+		
+		flashCardAssessment: {
+			totalFlashCardAssessments: 0,
+			totalCurrentMonthFlashCardAssessments: 0,
+			totalPreviousMonthFlashCardAssessments: 0
+		}
     },
     assignmentsScoreAnalysis: {
         totalGoodScore: 0,
