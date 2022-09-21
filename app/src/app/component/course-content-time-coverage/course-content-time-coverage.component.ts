@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-08-12 07:52:31
+ * Last modified  : 2022-09-21 17:01:08
  */
 
 import { Component, OnInit, Input, ViewChild, Injector } from "@angular/core";
@@ -218,7 +218,7 @@ export class CourseContentTimeCoverageComponent extends BaseFormComponent implem
 	{
 		this.translateService
 			.get([
-				'formInfo.sessionProgress',
+				'formInfo.courseMinutesCovered',
 			]).pipe(takeUntil(this.unsubscribe))
 			.subscribe(async data =>
 			{
@@ -237,7 +237,7 @@ export class CourseContentTimeCoverageComponent extends BaseFormComponent implem
 						data: chartData,
 						borderColor: '#003566',
 						backgroundColor: "#003566",
-						label: `${data['formInfo.sessionProgress']}`,
+						label: `${data['formInfo.courseMinutesCovered']}`,
 						tension: 0.5
 
 					},

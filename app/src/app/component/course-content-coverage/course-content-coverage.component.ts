@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-08-12 11:50:11
+ * Last modified  : 2022-09-21 17:00:52
  */
 
 import { Component, OnInit, Input, ViewChild, Injector } from "@angular/core";
@@ -220,7 +220,7 @@ export class CourseContentCoverageComponent extends BaseFormComponent implements
 	{
 		this.translateService
 			.get([
-				'formInfo.sessionProgress',
+				'formInfo.courseContentCovered',
 			]).pipe(takeUntil(this.unsubscribe))
 			.subscribe(async data =>
 			{
@@ -240,7 +240,7 @@ export class CourseContentCoverageComponent extends BaseFormComponent implements
 						data: chartData,
 						borderColor: '#003566',
 						backgroundColor: "#003566",
-						label: `${data['formInfo.sessionProgress']}`,
+						label: `${data['formInfo.courseContentCovered']}`,
 						tension: 0.5
 
 					},

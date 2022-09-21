@@ -8,20 +8,22 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-09-15 20:54:35
+ * Last modified  : 2022-09-21 16:51:51
  */
 -->
 
-<ion-card >
+<ion-card>
 	<ion-card-header>
-		<panel-header 
+		<panel-header
 			[panelTitle]="'pageTitle.assignmentsScoreAnalysis' | translate"
-			[panelIcon] = "stringKey.ICON_PIE_CHART"
-			[fontColor]="stringKey.COLOR_MEDIUM"
-			
+			[panelIcon]="stringKey.ICON_PIE_CHART"
 		></panel-header>
+		<panel-info
+			[showMoreLess]="true"
+			[title]="'pageSubTitle.assignmentsScoreAnalysis' | translate"
+		></panel-info>
 	</ion-card-header>
 	<ion-card-content>
-		<canvas #chart style="height: 300px;"> </canvas>
+		<canvas #chart style="height: 300px"> </canvas>
 	</ion-card-content>
 </ion-card>

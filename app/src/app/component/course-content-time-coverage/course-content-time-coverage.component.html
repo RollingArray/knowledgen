@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-09-15 20:54:54
+ * Last modified  : 2022-09-21 16:58:42
  */
 -->
 
@@ -16,8 +16,11 @@
 		<panel-header 
 			[panelTitle]="'pageTitle.courseContentTimeCoverageOverTime' | translate"
 			[panelIcon] = "stringKey.ICON_LINE_CHART"
-			[fontColor]="stringKey.COLOR_MEDIUM"
 		></panel-header>
+		<panel-info
+			[showMoreLess]="true"
+			[title]="'pageSubTitle.courseContentTimeCoverageOverTime' | translate"
+		></panel-info>
 	</ion-card-header>
 	<ion-card-content>
 		<canvas #chart style="height: 300px;"> </canvas>
