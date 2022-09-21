@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-09-20 15:59:51
+ * Last modified  : 2022-09-21 20:12:29
  */
 
 
@@ -33,31 +33,36 @@ export class ArrayKey
 					title: 'pageTitle.dashboard',
 					url: ['dashboard'],
 					icon: StringKey.ICON_DASHBOARD,
-					allowAccess: [UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Student],
+					isSelected: false
 				},
 				{
 					title: 'pageTitle.courseMaterials',
 					url: ['course', 'material'],
 					icon: StringKey.ICON_COURSE_MATERIAL,
-					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher]
+					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher],
+					isSelected: false
 				},
 				{
 					title: 'pageTitle.availabilityPlanner',
 					url: ['availability', 'planner'],
 					icon: StringKey.ICON_TIME,
-					allowAccess: [UserTypeEnum.Teacher, UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Teacher, UserTypeEnum.Student],
+					isSelected: false
 				},
 				{
 					title: 'pageTitle.myLearningPath',
 					url: ['learning', 'path'],
 					icon: StringKey.ICON_LEARN,
-					allowAccess: [UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Student],
+					isSelected: false
 				},
 				{
 					title: 'pageTitle.myRevisions',
 					url: ['revision'],
 					icon: StringKey.ICON_REVISION,
-					allowAccess: [UserTypeEnum.Student]
+					allowAccess: [UserTypeEnum.Student],
+					isSelected: false
 				},
 			]
 		},
@@ -68,7 +73,8 @@ export class ArrayKey
 					title: 'pageTitle.selectlanguage',
 					action: 'changeLanguage',
 					icon: StringKey.ICON_LANGUAGE,
-					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher]
+					allowAccess: [UserTypeEnum.Student, UserTypeEnum.Teacher],
+					isSelected: false
 				},
 			]
 		},

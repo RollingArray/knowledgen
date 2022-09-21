@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-01 20:47:46
- * Last modified  : 2022-09-20 19:32:04
+ * Last modified  : 2022-09-21 20:30:59
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -72,36 +72,6 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 */
 
 	/**
-	 * User model of menu page
-	 */
-	private _userModel: UserModel;
-
-	/**
-	 * Selected project of menu page
-	 */
-	private _selectedProject: string;
-
-	/**
-	 * Logged in user of menu page
-	 */
-	private _loggedInUser: string;
-
-	/**
-	 * Logged in user id of menu page
-	 */
-	private _loggedInUserId: string;
-
-	/**
-	 * Modal data of menu page
-	 */
-	private _modalData: ModalData;
-
-	/**
-	 * Project id of menu page
-	 */
-	private _projectId: string;
-
-	/**
 	 * Pages  of menu page
 	 */
 	private _pages = ArrayKey.APP_PRIMARY_ROUTE_PAGES;
@@ -159,13 +129,23 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 	 */
 	public get pages(): RouteModel[]
 	{
-		this._pages.map((eachPage) =>
+		const currentURL = window.location.href;
+		
+		this._pages.map(eachRoute =>
 		{
-			eachPage.children.map((eachPageChildren) =>
+			eachRoute.children.map(eachChildPage =>
 			{
-				eachPageChildren.allowMenuAccess = true;
-			});
-		});
+				if (eachChildPage.url)
+				{
+					let constructUrl = ''
+					eachChildPage.url.map(eachUrlSegment =>
+					{
+						constructUrl = `${constructUrl}/${eachUrlSegment}`;
+					})
+					eachChildPage.isSelected = currentURL.includes(constructUrl) ? true : false;
+				}
+			})
+		})
 		return this._pages;
 	}
 
@@ -339,7 +319,7 @@ export class MenuPage extends BaseViewComponent implements OnInit, OnDestroy
 					{
 						//close the side menu and log out
 						//this.menuController.close();
-						this.rootStateFacade.deleteUser();	
+						this.rootStateFacade.deleteUser();
 					},
 				},
 			],
