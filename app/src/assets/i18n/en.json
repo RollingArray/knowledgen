@@ -40,7 +40,9 @@
 		"setDate": "Set Next Revision On",
 		"changeVisibilityPrivate": "Change Visibility To Private",
 		"changeVisibilityLive": ",Change Visibility To Live",
-		"compareFriends": "Compare Leader Board with your Peer"
+		"compareFriends": "Compare Leader Board with your Peer",
+		"showMore": "Show More",
+		"showLess": "Show Less"
 	},
 	"pageTitle": {
 		"profile": "Profile",

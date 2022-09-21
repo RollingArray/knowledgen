@@ -6,18 +6,51 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 09:45:15 
- * Last modified  : 2022-09-15 20:38:03
+ * Last modified  : 2022-09-21 14:32:24
  */
  -->
- 
+
 <ion-item [color]="panelColor" lines="none">
+	<!-- content icon -->
 	<ion-icon
 		slot="start"
 		*ngIf="panelIcon !== 'spinner'"
-		[src]="!panelIcon ? stringKey.ICON_INFO : panelIcon"
+		[src]="panelIcon"
 	></ion-icon>
+	<!-- content icon -->
+
+	<!-- if content icon spinner -->
 	<ion-spinner color="light" *ngIf="panelIcon === 'spinner'"></ion-spinner>
-	<p>
-		<ion-text [innerHTML]="title" [color]="fontColor" [class]="fontClass"></ion-text>
+	<!-- if content icon spinner -->
+	
+	<!-- label to show eclipsed content -->
+	<ion-label *ngIf="showMore && showMoreLess" [innerHTML]="title">
+	</ion-label>
+	<!-- label to show eclipsed content -->
+
+	<!-- badge to show more content -->
+	<ion-badge class="cursor-pointer" *ngIf="showMore && showMoreLess" (click)="toggleContentView()"
+		>{{'button.showMore' | translate}}</ion-badge
+	>
+	<!-- badge to show more content -->
+
+	<!-- show full content with show less button -->
+	<p *ngIf="!showMore && showMoreLess">
+		<ion-text [innerHTML]="title" [class]="fontClass" [color]="fontColor">
+		</ion-text>
+		<br /><br />
+
+		<!-- badge to show less content -->
+		<ion-badge class="cursor-pointer" (click)="toggleContentView()">{{'button.showLess' | translate}}</ion-badge>
+		<!-- badge to show less content -->
 	</p>
+	<!-- show full content with show less button -->
+	
+	<!-- show full content -->
+	<p *ngIf="!showMoreLess">
+		<ion-text [innerHTML]="title" [class]="fontClass" [color]="fontColor">
+		</ion-text>
+		<br />
+	</p>
+	<!-- show full content -->
 </ion-item>
