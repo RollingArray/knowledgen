@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:08:58 
- * Last modified  : 2022-09-15 18:12:14
+ * Last modified  : 2022-09-21 17:49:38
  */
 
 
@@ -40,6 +40,17 @@ export interface DashboardStudentModel extends BaseModel, UserModel
 			totalFillBlankAssessments: number,
 			totalCurrentMonthFillBlankAssessments: number,
 			totalPreviousMonthFillBlankAssessments: number
+		},
+		textDocumentAssessment: {
+			totalTextDocumentAssessments: number,
+			totalCurrentMonthTextDocumentAssessments: number,
+			totalPreviousMonthTextDocumentAssessments: number
+		},
+		
+		flashCardAssessment: {
+			totalFlashCardAssessments: number,
+			totalCurrentMonthFlashCardAssessments: number,
+			totalPreviousMonthFlashCardAssessments: number
 		}
 	},
 	assignmentsScoreAnalysis: {

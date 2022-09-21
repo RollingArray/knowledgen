@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53
- * Last modified  : 2022-09-20 11:41:20
+ * Last modified  : 2022-09-21 18:07:47
  */
 
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
@@ -72,6 +72,11 @@ export class DashboardPage
 	 * Determines whether student data$ has
 	 */
 	public hasStudentData$!: Observable<boolean>;
+
+	/**
+	 * Determines whether teacher data$ has
+	 */
+	public hasTeacherData$!: Observable<boolean>;
 
 	/**
 	 * Loading indicator status$ of course material page

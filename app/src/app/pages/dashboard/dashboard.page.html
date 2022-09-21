@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 20:05:53 
- * Last modified  : 2022-09-20 11:41:26
+ * Last modified  : 2022-09-21 18:12:49
  */	
  -->
 <!-- header -->
@@ -48,8 +48,8 @@
 	</content-loading>
 	<!-- content loading -->
 
-	<!-- data container -->
-	<ng-container *ngIf="!(loadingIndicatorStatus$ | async)">
+	<!-- student data container -->
+	<ng-container *ngIf="!(loadingIndicatorStatus$ | async) && (hasStudentData$ | async)">
 		<!-- profile / points -->
 		<ion-grid>
 			<ion-row>
@@ -75,7 +75,8 @@
 												<ion-text
 													color="primary-gradient"
 												>
-													{{(loggedInUserName$ | async)}} !!
+													{{(loggedInUserName$ |
+													async)}} !!
 												</ion-text>
 											</b>
 										</h1>
@@ -113,13 +114,7 @@
 						<div>
 							<img
 								class="user-profile"
-								*ngIf="(loggedInUserType$ | async) === userTypeEnum.Student"
 								[src]="stringKey.IMAGE_STUDENT_PROFILE"
-							/>
-							<img
-								class="user-profile"
-								*ngIf="(loggedInUserType$ | async) === userTypeEnum.Teacher"
-								[src]="stringKey.IMAGE_TEACHER_PROFILE"
 							/>
 						</div>
 					</div>
@@ -128,7 +123,6 @@
 
 				<!-- points -->
 				<ion-col
-					*ngIf="(hasStudentData$ | async)"
 					sizeLg="6"
 					sizeMd="6"
 					sizeXl="6"
@@ -194,7 +188,7 @@
 		</ion-grid>
 		<!-- profile / points -->
 
-		<ion-grid *ngIf="(hasStudentData$ | async)">
+		<ion-grid>
 			<ion-row>
 				<!-- total study sessions -->
 				<ion-col
@@ -207,11 +201,14 @@
 					<ion-card>
 						<ion-card-header>
 							<panel-header
-								[panelTitle]="'formInfo.studyTimeTaken' | translate"
+								[panelTitle]="'pageTitle.studyTimeTaken' | translate"
 								[panelIcon]="stringKey.ICON_TIME"
-								[fontColor]="stringKey.COLOR_MEDIUM"
 							>
 							</panel-header>
+							<panel-info
+								[showMoreLess]="true"
+								[title]="'pageSubTitle.studyTimeTaken' | translate"
+							></panel-info>
 						</ion-card-header>
 						<analysis-booth
 							[baseNumber]="(dashboardStudent$ | async).studySessions.totalStudySessions"
@@ -234,11 +231,14 @@
 					<ion-card>
 						<ion-card-header>
 							<panel-header
-								[panelTitle]="'formInfo.assessmentsTaken' | translate"
+								[panelTitle]="'pageTitle.assessmentsTaken' | translate"
 								[panelIcon]="stringKey.ICON_ASSESSMENT"
-								[fontColor]="stringKey.COLOR_MEDIUM"
 							>
 							</panel-header>
+							<panel-info
+								[showMoreLess]="true"
+								[title]="'pageSubTitle.assessmentsTaken' | translate"
+							></panel-info>
 						</ion-card-header>
 						<analysis-booth
 							[baseNumber]="(dashboardStudent$ | async).sessionAssignments.totalAssessments"
@@ -257,11 +257,13 @@
 					<ion-card>
 						<ion-card-header>
 							<panel-header
-								[panelTitle]="'formInfo.assessmentsTakenCategory' | translate"
+								[panelTitle]="'pageTitle.assessmentsTakenCategory' | translate"
 								[panelIcon]="stringKey.ICON_GROUP"
-								[fontColor]="stringKey.COLOR_MEDIUM"
 							>
 							</panel-header>
+							<panel-info
+								[title]="'pageSubTitle.assessmentsTakenCategory' | translate"
+							></panel-info>
 						</ion-card-header>
 						<ion-grid>
 							<ion-row>
@@ -293,7 +295,7 @@
 								</ion-col>
 								<!-- quiz assessment analysis -->
 
-								<!-- drag content assessment analysis -->
+								<!-- text document assessment analysis -->
 								<ion-col
 									sizeLg="4"
 									sizeMd="4"
@@ -307,21 +309,21 @@
 											class="font-size-20-px"
 										>
 											<b
-												>{{'courseMaterialType.dragContent'
+												>{{'courseMaterialType.textDocument'
 												| translate}}</b
 											>
 										</ion-text>
 									</div>
 									<analysis-booth
-										[baseNumber]="(dashboardStudent$ | async).sessionAssignments.dragContentAssessment.totalDragContentAssessments"
-										[lastNumber]="(dashboardStudent$ | async).sessionAssignments.dragContentAssessment.totalCurrentMonthDragContentAssessments"
-										[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.dragContentAssessment.totalPreviousMonthDragContentAssessments"
+										[baseNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalTextDocumentAssessments"
+										[lastNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalCurrentMonthTextDocumentAssessments"
+										[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalPreviousMonthTextDocumentAssessments"
 									>
 									</analysis-booth>
 								</ion-col>
-								<!-- drag content assessment analysis -->
+								<!-- text document assessment analysis -->
 
-								<!-- fill blank assessment analysis -->
+								<!-- flash card assessment analysis -->
 								<ion-col
 									sizeLg="4"
 									sizeMd="4"
@@ -335,15 +337,15 @@
 											class="font-size-20-px"
 										>
 											<b
-												>{{'courseMaterialType.fillBlank'
+												>{{'courseMaterialType.flashCard'
 												| translate}}</b
 											>
 										</ion-text>
 									</div>
 									<analysis-booth
-										[baseNumber]="(dashboardStudent$ | async).sessionAssignments.fillBlankAssessment.totalFillBlankAssessments"
-										[lastNumber]="(dashboardStudent$ | async).sessionAssignments.fillBlankAssessment.totalCurrentMonthFillBlankAssessments"
-										[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.fillBlankAssessment.totalPreviousMonthFillBlankAssessments"
+									[baseNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalFlashCardAssessments"
+									[lastNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalCurrentMonthFlashCardAssessments"
+									[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalPreviousMonthFlashCardAssessments"
 									>
 									</analysis-booth>
 								</ion-col>
@@ -387,5 +389,349 @@
 			</ion-row>
 		</ion-grid>
 	</ng-container>
-	<!-- data container -->
+	<!-- student data container -->
+
+	<!-- teacher data container -->
+	<ng-container *ngIf="!(loadingIndicatorStatus$ | async) && (hasTeacherData$ | async)">
+		<!-- profile / points -->
+		<ion-grid>
+			<ion-row>
+				<!-- profile -->
+				<ion-col
+					sizeLg="6"
+					sizeMd="6"
+					sizeXl="6"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<div>
+						<ion-card>
+							<ion-grid>
+								<ion-row>
+									<ion-col class="padding-20-px" size="12">
+										<h1>
+											<b>
+												👋
+												<span class="font-size-15-px"
+													>{{greeting | translate}}, </span
+												><br />
+												<ion-text
+													color="primary-gradient"
+												>
+													{{(loggedInUserName$ |
+													async)}} !!
+												</ion-text>
+											</b>
+										</h1>
+										<br />
+										<br />
+										<ion-text
+											color="medium"
+											class="font-size-20-px"
+										>
+											{{'pageTitle.welcome' | translate}}
+											{{'appCore.appName' | translate}}
+										</ion-text>
+										<br />
+										<br />
+
+										<ion-icon
+											[src]="stringKey.ICON_CALENDER"
+										>
+										</ion-icon>
+										<ion-text
+											color="medium"
+											class="font-size-15-px"
+										>
+											{{today | date}}
+										</ion-text>
+									</ion-col>
+									<ion-col
+										class="padding-20-px hidden-device-xl hidden-device-xxl"
+									>
+										&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;
+									</ion-col>
+								</ion-row>
+							</ion-grid>
+						</ion-card>
+						<div>
+							<img
+								class="user-profile"
+								*ngIf="(loggedInUserType$ | async) === userTypeEnum.Student"
+								[src]="stringKey.IMAGE_STUDENT_PROFILE"
+							/>
+						</div>
+					</div>
+				</ion-col>
+				<!-- profile -->
+
+				<!-- points -->
+				<ion-col
+					sizeLg="6"
+					sizeMd="6"
+					sizeXl="6"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<ion-card>
+						<ion-grid>
+							<ion-row>
+								<ion-col class="text-center">
+									<br />
+									<h1>{{ "formInfo.earned" | translate }}</h1>
+									<ion-button color="success" mode="ios">
+										<ion-icon
+											[src]="stringKey.ICON_REWARD"
+											slot="start"
+										></ion-icon>
+										<ion-text class="font-size-30-px"
+											><b
+												>{{(dashboardStudent$ |
+												async).studyPoints}}</b
+											></ion-text
+										>
+										&nbsp;{{ "formInfo.point" | translate }}
+									</ion-button>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col>
+									<img
+										class="point-badge"
+										[src]="pointLevelImage"
+									/>
+								</ion-col>
+							</ion-row>
+
+							<ion-row>
+								<ion-col class="text-center">
+									<panel-info
+										[title]="pointLevelInfo"
+										fontClass="font-size-20-px"
+									>
+									</panel-info>
+								</ion-col>
+							</ion-row>
+							<ion-row>
+								<ion-col class="text-center">
+									<common-button
+										(event)="openUserPeers()"
+										class="float-right margin-10-px"
+										[color]="stringKey.COLOR_TERTIARY"
+										[title]="'button.compareFriends' | translate"
+										[icon]="stringKey.ICON_VERIFIED_RESULT"
+									>
+									</common-button>
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-card>
+				</ion-col>
+				<!-- points -->
+			</ion-row>
+		</ion-grid>
+		<!-- profile / points -->
+
+		<ion-grid>
+			<ion-row>
+				<!-- total study sessions -->
+				<ion-col
+					sizeLg="6"
+					sizeMd="6"
+					sizeXl="6"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<ion-card>
+						<ion-card-header>
+							<panel-header
+								[panelTitle]="'pageTitle.studyTimeTaken' | translate"
+								[panelIcon]="stringKey.ICON_TIME"
+							>
+							</panel-header>
+							<panel-info
+								[showMoreLess]="true"
+								[title]="'pageSubTitle.studyTimeTaken' | translate"
+							></panel-info>
+						</ion-card-header>
+						<analysis-booth
+							[baseNumber]="(dashboardStudent$ | async).studySessions.totalStudySessions"
+							[lastNumber]="(dashboardStudent$ | async).studySessions.totalCurrentMonthStudySessions"
+							[secondLastNumber]="(dashboardStudent$ | async).studySessions.totalPreviousMonthStudySessions"
+						>
+						</analysis-booth>
+					</ion-card>
+				</ion-col>
+				<!-- total study sessions -->
+
+				<!-- total assessments -->
+				<ion-col
+					sizeLg="6"
+					sizeMd="6"
+					sizeXl="6"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<ion-card>
+						<ion-card-header>
+							<panel-header
+								[panelTitle]="'pageTitle.assessmentsTaken' | translate"
+								[panelIcon]="stringKey.ICON_ASSESSMENT"
+							>
+							</panel-header>
+							<panel-info
+								[showMoreLess]="true"
+								[title]="'pageSubTitle.assessmentsTaken' | translate"
+							></panel-info>
+						</ion-card-header>
+						<analysis-booth
+							[baseNumber]="(dashboardStudent$ | async).sessionAssignments.totalAssessments"
+							[lastNumber]="(dashboardStudent$ | async).sessionAssignments.totalCurrentMonthAssessments"
+							[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.totalPreviousMonthAssessments"
+						>
+						</analysis-booth>
+					</ion-card>
+				</ion-col>
+				<!-- total assessments -->
+			</ion-row>
+
+			<!-- session assignments category-->
+			<ion-row>
+				<ion-col>
+					<ion-card>
+						<ion-card-header>
+							<panel-header
+								[panelTitle]="'pageTitle.assessmentsTakenCategory' | translate"
+								[panelIcon]="stringKey.ICON_GROUP"
+							>
+							</panel-header>
+							<panel-info
+								[title]="'pageSubTitle.assessmentsTakenCategory' | translate"
+							></panel-info>
+						</ion-card-header>
+						<ion-grid>
+							<ion-row>
+								<!-- quiz assessment analysis -->
+								<ion-col
+									sizeLg="4"
+									sizeMd="4"
+									sizeXl="4"
+									sizeSm="12"
+									sizeXs="12"
+								>
+									<div class="text-center padding-10-px">
+										<ion-text
+											color="secondary"
+											class="font-size-20-px"
+										>
+											<b
+												>{{'courseMaterialType.quiz' |
+												translate}}</b
+											>
+										</ion-text>
+									</div>
+									<analysis-booth
+										[baseNumber]="(dashboardStudent$ | async).sessionAssignments.quizAssessment.totalQuizAssessments"
+										[lastNumber]="(dashboardStudent$ | async).sessionAssignments.quizAssessment.totalCurrentMonthQuizAssessments"
+										[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.quizAssessment.totalPreviousMonthQuizAssessments"
+									>
+									</analysis-booth>
+								</ion-col>
+								<!-- quiz assessment analysis -->
+
+								<!-- text document assessment analysis -->
+								<ion-col
+									sizeLg="4"
+									sizeMd="4"
+									sizeXl="4"
+									sizeSm="12"
+									sizeXs="12"
+								>
+									<div class="text-center padding-10-px">
+										<ion-text
+											color="secondary"
+											class="font-size-20-px"
+										>
+											<b
+												>{{'courseMaterialType.textDocument'
+												| translate}}</b
+											>
+										</ion-text>
+									</div>
+									<analysis-booth
+										[baseNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalTextDocumentAssessments"
+										[lastNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalCurrentMonthTextDocumentAssessments"
+										[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.textDocumentAssessment.totalPreviousMonthTextDocumentAssessments"
+									>
+									</analysis-booth>
+								</ion-col>
+								<!-- text document assessment analysis -->
+
+								<!-- flash card assessment analysis -->
+								<ion-col
+									sizeLg="4"
+									sizeMd="4"
+									sizeXl="4"
+									sizeSm="12"
+									sizeXs="12"
+								>
+									<div class="text-center padding-10-px">
+										<ion-text
+											color="secondary"
+											class="font-size-20-px"
+										>
+											<b
+												>{{'courseMaterialType.flashCard'
+												| translate}}</b
+											>
+										</ion-text>
+									</div>
+									<analysis-booth
+									[baseNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalFlashCardAssessments"
+									[lastNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalCurrentMonthFlashCardAssessments"
+									[secondLastNumber]="(dashboardStudent$ | async).sessionAssignments.flashCardAssessment.totalPreviousMonthFlashCardAssessments"
+									>
+									</analysis-booth>
+								</ion-col>
+								<!-- fill blank assessment analysis -->
+							</ion-row>
+						</ion-grid>
+					</ion-card>
+				</ion-col>
+			</ion-row>
+			<!-- session assignments category-->
+
+			<ion-row>
+				<ion-col
+					sizeLg="12"
+					sizeMd="12"
+					sizeXl="4"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<assignments-score-analysis> </assignments-score-analysis>
+				</ion-col>
+				<ion-col
+					sizeLg="12"
+					sizeMd="12"
+					sizeXl="4"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<course-content-time-coverage>
+					</course-content-time-coverage>
+				</ion-col>
+				<ion-col
+					sizeLg="12"
+					sizeMd="12"
+					sizeXl="4"
+					sizeSm="12"
+					sizeXs="12"
+				>
+					<course-content-coverage> </course-content-coverage>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ng-container>
+	<!-- teacher data container -->
 </ion-content>
