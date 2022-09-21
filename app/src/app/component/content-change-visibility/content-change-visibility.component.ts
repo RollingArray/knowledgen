@@ -5,21 +5,21 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 10:47:19 
- * Last modified  : 2022-09-13 10:48:15
+ * Last modified  : 2022-09-21 20:49:30
  */
 
- import { BaseViewComponent } from 'src/app/component/base/base-view.component';
- import { Component, OnInit, OnDestroy, Injector, OnChanges, ElementRef, Input, ViewChild, SimpleChanges } from '@angular/core';
- import { Observable } from 'rxjs';
- import { RootStateFacade } from 'src/app/state/root/root.state.facade';
- import { take, takeUntil } from 'rxjs/operators';
- import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
- import { TranslateService } from '@ngx-translate/core';
- import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
- import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
- import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
- import { CourseMaterialStateModel } from 'src/app/state/course-material/course-material/course-material.state.model';
- import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
+import { BaseViewComponent } from 'src/app/component/base/base-view.component';
+import { Component, OnInit, OnDestroy, Injector, OnChanges, ElementRef, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { take, takeUntil } from 'rxjs/operators';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
+import { TranslateService } from '@ngx-translate/core';
+import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
+import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
+import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
+import { CourseMaterialStateModel } from 'src/app/state/course-material/course-material/course-material.state.model';
+import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { CookieService } from 'ngx-cookie-service';
 import { ArrayKey } from 'src/app/shared/constant/array.constant';
 import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
@@ -34,25 +34,25 @@ import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
 import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
 import { SubChildMenuModel } from 'src/app/shared/model/sub-child-menu.model';
 import { ToastService } from 'src/app/shared/service/toast.service';
- 
- @Component({
-	 selector: "content-change-visibility",
-	 templateUrl: "./content-change-visibility.component.html",
-	 styleUrls: ["./content-change-visibility.component.scss"]
- })
- export class ContentChangeVisibilityComponent extends BaseViewComponent implements OnInit
- {
-	 /**
-	 * -------------------------------------------------|
-	 * @description										|
-	 * Readonly properties								|
-	 * -------------------------------------------------|
+
+@Component({
+	selector: "content-change-visibility",
+	templateUrl: "./content-change-visibility.component.html",
+	styleUrls: ["./content-change-visibility.component.scss"]
+})
+export class ContentChangeVisibilityComponent extends BaseViewComponent implements OnInit
+{
+	/**
+	* -------------------------------------------------|
+	* @description										|
+	* Readonly properties								|
+	* -------------------------------------------------|
+	*/
+	/**
+	 * Description  of course material article page
 	 */
-	 /**
-	  * Description  of course material article page
-	  */
-	 readonly courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
-	 
+	readonly courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
+
 	/**
 	 * @description Title type enum of search skill component
 	 */
@@ -138,14 +138,14 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 	 * ViewChild variable								|
 	 * -------------------------------------------------|
 	 */
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
 	 * -------------------------------------------------|
 	 */
-	
+
 	/**
 	 * Gets visibility info
 	 */
@@ -156,10 +156,10 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 		const courseMaterialTypeId = this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('courseMaterialTypeId');
 		return this.selectArticleStatus(articleStatus, courseMaterialTypeId, visibility);
 	}
-	 
-	 /**
- * Gets description
- */
+
+	/**
+* Gets description
+*/
 	get isMaterialOwner()
 	{
 		let isMaterialOwner = false;
@@ -169,8 +169,13 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 			{
 				if (data && data.userId)
 				{
-					const loggedInUser = this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_ID);
-					isMaterialOwner = loggedInUser === data.userId ? true : false
+					// check user id
+					this.rootStateFacade.loggedInUserId$
+						.pipe(takeUntil(this.unsubscribe))
+						.subscribe((loggedInUserId) =>
+						{
+							isMaterialOwner = loggedInUserId === data.userId ? true : false
+						});
 				}
 			});
 
@@ -473,6 +478,5 @@ import { ToastService } from 'src/app/shared/service/toast.service';
 				await alert.present();
 			});
 	}
- }
- 
- 
+}
+

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 10:47:19 
- * Last modified  : 2022-09-13 10:47:58
+ * Last modified  : 2022-09-21 20:54:58
  */
  -->
 
@@ -41,6 +41,11 @@
 					visibilityInfo === 'formInfo.visibilityLive'
 						? 'success'
 						: 'light'
+				"
+				[fontColor]="
+					visibilityInfo === 'formInfo.visibilityLive'
+						? 'light'
+						: 'primary'
 				"
 				[title]="visibilityInfo | translate"
 			></panel-info>
