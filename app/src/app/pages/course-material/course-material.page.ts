@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-07 13:09:20
+ * Last modified  : 2022-09-21 21:07:47
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -19,8 +19,6 @@ import { takeUntil } from 'rxjs/operators';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { CrudCourseMaterialComponent } from 'src/app/component/crud-course-material/crud-course-material.component';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { CrudLearningPathComponent } from 'src/app/component/crud-learning-path/crud-learning-path.component';
 import { LearningPathModel } from 'src/app/shared/model/learning-path.model';
@@ -59,12 +57,12 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	/**
 	 * Description  of course material page
 	 */
-	 public courseMaterials$!: Observable<CourseMaterialModel[]>;
+	public courseMaterials$!: Observable<CourseMaterialModel[]>;
 
 	/**
 	 * Determines whether data has
 	 */
-	 public hasData$!: Observable<boolean>;
+	public hasData$!: Observable<boolean>;
 
 	/**
 	 * Loading indicator status$ of course material page
@@ -83,7 +81,15 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 */
 	get userType()
 	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+		let userType: UserTypeEnum;
+		// check user type
+		this.rootStateFacade.loggedInUserType$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((loggedInUserType) =>
+			{
+				userType = loggedInUserType;
+			});
+		return userType;
 	}
 
 	/**
@@ -173,8 +179,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private learningPathStateFacade: LearningPathStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private translateService: TranslateService,
-		private cookieService: CookieService
+		private translateService: TranslateService
 	)
 	{
 		super(injector);
@@ -376,7 +381,7 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	async getCourseMaterialMaterial()
 	{
 		await this.rootStateFacade.startLoading('');
-		
+
 		if (this.isUserTypeTeacher)
 		{
 			this.courseMaterialStateFacade.requestCourseMaterial();
