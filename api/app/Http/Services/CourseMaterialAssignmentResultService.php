@@ -122,6 +122,7 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      */
     private function getAllSessionAssignments($sessions){
         $tempRows = array();
+        
         $totalAssessments = 0;
         $totalCurrentMonthAssessments = 0;
         $totalPreviousMonthAssessments = 0;
@@ -138,6 +139,14 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         $totalCurrentMonthFillBlankAssessments = 0;
         $totalPreviousMonthFillBlankAssessments = 0;
 
+        $totalTextDocumentAssessments = 0;
+        $totalCurrentMonthTextDocumentAssessments = 0;
+        $totalPreviousMonthTextDocumentAssessments = 0;
+
+        $totalFlashCardAssessments = 0;
+        $totalCurrentMonthFlashCardAssessments = 0;
+        $totalPreviousMonthFlashCardAssessments = 0;
+
         $month = date('Y-m', strtotime(date('Y-m')." 0 month"));
         $previousMonth = date('Y-m', strtotime(date('Y-m')." -1 month"));
         
@@ -145,6 +154,23 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
 
             $courseMaterialTypeId = $eachData->course_material_type_id;
             
+            // assignment type - quiz
+            if($courseMaterialTypeId === 'quiz'){
+                $totalAssessments++;
+                $totalQuizAssessments++;
+
+                $sessionsCreatedOn = date('Y-m', strtotime($eachData->created_at));
+                if($sessionsCreatedOn === $month){
+                    $totalCurrentMonthAssessments ++;
+                    $totalCurrentMonthQuizAssessments++;
+                }
+                // previous month time
+                else if($sessionsCreatedOn === $previousMonth){
+                    $totalPreviousMonthAssessments++;
+                    $totalPreviousMonthQuizAssessments++;
+                }
+            }
+
             // assignment type - quiz
             if($courseMaterialTypeId === 'quiz'){
                 $totalAssessments++;
@@ -195,6 +221,40 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
                     $totalPreviousMonthFillBlankAssessments++;
                 }
             }
+
+            // assignment type - textDocument
+            else if($courseMaterialTypeId === 'textDocument'){
+                $totalAssessments++;
+                $totalTextDocumentAssessments++;
+
+                $sessionsCreatedOn = date('Y-m', strtotime($eachData->created_at));
+                if($sessionsCreatedOn === $month){
+                    $totalCurrentMonthAssessments ++;
+                    $totalCurrentMonthTextDocumentAssessments++;
+                }
+                 // previous month time
+                else if($sessionsCreatedOn === $previousMonth){
+                    $totalPreviousMonthAssessments++;
+                    $totalPreviousMonthTextDocumentAssessments++;
+                }
+            }
+
+             // assignment type - flashCard
+             else if($courseMaterialTypeId === 'flashCard'){
+                $totalAssessments++;
+                $totalFlashCardAssessments++;
+
+                $sessionsCreatedOn = date('Y-m', strtotime($eachData->created_at));
+                if($sessionsCreatedOn === $month){
+                    $totalCurrentMonthAssessments ++;
+                    $totalCurrentMonthFlashCardAssessments++;
+                }
+                 // previous month time
+                else if($sessionsCreatedOn === $previousMonth){
+                    $totalPreviousMonthAssessments++;
+                    $totalPreviousMonthFlashCardAssessments++;
+                }
+            }
         }
 
         $quizAssessmentRows = array();
@@ -212,6 +272,16 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         $fillBlankAssessmentRows['totalCurrentMonthFillBlankAssessments'] = $totalCurrentMonthFillBlankAssessments;
         $fillBlankAssessmentRows['totalPreviousMonthFillBlankAssessments'] = $totalPreviousMonthFillBlankAssessments;
 
+        $textDocumentAssessmentRows = array();
+        $textDocumentAssessmentRows['totalTextDocumentAssessments'] = $totalTextDocumentAssessments;
+        $textDocumentAssessmentRows['totalCurrentMonthTextDocumentAssessments'] = $totalCurrentMonthTextDocumentAssessments;
+        $textDocumentAssessmentRows['totalPreviousMonthTextDocumentAssessments'] = $totalPreviousMonthTextDocumentAssessments;
+
+        $flashCardAssessmentRows = array();
+        $flashCardAssessmentRows['totalFlashCardAssessments'] = $totalFlashCardAssessments;
+        $flashCardAssessmentRows['totalCurrentMonthFlashCardAssessments'] = $totalCurrentMonthFlashCardAssessments;
+        $flashCardAssessmentRows['totalPreviousMonthFlashCardAssessments'] = $totalPreviousMonthFlashCardAssessments;
+
         $tempRows = array();
         $tempRows['total_assessments'] = $totalAssessments;
         $tempRows['total_currentMonth_assessments'] = $totalCurrentMonthAssessments;
@@ -219,6 +289,8 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         $tempRows['quiz_assessment'] = $quizAssessmentRows;
         $tempRows['drag_content_assessment'] = $dragContentAssessmentRows;
         $tempRows['fill_blank_assessment'] = $fillBlankAssessmentRows;
+        $tempRows['text_document_assessment'] = $textDocumentAssessmentRows;
+        $tempRows['flash_card_assessment'] = $flashCardAssessmentRows;
         
         return $tempRows;
     }
