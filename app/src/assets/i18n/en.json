@@ -126,7 +126,8 @@
 		"addPeer": "Add Peer",
 		"studyTimeTaken": "Minutes of Study Time So Far",
 		"assessmentsTaken": "Assessments Taken So far",
-		"assessmentsTakenCategory": "Study Materials Accross Category"
+		"assessmentsTakenCategory": "Study Materials Accross Category",
+		"instructionSet": "Instruction Set"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",

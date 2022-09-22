@@ -7,126 +7,74 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-08-25 16:17:45
+ * Last modified  : 2022-09-22 18:49:36
  */
 -->
 
-<ion-card color="primary">
+<ion-card color="light">
 	<ion-card-header>
-		<ion-grid>
-			<ion-row>
-				<!-- q & a -->
-				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
-					<panel-header 
-						panelTitle="{{noOfQuestions}} {{'formInfo.questions' | translate}}"
-						[panelIcon] = "stringKey.ICON_QNA"
-						[panelColor]="stringKey.COLOR_PRIMARY"
-					></panel-header>
-				</ion-col>
-				<!-- q & a -->
-
-				<!-- text doc -->
-				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD">
-					<panel-header 
-						[panelTitle]="'formInfo.trackStudy' | translate"
-						[panelIcon] = "stringKey.ICON_TEXT_DOC"
-						[panelColor]="stringKey.COLOR_PRIMARY"
-					></panel-header>
-				</ion-col>
-				<!-- text doc -->
-
-				<!-- flash card -->
-				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6" *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC">
-					<panel-header 
-						[panelTitle]="'formInfo.trackStudy' | translate"
-						[panelIcon] = "stringKey.ICON_FLASH_CARD"
-						[panelColor]="stringKey.COLOR_PRIMARY"
-					></panel-header>
-				</ion-col>
-				<!-- flash card -->
-
-				<ion-col sizeSm="12" sizeXs="12" sizeLg="6" sizeMd="6" sizeXl="6">
-					<timer 
-						class="float-right" 
-						*ngIf="!isMaterialOwner" 
-						(timeEventEmitter)="totalSessionTime($event)" 
-						[timerStarted]="assignmentSessionInitiated" 
-						[timerEnded]="assignmentSessionSubmitted"
-					></timer>
-				</ion-col>
-			</ion-row>
-		</ion-grid>
+		<panel-header
+			panelTitle="{{
+				'pageTitle.instructionSet' | translate
+			}}"
+			[panelIcon]="stringKey.ICON_INSTRUCTION"
+			[panelColor]="stringKey.COLOR_LIGHT"
+		></panel-header>
 	</ion-card-header>
 
 	<!-- instructions -->
 	<!-- instructions quiz -->
-	<ion-card-content *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
-		<ion-item color="primary" *ngFor="let instructions of arrayKey.QUIZ_INSTRUCTIONS">
-			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
-			<p [innerHtml] = "instructions | translate"> </p>
+	<ion-card-content
+		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+	>
+		<ion-item
+			color="light"
+			*ngFor="let instructions of arrayKey.QUIZ_INSTRUCTIONS"
+		>
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_RIGHT_ARROW"
+			></ion-icon>
+			<p [innerHtml]="instructions | translate"></p>
 		</ion-item>
 	</ion-card-content>
 	<!-- instructions quiz -->
 
 	<!-- instructions td / ps -->
-	<ion-card-content 
+	<ion-card-content
 		*ngIf="
-				courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
-				courseMaterialTypeId === courseMaterialTypeIdEnum.PS
-			"
+			courseMaterialTypeId === courseMaterialTypeIdEnum.TD ||
+			courseMaterialTypeId === courseMaterialTypeIdEnum.PS
+		"
+	>
+		<ion-item
+			color="light"
+			*ngFor="let instructions of arrayKey.STUDY_INSTRUCTIONS"
 		>
-		<ion-item color="primary" *ngFor="let instructions of arrayKey.STUDY_INSTRUCTIONS">
-			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
-			<p [innerHtml] = "instructions | translate"> </p>
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_RIGHT_ARROW"
+			></ion-icon>
+			<p [innerHtml]="instructions | translate"></p>
 		</ion-item>
 	</ion-card-content>
 	<!-- instructions td / ps -->
 
 	<!-- instructions fc -->
-	<ion-card-content 
-		*ngIf="
-				courseMaterialTypeId === courseMaterialTypeIdEnum.FC
-			"
+	<ion-card-content
+		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC"
+	>
+		<ion-item
+			color="light"
+			*ngFor="let instructions of arrayKey.FLASH_CARD_INSTRUCTIONS"
 		>
-		<ion-item color="primary" *ngFor="let instructions of arrayKey.FLASH_CARD_INSTRUCTIONS">
-			<ion-icon slot="start" [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
-			<p [innerHtml] = "instructions | translate"> </p>
+			<ion-icon
+				slot="start"
+				[src]="stringKey.ICON_RIGHT_ARROW"
+			></ion-icon>
+			<p [innerHtml]="instructions | translate"></p>
 		</ion-item>
 	</ion-card-content>
 	<!-- instructions fc -->
 	<!-- instructions -->
-	
-	<!-- start session -->
-	<ion-item 
-		color="tertiary" 
-		*ngIf="!isMaterialOwner && !assignmentSessionInitiated" 
-		(click)="startSession()" 
-		class="text-center cursor-pointer"
-	>
-		<ion-icon slot="end" [src]="stringKey.ICON_START"></ion-icon>
-
-		<ion-label 
-			slot="end" 
-		>
-		<b>{{ "button.start" | translate }} {{ "button.timer" | translate }}</b>
-		</ion-label>
-	</ion-item>
-	<!-- start session -->
-
-	<!-- submit session -->
-	<ion-item 
-		color="tertiary" 
-		*ngIf="!isMaterialOwner && isContentLive && assignmentSessionInitiated" 
-		(click)="submitAssignment()" 
-		class="text-center cursor-pointer"
-	>
-		<ion-icon slot="end" [src]="stringKey.ICON_STOP"></ion-icon>&nbsp;
-		<!-- quiz -->
-		<ion-label 
-			slot="end" 
-		>
-		<b>{{ "button.stop" | translate }} {{ "button.timer" | translate }}</b>
-		</ion-label>
-	</ion-item>
-	<!-- submit session -->
 </ion-card>

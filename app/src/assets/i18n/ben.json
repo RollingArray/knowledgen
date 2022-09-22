@@ -126,7 +126,8 @@
 		"addPeer": "সহকর্মী যোগ করুন",
 		"studyTimeTaken": "এখন পর্যন্ত অধ্যয়নের সময় মিনিট",
 		"assessmentsTaken": "এ পর্যন্ত গৃহীত মূল্যায়ন",
-		"assessmentsTakenCategory": "অধ্যয়ন সামগ্রী বিভাগ জুড়ে"
+		"assessmentsTakenCategory": "অধ্যয়ন সামগ্রী বিভাগ জুড়ে",
+		"instructionSet": "নির্দেশনাবলী"
 	},
 	"pageSubTitle": {
         "myProfile": "আপনি আপনার ব্যক্তিগত বিবরণ আপডেট করতে ইচ্ছুক হতে পারে",

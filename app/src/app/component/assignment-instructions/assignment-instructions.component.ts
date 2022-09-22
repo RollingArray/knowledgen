@@ -6,18 +6,16 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-08-03 10:41:17
+ * Last modified  : 2022-09-22 17:20:12
  */
 
-import { Component, OnInit, Injector, Input, EventEmitter, Output } from "@angular/core";
+import { Component, OnInit, Injector, Input} from "@angular/core";
 import { Observable } from "rxjs";
-import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
-import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
 
 @Component({
@@ -62,11 +60,6 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 */
 
 	/**
-	 * Description  of crud assignment quiz component
-	 */
-	@Input() isContentLive = false;
-
-	/**
 	 * Input  of assignment instructions component
 	 */
 	@Input() isMaterialOwner = false;
@@ -82,40 +75,11 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	@Input() courseMaterialTypeId: CourseMaterialTypeIdEnum;
 
 	/**
-	 * Output  of assignment instructions component
-	 */
-	@Output() submitAssignmentEvent = new EventEmitter<string>();
-
-	/**
-	 * Output  of assignment instructions component
-	 */
-	@Output() startAssignmentEvent = new EventEmitter();
-	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * Quiz session initiated of crud assignment quiz component
-	 */
-	private _assignmentSessionInitiated = false;
-
-	/**
-	 * Quiz session submitted of crud assignment quiz component
-	 */
-	private _assignmentSessionSubmitted = false;
-
-	/**
-	 * Assignment time of crud assignment quiz component
-	 */
-	private _assignmentTime: string;
-
-	/**
-	 * Selected menu of assignment instructions component
-	 */
-	private _selectedMenu: MenuSelectModel;
 
 	/**
 	 * -------------------------------------------------|
@@ -140,32 +104,6 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 */
 
 	/**
-	 * Gets quiz session initiated
-	 */
-	get assignmentSessionInitiated()
-	{
-		return this._assignmentSessionInitiated;
-	}
-
-	/**
-	 * Gets quiz session submitted
-	 */
-	get assignmentSessionSubmitted()
-	{
-		return this._assignmentSessionSubmitted;
-	}
-
-	/**
-	 * Gets selected menu
-	 */
-	get selectedMenu()
-	{
-		return this._selectedMenu;
-	}
-
-	
-
-	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Life cycle hook									|
@@ -173,17 +111,11 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 */
 
 	/**
-	 * Creates an instance of crud course material component.
+	 * Creates an instance of assignment instructions component.
 	 * @param injector 
-	 * @param toastService 
-	 * @param translateService 
-	 * @param alertService 
-	 * @param courseMaterialStateFacade 
-	 * @param rootStateFacade 
 	 */
 	constructor(
-		injector: Injector,
-		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
+		injector: Injector
 	)
 	{
 		super(injector);
@@ -194,7 +126,7 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 */
 	ngOnInit()
 	{
-		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		//
 	}
 
 	/**
@@ -202,19 +134,7 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 */
 	ngAfterViewInit()
 	{
-		setTimeout(() =>
-		{
-			this.selectedMenuArticle$
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(_selectedMenu =>
-				{
-					this._assignmentSessionInitiated = false;
-					this._assignmentSessionSubmitted = false;
-					this._selectedMenu = _selectedMenu;
-				}
-				);
-		}, 0);
-
+		//
 	}
 
 	/**
@@ -237,33 +157,4 @@ export class AssignmentInstructionsComponent extends BaseFormComponent implement
 	 * @Public methods									|
 	 * -------------------------------------------------|
 	 */
-
-	/**
-	 * Descriptions assignment instructions component
-	 */
-	public submitAssignment()
-	{
-		this._assignmentSessionInitiated = false;
-		this._assignmentSessionSubmitted = true; 
-	}
-
-	/**
-	 * Starts session
-	 */
-	public startSession()
-	{
-		this._assignmentSessionInitiated = true;
-		this._assignmentSessionSubmitted = false; 
-		this.startAssignmentEvent.emit();
-	}
-
-	/**
-	 * Totals quiz session time
-	 * @param assignmentTime 
-	 */
-	 public totalSessionTime(assignmentTime: string)
-	 {
-		 this._assignmentTime = assignmentTime;
-		 this.submitAssignmentEvent.emit(this._assignmentTime);
-	 }
 }
