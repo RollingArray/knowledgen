@@ -7,13 +7,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:49:32 
- * Last modified  : 2022-07-28 09:49:40
+ * Last modified  : 2022-09-22 16:40:28
  */
 -->
 
 <ion-card color="light">
 	<ion-grid>
 		<ion-row>
+			<!-- article deration -->
 			<ion-col
 				size-xl="6"
 				size-lg="6"
@@ -23,37 +24,40 @@
 			>
 				<ion-grid>
 					<ion-row>
-						<ion-col>
-							<ion-card-header class="text-center">
+						<ion-col
+							><ion-card-header>
+								<panel-header
+									[panelTitle]="
+										'pageTitle.duration' | translate
+									"
+									[panelIcon]="stringKey.ICON_TIME"
+									[panelColor]="stringKey.COLOR_LIGHT"
+								></panel-header>
+								<panel-info
+									[showMoreLess]="true"
+									[panelColor]="stringKey.COLOR_LIGHT"
+									[title]="
+										'formInfo.articleDuration' | translate
+									"
+								></panel-info>
+							</ion-card-header>
+							<ion-card-content class="text-center">
 								<h1>
 									<b>
-										<ion-icon
-											color="primary"
-											[src]="stringKey.ICON_TIME"
-										></ion-icon>
-										<br />
-										<ion-label
-											color="primary"
-											class="text-center"
-										>
-											{{
-												"pageTitle.duration" | translate
-											}}
-											- {{ articleCompletionTime }}&nbsp;
-											{{ "formInfo.minute" | translate }}
-										</ion-label>
+										{{ articleCompletionTime }}&nbsp;
+										{{ "formInfo.minute" | translate }}
 									</b>
 								</h1>
-							</ion-card-header>
-
-							<ion-card-content class="text-center">
-								{{ "formInfo.articleDuration" | translate }}
 							</ion-card-content>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
 			</ion-col>
+			<!-- article deration -->
+
+			<!-- article reward -->
 			<ion-col
+				*ngIf="articleCompletionReward != '0'"
 				size-xl="6"
 				size-lg="6"
 				size-md="12"
@@ -62,37 +66,36 @@
 			>
 				<ion-grid>
 					<ion-row>
-						<ion-col>
-							<ion-card-header class="text-center">
+						<ion-col
+							><ion-card-header>
+								<panel-header
+									[panelTitle]="
+										'pageTitle.reward' | translate
+									"
+									[panelIcon]="stringKey.ICON_REWARD"
+									[panelColor]="stringKey.COLOR_LIGHT"
+								></panel-header>
+								<panel-info
+									[showMoreLess]="true"
+									[panelColor]="stringKey.COLOR_LIGHT"
+									[title]="
+										'formInfo.articleReward' | translate
+									"
+								></panel-info>
+							</ion-card-header>
+							<ion-card-content class="text-center">
 								<h1>
 									<b>
-										<ion-icon
-											color="primary"
-											[src]="stringKey.ICON_REWARD"
-										></ion-icon>
-										<br />
-										<ion-label
-											color="primary"
-											class="text-center"
-										>
-											{{
-												"pageTitle.reward" | translate
-											}}
-											-
-											{{ articleCompletionReward }}&nbsp;
-											{{ "formInfo.point" | translate }}
-										</ion-label>
+										{{ articleCompletionReward }}&nbsp;
+										{{ "formInfo.point" | translate }}
 									</b>
 								</h1>
-							</ion-card-header>
-
-							<ion-card-content class="text-center">
-								{{ "formInfo.articleReward" | translate }}
 							</ion-card-content>
 						</ion-col>
 					</ion-row>
 				</ion-grid>
 			</ion-col>
+			<!-- article reward -->
 		</ion-row>
 	</ion-grid>
 </ion-card>
