@@ -6,13 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-22 18:02:24 
- * Last modified  : 2022-09-22 19:14:50
+ * Last modified  : 2022-09-22 19:21:48
  */
 -->
 <ion-grid #elementSelector>
 	<ion-row>
 		<ion-col>
-			<timer class="animate__flipInX"
+			<timer
 				*ngIf="!isMaterialOwner"
 				(timeEventEmitter)="totalSessionTime($event)"
 				[timerStarted]="assignmentSessionInitiated"

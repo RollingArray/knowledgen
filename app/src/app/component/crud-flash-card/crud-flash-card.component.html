@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-07 21:49:51
+ * Last modified  : 2022-09-22 19:41:46
  */
 -->
 
@@ -57,12 +57,7 @@
 		<!-- assignment instructions -->
 		<assignment-instructions
 			*ngIf="(hasData$ | async) && !isMaterialOwner && isContentLive"
-			[isMaterialOwner]="isMaterialOwner"
-			[isContentLive]="isContentLive"
 			[courseMaterialTypeId]="courseMaterialTypeIdEnum.FC"
-			[noOfQuestions]="(courseMaterialFlashCard$ | async).length"
-			(startAssignmentEvent)="startActiveRecall()"
-			(submitAssignmentEvent)="submitAnswers($event)"
 		>
 		</assignment-instructions>
 		<!-- assignment instructions -->
@@ -464,3 +459,18 @@
 	</ion-grid>
 	<!-- data container for material visiter -->
 </div>
+
+<!-- empty height to get full screen view above timer -->
+<div class="height-80-px"></div>
+<!-- empty height to get full screen view above timer -->
+
+<!-- start stop timer -->
+<start-stop-timer
+	*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
+	[isMaterialOwner]="isMaterialOwner"
+	[isContentLive]="isContentLive"
+	(startAssignmentEvent)="startActiveRecall()"
+	(submitAssignmentEvent)="submitAnswers($event)"
+>
+</start-stop-timer>
+<!-- start stop timer -->
