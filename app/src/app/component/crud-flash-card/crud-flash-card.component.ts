@@ -6,14 +6,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:16:20 
- * Last modified  : 2022-09-21 20:59:54
+ * Last modified  : 2022-09-22 20:24:37
  */
 
-import { DOCUMENT } from "@angular/common";
-import { Component, OnInit, Input, ElementRef, ViewChild, Injector, Renderer2, ChangeDetectorRef, Inject } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild, Injector} from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -432,8 +430,6 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialFlashCardStateFacade: CourseMaterialFlashCardStateFacade,
 		private courseMaterialAssignmentStateFacade: CourseMaterialAssignmentStateFacade,
-		private cookieService: CookieService,
-		@Inject(DOCUMENT) document: Document,
 		private statisticsService: StatisticsService
 	)
 	{

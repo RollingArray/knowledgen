@@ -13,7 +13,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiInterceptor } from './shared/interceptor/api-interceptor.interceptor';
 import { I18nModule } from './shared/module/i18n.module';
-import { CookieService } from 'ngx-cookie-service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -50,7 +49,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 		I18nModule
 	],
 	providers: [
-		CookieService,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 		{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
 	],

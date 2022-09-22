@@ -5,35 +5,33 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-13 10:47:19 
- * Last modified  : 2022-09-21 20:49:30
+ * Last modified  : 2022-09-22 20:21:21
  */
 
-import { BaseViewComponent } from 'src/app/component/base/base-view.component';
-import { Component, OnInit, OnDestroy, Injector, OnChanges, ElementRef, Input, ViewChild, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RootStateFacade } from 'src/app/state/root/root.state.facade';
-import { take, takeUntil } from 'rxjs/operators';
-import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
-import { TranslateService } from '@ngx-translate/core';
-import { ParentMenuModel } from 'src/app/shared/model/parent-menu.model';
-import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
-import { CourseMaterialModel } from 'src/app/shared/model/course-material.model';
-import { CourseMaterialStateModel } from 'src/app/state/course-material/course-material/course-material.state.model';
-import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
-import { CookieService } from 'ngx-cookie-service';
-import { ArrayKey } from 'src/app/shared/constant/array.constant';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
-import { StringKey } from 'src/app/shared/constant/string.constant';
-import { ArticleStatusTypeEnum } from 'src/app/shared/enum/article-status-type.enum';
-import { CourseMaterialTypeIdEnum } from 'src/app/shared/enum/course-material-type-id.enum';
-import { ElementTypeEnum } from 'src/app/shared/enum/element-type.enum';
-import { MenuTypeEnum } from 'src/app/shared/enum/menu-type.enum';
-import { TitleTypeEnum } from 'src/app/shared/enum/title-type.enum';
-import { ArticleModel } from 'src/app/shared/model/article.model';
-import { ChildMenuModel } from 'src/app/shared/model/child-menu.model';
-import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
-import { SubChildMenuModel } from 'src/app/shared/model/sub-child-menu.model';
-import { ToastService } from 'src/app/shared/service/toast.service';
+import { Component, OnInit, Injector } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { Observable } from "rxjs";
+import { takeUntil, take } from "rxjs/operators";
+import { StringKey } from "src/app/shared/constant/string.constant";
+import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
+import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
+import { ElementTypeEnum } from "src/app/shared/enum/element-type.enum";
+import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
+import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { TitleTypeEnum } from "src/app/shared/enum/title-type.enum";
+import { ArticleModel } from "src/app/shared/model/article.model";
+import { ChildMenuModel } from "src/app/shared/model/child-menu.model";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
+import { ParentMenuModel } from "src/app/shared/model/parent-menu.model";
+import { SubChildMenuModel } from "src/app/shared/model/sub-child-menu.model";
+import { ToastService } from "src/app/shared/service/toast.service";
+import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
+import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
+import { RootStateFacade } from "src/app/state/root/root.state.facade";
+import { BaseViewComponent } from "../base/base-view.component";
+
+
 
 @Component({
 	selector: "content-change-visibility",
@@ -204,8 +202,7 @@ export class ContentChangeVisibilityComponent extends BaseViewComponent implemen
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
-		private toastService: ToastService,
-		private cookieService: CookieService
+		private toastService: ToastService
 	)
 	{
 		super(injector);

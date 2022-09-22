@@ -6,12 +6,11 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 20:00:41 
- * Last modified  : 2022-09-07 21:52:14
+ * Last modified  : 2022-09-22 20:23:26
  */
 
 import { Component, OnInit, Injector, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";

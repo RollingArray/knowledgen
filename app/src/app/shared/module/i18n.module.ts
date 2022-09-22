@@ -1,3 +1,13 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary i18n module
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-22 20:22:59 
+ * Last modified  : 2022-09-22 20:23:15
+ */
+
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import
@@ -7,8 +17,6 @@ import
 		TranslateService,
 	} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from '../constant/local-store-key.constant';
 import { ArrayKey } from '../constant/array.constant';
 import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { RootStateFacade } from 'src/app/state/root/root.state.facade';
@@ -49,7 +57,6 @@ export class I18nModule
 	 */
 	constructor(
 		translate: TranslateService,
-		//private cookieService: CookieService,
 		private rootStateFacade: RootStateFacade
 	)
 	{

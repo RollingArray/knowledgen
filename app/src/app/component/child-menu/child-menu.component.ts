@@ -6,15 +6,13 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-04 19:47:28 
- * Last modified  : 2022-09-21 20:48:06
+ * Last modified  : 2022-09-22 20:20:57
  */
 import { Component, OnInit, Input, Output, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { MenuTypeEnum } from "src/app/shared/enum/menu-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -147,7 +145,6 @@ export class ChildMenuComponent extends BaseViewComponent implements OnInit
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService,
 		private rootStateFacade: RootStateFacade
 	)
 	{

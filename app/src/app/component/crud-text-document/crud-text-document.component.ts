@@ -6,19 +6,16 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-09-21 21:00:43
+ * Last modified  : 2022-09-22 20:24:15
  */
 
 import { DOCUMENT } from "@angular/common";
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
 import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { ArticleStatusTypeEnum } from "src/app/shared/enum/article-status-type.enum";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
@@ -26,7 +23,6 @@ import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
 import { ArticleSessionModel } from "src/app/shared/model/article-session.model";
 import { ArticleTextDocumentModel } from "src/app/shared/model/article-text-document.model";
-import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
@@ -35,7 +31,6 @@ import { ToastService } from "src/app/shared/service/toast.service";
 import { ArticleSessionStateFacade } from "src/app/state/article-session/article-session.state.facade";
 import { ArticleTextDocumentStateFacade } from "src/app/state/article-text-document/article-text-document.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
-import { CourseMaterialQuizStateFacade } from "src/app/state/course-material-quiz/course-material-quiz.state.facade";
 import { CourseMaterialStateFacade } from "src/app/state/course-material/course-material.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
@@ -316,10 +311,8 @@ export class CrudTextDocumentComponent extends BaseFormComponent implements OnIn
 		private articleTextDocumentStateFacade: ArticleTextDocumentStateFacade,
 		private rootStateFacade: RootStateFacade,
 		@Inject(DOCUMENT) private doc: any,
-		private sanitizer: DomSanitizer,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
-		private cookieService: CookieService,
 		private articleSessionStateFacade: ArticleSessionStateFacade
 	)
 	{

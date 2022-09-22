@@ -6,32 +6,26 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-22 13:34:06
+ * Last modified  : 2022-09-22 20:22:16
  */
 
-import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
+import { Component, OnInit, Input, ElementRef, ViewChild, Injector } from "@angular/core";
 import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
-import { CookieService } from "ngx-cookie-service";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
-import { LocalStoreKey } from "src/app/shared/constant/local-store-key.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { QuizTypeEnum } from "src/app/shared/enum/quiz-type.enum";
 import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
-import { AssignmentTimeModel } from "src/app/shared/model/assignment-time.model";
 import { CourseMaterialAssignmentResultModel } from "src/app/shared/model/course-material-assignment-result.model";
 import { CourseMaterialQuizAnswerModel } from "src/app/shared/model/course-material-quiz-answer.model";
 import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
 import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
-import { AlertService } from "src/app/shared/service/alert.service";
-import { ToastService } from "src/app/shared/service/toast.service";
-import { UtilityService } from "src/app/shared/service/utility.service";
 import { CourseMaterialAssignmentStateFacade } from "src/app/state/course-material-assignment/course-material-assignment.state.facade";
 import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
 import { CourseMaterialQuizStateFacade } from "src/app/state/course-material-quiz/course-material-quiz.state.facade";
@@ -40,6 +34,8 @@ import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
 import { CrudCourseMaterialAssignmentResultComponent } from "../crud-course-material-assignment-result/crud-course-material-assignment-result.component";
 import { CrudQuizQuestionComponent } from "../crud-quiz-question/crud-quiz-question.component";
+
+
 
 @Component({
 	selector: 'crud-assignment-quiz',
@@ -367,26 +363,23 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 
 	/**
-	 * Creates an instance of crud course material component.
+	 * Creates an instance of crud assignment quiz component.
 	 * @param injector 
-	 * @param toastService 
 	 * @param translateService 
-	 * @param alertService 
-	 * @param courseMaterialStateFacade 
 	 * @param rootStateFacade 
+	 * @param courseMaterialStateFacade 
+	 * @param courseMaterialMenuStateFacade 
+	 * @param courseMaterialQuizStateFacade 
+	 * @param courseMaterialAssignmentStateFacade 
 	 */
 	constructor(
 		injector: Injector,
-		private toastService: ToastService,
 		private translateService: TranslateService,
-		private alertService: AlertService,
 		private rootStateFacade: RootStateFacade,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private courseMaterialQuizStateFacade: CourseMaterialQuizStateFacade,
-		private courseMaterialAssignmentStateFacade: CourseMaterialAssignmentStateFacade,
-		private cookieService: CookieService,
-		private utilityService: UtilityService
+		private courseMaterialAssignmentStateFacade: CourseMaterialAssignmentStateFacade
 	)
 	{
 		super(injector);
