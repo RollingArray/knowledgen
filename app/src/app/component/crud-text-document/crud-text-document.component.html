@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-09-07 21:49:58
+ * Last modified  : 2022-09-22 18:04:54
  */
 -->
 <!-- article owner toolbar -->
@@ -88,10 +88,7 @@
 			(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive
 		"
 		[isMaterialOwner]="isMaterialOwner"
-		[isContentLive]="isContentLive"
 		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"
-		(startAssignmentEvent)="startStudySession()"
-		(submitAssignmentEvent)="submitStudySession($event)"
 	>
 	</assignment-instructions>
 	<!-- study instructions -->
@@ -137,3 +134,18 @@
 	</ion-text>
 </ion-card>
 <!-- content not live message -->
+
+<!-- empty height to get full screen view above timer -->
+<div class="height-80-px"></div>
+<!-- empty height to get full screen view above timer -->
+
+<!-- start stop timer -->
+<start-stop-timer
+	*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
+	[isMaterialOwner]="isMaterialOwner"
+	[isContentLive]="isContentLive"
+	(startAssignmentEvent)="startStudySession()"
+	(submitAssignmentEvent)="submitStudySession($event)"
+>
+</start-stop-timer>
+<!-- start stop timer -->

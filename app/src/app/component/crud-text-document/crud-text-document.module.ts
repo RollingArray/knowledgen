@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:20:54 
- * Last modified  : 2022-09-07 20:00:28
+ * Last modified  : 2022-09-22 17:20:39
  */
 
 import { NgModule } from '@angular/core';
@@ -29,6 +29,7 @@ import { ArticleSessionStateModule } from 'src/app/state/article-session/article
 import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.module';
 
 @NgModule({
 	imports: [
@@ -50,7 +51,8 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		ArticleSessionStateModule,
 		RootStateModule,
 		CrudCourseMaterialAssignmentResultModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		StartStopTimerModule
 	],
 
 	declarations: [CrudTextDocumentComponent],
