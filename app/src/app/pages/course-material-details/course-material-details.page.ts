@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material page
+ * @summary Course material details page
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-13 19:19:54
+ * Last modified  : 2022-09-22 16:59:47
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';

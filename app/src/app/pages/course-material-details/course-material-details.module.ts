@@ -2,11 +2,11 @@
  * © Rolling Array https://rollingarray.co.in/
  *
  *
- * @summary Course material page module
+ * @summary Course material details page module
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-09-08 10:25:29
+ * Last modified  : 2022-09-22 16:59:38
  */
 
 
