@@ -1,0 +1,49 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Start stop timer component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-22 18:02:24 
+ * Last modified  : 2022-09-22 19:14:50
+ */
+-->
+<ion-grid #elementSelector>
+	<ion-row>
+		<ion-col>
+			<timer class="animate__flipInX"
+				*ngIf="!isMaterialOwner"
+				(timeEventEmitter)="totalSessionTime($event)"
+				[timerStarted]="assignmentSessionInitiated"
+				[timerEnded]="assignmentSessionSubmitted"
+			></timer>
+		</ion-col>
+		<ion-col>
+			<!-- start session -->
+			<ion-card class="card-no-shadow" color="tertiary">
+				<common-button
+				class="margin-10-px"
+				*ngIf="!isMaterialOwner && isContentLive && !assignmentSessionInitiated"
+				(event)="startSession()"
+				[title]="'button.start' | translate"
+				[color]="stringKey.COLOR_TERTIARY"
+				[icon]="stringKey.ICON_START"
+			>
+			</common-button>
+			<!-- start session -->
+
+			<!-- submit session -->
+			<common-button
+				*ngIf="!isMaterialOwner && isContentLive && assignmentSessionInitiated"
+				(event)="submitAssignment()"
+				[title]="'button.stop' | translate"
+				[color]="stringKey.COLOR_TERTIARY"
+				[icon]="stringKey.ICON_STOP"
+			>
+			</common-button>
+			<!-- submit session -->
+			</ion-card>
+		</ion-col>
+	</ion-row>
+</ion-grid>

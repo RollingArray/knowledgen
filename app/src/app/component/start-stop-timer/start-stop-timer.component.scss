@@ -1,0 +1,23 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Start stop timer component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-22 18:02:24 
+ * Last modified  : 2022-09-22 19:09:18
+ */
+
+ ion-grid {
+    position: fixed;
+    //right: -400px;
+    bottom: 10px;
+    width: 400px;
+    height: 85px;
+    color: white;
+    background: var(--ion-color-primary-gradient);
+    text-align: center;
+	z-index: 1;
+    border-radius: 100px 0 0 100px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+}
