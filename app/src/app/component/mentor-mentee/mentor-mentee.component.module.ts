@@ -1,12 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page module
+ * @summary Mentor mentee component module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-24 08:13:45
+ * Created at     : 2022-09-22 20:17:46 
+ * Last modified  : 2022-09-22 20:19:09
  */
 
 import { CommonModule } from "@angular/common";

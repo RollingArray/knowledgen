@@ -1,12 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page
+ * @summary Mentor mentee component module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-25 18:18:23
+ * Created at     : 2022-09-22 20:17:46 
+ * Last modified  : 2022-09-22 20:18:52
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -18,10 +17,7 @@ import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { AvailabilityPlannerStateFacade } from 'src/app/state/availability-planner/availability-planner.state.facade';
 import { AvailabilityPlannerModel } from 'src/app/shared/model/availability-planner.model';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
-import { DatePipe } from '@angular/common';
 import { NavParams } from '@ionic/angular';
 import { MentorMatchModel } from 'src/app/shared/model/mentor-match.model';
 
@@ -43,7 +39,7 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @private Instance variable								|
+	 * @private Instance variable						|
 	 * -------------------------------------------------|
 	 */
 
@@ -51,7 +47,7 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @public Instance variable								|
+	 * @public Instance variable						|
 	 * -------------------------------------------------|
 	 */
 	/**
@@ -59,6 +55,9 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	 */
 	availabilityPlanner$!: Observable<AvailabilityPlannerModel>;
 
+	/**
+	 * Availability match$ of mentor mentee component
+	 */
 	availabilityMatch$!: Observable<MentorMatchModel[]>;
 
 	/**
@@ -73,16 +72,33 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 		return this._selectedDate;
 	}
 
+	/**
+	 * Gets user type
+	 */
 	get userType()
 	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
+		let userType: UserTypeEnum;
+		// check user type
+		this.rootStateFacade.loggedInUserType$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((loggedInUserType) =>
+			{
+				userType = loggedInUserType;
+			});
+		return userType;
 	}
 
+	/**
+	 * Gets whether is user type teacher
+	 */
 	get isUserTypeTeacher()
 	{
 		return this.userType === UserTypeEnum.Teacher ? true : false;
 	}
 
+	/**
+	 * Gets whether is user type student
+	 */
 	get isUserTypeStudent()
 	{
 		return this.userType === UserTypeEnum.Student ? true : false;
@@ -91,45 +107,47 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	get pageTitle()
 	{
 		let title = '';
-			this.translateService
-				.get([
-					'pageTitle.availabilityPlanner',
-					'pageTitle.mentor',
-					'pageTitle.mentee',
-				])
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(async (data) => {
-					if (this.isUserTypeTeacher)
-					{
-						title = `${data['pageTitle.mentor']} ${data['pageTitle.availabilityPlanner']}`;
-					}
-					else
-					{
-						title = `${data['pageTitle.mentee']} ${data['pageTitle.availabilityPlanner']}`;
-					}
-				});
+		this.translateService
+			.get([
+				'pageTitle.availabilityPlanner',
+				'pageTitle.mentor',
+				'pageTitle.mentee',
+			])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data) =>
+			{
+				if (this.isUserTypeTeacher)
+				{
+					title = `${data['pageTitle.mentor']} ${data['pageTitle.availabilityPlanner']}`;
+				}
+				else
+				{
+					title = `${data['pageTitle.mentee']} ${data['pageTitle.availabilityPlanner']}`;
+				}
+			});
 		return title;
 	}
 
 	get pageSubTitle()
 	{
 		let title = '';
-			this.translateService
-				.get([
-					'pageSubTitle.availabilityPlannerMentor',
-					'pageSubTitle.availabilityPlannerMentee'
-				])
-				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(async (data) => {
-					if (this.isUserTypeTeacher)
-					{
-						title = `${data['pageSubTitle.availabilityPlannerMentor']}`;
-					}
-					else
-					{
-						title = `${data['pageSubTitle.availabilityPlannerMentee']}`;
-					}
-				});
+		this.translateService
+			.get([
+				'pageSubTitle.availabilityPlannerMentor',
+				'pageSubTitle.availabilityPlannerMentee'
+			])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data) =>
+			{
+				if (this.isUserTypeTeacher)
+				{
+					title = `${data['pageSubTitle.availabilityPlannerMentor']}`;
+				}
+				else
+				{
+					title = `${data['pageSubTitle.availabilityPlannerMentee']}`;
+				}
+			});
 		return title;
 	}
 	/**
@@ -139,17 +157,18 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	 * -------------------------------------------------|
 	 */
 	/**
-	 * Creates an instance of course material page.
+	 * Creates an instance of mentor mentee component.
 	 * @param injector 
 	 * @param availabilityPlannerStateFacade 
-	 * @param rootStateFacade 
 	 * @param translateService 
+	 * @param rootStateFacade 
+	 * @param navParams 
 	 */
 	constructor(
 		injector: Injector,
 		private availabilityPlannerStateFacade: AvailabilityPlannerStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService,
+		private rootStateFacade: RootStateFacade,
 		public navParams: NavParams,
 	)
 	{
@@ -182,7 +201,7 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	 * -------------------------------------------------|
 	 */
 
-	
+
 
 	/**
 	 * -------------------------------------------------|
@@ -193,7 +212,8 @@ export class MentorMenteeComponent extends BaseViewComponent implements OnInit, 
 	/**
 	 * Closes modal
 	 */
-	 public closeModal() {
+	public closeModal()
+	{
 		this.modalController.dismiss();
 	}
 }
