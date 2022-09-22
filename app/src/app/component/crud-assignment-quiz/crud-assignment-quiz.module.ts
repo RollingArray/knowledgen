@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-07 20:15:10
+ * Last modified  : 2022-09-22 19:45:11
  */
 
 import { NgModule } from '@angular/core';
@@ -31,6 +31,7 @@ import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-materia
 import { AssignmentInstructionsModule } from '../assignment-instructions/assignment-instructions.module';
 import { ArticleSessionModule } from '../article-session/article-session.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.module';
 
 @NgModule({
 	imports: [
@@ -54,7 +55,8 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		CrudCourseMaterialAssignmentResultModule,
 		AssignmentInstructionsModule,
 		ArticleSessionModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		StartStopTimerModule
 	],
 
 	declarations: [CrudAssignmentQuizComponent],
