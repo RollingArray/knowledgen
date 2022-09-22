@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 20:07:37 
- * Last modified  : 2022-07-19 18:43:10
+ * Last modified  : 2022-09-22 13:34:41
  */
 
 import
@@ -85,10 +85,11 @@ export const selectCourseMaterialArticleHasQuiz = (articleId: string) => createS
 /**
  * @description Selectors - All course material article by article id
  */
-export const selectAllCourseMaterialQuizByArticleId = (articleId: string) => createSelector(
+export const selectAllCourseMaterialQuizByArticleId = (articleId: string, ifRandomizeQuizQuestion: boolean) => createSelector(
 	selectCourseMaterialQuizState,
 	(entity) =>
 	{
+		console.log("yes");
 		let courseMaterialQuiz: CourseMaterialQuizModel[] = [];
 		const entityIds = entity.ids;
 		entityIds.map(eachId =>
@@ -103,7 +104,7 @@ export const selectAllCourseMaterialQuizByArticleId = (articleId: string) => cre
 			}
 		})
 		
-		return courseMaterialQuiz;
+		return ifRandomizeQuizQuestion ? courseMaterialQuiz.sort(() => Math.random() - 0.5) : courseMaterialQuiz;
 	}
 );
 

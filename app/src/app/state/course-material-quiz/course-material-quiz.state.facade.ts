@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 20:07:37 
- * Last modified  : 2022-07-19 18:44:44
+ * Last modified  : 2022-09-22 13:35:23
  */
 
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
@@ -39,7 +39,7 @@ export class CourseMaterialQuizStateFacade {
 	/**
 	 * All course material quiz by article id$ of course material quiz state facade
 	 */
-	public allCourseMaterialQuizByArticleId$ = (articleId: string) =>  this.courseMaterialQuizStore.select(COURSE_MATERIAL_QUIZ_QUERY_SELECTOR.selectAllCourseMaterialQuizByArticleId(articleId));
+	public allCourseMaterialQuizByArticleId$ = (articleId: string, ifRandomizeQuizQuestion: boolean) =>  this.courseMaterialQuizStore.select(COURSE_MATERIAL_QUIZ_QUERY_SELECTOR.selectAllCourseMaterialQuizByArticleId(articleId, ifRandomizeQuizQuestion));
 
 	/**
 	 * Course material article has quiz data$ of course material quiz state facade

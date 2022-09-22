@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:11:44 
- * Last modified  : 2022-09-21 20:56:26
+ * Last modified  : 2022-09-22 13:34:06
  */
 
 import { Component, OnInit, ViewChild, ElementRef, Injector, Inject, Input } from "@angular/core";
@@ -291,6 +291,14 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	}
 
 	/**
+	 * Gets if randomize quiz question
+	 */
+	get ifRandomizeQuizQuestion()
+	{
+		return this.isMaterialOwner ? false : true;
+	}
+
+	/**
 	 * Gets operation type
 	 */
 	public get operationType()
@@ -408,7 +416,7 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 					this._assignmentSessionSubmitted = false;
 					this._selectedMenu = _selectedMenu;
 					this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._selectedMenu.courseMaterialId);
-					this.courseMaterialQuiz$ = this.courseMaterialQuizStateFacade.allCourseMaterialQuizByArticleId$(this._selectedMenu.articleId);
+					this.courseMaterialQuiz$ = this.courseMaterialQuizStateFacade.allCourseMaterialQuizByArticleId$(this._selectedMenu.articleId, this.ifRandomizeQuizQuestion);
 					this.hasData$ = this.courseMaterialQuizStateFacade.courseMaterialArticleHasQuizData$(this._selectedMenu.articleId);
 
 					// if no data available ... make a api request, else work with store data
