@@ -1,12 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page module
+ * @summary Availability planner page module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-24 07:33:36
+ * Created at     : 2022-09-22 20:10:38 
+ * Last modified  : 2022-09-22 20:14:43
  */
 
 import { CommonModule, DatePipe } from "@angular/common";
@@ -29,10 +28,6 @@ import { TimePipeModule } from "src/app/shared/pipe/time.pipe";
 import { AvailabilityPlannerStateModule } from "src/app/state/availability-planner/availability-planner.state.module";
 import { RootStateModule } from "src/app/state/root/root.state.module";
 import { AvailabilityPlannerPage } from "./availability-planner.page";
-
-
-
-
 
 const routes: Routes = [
 	{

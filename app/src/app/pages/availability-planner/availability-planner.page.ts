@@ -1,12 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page
+ * @summary Availability planner page
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-25 18:45:51
+ * Created at     : 2022-09-22 20:10:38 
+ * Last modified  : 2022-09-22 20:11:52
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -19,8 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { CrudAvailabilityPlannerComponent } from 'src/app/component/crud-availability-planner/crud-availability-planner.component';
 import { AvailabilityPlannerStateFacade } from 'src/app/state/availability-planner/availability-planner.state.facade';
 import { AvailabilityPlannerModel } from 'src/app/shared/model/availability-planner.model';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
 import { DatePipe } from '@angular/common';
 import { MentorMenteeComponent } from 'src/app/component/mentor-mentee/mentor-mentee.component';
@@ -72,26 +69,49 @@ export class AvailabilityPlannerPage extends BaseViewComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Gets description
+	 */
 	get selectedDate()
 	{
 		return this._selectedDate;
 	}
 
-	get userType()
-	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	}
+	/**
+	 * Gets user type
+	 */
+	 get userType()
+	 {
+		 let userType: UserTypeEnum;
+		 // check user type
+		 this.rootStateFacade.loggedInUserType$
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe((loggedInUserType) =>
+			 {
+				 userType = loggedInUserType;
+			 });
+		 return userType;
+	 }
 
+	/**
+	 * Gets whether is user type teacher
+	 */
 	get isUserTypeTeacher()
 	{
 		return this.userType === UserTypeEnum.Teacher ? true : false;
 	}
 
+	/**
+	 * Gets whether is user type student
+	 */
 	get isUserTypeStudent()
 	{
 		return this.userType === UserTypeEnum.Student ? true : false;
 	}
 
+	/**
+	 * Gets page title
+	 */
 	get pageTitle()
 	{
 		let title = '';
@@ -115,6 +135,9 @@ export class AvailabilityPlannerPage extends BaseViewComponent implements OnInit
 		return title;
 	}
 
+	/**
+	 * Gets page sub title
+	 */
 	get pageSubTitle()
 	{
 		let title = '';
@@ -137,6 +160,9 @@ export class AvailabilityPlannerPage extends BaseViewComponent implements OnInit
 		return title;
 	}
 
+	/**
+	 * Gets today or future
+	 */
 	get todayOrFuture()
 	{
 		const today = new Date();
@@ -155,19 +181,20 @@ export class AvailabilityPlannerPage extends BaseViewComponent implements OnInit
 	 * Life cycle hook									|
 	 * -------------------------------------------------|
 	 */
+	
 	/**
-	 * Creates an instance of course material page.
+	 * Creates an instance of availability planner page.
 	 * @param injector 
 	 * @param availabilityPlannerStateFacade 
 	 * @param rootStateFacade 
 	 * @param translateService 
+	 * @param datePipe 
 	 */
 	constructor(
 		injector: Injector,
 		private availabilityPlannerStateFacade: AvailabilityPlannerStateFacade,
 		private rootStateFacade: RootStateFacade,
 		private translateService: TranslateService,
-		private cookieService: CookieService,
 		private datePipe: DatePipe
 	)
 	{
