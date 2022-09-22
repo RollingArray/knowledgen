@@ -1,23 +1,20 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page
+ * @summary Availability component
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-01-25 15:50:51
+ * Created at     : 2022-09-22 19:55:29 
+ * Last modified  : 2022-09-22 19:57:15
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
 import { Component, OnInit, OnDestroy, Injector, Input } from '@angular/core';
 import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
-import { TranslateService } from '@ngx-translate/core';
 import { AvailabilityPlannerModel } from 'src/app/shared/model/availability-planner.model';
-import { CookieService } from 'ngx-cookie-service';
-import { DatePipe } from '@angular/common';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
 import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
+import { RootStateFacade } from 'src/app/state/root/root.state.facade';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: "availability",
@@ -32,9 +29,9 @@ export class AvailabilityComponent extends BaseViewComponent implements OnInit, 
 	  * @input & @output Instance variable								|
 	  * -------------------------------------------------|
 	  */
-	 @Input() availabilityPlanner!: AvailabilityPlannerModel;
+	@Input() availabilityPlanner!: AvailabilityPlannerModel;
 
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -56,7 +53,7 @@ export class AvailabilityComponent extends BaseViewComponent implements OnInit, 
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
-	
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -64,21 +61,35 @@ export class AvailabilityComponent extends BaseViewComponent implements OnInit, 
 	 * -------------------------------------------------|
 	 */
 
-	 get userType()
-	 {
-		 return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE);
-	 }
-	
-	 get isUserTypeTeacher()
-	 {
-		 return this.availabilityPlanner.userType === UserTypeEnum.Teacher ? true : false;
-	 }
- 
-	 get isUserTypeStudent()
-	 {
-		 return this.availabilityPlanner.userType === UserTypeEnum.Student ? true : false;
-	 }
-	
+	get userType()
+	{
+		let userType: UserTypeEnum;
+		// check user type
+		this.rootStateFacade.loggedInUserType$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((loggedInUserType) =>
+			{
+				userType = loggedInUserType;
+			});
+		return userType;
+	}
+
+	/**
+	 * Gets whether is user type teacher
+	 */
+	get isUserTypeTeacher()
+	{
+		return this.availabilityPlanner.userType === UserTypeEnum.Teacher ? true : false;
+	}
+
+	/**
+	 * Gets whether is user type student
+	 */
+	get isUserTypeStudent()
+	{
+		return this.availabilityPlanner.userType === UserTypeEnum.Student ? true : false;
+	}
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -86,17 +97,13 @@ export class AvailabilityComponent extends BaseViewComponent implements OnInit, 
 	 * -------------------------------------------------|
 	 */
 	/**
-	 * Creates an instance of course material page.
+	 * Creates an instance of availability component.
 	 * @param injector 
-	 * @param availabilityPlannerStateFacade 
 	 * @param rootStateFacade 
-	 * @param translateService 
 	 */
 	constructor(
 		injector: Injector,
-		private translateService: TranslateService,
-		private cookieService: CookieService,
-		private datePipe: DatePipe
+		private rootStateFacade: RootStateFacade,
 	)
 	{
 		super(injector);
@@ -126,7 +133,7 @@ export class AvailabilityComponent extends BaseViewComponent implements OnInit, 
 	 * -------------------------------------------------|
 	 */
 
-	
+
 
 	/**
 	 * -------------------------------------------------|

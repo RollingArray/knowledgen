@@ -1,12 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- *
- * @summary Course material page module
+ * @summary Availability component module
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-01-16 08:19:11 
- * Last modified  : 2022-01-24 07:09:06
+ * Created at     : 2022-09-22 19:55:29 
+ * Last modified  : 2022-09-22 19:56:13
  */
 
 import { CommonModule } from "@angular/common";
@@ -27,7 +26,8 @@ import { AvailabilityComponent } from "./availability.component";
 		RootStateModule,
 		I18nModule,
 		KeywordModule,
-		TimePipeModule
+		TimePipeModule,
+		RootStateModule
 	],
 
 	declarations: [AvailabilityComponent],
