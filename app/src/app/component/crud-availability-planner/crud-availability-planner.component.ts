@@ -1,31 +1,30 @@
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@rockwellcollins.com
- * @create date 2021-06-15 12:19:47
- * @modify date 2021-06-15 12:19:47
- * @desc Crud category component
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Crud availability planner component
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-22 19:59:56 
+ * Last modified  : 2022-09-22 20:00:40
  */
 
- import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Injector, ElementRef, ViewChild } from "@angular/core";
-import { debounceTime, distinctUntilChanged, map, takeUntil } from "rxjs/operators";
+import { DatePipe } from "@angular/common";
+import { Component, OnInit, Injector } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { Regex } from "src/app/shared/constant/regex.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
 import { AvailabilityPlannerModel } from "src/app/shared/model/availability-planner.model";
 import { ModalData } from "src/app/shared/model/modal-data.model";
+import { AlertService } from "src/app/shared/service/alert.service";
 import { ToastService } from "src/app/shared/service/toast.service";
+import { AvailabilityPlannerStateFacade } from "src/app/state/availability-planner/availability-planner.state.facade";
 import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { BaseFormComponent } from "../base/base-form.component";
-import { AvailabilityPlannerStateFacade } from 'src/app/state/availability-planner/availability-planner.state.facade';
-import { AlertService } from 'src/app/shared/service/alert.service';
-import { CookieService } from 'ngx-cookie-service';
-import { LocalStoreKey } from 'src/app/shared/constant/local-store-key.constant';
-import { DatePipe } from '@angular/common';
-import { UserTypeEnum } from 'src/app/shared/enum/user-type.enum';
-import { fromEvent } from 'rxjs';
 
 @Component({
 	selector: 'crud-availability-planner',
@@ -76,10 +75,19 @@ export class CrudAvailabilityPlannerComponent extends BaseFormComponent implemen
 	 */
 	private _modalData!: ModalData;
 
+	/**
+	 * From  of crud availability planner component
+	 */
 	private _from = '';
 
+	/**
+	 * To  of crud availability planner component
+	 */
 	private _to = '';
 
+	/**
+	 * Key word context of crud availability planner component
+	 */
 	private _keyWordContext = '';
 
 	/**
@@ -212,7 +220,15 @@ export class CrudAvailabilityPlannerComponent extends BaseFormComponent implemen
 	 */
 	get userType()
 	{
-		return this.cookieService.get(LocalStoreKey.LOGGED_IN_USER_TYPE)
+		let userType: UserTypeEnum;
+		// check user type
+		this.rootStateFacade.loggedInUserType$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe((loggedInUserType) =>
+			{
+				userType = loggedInUserType;
+			});
+		return userType;
 	}
 
 	get isUserTypeTeacher()
@@ -243,13 +259,14 @@ export class CrudAvailabilityPlannerComponent extends BaseFormComponent implemen
 	 */
 
 	/**
-	 * Creates an instance of crud course material component.
+	 * Creates an instance of crud availability planner component.
 	 * @param injector 
 	 * @param toastService 
 	 * @param translateService 
 	 * @param alertService 
 	 * @param availabilityPlannerStateFacade 
 	 * @param rootStateFacade 
+	 * @param datePipe 
 	 */
 	constructor(
 		injector: Injector,
@@ -258,7 +275,6 @@ export class CrudAvailabilityPlannerComponent extends BaseFormComponent implemen
 		private alertService: AlertService,
 		private availabilityPlannerStateFacade: AvailabilityPlannerStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private cookieService: CookieService,
 		private datePipe: DatePipe
 	) {
 		super(injector);

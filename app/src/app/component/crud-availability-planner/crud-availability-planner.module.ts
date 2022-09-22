@@ -1,11 +1,12 @@
 /**
- * @author Ranjoy Sen
- * @email ranjoy.sen@rockwellcollins.com
- * @create date 2021-06-15 12:20:45
- * @modify date 2021-06-15 12:20:45
- * @desc Crud category module
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Crud availability planner component module
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-22 19:59:56 
+ * Last modified  : 2022-09-22 20:00:57
  */
-
 
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -17,8 +18,6 @@ import { CrudAvailabilityPlannerComponent } from './crud-availability-planner.co
 import { PageInfoTitleModule } from '../page-info-title/page-info-title.component.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { KeywordModule } from '../keyword/keyword.component.module';
-//import { CustomTitleModule } from '../custom-title/custom-title.module';
-//import { MessageModule } from '@rc-enterprise/message';
 
 @NgModule({
 	imports: [
