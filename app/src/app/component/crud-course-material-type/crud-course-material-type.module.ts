@@ -21,6 +21,7 @@ import { PageInfoTitleModule } from '../page-info-title/page-info-title.componen
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { KeywordModule } from '../keyword/keyword.component.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { PanelInfoModule } from '../panel-info/panel-info.component.module';
 //import { CustomTitleModule } from '../custom-title/custom-title.module';
 //import { MessageModule } from '@rc-enterprise/message';
 
@@ -35,7 +36,8 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		PageInfoTitleModule,
 		SharedModule,
 		KeywordModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		PanelInfoModule
 	],
 
 	declarations: [CrudCourseMaterialTypeComponent],

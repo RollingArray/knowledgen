@@ -88,47 +88,51 @@ export class ArrayKey
 			id: CourseMaterialTypeIdEnum.TD,
 			type: 'courseMaterialType.textDocument',
 			icon: StringKey.ICON_TEXT_DOC,
+			definition: 'courseMaterialTypeInfo.textDocument'
 		},
 		{
 			id: CourseMaterialTypeIdEnum.QUIZ,
 			type: 'courseMaterialType.quiz',
 			icon: StringKey.ICON_QUIZ,
-		},
-		{
-			id: CourseMaterialTypeIdEnum.CW,
-			type: 'courseMaterialType.crossword',
-			icon: StringKey.ICON_CROSSWORD,
-		},
-		{
-			id: CourseMaterialTypeIdEnum.PS,
-			type: 'courseMaterialType.silds',
-			icon: StringKey.ICON_SLIDES,
-		},
-		{
-			id: CourseMaterialTypeIdEnum.DC,
-			type: 'courseMaterialType.dragContent',
-			icon: StringKey.ICON_DRAG_CONTENT,
+			definition: 'courseMaterialTypeInfo.quiz'
 		},
 		{
 			id: CourseMaterialTypeIdEnum.FC,
 			type: 'courseMaterialType.flashCard',
 			icon: StringKey.ICON_FLASH_CARD,
+			definition: 'courseMaterialTypeInfo.flashCard'
 		},
-		{
-			id: CourseMaterialTypeIdEnum.PL,
-			type: 'courseMaterialType.poll',
-			icon: StringKey.ICON_POLL,
-		},
-		{
-			id: CourseMaterialTypeIdEnum.PZ,
-			type: 'courseMaterialType.puzzle',
-			icon: StringKey.ICON_PUZZLE,
-		},
-		{
-			id: CourseMaterialTypeIdEnum.WC,
-			type: 'courseMaterialType.wordCloud',
-			icon: StringKey.ICON_WORD_CLOUD,
-		},
+		// {
+		// 	id: CourseMaterialTypeIdEnum.CW,
+		// 	type: 'courseMaterialType.crossword',
+		// 	icon: StringKey.ICON_CROSSWORD,
+		// },
+		// {
+		// 	id: CourseMaterialTypeIdEnum.PS,
+		// 	type: 'courseMaterialType.silds',
+		// 	icon: StringKey.ICON_SLIDES,
+		// },
+		// {
+		// 	id: CourseMaterialTypeIdEnum.DC,
+		// 	type: 'courseMaterialType.dragContent',
+		// 	icon: StringKey.ICON_DRAG_CONTENT,
+		// },
+		
+		// {
+		// 	id: CourseMaterialTypeIdEnum.PL,
+		// 	type: 'courseMaterialType.poll',
+		// 	icon: StringKey.ICON_POLL,
+		// },
+		// {
+		// 	id: CourseMaterialTypeIdEnum.PZ,
+		// 	type: 'courseMaterialType.puzzle',
+		// 	icon: StringKey.ICON_PUZZLE,
+		// },
+		// {
+		// 	id: CourseMaterialTypeIdEnum.WC,
+		// 	type: 'courseMaterialType.wordCloud',
+		// 	icon: StringKey.ICON_WORD_CLOUD,
+		// },
 	];
 
 	/**

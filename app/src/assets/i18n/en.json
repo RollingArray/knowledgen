@@ -267,6 +267,18 @@
 		"wordCloud": "Word Cloud",
 		"fillBlank": "Fill Blank"
 	},
+	"courseMaterialTypeInfo": {
+		"textDocument": "An article or document consist of text, numbers, letters, symbols, pictures, etc. The document can contain special formatting such as italic text, bold text, underline text, pictures, etc.",
+		"quiz": "Quiz is a test of knowledge, especially as a competition between individuals or teams. It has a question and set of answers. Among the answers one or more can be correct.",
+		"crossword": "Crossword",
+		"silds": "Presentation Silds",
+		"dragContent": "Drag Correct Label",
+		"flashCard": "A Flash Card is a card bearing information on both sides, which is intended to be used as an aid in memorization. Typically, the from side of the card has the question about the matter and back side has the answer",
+		"poll": "Create a Poll",
+		"puzzle": "Puzzle",
+		"wordCloud": "Word Cloud",
+		"fillBlank": "Fill Blank"
+	},
 	"noData": {
 		"noNWAData": "No Network Activities Found",
 		"noCourseMaterialData": "You have not yet created any Course Materiels, add a new one !!",

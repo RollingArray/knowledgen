@@ -17,4 +17,5 @@ export interface CourseMaterialTypeModel
 	id: CourseMaterialTypeIdEnum;
 	type: string;
 	icon: string;
+	definition?: string;
 }

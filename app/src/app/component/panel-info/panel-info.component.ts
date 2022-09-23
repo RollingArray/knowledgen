@@ -59,7 +59,7 @@ export class PanelInfoComponent extends BaseViewComponent implements OnInit {
 	/**
 	 * Input  of panel info component
 	 */
-	@Input() panelColor = '';
+	@Input() panelColor = 'none';
 
 	/**
 	 * Input  of panel info component

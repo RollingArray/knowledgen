@@ -46,7 +46,12 @@
 	<!-- content loading -->
 
 	<!-- fab -->
-	<ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="!(modalLoadingIndicatorStatus$ | async)">
+	<ion-fab
+		slot="fixed"
+		vertical="bottom"
+		horizontal="end"
+		*ngIf="!(modalLoadingIndicatorStatus$ | async)"
+	>
 		<ion-fab-button color="tertiary" (click)="submit()">
 			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
 		</ion-fab-button>
@@ -151,37 +156,49 @@
 							<p>{{ "formInfo.contentType" | translate }}</p>
 						</ion-item>
 						<ion-grid color="secondary">
-							<ion-row>
-								<ion-col
-									size="6"
-									*ngFor="
-										let courseMaterialType of arrayKey.COURSE_MATERIAL_TYPE
-									"
-								>
+							<ion-row
+								(click)="
+									selectMaterialTypeId(courseMaterialType.id)
+								"
+								*ngFor="
+									let courseMaterialType of arrayKey.COURSE_MATERIAL_TYPE
+								"
+							>
+								<ion-col>
 									<ion-card
 										class="padding-10-px cursor-pointer"
 										[color]="
-											selectedCourseMaterialType(
+											selectedCourseMaterialTypeBackgroundColor(
 												courseMaterialType
 											)
 										"
-										(click)="
-											selectMaterialTypeId(
-												courseMaterialType.id
-											)
-										"
 									>
-										<ion-icon
-											size="large"
-											[src]="courseMaterialType.icon"
-										></ion-icon
-										><br /><br />
-										<ion-label class="segment"
-											>{{
-												courseMaterialType.type
-													| translate
-											}}
-										</ion-label>
+										<ion-card-header>
+											<ion-item color="none" lines="none">
+												<ion-icon
+													size="large"
+													[src]="
+														courseMaterialType.icon
+													"
+												></ion-icon>
+												<ion-label class="segment"
+													>&nbsp;&nbsp;<b>{{
+														courseMaterialType.type
+															| translate
+													}}</b>
+												</ion-label>
+											</ion-item>
+										</ion-card-header>
+										<ion-card-content>
+											<panel-info
+												[fontColor]="selectedCourseMaterialTypeInfoFontColor(courseMaterialType)"
+												[showMoreLess]="true"
+												[title]="
+													courseMaterialType.definition
+														| translate
+												"
+											></panel-info>
+										</ion-card-content>
 									</ion-card>
 								</ion-col>
 							</ion-row>

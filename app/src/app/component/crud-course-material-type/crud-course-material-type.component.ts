@@ -960,12 +960,22 @@ export class CrudCourseMaterialTypeComponent
 	}
 
 	/**
-	 * Selected course material type
+	 * Selected course material type background color
 	 * @param courseMaterialType 
 	 * @returns  
 	 */
-	public selectedCourseMaterialType(courseMaterialType: CourseMaterialTypeModel)
+	public selectedCourseMaterialTypeBackgroundColor(courseMaterialType: CourseMaterialTypeModel)
 	{
-		return this._courseMaterialTypeId === courseMaterialType.id ? 'success' : 'primary';
+		return this._courseMaterialTypeId === courseMaterialType.id ? 'tertiary' : 'primary';
+	}
+
+	/**
+	 * Selected course material type info font color
+	 * @param courseMaterialType 
+	 * @returns  
+	 */
+	public selectedCourseMaterialTypeInfoFontColor(courseMaterialType: CourseMaterialTypeModel)
+	{
+		return this._courseMaterialTypeId === courseMaterialType.id ? 'secondary' : 'light';
 	}
 }
