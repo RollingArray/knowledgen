@@ -288,6 +288,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			articleStatus: ArticleStatusTypeEnum.PREVIEW,
 			articleCompletionReward: 100,
 			articleCompletionTime: 60,
+			articleAllowedIteration: 1,
 			operationType: OperationsEnum.CREATE
 		}
 

@@ -17,6 +17,7 @@ export interface ArticleSessionModel extends BaseModel
     articleId?: string;
     articleSessionTime?: string;
     articleSessions?: string[];
+    articleAllowedIteration?: number;
     articleSessionsCreatedOn?: string[];
     operationType?: OperationsEnum;
 }

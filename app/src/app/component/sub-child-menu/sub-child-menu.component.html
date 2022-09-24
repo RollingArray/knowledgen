@@ -12,77 +12,59 @@
  */ 
 -->
 
-
-<ion-card
-	class="cursor-pointer"
-	*ngFor="let eachMenu of (subChildMenu$ | async)">
+<ion-card class="cursor-pointer" *ngFor="let eachMenu of subChildMenu$ | async">
 	<!-- article title -->
 	<ion-item
-		[color]="(selectedMenuArticle$ | async).articleId === eachMenu.subChildArticleId ? 'tertiary' : ''"
+		[color]="
+			(selectedMenuArticle$ | async).articleId ===
+			eachMenu.subChildArticleId
+				? 'tertiary'
+				: ''
+		"
 		lines="none"
-		(click)="navigateToCourseMaterialArticle(eachMenu)">
-		<ion-icon
-			color="primary"
-			[src]="getMenuIcon(eachMenu)"
-			slot="start">
+		(click)="navigateToCourseMaterialArticle(eachMenu)"
+	>
+		<ion-icon color="primary" [src]="getMenuIcon(eachMenu)" slot="start">
 		</ion-icon>
-		<ion-label
-			class="font-size-17-px">
-			{{
-			eachMenu.articleTitle
-			}}
+		<ion-label class="font-size-17-px">
+			{{ eachMenu.articleTitle }}
 		</ion-label>
 	</ion-item>
 	<!-- article title -->
 
 	<!-- article summery -->
 	<ion-card-content *ngIf="showSummery">
-		{{
-		eachMenu.articleSummery
-		}}
+		{{ eachMenu.articleSummery }}
 	</ion-card-content>
 	<!-- article summery -->
 
 	<!-- menu toolbar -->
-	<ion-toolbar
-		*ngIf="isMaterialOwner"
-		mode="ios">
-		<ion-buttons
-			slot="end">
-			<ion-button
-				color="primary"
-				(click)="editSubChildMenu(eachMenu)"
-				*ngIf="isMaterialOwner">
-				<ion-icon
-					[src]="stringKey.ICON_EDIT">
-				</ion-icon>
-			</ion-button>
-			<ion-button
-				color="primary"
-				(click)="deleteSubChildMenu(eachMenu)"
-				*ngIf="isMaterialOwner">
-				<ion-icon
-					[src]="stringKey.ICON_DELETE">
-				</ion-icon>
-			</ion-button>
+	<ion-toolbar *ngIf="isMaterialOwner" mode="ios">
+		<ion-buttons slot="end">
+			<ion-buttons slot="end">
+				<edit-button
+					(click)="editSubChildMenu(eachMenu)"
+					*ngIf="isMaterialOwner"
+				></edit-button>
+				<delete-button
+					(click)="deleteSubChildMenu(eachMenu)"
+					*ngIf="isMaterialOwner"
+				>
+				</delete-button>
+			</ion-buttons>
 		</ion-buttons>
 	</ion-toolbar>
 	<!-- menu toolbar -->
 </ion-card>
 
 <!-- add new sub child -->
-<ion-button
-	class="card-button"
-	mode="ios"
-	(click)="addNewSubChild()"
+<common-button
+	(event)="addNewSubChild()"
 	expand="block"
-	*ngIf="isMaterialOwner">
-	<ion-icon
-		[src]="stringKey.ICON_ADD"
-		slot="start">
-	</ion-icon>
-	{{'button.addSubChildMenu'
-	|
-	translate}}
-</ion-button>
+	[title]="'button.addSubChildMenu' | translate"
+	[color]="stringKey.COLOR_TERTIARY"
+	[icon]="stringKey.ICON_ADD"
+	*ngIf="isMaterialOwner"
+>
+</common-button>
 <!-- add new sub child -->

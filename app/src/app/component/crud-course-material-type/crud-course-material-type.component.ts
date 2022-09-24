@@ -107,6 +107,11 @@ export class CrudCourseMaterialTypeComponent
 	private _courseMaterialTypeId = CourseMaterialTypeIdEnum.TD;
 
 	/**
+	 * Determines whether practice session is
+	 */
+	private _isPracticeSession = false;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @Getter & @Setters								|
@@ -324,6 +329,15 @@ export class CrudCourseMaterialTypeComponent
 	}
 
 	/**
+	 * Gets article allowed iterations
+	 */
+	get articleAllowedIteration()
+	 {
+		 return this.formGroup.get('articleAllowedIteration');
+	}
+	
+
+	/**
 	 * Gets allow editable fields
 	 */
 	public get allowEditableFields()
@@ -453,6 +467,30 @@ export class CrudCourseMaterialTypeComponent
 				 break;
 		 }
 	}
+
+	/**
+	 * Gets article allowed iterations from model
+	 */
+	get articleAllowedIterationFromModel()
+	 {
+		 switch (this._menuType)
+		 {
+			 case MenuTypeEnum.PARENT_MENU:
+				 return this._parentMenuModel.articleAllowedIteration;
+				 break;
+			 case MenuTypeEnum.CHILD_MENU:
+				return this._childMenuModel.articleAllowedIteration;
+				 break;
+			 case MenuTypeEnum.SUB_CHILD_MENU:
+				return this._subChildMenuModel.articleAllowedIteration;
+				 break;
+ 
+			 default:
+				 break;
+		 }
+	}
+
+	
 	
 	/**
 	 * Gets whether is operation delete
@@ -461,6 +499,14 @@ export class CrudCourseMaterialTypeComponent
 	 {
 		const operation = this.getOperationType();
 		return operation === OperationsEnum.DELETE ? true : false;
+	}
+
+	/**
+	 * Gets whether is practice session
+	 */
+	public get isPracticeSession()
+	{
+		return this._isPracticeSession;
 	}
 
 	/**
@@ -610,7 +656,30 @@ export class CrudCourseMaterialTypeComponent
 		form.articleTitle = this.articleTitleFromModel;
 		form.articleSummery = this.articleTitleFromModel;
 		form.articleCompletionReward = this.articleCompletionRewardFromModel;
+		form.articleAllowedIteration = this.articleAllowedIterationFromModel;
 		form.articleCompletionTime = this.articleCompletionTimeFromModel;
+
+		// Checks practice test status
+		this.checkPracticeTestStatus();
+	}
+
+	/**
+	 * Checks practice test status
+	 * @param form 
+	 */
+	private checkPracticeTestStatus()
+	{
+		const form = this.formGroup.value;
+		if (form.articleCompletionReward !== 0)
+		{
+			form.articleAllowedIteration = -1; // -1 means designates limit
+			this._isPracticeSession = true;
+		}
+
+		else
+		{
+			this._isPracticeSession = false;
+		}
 	}
 
 	/**
@@ -639,6 +708,10 @@ export class CrudCourseMaterialTypeComponent
 			articleCompletionReward: [
 				this.articleCompletionRewardFromModel,
 			],
+			articleAllowedIteration: [
+				this.articleAllowedIterationFromModel,
+			],
+			
 		});
 
 		this.setPassedValueToFrom();
@@ -660,8 +733,10 @@ export class CrudCourseMaterialTypeComponent
 					articleTitle: form.articleTitle,
 					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
+					articleAllowedIteration: form.articleAllowedIteration,
 					articleCompletionTime: form.articleCompletionTime,
-					courseMaterialTypeId: this._courseMaterialTypeId
+					courseMaterialTypeId: this._courseMaterialTypeId,
+					menuType: MenuTypeEnum.PARENT_MENU
 				};
 
 				return parentMenuModel;
@@ -673,8 +748,10 @@ export class CrudCourseMaterialTypeComponent
 					articleTitle: form.articleTitle,
 					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
+					articleAllowedIteration: form.articleAllowedIteration,
 					articleCompletionTime: form.articleCompletionTime,
-					courseMaterialTypeId: this._courseMaterialTypeId
+					courseMaterialTypeId: this._courseMaterialTypeId,
+					menuType: MenuTypeEnum.CHILD_MENU
 				};
 
 				return childMenuModel;
@@ -685,8 +762,10 @@ export class CrudCourseMaterialTypeComponent
 					articleTitle: form.articleTitle,
 					articleSummery: form.articleSummery,
 					articleCompletionReward: form.articleCompletionReward,
+					articleAllowedIteration: form.articleAllowedIteration,
 					articleCompletionTime: form.articleCompletionTime,
-					courseMaterialTypeId: this._courseMaterialTypeId
+					courseMaterialTypeId: this._courseMaterialTypeId,
+					menuType: MenuTypeEnum.SUB_CHILD_MENU
 				};
 
 				return subChildMenuModel;
@@ -977,5 +1056,14 @@ export class CrudCourseMaterialTypeComponent
 	public selectedCourseMaterialTypeInfoFontColor(courseMaterialType: CourseMaterialTypeModel)
 	{
 		return this._courseMaterialTypeId === courseMaterialType.id ? 'secondary' : 'light';
+	}
+
+	 /**
+	 * Articles completion reward update
+	 * @param ev 
+	 */
+	  public articleCompletionRewardUpdate(ev: Event) {
+		// Checks practice test status
+		this.checkPracticeTestStatus();
 	}
 }

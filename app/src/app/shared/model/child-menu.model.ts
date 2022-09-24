@@ -11,6 +11,7 @@
 
 
 
+import { MenuTypeEnum } from "../enum/menu-type.enum";
 import { BaseModel } from "./base.model";
 import { CourseMaterialMenuModel } from "./course-material-menu.model";
 
@@ -20,4 +21,5 @@ export interface ChildMenuModel extends CourseMaterialMenuModel, BaseModel
 	parentArticleId?: string;
 	childArticleOrder?: number;
 	courseMaterialId?: string;
+	menuType?: MenuTypeEnum
 }

@@ -216,6 +216,14 @@ export class CourseMaterialArticlePage extends BaseViewComponent implements OnIn
 	}
 
 	/**
+	 * Gets article allowed iterations
+	 */
+	get articleAllowedIteration()
+	 {
+		 return this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleAllowedIteration');
+	 }
+
+	/**
  * Gets description
  */
 	get isMaterialOwner()

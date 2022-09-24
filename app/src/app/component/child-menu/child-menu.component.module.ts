@@ -19,6 +19,9 @@ import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { SubChildMenuModule } from '../sub-child-menu/sub-child-menu.component.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
 import { CrudCourseMaterialTypeModule } from '../crud-course-material-type/crud-course-material-type.module';
+import { CommonButtonModule } from '../button/common-button/common-button.component.module';
+import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
+import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -29,7 +32,10 @@ import { CrudCourseMaterialTypeModule } from '../crud-course-material-type/crud-
 		RootStateModule,
 		SubChildMenuModule,
 		I18nModule,
-		RootStateModule
+		RootStateModule,
+		CommonButtonModule,
+		EditButtonModule,
+		DeleteButtonModule
 	],
 
 	declarations: [ChildMenuComponent],

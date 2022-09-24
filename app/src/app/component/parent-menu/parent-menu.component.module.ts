@@ -22,6 +22,8 @@ import { CourseMaterialStateModule } from 'src/app/state/course-material/course-
 import { CrudCourseMaterialTypeModule } from '../crud-course-material-type/crud-course-material-type.module';
 import { CommonButtonModule } from '../button/common-button/common-button.component.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
+import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -34,7 +36,10 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		ChildMenuModule,
 		I18nModule,
 		CommonButtonModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		CommonButtonModule,
+		EditButtonModule,
+		DeleteButtonModule
 	],
 
 	declarations: [ParentMenuComponent],

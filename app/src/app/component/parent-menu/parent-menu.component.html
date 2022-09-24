@@ -65,26 +65,21 @@
 			mode="ios"
 		>
 			<ion-buttons slot="end">
-				<ion-button
-					color="primary"
+				<edit-button
 					(click)="editParentMenu(eachMenu)"
 					*ngIf="
 						(loggedInUserId$ | async) ===
 						(courseMaterialOwner$ | async)
 					"
-				>
-					<ion-icon [src]="stringKey.ICON_EDIT"> </ion-icon>
-				</ion-button>
-				<ion-button
-					color="primary"
+				></edit-button>
+				<delete-button
 					(click)="deleteParentMenu(eachMenu)"
 					*ngIf="
 						(loggedInUserId$ | async) ===
 						(courseMaterialOwner$ | async)
 					"
 				>
-					<ion-icon [src]="stringKey.ICON_DELETE"> </ion-icon>
-				</ion-button>
+				</delete-button>
 			</ion-buttons>
 		</ion-toolbar>
 		<!-- toolbar -->
@@ -101,15 +96,14 @@
 	<!-- menu -->
 
 	<!-- add new menu -->
-	<ion-button
-		class="card-button"
-		mode="ios"
-		(click)="addNewParentMenu()"
+	<common-button
+		(event)="addNewParentMenu()"
 		expand="block"
+		[title]="'button.addMenu' | translate"
+		[color]="stringKey.COLOR_TERTIARY"
+		[icon]="stringKey.ICON_ADD"
 		*ngIf="(loggedInUserId$ | async) === (courseMaterialOwner$ | async)"
 	>
-		<ion-icon [src]="stringKey.ICON_ADD" slot="start"> </ion-icon>
-		{{ "button.addMenu" | translate }}
-	</ion-button>
+	</common-button>
 	<!-- add new menu -->
 </div>

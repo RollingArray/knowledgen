@@ -21,5 +21,6 @@ export interface ArticleModel extends BaseModel
 	articleStatus?: ArticleStatusTypeEnum;
 	articleCompletionTime?: number;
 	articleCompletionReward?: number;
+	articleAllowedIteration?: number;
 	articleRevisionDate?: string;
 }

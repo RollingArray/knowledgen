@@ -96,7 +96,8 @@ export class CourseMaterialMenuStateEffects
 												menuType: MenuTypeEnum.PARENT_MENU,
 												courseMaterialType: eachParentMenu.courseMaterialTypeId,
 												articleCompletionTime: eachParentMenu.articleCompletionTime,
-												articleCompletionReward: eachParentMenu.articleCompletionReward
+												articleCompletionReward: eachParentMenu.articleCompletionReward,
+												articleAllowedIteration: eachParentMenu.articleAllowedIteration,
 											};
 
 										}
@@ -110,7 +111,8 @@ export class CourseMaterialMenuStateEffects
 											articleStatus: eachParentMenu.articleStatus,
 											courseMaterialTypeId: eachParentMenu.courseMaterialTypeId,
 											articleCompletionTime: eachParentMenu.articleCompletionTime,
-											articleCompletionReward: eachParentMenu.articleCompletionReward
+											articleCompletionReward: eachParentMenu.articleCompletionReward,
+											articleAllowedIteration: eachParentMenu.articleAllowedIteration,
 										};
 
 										parentMenus = [
@@ -129,11 +131,12 @@ export class CourseMaterialMenuStateEffects
 													childArticleOrder: eachChildMenu.childArticleOrder,
 													courseMaterialId: eachChildMenu.courseMaterialId,
 													articleTitle: eachChildMenu.articleTitle,
-													articleSummery: eachParentMenu.articleSummery,
+													articleSummery: eachChildMenu.articleSummery,
 													articleStatus: eachChildMenu.articleStatus,
 													courseMaterialTypeId: eachChildMenu.courseMaterialTypeId,
 													articleCompletionTime: eachChildMenu.articleCompletionTime,
-													articleCompletionReward: eachChildMenu.articleCompletionReward
+													articleCompletionReward: eachChildMenu.articleCompletionReward,
+													articleAllowedIteration: eachChildMenu.articleAllowedIteration,
 												};
 
 												childMenus = [
@@ -153,11 +156,12 @@ export class CourseMaterialMenuStateEffects
 															subChildArticleOrder: eachSubChildMenu.subChildArticleOrder,
 															courseMaterialId: eachSubChildMenu.courseMaterialId,
 															articleTitle: eachSubChildMenu.articleTitle,
-															articleSummery: eachParentMenu.articleSummery,
+															articleSummery: eachSubChildMenu.articleSummery,
 															articleStatus: eachSubChildMenu.articleStatus,
 															courseMaterialTypeId: eachSubChildMenu.courseMaterialTypeId,
 															articleCompletionTime: eachSubChildMenu.articleCompletionTime,
-															articleCompletionReward: eachSubChildMenu.articleCompletionReward
+															articleCompletionReward: eachSubChildMenu.articleCompletionReward,
+															articleAllowedIteration: eachSubChildMenu.articleAllowedIteration,
 														};
 
 														subChildMenus = [

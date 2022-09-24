@@ -222,7 +222,7 @@
 							</ion-item>
 							<ion-item lines="none">
 								<ion-range
-									[min]="0"
+									[min]="1"
 									[max]="180"
 									formControlName="articleCompletionTime"
 								></ion-range>
@@ -250,11 +250,50 @@
 									[min]="0"
 									[max]="1000"
 									formControlName="articleCompletionReward"
+									(ionChange)="articleCompletionRewardUpdate($event)"
 								></ion-range>
 							</ion-item>
 						</ion-card>
 					</ion-card>
 					<!-- content reward -->
+
+					<!-- content allowed iterations -->
+					<ion-card color="secondary" *ngIf="ifRewardVisible">
+						<ion-item color="secondary" lines="none">
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.contentIterationAllowed" | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light" *ngIf="isPracticeSession">
+							<ion-item lines="none">
+								<ion-label><b>{{ articleAllowedIteration.value }} </b>
+									&nbsp;</ion-label>
+								<ion-range
+									[min]="1"
+									[max]="100"
+									formControlName="articleAllowedIteration"
+								></ion-range>
+							</ion-item>
+						</ion-card>
+						<ion-card
+								*ngIf="
+									!isPracticeSession
+								"
+								color="warning"
+							>
+								<ion-item color="warning">
+									<ion-icon
+										color="danger"
+										slot="start"
+										[src]="stringKey.ICON_WARNING"
+									></ion-icon>
+									{{ "validation.iterationNoLimit" | translate }}
+								</ion-item>
+							</ion-card>
+					</ion-card>
+					<!-- content allowed iterations -->
 				</ion-col>
 			</ion-row>
 		</ion-grid>

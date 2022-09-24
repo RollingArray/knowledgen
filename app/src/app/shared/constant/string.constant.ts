@@ -730,4 +730,5 @@ export class StringKey {
 	public static readonly COLOR_MEDIUM: string = "medium";
 	public static readonly COLOR_LIGHT: string = "light";
 	public static readonly COLOR_INFO: string = "info";
+	public static readonly COLOR_WHITE: string = "white";
 }

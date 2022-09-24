@@ -54,6 +54,7 @@ const reducer = createReducer(
 				articleSummery: action.payload.articleSummery,
 				articleStatus: action.payload.articleStatus,
 				articleCompletionReward: action.payload.articleCompletionReward,
+				articleAllowedIteration: action.payload.articleAllowedIteration,
 				articleCompletionTime: action.payload.articleCompletionTime,
 			}
 		}, state)

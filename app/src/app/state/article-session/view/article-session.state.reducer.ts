@@ -50,6 +50,7 @@ const reducer = createReducer(
 			id: action.payload.articleId ? action.payload.articleId : '',
 			changes: {
 				articleSessions: action.payload.articleSessions,
+				articleAllowedIteration: action.payload.articleAllowedIteration,
 				articleSessionsCreatedOn: action.payload.articleSessionsCreatedOn,
 			}
 		}, state)
