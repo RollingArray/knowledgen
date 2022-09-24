@@ -52,6 +52,11 @@ export class CommonButtonComponent extends BaseViewComponent implements OnInit
 	@Input() color = this.stringKey.COLOR_PRIMARY;
 
 	/**
+	 * Input  of common button component
+	 */
+	@Input() expand = 'none';
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
