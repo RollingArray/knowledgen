@@ -54,6 +54,7 @@ class CourseMaterialArticleController extends Controller
 			'course_material_type_id' => 'required|in:textDocument,quiz,crossword,silds,dragContent,flashCard,poll,puzzle,wordCloud',
 			'article_completion_time' => 'required',
 			'article_completion_reward' => 'required',
+			'article_allowed_iteration' => 'required'
 		];
 	}
 
@@ -119,6 +120,7 @@ class CourseMaterialArticleController extends Controller
 		$model->course_material_type_id = $request->input('course_material_type_id');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
         
         //saving the model to database
         $model->save();
@@ -152,7 +154,7 @@ class CourseMaterialArticleController extends Controller
             );
         }
 
-        //find model
+		//find model
 		$model = $this->courseMaterialArticleServiceInterface->getCourseMaterialArticleById($request->input('article_id'));
 
         //modify values to the model
@@ -160,6 +162,7 @@ class CourseMaterialArticleController extends Controller
 		$model->article_summery = $request->input('article_summery');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
         
         //saving the model to database
         $model->save();
@@ -193,7 +196,7 @@ class CourseMaterialArticleController extends Controller
             );
         }
 
-        //find model
+		//find model
 		$model = $this->courseMaterialArticleServiceInterface->deleteCourseMaterialArticleById($request->input('article_id'));
 
         // return to client

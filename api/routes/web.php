@@ -381,7 +381,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post(
                 'edit',
                 [
-                    'middleware' => 'courseMaterialOwner',
+                    'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                     'uses' => 'CourseMaterialMenuController@edit'
                 ]
             );
@@ -389,7 +389,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
             $router->post(
                 'delete',
                 [
-                    'middleware' => 'courseMaterialOwner',
+                    'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                     'uses' => 'CourseMaterialMenuController@delete'
                 ]
             );
@@ -408,6 +408,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post(
                     'edit',
                     [
+                        'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                         'uses' => 'CourseMaterialChildMenuController@edit'
                     ]
                 );
@@ -415,6 +416,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 $router->post(
                     'delete',
                     [
+                        'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                         'uses' => 'CourseMaterialChildMenuController@delete'
                     ]
                 );
@@ -432,6 +434,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     $router->post(
                         'edit',
                         [
+                            'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                             'uses' => 'CourseMaterialSubChildMenuController@edit'
                         ]
                     );
@@ -439,6 +442,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                     $router->post(
                         'delete',
                         [
+                            'middleware' => ['courseMaterialOwner', 'restrictModifyCourseMaterialMenu'],
                             'uses' => 'CourseMaterialSubChildMenuController@delete'
                         ]
                     );

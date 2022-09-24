@@ -13,4 +13,6 @@ Interface CourseMaterialAssignmentResultServiceInterface
     public function getAllSession($userId);
 
     public function getTotalStudyPoints($userId);
+
+    public function checkIfResultExistForAnyUser($articleId);
 }

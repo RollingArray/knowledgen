@@ -105,7 +105,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',
@@ -134,7 +135,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',
@@ -166,7 +168,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',
@@ -198,7 +201,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',
@@ -231,7 +235,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',
@@ -263,7 +268,8 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
             'tbl_course_material_article.article_status',
             'tbl_course_material_article.course_material_type_id',
             'tbl_course_material_article.article_completion_time',
-            'tbl_course_material_article.article_completion_reward'
+            'tbl_course_material_article.article_completion_reward',
+            'tbl_course_material_article.article_allowed_iteration'
             )
             ->join(
                 'tbl_course_material_article',

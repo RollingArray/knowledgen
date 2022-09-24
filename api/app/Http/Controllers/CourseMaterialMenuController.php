@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
+use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\CourseMaterialMenuServiceInterface;
 use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
@@ -60,7 +61,7 @@ class CourseMaterialMenuController extends Controller
 		CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
 		CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface,
 		CourseMaterialServiceInterface $courseMaterialServiceInterface,
-		LearningPathServiceInterface $learningPathServiceInterface,
+		LearningPathServiceInterface $learningPathServiceInterface
 
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
@@ -168,6 +169,7 @@ class CourseMaterialMenuController extends Controller
 		$model->course_material_type_id = $request->input('course_material_type_id');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
 
 		//saving the model to database
 		$model->save();
@@ -229,6 +231,7 @@ class CourseMaterialMenuController extends Controller
 		$model->article_status = $request->input('article_status');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
 
 		//saving the model to database
 		$model->save();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
 use App\Models\CourseMaterialArticleAssignmentResultModel;
@@ -22,9 +23,11 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      * @return void
      */
     public function __construct(
-		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface
+		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
+        CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
+        $this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
 	}
   
     
@@ -87,12 +90,11 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
             $articleSessions[] = round($totalTime, 2);
             $articleSessionsCreatedOn[] = $eachData->created_at;
         }
-
+        
         $tempRows['article_id'] = $articleId;
         $tempRows['article_sessions'] = $articleSessions;
+        $tempRows['article_allowed_iteration'] = $this->courseMaterialArticleServiceInterface->getCourseMaterialArticleById($articleId)->article_allowed_iteration;
         $tempRows['article_sessions_created_on'] = $articleSessionsCreatedOn;
-
-
         return $this->returnDataStructureServiceInterface->generateServiceReturnDataStructure($tempRows);
     }
 
@@ -553,6 +555,18 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
     {
         return CourseMaterialArticleAssignmentResultModel::where('user_id', '=', $userId)
                 ->where('article_id', '=', $articleId)
+                ->exists();
+    }
+
+    /**
+     * Check if result exist for any user
+     *
+     * @param  mixed $articleId
+     * @return void
+     */
+    public function checkIfResultExistForAnyUser($articleId)
+    {
+        return CourseMaterialArticleAssignmentResultModel::where('article_id', '=', $articleId)
                 ->exists();
     }
 

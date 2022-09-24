@@ -49,6 +49,7 @@ class CourseMaterialArticleModel extends BaseModel{
         'article_status',
         'article_completion_time',
         'article_completion_reward',
+        'article_allowed_iteration',
     ];
 
     /**

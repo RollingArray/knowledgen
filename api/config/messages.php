@@ -21,5 +21,7 @@ return [
         'restrictedAccessCourse' => 'Restricted access !! you are not the owner of this course material',
         'restrictedAccessTeacher' => 'Restricted access !! you must be a teacher to access this',
         'restrictedAccessStudent' => 'Restricted access !! you must be a student to access this',
+        'restrictedAccessStudent' => 'Restricted access !! you must be a student to access this',
+        'restrictedAccessEditCourseMaterialMenu' => 'Restricted action !! this article has already been in actively used, hence it can not edited or deleted',
     ],
 ];

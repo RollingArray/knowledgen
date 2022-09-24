@@ -131,6 +131,9 @@ $app->routeMiddleware([
     'courseMaterialOwner' => App\Http\Middleware\CourseMaterialOwnerMiddleware::class,
     'roleTeacher' => App\Http\Middleware\RoleTeacherMiddleware::class,
     'roleStudent' => App\Http\Middleware\RoleStudentMiddleware::class,
+    'roleStudent' => App\Http\Middleware\RoleStudentMiddleware::class,
+    'restrictModifyCourseMaterialMenu' => App\Http\Middleware\RestrictModifyCourseMaterialMenuMiddleware::class,
+    
 ]);
 
 /*

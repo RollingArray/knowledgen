@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
+use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\CourseMaterialMenuServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,8 +28,6 @@ class CourseMaterialSubChildMenuController extends Controller
 	 */
 	protected $courseMaterialArticleServiceInterface;
 
-	protected $courseMaterialMenuServiceInterface;
-
 	/**
 	 * __construct
 	 *
@@ -37,7 +36,7 @@ class CourseMaterialSubChildMenuController extends Controller
 	public function __construct(
 		JWTAuthServiceInterface $jwtAuthServiceInterface,
 		CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
-		CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface
+		CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface,
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
 		$this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
@@ -113,6 +112,7 @@ class CourseMaterialSubChildMenuController extends Controller
 		$model->course_material_type_id = $request->input('course_material_type_id');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
         
         //saving the model to database
         $model->save();
@@ -175,7 +175,8 @@ class CourseMaterialSubChildMenuController extends Controller
 		$model->article_status = $request->input('article_status');
 		$model->article_completion_time = $request->input('article_completion_time');
 		$model->article_completion_reward = $request->input('article_completion_reward');
-        
+		$model->article_allowed_iteration = $request->input('article_allowed_iteration');
+		
         //saving the model to database
         $model->save();
 
@@ -214,7 +215,7 @@ class CourseMaterialSubChildMenuController extends Controller
             );
         }
 
-        //delete child menu
+		//delete child menu
 		$model = $this->courseMaterialMenuServiceInterface->deleteSubChildMenu(
 			$request->input('course_material_id'),
 			$request->input('child_article_id'),
