@@ -71,6 +71,7 @@ export class ApiInterceptor implements HttpInterceptor
 				{
 					if (error.status === 400)
 					{
+						this.rootStateFacade.stopModalLoading();
 						const errorMessages: string[] = error.error.message;
 						errorMessages.map(async responseMessage =>
 						{
@@ -82,7 +83,8 @@ export class ApiInterceptor implements HttpInterceptor
 							const toast = await this.toastController.create({
 								message: responseMessage,
 								cssClass: 'custom-toast',
-								duration: 2000,
+								color: 'danger',
+								duration: 3000,
 								buttons: [
 									{
 										side: 'start',

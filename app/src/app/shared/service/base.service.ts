@@ -147,6 +147,7 @@ export abstract class BaseService<T extends BaseModel> {
 							const toast = await this.toastController.create({
 								message: responseMessage,
 								cssClass: 'custom-toast',
+								color: 'danger',
 								duration: 2000,
 								buttons: [
 									{
