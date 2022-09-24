@@ -171,6 +171,11 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	private _assignmentTime: string;
 
 	/**
+	 * If session available of crud assignment quiz component
+	 */
+	private _ifSessionAvailable = true;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable						|
@@ -353,6 +358,14 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	get assignmentTime()
 	{
 		return this._assignmentTime;
+	}
+
+	/**
+	 * Gets if session available
+	 */
+	get ifSessionAvailable()
+	{
+		return this._ifSessionAvailable
 	}
 
 	/**
@@ -777,11 +790,11 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	}
 
 	/**
-	 * Totals quiz session time
-	 * @param assignmentTime 
+	 * Sessions available
+	 * @param allowed 
 	 */
-	// public totalQuizSessionTime(assignmentTime: string)
-	// {
-
-	// }
+	public sessionAvailable(allowed: boolean)
+	{
+		this._ifSessionAvailable = allowed;
+	}
 }

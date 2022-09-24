@@ -60,6 +60,7 @@
 			[isMaterialOwner]= "isMaterialOwner"
 			[isContentLive]= "isContentLive"
 			[courseMaterialTypeId]="courseMaterialTypeIdEnum.QUIZ"
+			(sessionAvailableEmitter)="sessionAvailable($event)"
 		></article-session>
 		<!-- article-session -->
 	</div>
@@ -148,7 +149,7 @@
 
 <!-- start stop timer -->
 <start-stop-timer
-	*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive"
+	*ngIf="(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive && ifSessionAvailable"
 	[isMaterialOwner]="isMaterialOwner"
 	[isContentLive]="isContentLive"
 	(startAssignmentEvent)="startQuiz()"

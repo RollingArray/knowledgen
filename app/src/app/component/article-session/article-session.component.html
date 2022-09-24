@@ -13,10 +13,12 @@
 
 <ion-card color="light">
 	<!-- header if content text/document -->
-	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD">
-		<panel-header 
+	<ion-card-header
+		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD"
+	>
+		<panel-header
 			[panelTitle]="'pageTitle.studySession' | translate"
-			[panelIcon] = "stringKey.ICON_QNA"
+			[panelIcon]="stringKey.ICON_QNA"
 			[panelColor]="stringKey.COLOR_LIGHT"
 		></panel-header>
 		<panel-info
@@ -27,10 +29,12 @@
 	<!-- header if content text/document -->
 
 	<!-- header if content quiz -->
-	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ">
-		<panel-header 
+	<ion-card-header
+		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
+	>
+		<panel-header
 			[panelTitle]="'pageTitle.quizSession' | translate"
-			[panelIcon] = "stringKey.ICON_QUIZ"
+			[panelIcon]="stringKey.ICON_QUIZ"
 			[panelColor]="stringKey.COLOR_LIGHT"
 		></panel-header>
 		<panel-info
@@ -41,10 +45,12 @@
 	<!-- header if content quiz -->
 
 	<!-- header if content flash card -->
-	<ion-card-header *ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC">
-		<panel-header 
+	<ion-card-header
+		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC"
+	>
+		<panel-header
 			[panelTitle]="'pageTitle.fcSession' | translate"
-			[panelIcon] = "stringKey.ICON_FLASH_CARD"
+			[panelIcon]="stringKey.ICON_FLASH_CARD"
 			[panelColor]="stringKey.COLOR_LIGHT"
 		></panel-header>
 		<panel-info
@@ -65,7 +71,11 @@
 		<!-- if data loading -->
 
 		<!-- if no data -->
-		<ion-card color="primary" *ngIf="!(hasData$ | async)" class="overlay-info">
+		<ion-card
+			color="primary"
+			*ngIf="!(hasData$ | async)"
+			class="overlay-info"
+		>
 			<!-- text/document -->
 			<panel-info
 				*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD"
@@ -89,7 +99,6 @@
 				[title]="'noData.noFlashCardSession' | translate"
 			></panel-info>
 			<!-- fc -->
-			
 		</ion-card>
 		<!-- if no data -->
 
@@ -97,35 +106,88 @@
 		<canvas id="chart"> </canvas>
 		<!-- chart -->
 	</ion-card-content>
-	
-	<div *ngIf="(articleSessionAnalysis$ | async)">
-		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.POSITIVE">
+
+	<div *ngIf="articleSessionAnalysis$ | async">
+		<ion-card
+			color="success"
+			*ngIf="
+				(articleSessionAnalysis$ | async).characteristics ===
+				characteristicsEnum.POSITIVE
+			"
+		>
 			<ion-item color="none">
 				<ion-icon [src]="stringKey.ICON_UP_ARROW"></ion-icon>
-				<ion-badge> 
-					+ {{(articleSessionAnalysis$ | async).value}} % 
-				</ion-badge> 
-				&nbsp;{{'formInfo.sessionIncrease' | translate}}
-			</ion-item>
-		</ion-card>
-	
-		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.NEGATIVE">
-			<ion-item color="none">
-				<ion-icon [src]="stringKey.ICON_DOWN_ARROW"></ion-icon>
 				<ion-badge>
-					- {{(articleSessionAnalysis$ | async).value}} % 
+					+ {{ (articleSessionAnalysis$ | async).value }} %
 				</ion-badge>
-				&nbsp;{{'formInfo.sessionDecreased' | translate}}
+				&nbsp;{{ "formInfo.sessionIncrease" | translate }}
 			</ion-item>
 		</ion-card>
 
-		<ion-card color="success" *ngIf="(articleSessionAnalysis$ | async).characteristics === characteristicsEnum.NEUTRAL">
+		<ion-card
+			color="success"
+			*ngIf="
+				(articleSessionAnalysis$ | async).characteristics ===
+				characteristicsEnum.NEGATIVE
+			"
+		>
+			<ion-item color="none">
+				<ion-icon [src]="stringKey.ICON_DOWN_ARROW"></ion-icon>
+				<ion-badge>
+					- {{ (articleSessionAnalysis$ | async).value }} %
+				</ion-badge>
+				&nbsp;{{ "formInfo.sessionDecreased" | translate }}
+			</ion-item>
+		</ion-card>
+
+		<ion-card
+			color="success"
+			*ngIf="
+				(articleSessionAnalysis$ | async).characteristics ===
+				characteristicsEnum.NEUTRAL
+			"
+		>
 			<ion-item color="none">
 				<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
-				&nbsp;{{'formInfo.sessionNeutral' | translate}}
+				&nbsp;{{ "formInfo.sessionNeutral" | translate }}
 			</ion-item>
 		</ion-card>
 	</div>
-	
+
 	<!-- instructions quiz -->
 </ion-card>
+
+<!-- sessions allowed -->
+<ion-card
+	*ngIf="articleAllowedIteration !== -1"
+	[color]="
+		articleAllowedIteration !== numberOfSessionsTaken ? 'light' : 'danger'
+	"
+>
+	<ion-item lines="none" class="margin-10-px" color="none">
+		<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>&nbsp;&nbsp;
+		<ion-text *ngIf="articleAllowedIteration !== numberOfSessionsTaken">
+			{{ "pageSubTitle.sessionAllowed1" | translate
+			}}<ion-badge
+				><b>{{ articleAllowedIteration }}</b></ion-badge
+			>{{ "pageSubTitle.sessionAllowed2" | translate
+			}}<ion-badge
+				><b>{{ numberOfSessionsTaken }}</b></ion-badge
+			>{{ "pageSubTitle.sessionAllowed3" | translate }}.
+			<ion-badge
+				><b>{{
+					articleAllowedIteration - numberOfSessionsTaken
+				}}</b></ion-badge
+			>
+			{{ "pageSubTitle.sessionAllowed5" | translate }}
+		</ion-text>
+
+		<ion-text *ngIf="articleAllowedIteration === numberOfSessionsTaken">
+			{{ "pageSubTitle.sessionAllowed1" | translate
+			}}<ion-badge
+				><b>{{ articleAllowedIteration }}</b></ion-badge
+			>{{ "pageSubTitle.sessionAllowed4" | translate }}
+		</ion-text>
+	</ion-item>
+</ion-card>
+<!-- sessions allowed -->

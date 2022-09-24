@@ -178,7 +178,12 @@
 		"assessmentsTakenCategory": "See the number of different types of study materials you have consumed so far",
 		"assignmentsScoreAnalysis": "See how you have performed in accross the assesments",
 		"courseContentCoverageOverTime": "See how many different types of course materials you have consumed over last 12 months. The numbers consist of the materials you would have consumes as part of repetations.",
-		"courseContentTimeCoverageOverTime": "See how much time you have spend in each of the course materials over last 12 months. The time is in minuts"
+		"courseContentTimeCoverageOverTime": "See how much time you have spend in each of the course materials over last 12 months. The time is in minuts",
+		"sessionAllowed1": "Maximum ",
+		"sessionAllowed2": " iteration(s) allowed. You have taken ",
+		"sessionAllowed3": " session(s)",
+		"sessionAllowed4": " iteration(s) allowed. You have already taken all sessions.",
+		"sessionAllowed5": " iteration(s) left."
 	},
 	"formInfo": {
 		"interest": "What are subjects / topics you are interested in to.",
@@ -253,7 +258,8 @@
 		"video": "Add Video",
 		"emailPeer": "Add email address of your peer",
 		"you": "You",
-		"sessionNoDataMonth": "No data available from last month"
+		"sessionNoDataMonth": "No data available from last month",
+		"contentIterationAllowed": "Select the number of times this session can be taken. Sessions with no reward has no limit to retake the session"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -337,7 +343,8 @@
 		"imageSize": "Image file size beyond 1 MB not allowed",
 		"minimumAnswer": "Minimum 2 answers are required",
 		"minimumCorrectAnswer": "Minimum 1 answer must be correct",
-		"selectAudio": "Record an audio clip"
+		"selectAudio": "Record an audio clip",
+		"noReward": "No rewards !! A practice session"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
@@ -379,7 +386,8 @@
 		"deletePeer": "Peer has been deleted successfully"
 	},
 	"validation": {
-		"required": "Please provide the details"
+		"required": "Please provide the details",
+		"iterationNoLimit": "This is a practice session and can be taken any number of times"
 	},
 	"categoryModal": {
 		"addTitle": "Add New Category",

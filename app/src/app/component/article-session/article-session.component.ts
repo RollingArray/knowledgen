@@ -9,7 +9,7 @@
  * Last modified  : 2022-09-07 20:52:45
  */
 
-import { Component, OnInit, Injector, Input, ViewChild, Inject } from "@angular/core";
+import { Component, OnInit, Injector, Input, ViewChild, Inject, EventEmitter, Output } from "@angular/core";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -94,6 +94,11 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	@Input() courseMaterialTypeId: CourseMaterialTypeIdEnum;
 
 	/**
+	 * Output  of article session component
+	 */
+	@Output() sessionAvailableEmitter = new EventEmitter<boolean>();
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
@@ -139,6 +144,16 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * Data loading of article session component
 	 */
 	private _dataLoading = false;
+
+	/**
+	 * Article allowed iteration of article session component
+	 */
+	private _articleAllowedIteration: number = 0;
+
+	/**
+	 * Number of sessions taken of article session component
+	 */
+	private _numberOfSessionsTaken: number = 0;
 
 
 	/**
@@ -199,6 +214,22 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	get dataLoading()
 	{
 		return this._dataLoading;
+	}
+
+	/**
+	 * Gets article allowed iteration
+	 */
+	get articleAllowedIteration()
+	{
+		return this._articleAllowedIteration;
+	}
+
+	/**
+	 * Gets number of sessions taken
+	 */
+	get numberOfSessionsTaken()
+	{
+		return this._numberOfSessionsTaken;
 	}
 
 
@@ -269,6 +300,9 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 							this.buildChartOptions();
 
 							await this.buildChart();
+
+							this.findArticleSessionAvailability(articleSession);
+
 						}
 					})
 			}
@@ -289,6 +323,27 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Finds article session availability
+	 * @param articleSession 
+	 */
+	private findArticleSessionAvailability(articleSession: ArticleSessionModel)
+	{
+		this._articleAllowedIteration = articleSession.articleAllowedIteration;
+		this._numberOfSessionsTaken = articleSession.articleSessions.length;
+		if (this._articleAllowedIteration !== this._numberOfSessionsTaken)
+		{
+			this.sessionAvailableEmitter.emit(true);
+		}
+
+		else
+		{
+			this.sessionAvailableEmitter.emit(false);
+		}
+	}
+
+
 
 	/**
 	 * Builds chart label
@@ -403,7 +458,7 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 		}
 		else
 		{
-			const canvas = <HTMLCanvasElement> document.getElementById('chart');
+			const canvas = <HTMLCanvasElement>document.getElementById('chart');
 			const ctx = canvas.getContext('2d');
 			this._barChart = new Chart(ctx, {
 				type: this._chartType,
