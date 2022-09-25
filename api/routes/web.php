@@ -104,6 +104,24 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     });
 
     $router->group([
+        'prefix' => 'subject/area',
+        'middleware' => 'auth',
+    ], function () use ($router) {
+        $router->get(
+            'all',
+            [
+                'uses' => 'CoreSubjectAreaController@all'
+            ]
+        );
+        $router->get(
+            'add',
+            [
+                'uses' => 'CoreSubjectAreaController@add'
+            ]
+        );
+    });
+
+    $router->group([
         'prefix' => 'dashboard',
         'middleware' => 'auth',
     ], function () use ($router) {
