@@ -1,14 +1,14 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
- *
- * @summary ChildMenu component
+ * @summary Keyword component
  * @author code@rollingarray.co.in
  *
- * Created at     : 2021-11-11 16:33:48 
- * Last modified  : 2022-01-23 16:19:56
+ * Created at     : 2022-09-26 14:30:45 
+ * Last modified  : 2022-09-26 14:31:16
  */
+
+
 
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -39,6 +39,9 @@ export class KeywordComponent extends BaseViewComponent implements OnInit
 	  */
 	@Input() context;
 
+	/**
+	 * Key words of keyword component
+	 */
 	private _keyWords: string[] = [];
 
 	/**
@@ -93,16 +96,16 @@ export class KeywordComponent extends BaseViewComponent implements OnInit
 	 */
 	ngOnChanges() {
         
-        var $text = this.context;
-
+        let text = this.context;
 		const commonWords = this.arrayKey.COMMON_WORDS;
 		// Convert to lowercase
-		$text = $text.toLowerCase();
+		text = text.toLowerCase();
+
 
 		// replace unnesessary chars. leave only chars, numbers and space
-		$text = $text.replace(/[^\w\d ]/g, '');
+		text = text.replace(/[^\w\d ]/g, '');
 
-		var result: string[] = $text.split(' ');
+		var result: string[] = text.split(' ');
 
 		// remove $commonWords
 		result = result.filter(function (word)
