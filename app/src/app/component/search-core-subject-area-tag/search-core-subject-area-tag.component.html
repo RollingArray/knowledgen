@@ -1,0 +1,50 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Search core subject area tag component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-26 14:17:31 
+ * Last modified  : 2022-09-26 14:18:10
+ */
+ -->
+
+<!-- page content -->
+<ion-content class="modal-content" color="primary">
+	<!-- search -->
+	<search-input
+		[searchKey]="(searchKey$ | async)!"
+		[enableUnsearchableAddButton]="enableUnsearchableAddButton"
+		[addUnsearchableEntity]="addUnsearchableEntity"
+		(emitUnSearchedKey)="buildNewSubjectAreaTagFromSearch($event)"
+		(emitSearchKey)="pullCoreSubjectAreaTagFromStoreBySearchKey($event)"
+	></search-input>
+	<!-- search -->
+
+	<!-- search result -->
+	<div class="results">
+		<ion-list
+			class="search-results"
+			data-cy="search-results"
+			color="primary"
+		>
+			<ion-item
+				*ngFor="let coreSubjectArea of coreSubjectAreaTags$ | async"
+				color="primary"
+				(click)="selectCoreSubjectAreaTag(coreSubjectArea)"
+				class="cursor-pointer"
+			>
+				<ion-icon [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
+				<ion-label>
+					&nbsp;&nbsp;{{ coreSubjectArea.subjectAreaTagName }}
+				</ion-label>
+				<ion-button color="tertiary">
+					<ion-icon [src]="stringKey.ICON_SELECT"></ion-icon>
+				</ion-button>
+			</ion-item>
+		</ion-list>
+	</div>
+	<!-- search result -->
+</ion-content>
+<!-- page content -->

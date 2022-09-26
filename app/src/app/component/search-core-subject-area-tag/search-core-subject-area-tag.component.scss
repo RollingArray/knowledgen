@@ -1,0 +1,30 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Search core subject area tag component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-26 14:17:31 
+ * Last modified  : 2022-09-26 14:18:17
+ */
+
+contribute-skill {
+	bottom: 100px;
+	width: 100%;
+	height: 350px;
+}
+.avatar {
+	margin: 10px 0 0 0;
+	font-size: 20px;
+}
+ion-avatar {
+	margin-right: 0px;
+}
+
+ion-item{
+	cursor: pointer;
+}
+
+ion-list{
+	padding: 0;
+}
