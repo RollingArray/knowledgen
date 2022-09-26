@@ -461,3 +461,21 @@ td:last-child {
 	position: absolute;
 }
 /*position */
+
+/*drop selector*/
+.drop-selector-backdrop {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: var(--ion-color-secondary);
+	z-index: 999;
+	opacity: 0.6;
+}
+.drop-selector {
+	position: fixed;
+	bottom: -300px;
+	width: 100%;
+	height: 300px;
+	z-index: 1000;
+}
+/*drop selector*/
