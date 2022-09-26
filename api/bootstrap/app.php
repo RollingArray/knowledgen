@@ -167,6 +167,7 @@ $app->register(App\Providers\CourseMaterialFlashCardProvider::class);
 $app->register(App\Providers\CourseMaterialArticleRevisionServiceProvider::class);
 $app->register(App\Providers\UserPeerServiceProvider::class);
 $app->register(App\Providers\CoreSubjectAreaServiceProvider::class);
+$app->register(App\Providers\CoreSubjectAreaTagServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);

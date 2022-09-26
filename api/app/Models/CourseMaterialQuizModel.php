@@ -24,7 +24,8 @@ class CourseMaterialQuizModel extends BaseModel{
         'article_id',
         'question_id',
         'question',
-        'quiz_type'
+        'quiz_type',
+        'subject_area_tag_id'
     ];
 
     protected $primaryKey = 'question_id';
@@ -50,5 +51,15 @@ class CourseMaterialQuizModel extends BaseModel{
     public function courseMaterialQuizAnswers()
     {
         return $this->hasMany(CourseMaterialQuizAnswerModel::class);
+    }
+
+    /**
+     * Relation - Has one core subject area tag
+     *
+     * @return void
+     */
+    public function coreSubjectAreaTag()
+    {
+        return $this->hasOne(CoreSubjectAreaTagModel::class);
     }
 }

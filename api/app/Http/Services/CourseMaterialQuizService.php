@@ -78,7 +78,14 @@ class CourseMaterialQuizService implements CourseMaterialQuizServiceInterface
             'tbl_course_material_article.course_material_id', 
             'tbl_course_material_quiz.question_id',
             'tbl_course_material_quiz.question',
-            'tbl_course_material_quiz.quiz_type'
+            'tbl_course_material_quiz.quiz_type',
+            'tbl_core_subject_area_tag.subject_area_id',
+            'tbl_course_material_quiz.subject_area_tag_id',
+            'tbl_core_subject_area_tag.subject_area_tag_name'
+            )
+            ->join(
+                'tbl_core_subject_area_tag',
+                'tbl_course_material_quiz.subject_area_tag_id','=','tbl_core_subject_area_tag.subject_area_tag_id'
             )
             ->join(
                 'tbl_course_material_article',
@@ -113,7 +120,14 @@ class CourseMaterialQuizService implements CourseMaterialQuizServiceInterface
             'tbl_course_material_article.course_material_id', 
             'tbl_course_material_quiz.question_id',
             'tbl_course_material_quiz.question',
-            'tbl_course_material_quiz.quiz_type'
+            'tbl_course_material_quiz.quiz_type',
+            'tbl_core_subject_area_tag.subject_area_id',
+            'tbl_course_material_quiz.subject_area_tag_id',
+            'tbl_core_subject_area_tag.subject_area_tag_name'
+            )
+            ->join(
+                'tbl_core_subject_area_tag',
+                'tbl_course_material_quiz.subject_area_tag_id','=','tbl_core_subject_area_tag.subject_area_tag_id'
             )
             ->join(
                 'tbl_course_material_article',

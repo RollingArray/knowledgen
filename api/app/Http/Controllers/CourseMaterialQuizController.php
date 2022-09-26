@@ -7,6 +7,7 @@ use App\Http\Interfaces\CourseMaterialQuizServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Interfaces\JWTAuthServiceInterface;
+use App\Models\CoreSubjectAreaTagModel;
 use App\Models\CourseMaterialArticleModel;
 use App\Models\CourseMaterialQuizAnswerModel;
 use App\Models\CourseMaterialQuizModel;
@@ -54,6 +55,9 @@ class CourseMaterialQuizController extends Controller
             'article_id' => 'required|alpha_num',
 			'question' => 'required',
             'quiz_type' => 'required|in:mcq,trueFalse',
+			'subject_area_id' => 'required|max:255',
+			'subject_area_tag_id' => 'sometimes|max:255',
+			'subject_area_tag_name' => 'required|max:255',
 		];
 	}
 
@@ -114,11 +118,26 @@ class CourseMaterialQuizController extends Controller
             );
         }
 
-		$questionId = uniqid();
+		// add subject area tag if now, else keep same id
+		$subjectAreaTagId = uniqid();
+		if($request->input('subject_area_tag_id') === ''){
+			//creating a new model
+			$model = new CoreSubjectAreaTagModel();
 
-		
-		//dd($array);
+			//adding values to the model
+			$model->subject_area_id = $request->input('subject_area_id');
+			$model->subject_area_tag_id = $subjectAreaTagId;
+			$model->subject_area_tag_name = $request->input('subject_area_tag_name');
+			
+			//saving the model to database
+			$model->save();
+		}
+		else{
+			$subjectAreaTagId =  $request->input('subject_area_tag_id');
+		}
+
         //creating a new model
+		$questionId = uniqid();
         $model = new CourseMaterialQuizModel();
 
 		//adding values to the model
@@ -126,7 +145,7 @@ class CourseMaterialQuizController extends Controller
         $model->question_id = $questionId;
         $model->question = $request->input('question');
 		$model->quiz_type = $request->input('quiz_type');
-		
+		$model->subject_area_tag_id = $subjectAreaTagId;
         
         //saving the model to database
         $model->save();
@@ -172,14 +191,32 @@ class CourseMaterialQuizController extends Controller
             );
         }
 
-		$questionId = $request->input('question_id');
+		// add subject area tag if now, else keep same id
+		$subjectAreaTagId = uniqid();
+		if($request->input('subject_area_tag_id') === ''){
+			//creating a new model
+			$model = new CoreSubjectAreaTagModel();
+
+			//adding values to the model
+			$model->subject_area_id = $request->input('subject_area_id');
+			$model->subject_area_tag_id = $subjectAreaTagId;
+			$model->subject_area_tag_name = $request->input('subject_area_tag_name');
+			
+			//saving the model to database
+			$model->save();
+		}
+		else{
+			$subjectAreaTagId =  $request->input('subject_area_tag_id');
+		}
 
 		// find question model
+		$questionId = $request->input('question_id');
 		$model = $this->courseMaterialQuizServiceInterface->getQuestion($questionId);
 		
 		// modify values to the question model
 		$model->question = $request->input('question');
 		$model->quiz_type = $request->input('quiz_type');
+		$model->subject_area_tag_id = $subjectAreaTagId;
 
 		// save question model
 		$model->save();
@@ -197,7 +234,7 @@ class CourseMaterialQuizController extends Controller
 			$quizAnswerModel->save();
 		}
 
-		// // Get the complete model back
+		// Get the complete model back
 		$model = $this->courseMaterialQuizServiceInterface->getQuestionDetails($questionId);
 
         // return to client

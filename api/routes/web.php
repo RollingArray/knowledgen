@@ -119,6 +119,18 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
                 'uses' => 'CoreSubjectAreaController@add'
             ]
         );
+
+        $router->group([
+            'prefix' => 'tag',
+            'middleware' => 'auth',
+        ], function () use ($router) {
+            $router->get(
+                'all',
+                [
+                    'uses' => 'CoreSubjectAreaTagController@all'
+                ]
+            );
+        });
     });
 
     $router->group([

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class CoreSubjectAreaModel extends BaseModel{
+class CoreSubjectAreaTagModel extends BaseModel{
 
     use HasFactory;
 
@@ -13,7 +13,7 @@ class CoreSubjectAreaModel extends BaseModel{
      *
      * @var string
      */
-    protected $table = 'tbl_core_subject_area';
+    protected $table = 'tbl_core_subject_area_tag';
 
     
     /**
@@ -21,7 +21,7 @@ class CoreSubjectAreaModel extends BaseModel{
      *
      * @var string
      */
-    protected $primaryKey = 'subject_area_id';
+    protected $primaryKey = 'subject_area_tag_id';
 
     protected $keyType = 'string';
 
@@ -34,16 +34,17 @@ class CoreSubjectAreaModel extends BaseModel{
      */
     protected $fillable = [
         'subject_area_id', 
-        'subject_area_name',
+        'subject_area_tag_id', 
+        'subject_area_tag_name',
     ];
 
     /**
-     * Relation - has many core subject area tag
+     * Relation - Belongs to core subject area
      *
      * @return void
      */
-    public function coreSubjectAreaTag()
+    public function coreSubjectArea()
     {
-        return $this->hasMany(CoreSubjectAreaTagModel::class);
+        return $this->belongsTo(CoreSubjectAreaModel::class);
     }
 }
