@@ -1,0 +1,44 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Search input component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-26 14:17:31 
+ * Last modified  : 2022-09-26 14:19:23
+ */
+ -->
+
+<!-- search -->
+<ion-card>
+	<ion-grid>
+		<ion-row class="padding-10-px">
+			<!-- search input control -->
+			<ion-col>
+				<input
+					type="text"
+					[value]="searchKey"
+					#searchInput
+					class="form-control"
+					[placeholder]="'formInfo.searchName' | translate"
+				/>
+			</ion-col>
+			<!-- search input control -->
+			<!-- search add button -->
+			<ion-col size="1.5">
+				<common-button 
+					*ngIf="enableUnsearchableAddButton"
+					class="float-right"
+					[icon]="stringKey.ICON_ADD"
+					(event)="selectUnSearchedResult()"
+					[title]="'button.add' | translate"
+					[color]="stringKey.COLOR_TERTIARY"
+				>
+				</common-button>
+			</ion-col>
+			<!-- search add button -->
+		</ion-row>
+	</ion-grid>
+</ion-card>
+<!-- search -->
