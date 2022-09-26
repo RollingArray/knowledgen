@@ -60,6 +60,8 @@ const reducer = createReducer(
 			changes: {
 				courseMaterialName: action.payload.courseMaterialName,
 				courseMaterialDescription: action.payload.courseMaterialDescription,
+				subjectAreaId: action.payload.subjectAreaId,
+				subjectAreaName: action.payload.subjectAreaName,
 			}
 		}, state)
 	)),

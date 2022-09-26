@@ -17,6 +17,10 @@ import { CourseMaterialService } from "src/app/shared/service/course-material.se
 import { COURSE_MATERIAL_ACTIONS } from "./course-material.state.actions";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "../root/root.state.facade";
+import { CoreSubjectAreaStateFacade } from "../core-subject-area/core-subject-area.state.facade";
+import { CORE_SUBJECT_AREA_ACTIONS } from "../core-subject-area/core-subject-area.state.actions";
+import { CoreSubjectAreaModel } from "src/app/shared/model/core-subject-area.model";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
 
 
 @Injectable()
@@ -42,7 +46,8 @@ export class CourseMaterialStateEffects {
 		private actions$: Actions,
 		private courseMaterialService: CourseMaterialService,
 		private toastService: ToastService,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private coreSubjectAreaStateFacade: CoreSubjectAreaStateFacade
 	) { }
 
 
@@ -70,7 +75,6 @@ export class CourseMaterialStateEffects {
 								// store retrieved categories
 								return COURSE_MATERIAL_ACTIONS.LOADED_REQUEST_COURSE_MATERIAL({ payload: data.data });
 							}
-
 
 							// response fail
 							else {
@@ -134,16 +138,24 @@ export class CourseMaterialStateEffects {
 				),
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
-						map((data) => {
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopModalLoading();
+
 							// if success response
 							if (data.success) {
-
+								
 								// build new skill object
-								const courseMaterialId = data.resource.courseMaterialId;
 								const newCourseMaterial = {
 									...action.payload,
-									courseMaterialId
+									courseMaterialId: data.resource.courseMaterialId,
+									subjectAreaId: data.resource.subjectAreaId,
+									subjectAreaName: data.resource.subjectAreaName
 								};
+
+								// find and add the subject area if it does not exist
+								this.findAndAddNewSubjectArea(data.resource);
 
 								// store newly added skill
 								return COURSE_MATERIAL_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL({ payload: newCourseMaterial });
@@ -177,10 +189,17 @@ export class CourseMaterialStateEffects {
 				),
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
-						map((data) => {
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopModalLoading();
+
 							// if success response
 							if (data.success) {
 
+								// find and add the subject area if it does not exist
+								this.findAndAddNewSubjectArea(data.resource);
+								
 								// store updated category
 								return COURSE_MATERIAL_ACTIONS.STORE_UPDATED_COURSE_MATERIAL({ payload: action.payload });
 								//return COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_CRUD_SUCCESS();
@@ -213,7 +232,11 @@ export class CourseMaterialStateEffects {
 				),
 				mergeMap(action =>
 					this.courseMaterialService.crudCourseMaterial(action.payload).pipe(
-						map((data) => {
+						map((data) =>
+						{
+							// stop loader
+							this.rootStateFacade.stopModalLoading();
+
 							// if success response
 							if (data.success) {
 
@@ -291,4 +314,26 @@ export class CourseMaterialStateEffects {
 				map(action => COURSE_MATERIAL_ACTIONS.COURSE_MATERIAL_CRUD_SUCCESS()),
 			),
 	);
+
+	/**
+	 * Finds and add new subject area
+	 * @param data 
+	 */
+	private findAndAddNewSubjectArea(data: CourseMaterialModel)
+	{
+		const ifExist$ = this.coreSubjectAreaStateFacade.ifCoreSubjectAreaExistByCoreSubjectAreaId$(data.subjectAreaId);
+		
+		ifExist$.subscribe(hasData =>
+		{
+			
+			if (!hasData)
+			{
+				const newCoreSubjectArea: CoreSubjectAreaModel = {
+					subjectAreaId: data.subjectAreaId,
+					subjectAreaName: data.subjectAreaName
+				};
+				this.coreSubjectAreaStateFacade.addNewCoreSubjectArea(newCoreSubjectArea);
+			}
+		});
+	}
 }

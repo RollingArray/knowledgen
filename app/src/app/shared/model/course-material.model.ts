@@ -10,9 +10,10 @@
  */
 
 import { BaseModel } from "./base.model";
+import { CoreSubjectAreaModel } from "./core-subject-area.model";
 
 
-export interface CourseMaterialModel extends BaseModel
+export interface CourseMaterialModel extends BaseModel, CoreSubjectAreaModel
 {
 	courseMaterialId?: string;
 	courseMaterialName?: string;
@@ -20,4 +21,6 @@ export interface CourseMaterialModel extends BaseModel
 	courseMaterialOwner?: boolean | false;
 	addedToLearningPath?: boolean | false;
 	courseMaterialProgress?: number;
+	authorFirstName?: string;
+	authorLastName?: string;
 }
