@@ -18,14 +18,13 @@ import { RootStateFacade } from "src/app/state/root/root.state.facade";
 import { ApiUrls } from "../constant/api-urls.constant";
 import { OperationsEnum } from "../enum/operations.enum";
 import { BaseModel } from "../model/base.model";
-import { CourseMaterialModel } from "../model/course-material.model";
+import { CoreSubjectAreaModel } from "../model/core-subject-area.model";
 import { BaseService } from "./base.service";
-
 
 @Injectable({
 	providedIn: "root"
 })
-export class CourseMaterialService extends BaseService<BaseModel> {
+export class CoreSubjectAreaService extends BaseService<BaseModel> {
 	/**
 	 * Creates an instance of user peer service.
 	 * @param httpClient 
@@ -49,40 +48,23 @@ export class CourseMaterialService extends BaseService<BaseModel> {
 	}
 
 	/**
-	 * Gets course material
-	 * @param userModel 
-	 * @returns course material 
+	 * Gets core subject area
+	 * @returns core subject area 
 	 */
-	getCourseMaterial(): Observable<BaseModel>
+	getCoreSubjectArea(): Observable<BaseModel>
 	{
-		return this.get(`${ApiUrls.COURSE_MATERIAL}`);
+		return this.get(`${ApiUrls.CORE_SUBJECT_AREA}`);
 	}
 
 	/**
-	 * Gets recommended course material
-	 * @returns recommended course material 
+	 * Cruds core subject area
+	 * @param coreSubjectAreaModel 
+	 * @returns core subject area 
 	 */
-	getRecommendedCourseMaterial(): Observable<BaseModel>
-	{
-		return this.get(`${ApiUrls.RECOMMENDED_COURSE_MATERIAL}`);
-	}
-
-	/**
-	 * Cruds course material
-	 * @param courseMaterialModel 
-	 * @returns course material 
-	 */
-	crudCourseMaterial(courseMaterialModel: CourseMaterialModel): Observable<CourseMaterialModel>{
-		switch (courseMaterialModel.operationType) {
+	crudCoreSubjectArea(coreSubjectAreaModel: CoreSubjectAreaModel): Observable<CoreSubjectAreaModel>{
+		switch (coreSubjectAreaModel.operation) {
 			case OperationsEnum.CREATE:
-				return this.post(ApiUrls.COURSE_MATERIAL_ADD, courseMaterialModel);
-				break;
-			case OperationsEnum.EDIT:
-				return this.post(ApiUrls.COURSE_MATERIAL_EDIT, courseMaterialModel);
-				break;
-			case OperationsEnum.DELETE:
-				const url = `${ApiUrls.COURSE_MATERIAL_DELETE}/${courseMaterialModel.courseMaterialId}`;
-				return this.post(ApiUrls.COURSE_MATERIAL_DELETE, courseMaterialModel);
+				return this.post(ApiUrls.CORE_SUBJECT_AREA_ADD, coreSubjectAreaModel);
 				break;
 			default:
 				break;

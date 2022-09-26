@@ -36,6 +36,10 @@ export class ApiUrls
 	public static readonly USER_DETAILS: string = ApiUrls.API_BASE_PATH + "/user/details";
 	public static readonly USER_PROFILE_UPDATE: string = ApiUrls.API_BASE_PATH + "/user/edit";
 
+	public static readonly CORE_SUBJECT_AREA_BASE: string = ApiUrls.API_BASE_PATH + "/subject/area";
+	public static readonly CORE_SUBJECT_AREA: string = ApiUrls.CORE_SUBJECT_AREA_BASE + "/all";
+	public static readonly CORE_SUBJECT_AREA_ADD: string = ApiUrls.CORE_SUBJECT_AREA_BASE + "/add";
+
 	public static readonly DASHBOARD_BASE: string = ApiUrls.API_BASE_PATH + "/dashboard";
 	public static readonly DASHBOARD_STUDENT: string = ApiUrls.DASHBOARD_BASE + "/student";
 	public static readonly DASHBOARD_TEACHER: string = ApiUrls.DASHBOARD_BASE + "/teacher";
