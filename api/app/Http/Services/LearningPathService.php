@@ -6,6 +6,7 @@ use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\LearningPathServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
+use App\Http\Interfaces\UsersServiceInterface;
 use App\Models\LearningPathModel;
 
 class LearningPathService implements LearningPathServiceInterface
@@ -20,15 +21,19 @@ class LearningPathService implements LearningPathServiceInterface
     protected $courseMaterialArticleServiceInterface;
 
     protected $courseMaterialAssignmentResultServiceInterface;
+
+    protected $usersServiceInterface;
     
     public function __construct(
 		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
         CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
-        CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface
+        CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface,
+        UsersServiceInterface $usersServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
         $this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
         $this->courseMaterialAssignmentResultServiceInterface = $courseMaterialAssignmentResultServiceInterface;
+        $this->usersServiceInterface = $usersServiceInterface;
 	}
 
     /**
@@ -78,6 +83,9 @@ class LearningPathService implements LearningPathServiceInterface
             $courseMaterialId = $eachData->course_material_id;
             $courseMaterialProgress = $this->getLearningPathWithProgress($userId, $courseMaterialId);
             $eachData['course_material_progress'] = $courseMaterialProgress;
+            $materialAuthor = $this->usersServiceInterface->getUserById($eachData->author_id);
+            $eachData['author_first_name'] = $materialAuthor->user_first_name;
+            $eachData['author_last_name'] = $materialAuthor->user_last_name;
             $tempRows[] = $eachData;
         }
 
@@ -129,6 +137,9 @@ class LearningPathService implements LearningPathServiceInterface
             'tbl_learning_path.user_id', 
             'tbl_course_material.course_material_name', 
             'tbl_course_material.course_material_description',
+            'tbl_course_material.user_id as author_id',
+            'tbl_course_material.subject_area_id',
+            'tbl_core_subject_area.subject_area_name',
             'tbl_learning_path.created_at',
             'tbl_learning_path.updated_at',
             'tbl_users.user_type'
@@ -140,6 +151,10 @@ class LearningPathService implements LearningPathServiceInterface
             ->join(
 				'tbl_course_material',
 				'tbl_learning_path.course_material_id','=','tbl_course_material.course_material_id'
+			)
+            ->join(
+				'tbl_core_subject_area',
+				'tbl_course_material.subject_area_id','=','tbl_core_subject_area.subject_area_id'
 			)
             ->where('tbl_learning_path.user_id', '=', $userId)
 			->get();

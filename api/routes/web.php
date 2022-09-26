@@ -149,7 +149,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->get(
             'all',
             [
-                'uses' => 'CourseMaterialController@getAllCourseMaterials'
+                'uses' => 'CourseMaterialController@all'
             ]
         );
         $router->get(
@@ -161,21 +161,21 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
         $router->post(
             'add',
             [
-                'uses' => 'CourseMaterialController@addNewCourseMaterials'
+                'uses' => 'CourseMaterialController@add'
             ]
         );
         $router->post(
             'edit',
             [
                 'middleware' => 'courseMaterialOwner',
-                'uses' => 'CourseMaterialController@editCourseMaterials'
+                'uses' => 'CourseMaterialController@edit'
             ]
         );
         $router->post(
             'delete',
             [
                 'middleware' => 'courseMaterialOwner',
-                'uses' => 'CourseMaterialController@deleteCourseMaterials'
+                'uses' => 'CourseMaterialController@delete'
             ]
         );
 

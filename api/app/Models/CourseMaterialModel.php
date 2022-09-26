@@ -38,15 +38,16 @@ class CourseMaterialModel extends BaseModel{
         'course_material_id', 
         'course_material_name', 
         'course_material_description',
+        'subject_area_id',
     ];
 
-    public function user()
+     /**
+     * Relation - Belongs to Core subject area
+     *
+     * @return void
+     */
+    public function coreSubjectArea()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function courseMaterial()
-    {
-        return $this->belongsTo(CourseMaterialModel::class);
+        return $this->belongsTo(CoreSubjectAreaModel::class);
     }
 }
