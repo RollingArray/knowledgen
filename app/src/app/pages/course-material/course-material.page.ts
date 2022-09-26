@@ -402,7 +402,9 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 			courseMaterialId: '',
 			courseMaterialName: '',
 			courseMaterialDescription: '',
-			operation: OperationsEnum.CREATE
+			subjectAreaId: '',
+			subjectAreaName: '',
+			operationType: OperationsEnum.CREATE
 		};
 
 		this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, OperationsEnum.CREATE);
@@ -417,23 +419,15 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 * @param operation 
 	 * @returns  
 	 */
-	public onCourseMaterialAction(selectedCourseMaterialModel: CourseMaterialModel, operation: OperationsEnum)
+	public onCourseMaterialAction(selectedCourseMaterialModel: CourseMaterialModel, operationType: OperationsEnum)
 	{
 		// add operation to the object
 		const courseMaterialModel: CourseMaterialModel = {
 			...selectedCourseMaterialModel,
-			operation: operation
+			operationType: operationType
 		};
 
-		// act upon operation
-		if (operation === OperationsEnum.EDIT)
-		{
-			return selectedCourseMaterialModel ? this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, operation) : undefined;
-		}
-		else
-		{
-			return courseMaterialModel ? this.checkIfWantToDelete(courseMaterialModel) : undefined;
-		}
+		return selectedCourseMaterialModel ? this.courseMaterialStateFacade.actUponCourseMaterial(courseMaterialModel, operationType) : undefined;
 	}
 
 	/**
