@@ -259,7 +259,9 @@
 		"emailPeer": "Add email address of your peer",
 		"you": "You",
 		"sessionNoDataMonth": "No data available from last month",
-		"contentIterationAllowed": "Select the number of times this session can be taken. Sessions with no reward has no limit to retake the session"
+		"contentIterationAllowed": "Select the number of times this session can be taken. Sessions with no reward has no limit to retake the session",
+		"searchName" : "search ...",
+		"subjectAreaName": "Selelct the subject area"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",
@@ -344,7 +346,8 @@
 		"minimumAnswer": "Minimum 2 answers are required",
 		"minimumCorrectAnswer": "Minimum 1 answer must be correct",
 		"selectAudio": "Record an audio clip",
-		"noReward": "No rewards !! A practice session"
+		"noReward": "No rewards !! A practice session",
+		"selectSearchResult" : "Select from the list of searched rsults"
 	},
 	"actionAlert": {
 		"noChange": "No change!!",
