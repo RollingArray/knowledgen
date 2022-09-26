@@ -685,6 +685,8 @@ export class StringKey {
 	public static readonly ICON_DASHBOARD: string = StringKey.ICON_BASE_PATH + "dashboard.svg";
 	public static readonly ICON_COURSE_MATERIAL: string = StringKey.ICON_BASE_PATH + "course-material.svg";
 	public static readonly ICON_INSTRUCTION: string = StringKey.ICON_BASE_PATH + "instruction.svg";
+	public static readonly ICON_FILTER: string = StringKey.ICON_BASE_PATH + "filter.svg";
+	
 	
 
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
