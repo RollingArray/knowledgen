@@ -10,7 +10,7 @@
  */
 
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Injector, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Injector, ElementRef, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -285,8 +285,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		private alertService: AlertService,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private rootStateFacade: RootStateFacade,
-		private animationController: AnimationController,
-		private changeDetectorRef: ChangeDetectorRef
+		private animationController: AnimationController
 	)
 	{
 		super(injector);
