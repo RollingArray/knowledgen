@@ -20,6 +20,7 @@ import { PageInfoTitleModule } from '../page-info-title/page-info-title.componen
 import { SharedModule } from 'src/app/shared/module/shared.module';
 import { KeywordModule } from '../keyword/keyword.component.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { SearchCoreSubjectAreaModule } from '../search-core-subject-area/search-core-subject-area.module';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		PageInfoTitleModule,
 		SharedModule,
 		KeywordModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		SearchCoreSubjectAreaModule
 	],
 
 	declarations: [CrudCourseMaterialComponent],

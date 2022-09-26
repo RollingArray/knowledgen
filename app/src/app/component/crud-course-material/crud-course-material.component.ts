@@ -10,7 +10,7 @@
  */
 
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Injector } from "@angular/core";
+import { Component, OnInit, Injector, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { takeUntil } from "rxjs/operators";
 import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
@@ -24,11 +24,14 @@ import { BaseFormComponent } from "../base/base-form.component";
 import { CourseMaterialStateFacade } from 'src/app/state/course-material/course-material.state.facade';
 import { AlertService } from 'src/app/shared/service/alert.service';
 import { Observable } from 'rxjs';
+import { AnimationController } from '@ionic/angular';
+import { CoreSubjectAreaModel } from 'src/app/shared/model/core-subject-area.model';
 
 @Component({
 	selector: 'crud-course-material',
 	templateUrl: './crud-course-material.component.html',
 	styleUrls: ['./crud-course-material.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CrudCourseMaterialComponent extends BaseFormComponent implements OnInit
 {
@@ -75,13 +78,29 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	private _keyWordContext = '';
 
+
+	/**
+	 * Private animation duration of user peer component
+	 */
+	private _animationDuration = 100;
+
+	/**
+	 * Transition height of user peer component
+	 */
+	private _transitionHeight = -291;
+
+	/**
+	 * Selected subject area of crud course material component
+	 */
+	private _selectedSubjectArea: CoreSubjectAreaModel;
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable								|
 	 * -------------------------------------------------|
 	 */
-	 public modalLoadingIndicatorStatus$: Observable<boolean>;
+	public modalLoadingIndicatorStatus$: Observable<boolean>;
 
 	/**
 	 * -------------------------------------------------|
@@ -97,15 +116,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	{
 
 		let title = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE)
+		if (this._courseMaterial.operationType === OperationsEnum.CREATE)
 		{
 			title = 'pageTitle.addCourse';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT)
+		else if (this._courseMaterial.operationType === OperationsEnum.EDIT)
 		{
 			title = 'pageTitle.editCourse';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE)
+		else if (this._courseMaterial.operationType === OperationsEnum.DELETE)
 		{
 			title = 'pageTitle.deleteCourse';
 		}
@@ -120,15 +139,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	{
 
 		let title = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE)
+		if (this._courseMaterial.operationType === OperationsEnum.CREATE)
 		{
 			title = 'pageSubTitle.addCourse';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT)
+		else if (this._courseMaterial.operationType === OperationsEnum.EDIT)
 		{
 			title = 'pageSubTitle.editCourse';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE)
+		else if (this._courseMaterial.operationType === OperationsEnum.DELETE)
 		{
 			title = 'pageSubTitle.deleteCourse';
 		}
@@ -142,15 +161,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	public get loading()
 	{
 		let loading = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE)
+		if (this._courseMaterial.operationType === OperationsEnum.CREATE)
 		{
 			loading = 'loading.newCourseMaterial';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT)
+		else if (this._courseMaterial.operationType === OperationsEnum.EDIT)
 		{
 			loading = 'loading.editCourseMaterial';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE)
+		else if (this._courseMaterial.operationType === OperationsEnum.DELETE)
 		{
 			loading = 'loading.deleteCourseMaterial';
 		}
@@ -164,15 +183,15 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	public get response()
 	{
 		let response = '';
-		if (this._courseMaterial.operation === OperationsEnum.CREATE)
+		if (this._courseMaterial.operationType === OperationsEnum.CREATE)
 		{
 			response = 'response.newCourseMaterial';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.EDIT)
+		else if (this._courseMaterial.operationType === OperationsEnum.EDIT)
 		{
 			response = 'response.editCourseMaterial';
 		}
-		else if (this._courseMaterial.operation === OperationsEnum.DELETE)
+		else if (this._courseMaterial.operationType === OperationsEnum.DELETE)
 		{
 			response = 'response.deleteCourseMaterial';
 		}
@@ -209,8 +228,39 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	 */
 	public get isOperationDelete()
 	{
-		return this._courseMaterial.operation === OperationsEnum.DELETE ? true : false;
+		return this._courseMaterial.operationType === OperationsEnum.DELETE ? true : false;
 	}
+
+	/**
+	 * Gets selected subject area
+	 */
+	public get selectedSubjectArea()
+	{
+		return this._selectedSubjectArea;
+	}
+
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @ViewChild Instance variable						|
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Description  of user peer component
+	 */
+	@ViewChild("dropSelector", { read: ElementRef, static: true }) dropSelector: ElementRef;
+
+	/**
+	 * View child of user peer component
+	 */
+	@ViewChild("dropSelectorBackdrop", { read: ElementRef, static: true }) dropSelectorBackdrop: ElementRef;
+
+	/**
+	 * View child of user peer component
+	 */
+	@ViewChild("coreSubjectAreaSearchDropSelector", { read: ElementRef, static: true }) coreSubjectAreaSearchDropSelector: ElementRef;
+
 
 	/**
 	 * -------------------------------------------------|
@@ -234,10 +284,20 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		private translateService: TranslateService,
 		private alertService: AlertService,
 		private courseMaterialStateFacade: CourseMaterialStateFacade,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private animationController: AnimationController,
+		private changeDetectorRef: ChangeDetectorRef
 	)
 	{
 		super(injector);
+	}
+
+	/**
+	 * on init
+	 */
+	ngOnInit()
+	{
+		this.dropSelectorBackdrop.nativeElement.hidden = true;
 
 		// check status of modal indicator status
 		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
@@ -253,18 +313,10 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		this.buildFrom();
 
 		//if the operation is delete, submit the data
-		if (this._courseMaterial.operation === OperationsEnum.DELETE)
+		if (this._courseMaterial.operationType === OperationsEnum.DELETE)
 		{
-			this.submit();
+			this.checkIfWantToDelete();
 		}
-	}
-
-	/**
-	 * on init
-	 */
-	ngOnInit()
-	{
-		//
 	}
 
 	/**
@@ -282,6 +334,12 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 		const form = this.formGroup.value;
 		form.courseMaterialName = this._courseMaterial.courseMaterialName;
 		form.courseMaterialDescription = this._courseMaterial.courseMaterialDescription;
+
+		// set default subject area
+		this._selectedSubjectArea = {
+			subjectAreaId: this._courseMaterial.subjectAreaId,
+			subjectAreaName: this._courseMaterial.subjectAreaName,
+		}
 	}
 
 	/**
@@ -322,7 +380,9 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 			courseMaterialId: this._courseMaterial.courseMaterialId,
 			courseMaterialName: form.courseMaterialName,
 			courseMaterialDescription: form.courseMaterialDescription,
-			operation: this._courseMaterial.operation,
+			subjectAreaId: this._selectedSubjectArea.subjectAreaId,
+			subjectAreaName: this._selectedSubjectArea.subjectAreaName,
+			operationType: this._courseMaterial.operationType,
 		};
 
 		return model;
@@ -351,22 +411,23 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 					case OperationsEnum.SUCCESS:
 
 						const response = this.response;
-
-						// remove loading indicator
-						this.rootStateFacade.stopModalLoading();
 						
-						// show tost
-						this.translateService
-							.get(response)
-							.pipe(takeUntil(this.unsubscribe))
-							.subscribe(async (data: string) =>
-							{
+						if (response)
+						{
+							// show tost
+							this.translateService
+								.get(response)
+								.pipe(takeUntil(this.unsubscribe))
+								.subscribe(async (data: string) =>
+								{
 
-								// success response
-								this.toastService.presentToast(
-									data
-								);
-							});
+									// success response
+									this.toastService.presentToast(
+										data
+									);
+								});
+						}
+
 
 						// dismiss modal
 						this.closeModal();
@@ -387,7 +448,7 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 
 		const courseMaterialModel: CourseMaterialModel = this.buildDataModelToPass();
 
-		switch (this._courseMaterial.operation)
+		switch (this._courseMaterial.operationType)
 		{
 			case OperationsEnum.CREATE:
 				this.courseMaterialStateFacade.addNewCourseMaterial(courseMaterialModel);
@@ -402,6 +463,45 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 				break;
 		}
 	}
+
+	/**
+	 * Checks if want to delete
+	 * @param selectedCourseMaterialModel 
+	 */
+	 private checkIfWantToDelete()
+	 {
+		 this.translateService
+			 .get([
+				 'actionAlert.confirm',
+				 'actionAlert.delete',
+				 'option.yes',
+				 'option.no',
+			 ]).pipe(takeUntil(this.unsubscribe))
+			 .subscribe(async data =>
+			 {
+ 
+				 const alert = await this.alertController.create({
+					 header: `${data['actionAlert.confirm']}`,
+					 subHeader: data['actionAlert.delete'],
+					 cssClass: 'custom-alert',
+					 mode: 'md',
+					 buttons: [
+						 {
+							 cssClass: 'ok-button ',
+							 text: data['option.yes'],
+							 handler: (_) => this.submit()
+						 },
+						 {
+							 cssClass: 'cancel-button',
+							 text: data['option.no'],
+							 handler: () => this.closeModal()
+						 }
+					 ]
+				 });
+				 await alert.present();
+			 });
+ 
+	 }
 
 	/**
 	 * -------------------------------------------------|
@@ -462,6 +562,48 @@ export class CrudCourseMaterialComponent extends BaseFormComponent implements On
 	extractKeyWords()
 	{
 		const form = this.formGroup.value;
-		return this._keyWordContext = form.availabilityContext;
+		return this._keyWordContext = form.courseMaterialDescription;
+	}
+
+	/**
+	 * Opens crud peer drop selector
+	 */
+	async openCoreSubjectAreaSearchDropSelector()
+	{
+		//hide drop selectors
+		this.dropSelectorBackdrop.nativeElement.hidden = false;
+		this.coreSubjectAreaSearchDropSelector.nativeElement.hidden = false;
+
+		// animate to open it
+		const animation = this.animationController
+			.create()
+			.addElement(this.dropSelector.nativeElement)
+			.duration(this._animationDuration)
+			.fromTo("transform", "translateY(0px)", `translateY(${this._transitionHeight}px)`);
+		animation.play();
+	}
+
+	/**
+	 * Closes crud peer drop selector
+	 */
+	async closeCoreSubjectAreaSearchDropSelector()
+	{
+		this.dropSelectorBackdrop.nativeElement.hidden = true;
+		const animation = this.animationController
+			.create()
+			.addElement(this.dropSelector.nativeElement)
+			.duration(this._animationDuration)
+			.fromTo("transform", `translateY(${this._transitionHeight}px)`, "translateY(0px)");
+		animation.play();
+	}
+
+	public addSearchResult(searchResultCoreSubjectArea: CoreSubjectAreaModel)
+	{
+		this._selectedSubjectArea = {
+			subjectAreaId: searchResultCoreSubjectArea.subjectAreaId,
+			subjectAreaName: searchResultCoreSubjectArea.subjectAreaName,
+		}
+
+		this.closeCoreSubjectAreaSearchDropSelector();
 	}
 }

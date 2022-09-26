@@ -108,6 +108,26 @@
 					</ion-card>
 					<!-- course name -->
 
+					<!-- course core subject area -->
+					<ion-card color="secondary" (click)="openCoreSubjectAreaSearchDropSelector()" class="cursor-pointer">
+						<ion-item color="secondary" lines="none">
+							<ion-icon
+								[src]="stringKey.ICON_FORM"
+								slot="start"
+							></ion-icon>
+							<p>{{ "formInfo.subjectAreaName" | translate }}</p>
+						</ion-item>
+						<ion-card lines="none" color="light">
+							<ion-item lines="none" color="light">
+								<ion-icon [src]="stringKey.ICON_FILTER" slot="end"></ion-icon>&nbsp;&nbsp;
+								<ion-label>
+									{{selectedSubjectArea.subjectAreaName}}
+								</ion-label>
+							</ion-item>
+						</ion-card>
+					</ion-card>
+					<!-- course name -->
+
 					<!-- course description -->
 					<ion-card color="secondary">
 						<ion-item color="secondary" lines="none">
@@ -155,6 +175,8 @@
 						</ion-card>
 					</ion-card>
 					<!-- course description -->
+
+					
 				</ion-col>
 			</ion-row>
 		</ion-grid>
@@ -162,3 +184,37 @@
 	<!-- form -->
 </ion-content>
 <!-- body -->
+
+<!-- drop selector back drop -->
+<div
+	#dropSelectorBackdrop
+	class="drop-selector-backdrop"
+	(click)="closeCoreSubjectAreaSearchDropSelector()"
+></div>
+<!-- drop selector back drop -->
+
+<!-- drop selector -->
+<div #dropSelector class="drop-selector">
+	<!-- drop selector header -->
+	<ion-header>
+		<ion-toolbar color="secondary">
+			<ion-title slot="start">
+				{{ "pageTitle.addPeer" | translate }}
+			</ion-title>
+			<ion-buttons slot="end">
+				<ion-button
+					color="tertiary"
+					fill="outline"
+					(click)="closeCoreSubjectAreaSearchDropSelector()"
+					>{{ "button.close" | translate }}</ion-button
+				>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<!-- drop selector header -->
+	<search-core-subject-area
+		(emitSearchResult)="addSearchResult($event)"
+		#coreSubjectAreaSearchDropSelector
+	></search-core-subject-area>
+</div>
+<!-- drop selector -->
