@@ -27,8 +27,9 @@ import { CourseMaterialQuizAnswerModel } from 'src/app/shared/model/course-mater
 import { CourseMaterialQuizStateFacade } from 'src/app/state/course-material-quiz/course-material-quiz.state.facade';
 import { DOCUMENT } from '@angular/common';
 import { UtilityService } from 'src/app/shared/service/utility.service';
-import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CoreSubjectAreaTagModel } from 'src/app/shared/model/core-subject-area-tag.model';
+import { AnimationController } from '@ionic/angular';
 
 @Component({
 	selector: 'crud-quiz-question',
@@ -75,6 +76,16 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	readonly operationsEnum = OperationsEnum;
 
 	/**
+	 * Animation duration of crud quiz question component
+	 */
+	readonly animationDuration = 100;
+
+	/**
+	 * Transition height of crud quiz question component
+	 */
+	readonly transitionHeight = -291;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
@@ -89,6 +100,11 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	 * Course material quiz answers of crud quiz question component
 	 */
 	private _courseMaterialQuizAnswers: CourseMaterialQuizAnswerModel[] = [];
+
+	/**
+	 * Selected subject area tag of crud quiz question component
+	 */
+	private _selectedSubjectAreaTag: CoreSubjectAreaTagModel;
 
 	/**
 	 * -------------------------------------------------|
@@ -225,15 +241,39 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 	}
 
 	/**
+	 * Gets selected subject area tag
+	 */
+	public get selectedSubjectAreaTag()
+	{
+		return this._selectedSubjectAreaTag;
+	}
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @ViewChild Instance variable								|
+	 * @ViewChild Instance variable						|
 	 * -------------------------------------------------|
 	 */
 	/**
 	 * Description  of crud text document component
 	 */
 	@ViewChild('questionDocument') questionDocument: ElementRef;
+
+	/**
+	 * Description  of user peer component
+	 */
+	 @ViewChild("dropSelector", { read: ElementRef, static: true }) dropSelector: ElementRef;
+
+	 /**
+	  * View child of user peer component
+	  */
+	 @ViewChild("dropSelectorBackdrop", { read: ElementRef, static: true }) dropSelectorBackdrop: ElementRef;
+ 
+	 /**
+	  * View child of user peer component
+	  */
+	 @ViewChild("coreSubjectAreaTagSearchDropSelector", { read: ElementRef, static: true }) coreSubjectAreaTagSearchDropSelector: ElementRef;
+ 
 
 	/**
 	 * -------------------------------------------------|
@@ -259,11 +299,20 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 		private courseMaterialQuizStateFacade: CourseMaterialQuizStateFacade,
 		private rootStateFacade: RootStateFacade,
 		@Inject(DOCUMENT) document: Document,
-		private utilityService: UtilityService
+		private utilityService: UtilityService,
+		private animationController: AnimationController
 	)
 	{
 		
 		super(injector);
+	}
+
+	/**
+	 * on init
+	 */
+	ngOnInit()
+	{
+		this.dropSelectorBackdrop.nativeElement.hidden = true;
 
 		// check status of modal indicator status
 		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
@@ -275,7 +324,16 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 			.operationCourseMaterialQuiz$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(
-				data => this._courseMaterialQuiz = data
+				data =>
+				{
+					this._courseMaterialQuiz = data;
+					
+					// set default subject area
+					this._selectedSubjectAreaTag = {
+						subjectAreaTagId: this._courseMaterialQuiz.subjectAreaTagId,
+						subjectAreaTagName: this._courseMaterialQuiz.subjectAreaTagName,
+					}
+				}
 			);
 		
 		//if the operation is delete, submit the data
@@ -283,14 +341,6 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 		{
 			this.checkIfWantToDelete();
 		}
-	}
-
-	/**
-	 * on init
-	 */
-	ngOnInit()
-	{
-		//
 	}
 
 	/**
@@ -657,4 +707,52 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 			options: courseMaterialQuizOptions
 		}
 	}
+
+	/**
+	 * Opens crud peer drop selector
+	 */
+	 async openCoreSubjectAreaTagSearchDropSelector()
+	 {
+		 //hide drop selectors
+		 this.dropSelectorBackdrop.nativeElement.hidden = false;
+		 this.coreSubjectAreaTagSearchDropSelector.nativeElement.hidden = false;
+ 
+		 // animate to open it
+		 const animation = this.animationController
+			 .create()
+			 .addElement(this.dropSelector.nativeElement)
+			 .duration(this.animationDuration)
+			 .fromTo("transform", "translateY(0px)", `translateY(${this.transitionHeight}px)`);
+		 animation.play();
+	 }
+ 
+	 /**
+	  * Closes crud peer drop selector
+	  */
+	 async closeCoreSubjectAreaTagSearchDropSelector()
+	 {
+		 this.dropSelectorBackdrop.nativeElement.hidden = true;
+		 const animation = this.animationController
+			 .create()
+			 .addElement(this.dropSelector.nativeElement)
+			 .duration(this.animationDuration)
+			 .fromTo("transform", `translateY(${this.transitionHeight}px)`, "translateY(0px)");
+		 animation.play();
+	 }
+ 
+	 public addSearchResult(searchResultCoreSubjectArea: CoreSubjectAreaTagModel)
+	 {
+		 this._selectedSubjectAreaTag = {
+			 subjectAreaTagId: searchResultCoreSubjectArea.subjectAreaTagId,
+			 subjectAreaTagName: searchResultCoreSubjectArea.subjectAreaTagName,
+		 }
+
+		 this._courseMaterialQuiz = {
+			 ...this._courseMaterialQuiz,
+			 subjectAreaTagId: searchResultCoreSubjectArea.subjectAreaTagId,
+			 subjectAreaTagName: searchResultCoreSubjectArea.subjectAreaTagName,
+		 }
+ 
+		 this.closeCoreSubjectAreaTagSearchDropSelector();
+	 }
 }

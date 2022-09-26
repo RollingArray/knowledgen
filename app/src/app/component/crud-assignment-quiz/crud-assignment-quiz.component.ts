@@ -681,18 +681,27 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	public addNewQuestion()
 	{
-		// build data
-		const model: CourseMaterialQuizModel = {
-			articleId: this._selectedMenu.articleId,
-			courseMaterialId: this._selectedMenu.courseMaterialId,
-			quizType: QuizTypeEnum.MCQ,
-			questionId: '',
-			question: '',
-			options: [],
-			operationType: OperationsEnum.CREATE
-		};
+		this.courseMaterial$
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async courseMaterial =>
+			{
 
-		this.courseMaterialQuizStateFacade.actUponCourseMaterialQuiz(model, OperationsEnum.CREATE);
+				// build data
+				const model: CourseMaterialQuizModel = {
+					articleId: this._selectedMenu.articleId,
+					courseMaterialId: this._selectedMenu.courseMaterialId,
+					quizType: QuizTypeEnum.MCQ,
+					subjectAreaId: courseMaterial.subjectAreaId,
+					subjectAreaTagId: '',
+					subjectAreaTagName: '',
+					questionId: '',
+					question: '',
+					options: [],
+					operationType: OperationsEnum.CREATE
+				};
+
+				this.courseMaterialQuizStateFacade.actUponCourseMaterialQuiz(model, OperationsEnum.CREATE);
+			});
 	}
 
 	/**

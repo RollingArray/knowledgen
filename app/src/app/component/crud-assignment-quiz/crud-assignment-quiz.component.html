@@ -73,9 +73,20 @@
 			<ion-col size="12" *ngFor="let eachQuiz of courseMaterialQuiz$ | async">
 				<!-- each question -->
 				<ion-card>
+					<!-- question -->
 					<ion-card-header>
 						<ion-card-title [innerHtml]="eachQuiz.question"></ion-card-title>
 					</ion-card-header>
+					<!-- question -->
+
+					<!-- tag -->
+					<ion-badge class="margin-10-px">
+						<ion-icon [src]="stringKey.ICON_tag">
+							
+						</ion-icon>
+						&nbsp;&nbsp;{{eachQuiz.subjectAreaTagName}}
+					</ion-badge>
+					<!-- tag -->
 
 					<!-- answers -->
 					<ion-card-content *ngIf="isMaterialOwner">
@@ -94,7 +105,7 @@
 							<edit-button (event)="
                   onCourseMaterialQuizAction(eachQuiz, operationsEnum.EDIT)
                 "></edit-button>
-							<copy-button (event)="onCourseMaterialQuizCopyAction(eachQuiz)">
+							<copy-button (event)="onCourseMaterialQuizCopyAction(eachQuiz)" >
 							</copy-button>
 						</ion-buttons>
 						<ion-buttons slot="end">

@@ -12,9 +12,10 @@
 import { OperationsEnum } from "../enum/operations.enum";
 import { QuizTypeEnum } from "../enum/quiz-type.enum";
 import { BaseModel } from "./base.model";
+import { CoreSubjectAreaTagModel } from "./core-subject-area-tag.model";
 import { CourseMaterialQuizAnswerModel } from "./course-material-quiz-answer.model";
 
-export interface CourseMaterialQuizModel extends BaseModel
+export interface CourseMaterialQuizModel extends BaseModel, CoreSubjectAreaTagModel
 {
     articleId?: string;
     courseMaterialId?: string;

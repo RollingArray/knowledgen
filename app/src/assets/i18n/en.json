@@ -127,7 +127,9 @@
 		"studyTimeTaken": "Minutes of Study Time So Far",
 		"assessmentsTaken": "Assessments Taken So far",
 		"assessmentsTakenCategory": "Study Materials Accross Category",
-		"instructionSet": "Instruction Set"
+		"instructionSet": "Instruction Set",
+		"addSubjectArea": "Add Subject Area",
+		"addTag": "Add Tag"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -261,7 +263,8 @@
 		"sessionNoDataMonth": "No data available from last month",
 		"contentIterationAllowed": "Select the number of times this session can be taken. Sessions with no reward has no limit to retake the session",
 		"searchName" : "search ...",
-		"subjectAreaName": "Selelct the subject area"
+		"subjectAreaName": "Selelct / Add the subject area",
+		"subjectAreaTagName": "Selelct / Add a tag to analyse the results better"
 	},
 	"courseMaterialType": {
 		"textDocument": "Text Document",

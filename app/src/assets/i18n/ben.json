@@ -127,7 +127,9 @@
 		"studyTimeTaken": "এখন পর্যন্ত অধ্যয়নের সময় মিনিট",
 		"assessmentsTaken": "এ পর্যন্ত গৃহীত মূল্যায়ন",
 		"assessmentsTakenCategory": "অধ্যয়ন সামগ্রী বিভাগ জুড়ে",
-		"instructionSet": "নির্দেশনাবলী"
+		"instructionSet": "নির্দেশনাবলী",
+		"addSubjectArea": "বিষয় এলাকা যোগ করুন/নির্বাচন করুন",
+		"addTag": "ট্যাগ যোগ করুন / নির্বাচন করুন"
 	},
 	"pageSubTitle": {
         "myProfile": "আপনি আপনার ব্যক্তিগত বিবরণ আপডেট করতে ইচ্ছুক হতে পারে",
@@ -261,7 +263,8 @@
 		"sessionNoDataMonth": "গত মাস থেকে কোনো তথ্য পাওয়া যায় না",
 		"contentIterationAllowed": "এই সেশনটি কতবার নেওয়া যাবে তা নির্বাচন করুন। কোন পুরস্কার ছাড়া সেশনের সেশন পুনরায় নেওয়ার কোন সীমা নেই",
 		"searchName" : "অনুসন্ধান...",
-		"subjectAreaName": "বিষয় এলাকা নির্বাচন করুন"
+		"subjectAreaName": "বিষয় এলাকা নির্বাচন করুন / যোগ করুন",
+		"subjectAreaTagName": "ফলাফল আরও ভালভাবে বিশ্লেষণ করতে একটি ট্যাগ নির্বাচন করুন/ যোগ করুন"
 	},
 	"courseMaterialType":{
 		"textDocument": "টেক্সট ডকুমেন্ট",

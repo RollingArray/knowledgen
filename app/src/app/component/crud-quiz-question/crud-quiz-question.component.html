@@ -93,6 +93,26 @@
 				</ion-card>
 				<!-- question -->
 
+				<!-- course core subject area -->
+				<ion-card color="secondary" (click)="openCoreSubjectAreaTagSearchDropSelector()" class="cursor-pointer">
+					<ion-item color="secondary" lines="none">
+						<ion-icon
+							[src]="stringKey.ICON_FORM"
+							slot="start"
+						></ion-icon>
+						<p>{{ "formInfo.subjectAreaTagName" | translate }}</p>
+					</ion-item>
+					<ion-card lines="none" color="light">
+						<ion-item lines="none" color="light">
+							<ion-icon [src]="stringKey.ICON_FILTER" slot="end"></ion-icon>&nbsp;&nbsp;
+							<ion-label>
+								{{selectedSubjectAreaTag.subjectAreaTagName}}
+							</ion-label>
+						</ion-item>
+					</ion-card>
+				</ion-card>
+				<!-- course core subject area -->
+
 				<!-- answer type -->
 				<ion-card color="tertiary" *ngIf="courseMaterialQuiz.quizType">
 					<ion-segment [value]="courseMaterialQuiz.quizType">
@@ -216,3 +236,37 @@
 	<!-- form -->
 </ion-content>
 <!-- body -->
+
+<!-- drop selector back drop -->
+<div
+	#dropSelectorBackdrop
+	class="drop-selector-backdrop"
+	(click)="closeCoreSubjectAreaTagSearchDropSelector()"
+></div>
+<!-- drop selector back drop -->
+
+<!-- drop selector -->
+<div #dropSelector class="drop-selector">
+	<!-- drop selector header -->
+	<ion-header>
+		<ion-toolbar color="secondary">
+			<ion-title slot="start">
+				{{ "pageTitle.addTag" | translate }}
+			</ion-title>
+			<ion-buttons slot="end">
+				<ion-button
+					color="tertiary"
+					fill="outline"
+					(click)="closeCoreSubjectAreaTagSearchDropSelector()"
+					>{{ "button.close" | translate }}</ion-button
+				>
+			</ion-buttons>
+		</ion-toolbar>
+	</ion-header>
+	<!-- drop selector header -->
+	<search-core-subject-area-tag
+		(emitSearchResult)="addSearchResult($event)"
+		#coreSubjectAreaTagSearchDropSelector
+	></search-core-subject-area-tag>
+</div>
+<!-- drop selector -->
