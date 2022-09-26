@@ -113,6 +113,7 @@ export class CourseMaterialMenuStateEffects
 											articleCompletionTime: eachParentMenu.articleCompletionTime,
 											articleCompletionReward: eachParentMenu.articleCompletionReward,
 											articleAllowedIteration: eachParentMenu.articleAllowedIteration,
+											menuType: MenuTypeEnum.PARENT_MENU
 										};
 
 										parentMenus = [
@@ -137,6 +138,7 @@ export class CourseMaterialMenuStateEffects
 													articleCompletionTime: eachChildMenu.articleCompletionTime,
 													articleCompletionReward: eachChildMenu.articleCompletionReward,
 													articleAllowedIteration: eachChildMenu.articleAllowedIteration,
+													menuType: MenuTypeEnum.CHILD_MENU
 												};
 
 												childMenus = [
@@ -162,6 +164,7 @@ export class CourseMaterialMenuStateEffects
 															articleCompletionTime: eachSubChildMenu.articleCompletionTime,
 															articleCompletionReward: eachSubChildMenu.articleCompletionReward,
 															articleAllowedIteration: eachSubChildMenu.articleAllowedIteration,
+															menuType: MenuTypeEnum.SUB_CHILD_MENU
 														};
 
 														subChildMenus = [
