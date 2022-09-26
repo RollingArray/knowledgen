@@ -14,7 +14,7 @@ class AddSubjectIdToCourseMaterial extends Migration
     public function up()
     {
         Schema::table('tbl_course_material', function (Blueprint $table) {
-            $table->string('subject_area_id')->default('632e746681307');
+            $table->string('subject_area_id');
             
             $table->foreign('subject_area_id')
                 ->references('subject_area_id')
