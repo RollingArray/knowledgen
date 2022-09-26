@@ -408,6 +408,7 @@ export class ContentChangeVisibilityComponent extends BaseViewComponent implemen
 			case OperationsEnum.SUCCESS:
 
 				this.rootStateFacade.stopLoading();
+
 				// show tost
 				this.translateService
 					.get('response.changeVisibility')

@@ -40,6 +40,9 @@ export class ApiUrls
 	public static readonly CORE_SUBJECT_AREA: string = ApiUrls.CORE_SUBJECT_AREA_BASE + "/all";
 	public static readonly CORE_SUBJECT_AREA_ADD: string = ApiUrls.CORE_SUBJECT_AREA_BASE + "/add";
 
+	public static readonly CORE_SUBJECT_AREA_TAG_BASE: string = ApiUrls.CORE_SUBJECT_AREA_BASE + "/tag";
+	public static readonly CORE_SUBJECT_AREA_TAG: string = ApiUrls.CORE_SUBJECT_AREA_TAG_BASE + "/all";
+
 	public static readonly DASHBOARD_BASE: string = ApiUrls.API_BASE_PATH + "/dashboard";
 	public static readonly DASHBOARD_STUDENT: string = ApiUrls.DASHBOARD_BASE + "/student";
 	public static readonly DASHBOARD_TEACHER: string = ApiUrls.DASHBOARD_BASE + "/teacher";
