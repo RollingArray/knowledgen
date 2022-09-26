@@ -24,6 +24,7 @@ import { PanelHeaderModule } from 'src/app/component/panel-header/panel-header.c
 import { PanelInfoModule } from 'src/app/component/panel-info/panel-info.component.module';
 import { I18nModule } from 'src/app/shared/module/i18n.module';
 import { SharedModule } from 'src/app/shared/module/shared.module';
+import { CoreSubjectAreaStateModule } from 'src/app/state/core-subject-area/core-subject-area.state.module';
 import { LearningPathStateModule } from 'src/app/state/learning-path/learning-path.state.module';
 import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { LearningPathPage } from './learning-path.page';
@@ -56,6 +57,7 @@ const routes: Routes = [
 		LearningPathStateModule,
 		ViewButtonModule,
 		ContentLoadingModule,
+		CoreSubjectAreaStateModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [LearningPathPage],
