@@ -19,6 +19,11 @@ import { COURSE_MATERIAL_QUIZ_ACTIONS } from "./course-material-quiz.state.actio
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "../root/root.state.facade";
 import { CourseMaterialQuizService } from "src/app/shared/service/course-material-quiz.service";
+import { CoreSubjectAreaModel } from "src/app/shared/model/core-subject-area.model";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { CoreSubjectAreaTagStateFacade } from "../core-subject-area-tag/core-subject-area-tag.state.facade";
+import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
+import { CoreSubjectAreaTagModel } from "src/app/shared/model/core-subject-area-tag.model";
 
 
 @Injectable()
@@ -35,7 +40,8 @@ export class CourseMaterialQuizStateEffects {
 		private actions$: Actions,
 		private courseMaterialQuizService: CourseMaterialQuizService,
 		private toastService: ToastService,
-		private rootStateFacade: RootStateFacade
+		private rootStateFacade: RootStateFacade,
+		private coreSubjectAreaTagStateFacade: CoreSubjectAreaTagStateFacade
 	) { }
 
 	/**
@@ -89,6 +95,9 @@ export class CourseMaterialQuizStateEffects {
 							// if success response
 							if (data.success) {
 
+								// find and add the subject area tqg if it does not exist
+								this.findAndAddNewSubjectAreaTag(data.resource);
+								
 								// store newly added skill
 								return COURSE_MATERIAL_QUIZ_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL_QUIZ({ payload: data.resource });
 							}
@@ -125,6 +134,9 @@ export class CourseMaterialQuizStateEffects {
 							// if success response
 							if (data.success) {
 
+								// find and add the subject area tqg if it does not exist
+								this.findAndAddNewSubjectAreaTag(data.resource);
+								
 								// store updated category
 								return COURSE_MATERIAL_QUIZ_ACTIONS.STORE_UPDATED_COURSE_MATERIAL_QUIZ({ payload: action.payload });
 							}
@@ -234,4 +246,27 @@ export class CourseMaterialQuizStateEffects {
 				map(action => COURSE_MATERIAL_QUIZ_ACTIONS.COURSE_MATERIAL_QUIZ_CRUD_SUCCESS()),
 			),
 	);
+
+	/**
+	 * Finds and add new subject area tag
+	 * @param data 
+	 */
+	private findAndAddNewSubjectAreaTag(data: CourseMaterialQuizModel)
+	 {
+		 const ifExist$ = this.coreSubjectAreaTagStateFacade.ifCoreSubjectAreaTagExistByCoreSubjectAreaTagId$(data.subjectAreaTagId);
+		 
+		 ifExist$.subscribe(hasData =>
+		 {
+			 
+			 if (!hasData)
+			 {
+				 const model: CoreSubjectAreaTagModel = {
+					 subjectAreaId: data.subjectAreaId,
+					 subjectAreaTagId: data.subjectAreaTagId,
+					 subjectAreaTagName: data.subjectAreaTagName
+				 };
+				 this.coreSubjectAreaTagStateFacade.addNewCoreSubjectAreaTag(model);
+			 }
+		 });
+	 }
 }

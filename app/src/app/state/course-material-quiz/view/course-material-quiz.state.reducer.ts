@@ -58,6 +58,9 @@ const reducer = createReducer(
 		courseMaterialQuizAdapter.updateOne({
 			id: action.payload.questionId ? action.payload.questionId : '',
 			changes: {
+				subjectAreaId: action.payload.subjectAreaId,
+				subjectAreaTagId: action.payload.subjectAreaTagId,
+				subjectAreaTagName: action.payload.subjectAreaTagName,
 				question: action.payload.question,
 				options: action.payload.options
 			}
