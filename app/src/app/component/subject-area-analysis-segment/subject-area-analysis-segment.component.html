@@ -1,0 +1,46 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Subject area analysis segment component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-27 21:36:25 
+ * Last modified  : 2022-09-27 21:37:21
+ */
+ -->
+
+<ion-grid>
+	<ion-row>
+		<ion-col sizeLg="12" sizeMd="12" sizeXl="4" sizeSm="12" sizeXs="12">
+			<analysis-area-layout
+				[areaName]="'pageTitle.strongArea' | translate"
+				[areaInfo]="'pageSubTitle.strongArea' | translate"
+				[areaIcon]="stringKey.ICON_STRONG_EMOJI"
+				progressBarColor="success"
+				[subjectAreas]="strongSubjectAreas"
+			>
+			</analysis-area-layout>
+		</ion-col>
+		<ion-col sizeLg="12" sizeMd="12" sizeXl="4" sizeSm="12" sizeXs="12">
+			<analysis-area-layout
+				[areaName]="'pageTitle.neutralArea' | translate"
+				[areaInfo]="'pageSubTitle.neutralArea' | translate"
+				[areaIcon]="stringKey.ICON_NEUTRAL_EMOJI"
+				progressBarColor="medium"
+				[subjectAreas]="neutralSubjectAreas"
+			>
+			</analysis-area-layout>
+		</ion-col>
+		<ion-col sizeLg="12" sizeMd="12" sizeXl="4" sizeSm="12" sizeXs="12">
+			<analysis-area-layout
+				[areaName]="'pageTitle.weakArea' | translate"
+				[areaInfo]="'pageSubTitle.weakArea' | translate"
+				[areaIcon]="stringKey.ICON_WEAK_EMOJI"
+				progressBarColor="danger"
+				[subjectAreas]="weakSubjectAreas"
+			>
+			</analysis-area-layout>
+		</ion-col>
+	</ion-row>
+</ion-grid>
