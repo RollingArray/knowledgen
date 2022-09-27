@@ -1,0 +1,42 @@
+<!-- 
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Subject area strength analysis component template 
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-27 21:39:22 
+ * Last modified  : 2022-09-27 21:40:14
+ */
+ -->
+
+<ion-card>
+	<ion-card-header>
+		<panel-header
+			[panelTitle]="'pageTitle.subjectAreaAnalysis' | translate"
+			[panelIcon]="stringKey.ICON_ANALYSIS"
+		></panel-header>
+		<panel-info
+			[showMoreLess]="true"
+			[title]="'pageSubTitle.subjectAreaAnalysis' | translate"
+			[panelColor]="stringKey.COLOR_WHITE"
+		></panel-info>
+	</ion-card-header>
+	<ion-card-content>
+		<ion-card
+			color="light"
+			*ngFor="let eachSubject of coreSubjectAreaAnalysis"
+		>
+			<panel-header
+				panelColor="light"
+				[panelTitle]="eachSubject.subjectAreaName"
+				[panelIcon]="stringKey.ICON_SUBJECT"
+			></panel-header>
+			<ion-card-content>
+				<subject-area-analysis-segment
+					[coreSubjectAreaTags]="eachSubject.subjectAreasTags"
+				></subject-area-analysis-segment>
+			</ion-card-content>
+		</ion-card>
+	</ion-card-content>
+</ion-card>
