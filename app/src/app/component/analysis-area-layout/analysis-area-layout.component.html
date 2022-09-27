@@ -1,0 +1,43 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Analysis area layout component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-09-27 21:29:44 
+ * Last modified  : 2022-09-27 21:30:09
+ */
+-->
+
+<ion-card>
+	<panel-header [panelTitle]="areaName | translate" [panelIcon]="areaIcon"></panel-header>
+	<panel-info panelColor="white" [showMoreLess]="true" [title]="areaInfo | translate"></panel-info>
+
+	<ion-card-content *ngIf="subjectAreas.length == 0">
+		<app-no-data [text]="'noData.noTag' | translate" [courseMaterial]="true"></app-no-data>
+	</ion-card-content>
+	<ion-card-content *ngIf="subjectAreas.length !== 0">
+		<ion-card *ngFor="let eachTagArea of subjectAreas">
+			<ion-card-header>
+				<ion-item lines="none">
+					<ion-label>
+						<ion-icon [src]="stringKey.ICON_TAG"></ion-icon>
+						&nbsp;{{ eachTagArea.subjectAreaTagName }}
+					</ion-label>
+
+					<ion-badge slot="end" [color]="progressBarColor">
+						{{ calculatePercentage(eachTagArea) }}
+						%
+					</ion-badge>
+				</ion-item>
+			</ion-card-header>
+			<ion-progress-bar
+				class="height-10-px"
+				[color]="progressBarColor"
+				[value]="calculateOutOf1(eachTagArea)"
+			>
+			</ion-progress-bar>
+		</ion-card>
+	</ion-card-content>
+</ion-card>
