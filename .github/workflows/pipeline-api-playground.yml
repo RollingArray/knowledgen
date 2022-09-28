@@ -5,7 +5,7 @@
 # @author code@rollingarray.co.in
 #
 # Created at     : 2022-09-26 10:42:18 
-# Last modified  : 2022-09-28 15:03:53
+# Last modified  : 2022-09-28 15:05:43
 #
 
 name: Deploy KnowledgeN Server api on PLAYGROUND branch push
@@ -100,6 +100,7 @@ jobs:
 
     - name: Create .env file
       run: ls
+      working-directory: ./api
 
     - name: Sync Files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
