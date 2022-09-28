@@ -38,7 +38,7 @@ jobs:
 
     - name: ls
       run: ls
-      working-directory: ./api/zip
+      working-directory: /api/zip
     
     
     
