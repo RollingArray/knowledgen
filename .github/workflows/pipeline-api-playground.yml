@@ -33,12 +33,10 @@ jobs:
       run: mv api.zip api/zip
 
     - name: cd
-      run: cd
-      working-directory: ./api
+      run: cd ./api
 
     - name: ls
-      run: ls
-      working-directory: /api/zip
+      run: pwd
     
     
     
