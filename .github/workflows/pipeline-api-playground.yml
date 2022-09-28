@@ -23,148 +23,72 @@ jobs:
     - name: Get latest code
       uses: actions/checkout@v2.3.2
 
-    
+    - name: Install Dependencies
+      run: composer update --ignore-platform-reqs
+      working-directory: ./api
 
-    - uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r api.zip ./
+    - name: Create .env file
+      run: |
+        cat << EOF > .env
 
-    - name: ls
-      run: ls
-      working-directory: ./
-    
-    - name: mkdir
-      run: mkdir zip
-      working-directory: ./
-    
+        # app
+        APP_NAME = KnowledgeN
+        APP_ENV = local
+        APP_KEY =
+        APP_DEBUG = true
+        APP_URL = http://localhost
+        APP_TIMEZONE = UTC
 
-    - name: mv
-      run: mv api.zip ./zip
-      working-directory: ./
+        # log
+        LOG_CHANNEL = stack
+        LOG_SLACK_WEBHOOK_URL =
+
+        # database
+        DB_CONNECTION = mysql
+        DB_HOST = ${{ secrets.PLAYGROUND_DB_HOST }}
+        DB_PORT = 3306
+        DB_DATABASE = ${{ secrets.PLAYGROUND_DB_DATABASE }}
+        DB_USERNAME = ${{ secrets.PLAYGROUND_DB_USERNAME }}
+        DB_PASSWORD = ${{ secrets.PLAYGROUND_DB_PASSWORD }}
+        CACHE_DRIVER = file
+        QUEUE_CONNECTION = database
+        DB_SOCKET = /var/lib/mysql/mysql.sock
+
+        # mail
+        MAIL_DRIVER = smtp
+        MAIL_HOST = ${{ secrets.PLAYGROUND_MAIL_HOST }}
+        MAIL_PORT = 587
+        MAIL_USERNAME = ${{ secrets.PLAYGROUND_MAIL_USERNAME }}
+        MAIL_PASSWORD = ${{ secrets.PLAYGROUND_MAIL_PASSWORD }}
+        MAIL_ENCRYPTION = tls
+        MAIL_FROM_ADDRESS = ${{ secrets.PLAYGROUND_MAIL_FROM_ADDRESS }}
+        MAIL_FROM_NAME = "${APP_NAME}"
+
+        # hash
+        HASH_KEY_SALT = ${{ secrets.PLAYGROUND_HASH_KEY_SALT }}
+        HASH_KEY_METHOD = ${{ secrets.PLAYGROUND_HASH_KEY_METHOD }}
+        HASH_KEY_ALGO = ${{ secrets.PLAYGROUND_HASH_KEY_ALGO }}
+
+        # token
+        JWT_CLIENT_ID = ${{ secrets.PLAYGROUND_JWT_CLIENT_ID }}
+        JWT_SERVER_ID = ${{ secrets.PLAYGROUND_JWT_SERVER_ID }}
+        JWT_EXPIRE_IN_SECONDS = ${{ secrets.PLAYGROUND_JWT_EXPIRE_IN_SECONDS }}
+        
+        EOF
+      working-directory: ./api
+      
+    - name: Directory Permissions
+      run: chmod -R 777 ./api/vendor
     
-    - name: ls
-      run: ls
-      working-directory: ./zip
     - name: Sync Files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ${{ secrets.PLAYGROUND_FTP_SERVER }}
         username: ${{ secrets.PLAYGROUND_FTP_USERNAME }}
         password: ${{ secrets.PLAYGROUND_FTP_PASSWORD }}
-        local-dir: ./zip/
+        local-dir: ./api/
         server-dir: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
         dangerous-clean-slate: true
-    
-    
-    
-    # - name: Setup database
-    #   run: curl https://knowledgen.dev.api.rollingarray.co.in/setup.php
-
-# name: Deploy KnowledgeN Server api on PLAYGROUND branch push
-
-# on: 
-#   push:
-#     branches: 
-#       - playground
-#     paths:
-#       - 'api/**'
-      
-# jobs:
-#   web-deploy:
-
-#     name: Deploy KnowledgeN Server api
-#     runs-on: ubuntu-latest
-#     environment:
-#       name: dev
-#       url: https://knowledgen.playground.api.rollingarray.co.in
-
-#     steps:
-    
-#     - name: Get latest code
-#       uses: actions/checkout@v2.3.2
-
-#     - name: Install Dependencies
-#       run: composer update --ignore-platform-reqs
-#       working-directory: ./api
-
-#     - name: Create .env file
-#       run: |
-#         cat << EOF > .env
-
-#         # app
-#         APP_NAME = KnowledgeN
-#         APP_ENV = local
-#         APP_KEY =
-#         APP_DEBUG = true
-#         APP_URL = http://localhost
-#         APP_TIMEZONE = UTC
-
-#         # log
-#         LOG_CHANNEL = stack
-#         LOG_SLACK_WEBHOOK_URL =
-
-#         # database
-#         DB_CONNECTION = mysql
-#         DB_HOST = ${{ secrets.PLAYGROUND_DB_HOST }}
-#         DB_PORT = 3306
-#         DB_DATABASE = ${{ secrets.PLAYGROUND_DB_DATABASE }}
-#         DB_USERNAME = ${{ secrets.PLAYGROUND_DB_USERNAME }}
-#         DB_PASSWORD = ${{ secrets.PLAYGROUND_DB_PASSWORD }}
-#         CACHE_DRIVER = file
-#         QUEUE_CONNECTION = database
-#         DB_SOCKET = /var/lib/mysql/mysql.sock
-
-#         # mail
-#         MAIL_DRIVER = smtp
-#         MAIL_HOST = ${{ secrets.PLAYGROUND_MAIL_HOST }}
-#         MAIL_PORT = 587
-#         MAIL_USERNAME = ${{ secrets.PLAYGROUND_MAIL_USERNAME }}
-#         MAIL_PASSWORD = ${{ secrets.PLAYGROUND_MAIL_PASSWORD }}
-#         MAIL_ENCRYPTION = tls
-#         MAIL_FROM_ADDRESS = ${{ secrets.PLAYGROUND_MAIL_FROM_ADDRESS }}
-#         MAIL_FROM_NAME = "${APP_NAME}"
-
-#         # hash
-#         HASH_KEY_SALT = ${{ secrets.PLAYGROUND_HASH_KEY_SALT }}
-#         HASH_KEY_METHOD = ${{ secrets.PLAYGROUND_HASH_KEY_METHOD }}
-#         HASH_KEY_ALGO = ${{ secrets.PLAYGROUND_HASH_KEY_ALGO }}
-
-#         # token
-#         JWT_CLIENT_ID = ${{ secrets.PLAYGROUND_JWT_CLIENT_ID }}
-#         JWT_SERVER_ID = ${{ secrets.PLAYGROUND_JWT_SERVER_ID }}
-#         JWT_EXPIRE_IN_SECONDS = ${{ secrets.PLAYGROUND_JWT_EXPIRE_IN_SECONDS }}
         
-#         EOF
-#       working-directory: ./api
-      
-#     - name: Directory Permissions
-#       run: chmod -R 777 ./api/vendor
-    
-#     - uses: montudor/action-zip@v1
-#       with:
-#         args: zip -qq -r api.zip ./api/
-      
-#     - name: Create .env file
-#       run: mv api.zip api/zip/api.zip
-
-#     - name: Create .env file
-#       run: cd api
-
-#     - name: Create .env file
-#       run: ls
-#       working-directory: ./api/zip
-
-#     - name: Sync Files
-#       uses: SamKirkland/FTP-Deploy-Action@4.0.0
-#       with:
-#         server: ${{ secrets.PLAYGROUND_FTP_SERVER }}
-#         username: ${{ secrets.PLAYGROUND_FTP_USERNAME }}
-#         password: ${{ secrets.PLAYGROUND_FTP_PASSWORD }}
-#         local-dir: ./api/zip
-#         server-dir: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
-#         dangerous-clean-slate: true
-    
-    
-    
-#     # - name: Setup database
-#     #   run: curl https://knowledgen.dev.api.rollingarray.co.in/setup.php
+    - name: Setup database
+      run: curl https://knowledgen.dev.api.rollingarray.co.in/setup.php
