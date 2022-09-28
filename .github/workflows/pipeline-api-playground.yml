@@ -1,14 +1,14 @@
 #
 # © Rolling Array https://rollingarray.co.in/
 #
-# @summary Deploy C2 DEV api on DEV branch push 
+# @summary Deploy KnowledgeN PLAYGROUND api on PLAYGROUND branch push 
 # @author code@rollingarray.co.in
 #
 # Created at     : 2021-05-26 10:42:18 
-# Last modified  : 2022-09-28 13:03:41
+# Last modified  : 2022-09-28 13:14:02
 #
 
-name: Deploy KnowledgeN Server api on DEV branch push
+name: Deploy KnowledgeN Server api on PLAYGROUND branch push
 
 on: 
   push:
