@@ -33,6 +33,14 @@ jobs:
       run: ls
       working-directory: ./
     
+    - name: mv
+      run: mv api.zip ./zip
+      working-directory: ./
+    
+    - name: ls
+      run: ls
+      working-directory: ./zip
+    
     
     
     # - name: Setup database
