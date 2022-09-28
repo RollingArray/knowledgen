@@ -32,12 +32,11 @@ jobs:
     - name: mv
       run: mv api.zip api/zip
 
-    - name: cd
-      run: cd ./api
-
     - name: ls
-      run: ls
-      working-directory: ./api/zip
+      run: |
+        cd api
+        ls
+      working-directory: ./api
     
     
     
