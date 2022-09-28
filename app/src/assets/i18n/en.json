@@ -129,7 +129,11 @@
 		"assessmentsTakenCategory": "Study Materials Accross Category",
 		"instructionSet": "Instruction Set",
 		"addSubjectArea": "Add Subject Area",
-		"addTag": "Add Tag"
+		"addTag": "Add Tag",
+		"strongArea": "Strong Area",
+		"weakArea": "Weak Area",
+		"neutralArea": "Neutral Area",
+		"subjectAreaAnalysis" : "Subject Area Analysis"
 	},
 	"pageSubTitle": {
 		"myProfile": "You may wish to update any of your personal details",
@@ -185,7 +189,11 @@
 		"sessionAllowed2": " iteration(s) allowed. You have taken ",
 		"sessionAllowed3": " session(s)",
 		"sessionAllowed4": " iteration(s) allowed. You have already taken all sessions.",
-		"sessionAllowed5": " iteration(s) left."
+		"sessionAllowed5": " iteration(s) left.",
+		"strongArea": "List of <b>Strong Area<b> with <b>percentage<b> of attempts. Anything goes beyond <b>80%<b> considered in this area",
+		"weakArea": "List of <b>Weak Area<b> with <b>percentage<b> of attempts. Anything goes below <b>40%<b> considered in this area",
+		"neutralArea": "List of <b>Neutral Area<b> with <b>percentage<b> of attempts. Anything goes between <b>41%<b> to <b>79%<b> considered in this area",
+		"subjectAreaAnalysis" : "See your strenght and weekness in various area based on the assesments you have taken. Its categorized in Strong, Weak and Neutal areas."
 	},
 	"formInfo": {
 		"interest": "What are subjects / topics you are interested in to.",
@@ -306,7 +314,8 @@
 		"noCard": "No card has been found. Add your card !!",
 		"noFlashCardSession": "No session data available for this flash card !!",
 		"noRevisionData": "No revision data available !!",
-		"noPeer": "No Peer has been found. Add Peer !!"
+		"noPeer": "No Peer has been found. Add Peer !!",
+		"noTag": "No tags available !!"
 	},
 	"loading": { 
 		"wait": "Loading ... Please wait",
