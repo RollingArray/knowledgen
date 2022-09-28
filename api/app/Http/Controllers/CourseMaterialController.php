@@ -26,7 +26,12 @@ class CourseMaterialController extends Controller
 	 * @var mixed
 	 */
 	protected $usersServiceInterface;
-
+	
+	/**
+	 * courseMaterialServiceInterface
+	 *
+	 * @var mixed
+	 */
 	protected $courseMaterialServiceInterface;
 
 	/**
