@@ -161,7 +161,6 @@ export class CrudPeerComponent extends BaseFormComponent implements OnInit
 					//if the operation is delete, submit the data
 					if (this._userPeer.operationType === OperationsEnum.DELETE)
 					{
-						console.log(this._userPeer);
 						this.checkIfWantToDelete();
 					}
 				}

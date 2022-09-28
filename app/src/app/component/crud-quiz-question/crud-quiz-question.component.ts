@@ -317,8 +317,6 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 		// check status of modal indicator status
 		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
 		
-		this.modalLoadingIndicatorStatus$.subscribe(data => console.log(data));
-
 		// get act upon curd model from store
 		this.courseMaterialQuizStateFacade
 			.operationCourseMaterialQuiz$

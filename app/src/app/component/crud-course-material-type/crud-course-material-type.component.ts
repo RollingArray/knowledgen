@@ -994,7 +994,6 @@ export class CrudCourseMaterialTypeComponent
 				});
 		} else
 		{
-			console.log("delete");
 			this.rootStateFacade.startModalLoading();
 			this.launchOperation();
 			this.crudOperationCompletion();
