@@ -686,8 +686,11 @@ export class StringKey {
 	public static readonly ICON_COURSE_MATERIAL: string = StringKey.ICON_BASE_PATH + "course-material.svg";
 	public static readonly ICON_INSTRUCTION: string = StringKey.ICON_BASE_PATH + "instruction.svg";
 	public static readonly ICON_FILTER: string = StringKey.ICON_BASE_PATH + "filter.svg";
-	public static readonly ICON_tag: string = StringKey.ICON_BASE_PATH + "tag.svg";
-	
+	public static readonly ICON_TAG: string = StringKey.ICON_BASE_PATH + "tag.svg";
+	public static readonly ICON_NEUTRAL_EMOJI: string = StringKey.ICON_BASE_PATH + "neutral-emoji.svg";
+	public static readonly ICON_WEAK_EMOJI: string = StringKey.ICON_BASE_PATH + "weak-emoji.svg";
+	public static readonly ICON_STRONG_EMOJI: string = StringKey.ICON_BASE_PATH + "strong-emoji.svg";
+	public static readonly ICON_ANALYSIS: string = StringKey.ICON_BASE_PATH + "analysis.svg";
 
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";
