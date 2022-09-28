@@ -27,6 +27,9 @@ jobs:
       url: https://knowledgen.playground.api.rollingarray.co.in
 
     steps:
+    - name: Setup database
+      run: curl https://google.com
+
     - name: Get latest code
       uses: actions/checkout@v2.3.2
 
