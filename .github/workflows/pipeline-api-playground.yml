@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: https://knowledgen.dev.api.rollingarray.co.in/
+      url: https://knowledgen.playground.api.rollingarray.co.in
 
     steps:
     - name: Get latest code
@@ -51,9 +51,9 @@ jobs:
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
         DB_PORT=3306
-        DB_DATABASE=rolli3oh_knowledgen
-        DB_USERNAME=root
-        DB_PASSWORD=root
+        DB_DATABASE=rolli3oh_knowledgen_playground
+        DB_USERNAME=rolli3oh_admin
+        DB_PASSWORD=rjoy.85@s
         CACHE_DRIVER=file
         QUEUE_CONNECTION=database
         DB_SOCKET=/var/lib/mysql/mysql.sock
@@ -71,7 +71,7 @@ jobs:
         HASH_KEY_METHOD=AES-256-CBC
         HASH_KEY_ALGO=sha256
 
-        JWT_CLIENT_ID = in.co.rollingarray.api.dev.c2
+        JWT_CLIENT_ID = in.co.rollingarray.api.playground.knowledgen
         JWT_SERVER_ID = 8888:localhost
         JWT_EXPIRE_IN_SECONDS = 604800
         
@@ -84,9 +84,12 @@ jobs:
     - name: Sync Files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp.rollingarray.co.in
-        username: rolli3oh@knowledgen.dev.api.rollingarray.co.in
-        password: Mwe3K;kde[$A
+        server: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
+        username: ${{ secrets.PLAYGROUND_FTP_USERNAME }}
+        password: ${{ secrets.PLAYGROUND_FTP_PASSWORD }}
         local-dir: ./api/
-        server-dir: /
+        server-dir: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
         dangerous-clean-slate: true
+    
+    - name: Setup database
+      run: curl https://knowledgen.dev.api.rollingarray.co.in/setup.php
