@@ -24,6 +24,8 @@ import { PanelHeaderModule } from '../panel-header/panel-header.component.module
 import { PanelInfoModule } from '../panel-info/panel-info.component.module';
 import { CrudNextRevisionModule } from '../crud-next-revision/crud-next-revision.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
+import { AnalysisAreaLayoutModule } from '../analysis-area-layout/analysis-area-layout.module';
+import { SubjectAreaAnalysisSegmentModule } from '../subject-area-analysis-segment/subject-area-analysis-segment.module';
 
 @NgModule({
 	imports: [
@@ -40,7 +42,9 @@ import { ContentLoadingModule } from '../content-loading/content-loading.module'
 		PanelHeaderModule,
 		PanelInfoModule,
 		CrudNextRevisionModule,
-		ContentLoadingModule
+		ContentLoadingModule,
+		AnalysisAreaLayoutModule,
+		SubjectAreaAnalysisSegmentModule
 	],
 
 	declarations: [CrudCourseMaterialAssignmentResultComponent],
