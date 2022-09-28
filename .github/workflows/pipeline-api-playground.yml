@@ -33,6 +33,11 @@ jobs:
       run: ls
       working-directory: ./
     
+    - name: mkdir
+      run: mkdir zip
+      working-directory: ./
+    
+
     - name: mv
       run: mv api.zip ./zip
       working-directory: ./
