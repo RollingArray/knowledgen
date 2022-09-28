@@ -4,8 +4,8 @@
 # @summary Deploy KnowledgeN PLAYGROUND api on PLAYGROUND branch push 
 # @author code@rollingarray.co.in
 #
-# Created at     : 2021-05-26 10:42:18 
-# Last modified  : 2022-09-28 13:15:15
+# Created at     : 2022-09-26 10:42:18 
+# Last modified  : 2022-09-28 13:33:07
 #
 
 name: Deploy KnowledgeN Server api on PLAYGROUND branch push
@@ -39,42 +39,48 @@ jobs:
       run: |
         cat << EOF > .env
 
-        APP_NAME=KnowledgeN
-        APP_ENV=local
-        APP_KEY=
-        APP_DEBUG=true
-        APP_URL=http://localhost
-        APP_TIMEZONE=UTC
+        # app
+        APP_NAME = KnowledgeN
+        APP_ENV = local
+        APP_KEY =
+        APP_DEBUG = true
+        APP_URL = http://localhost
+        APP_TIMEZONE = UTC
 
-        LOG_CHANNEL=stack
-        LOG_SLACK_WEBHOOK_URL=
+        # log
+        LOG_CHANNEL = stack
+        LOG_SLACK_WEBHOOK_URL =
 
-        DB_CONNECTION=mysql
-        DB_HOST=127.0.0.1
-        DB_PORT=3306
-        DB_DATABASE=rolli3oh_knowledgen_playground
-        DB_USERNAME=rolli3oh_admin
-        DB_PASSWORD=rjoy.85@s
-        CACHE_DRIVER=file
-        QUEUE_CONNECTION=database
-        DB_SOCKET=/var/lib/mysql/mysql.sock
+        # database
+        DB_CONNECTION = mysql
+        DB_HOST = ${{ secrets.PLAYGROUND_DB_HOST }}
+        DB_PORT = 3306
+        DB_DATABASE = ${{ secrets.PLAYGROUND_DB_DATABASE }}
+        DB_USERNAME = ${{ secrets.PLAYGROUND_DB_USERNAME }}
+        DB_PASSWORD = ${{ secrets.PLAYGROUND_DB_PASSWORD }}
+        CACHE_DRIVER = file
+        QUEUE_CONNECTION = database
+        DB_SOCKET = /var/lib/mysql/mysql.sock
 
-        MAIL_DRIVER=smtp
-        MAIL_HOST=mail.rollingarray.co.in
-        MAIL_PORT=587
-        MAIL_USERNAME=ranjoy@rollingarray.co.in
-        MAIL_PASSWORD=rjoy.85@s
-        MAIL_ENCRYPTION=tls
-        MAIL_FROM_ADDRESS=support@rollingarray.co.in
-        MAIL_FROM_NAME="${APP_NAME}"
+        # mail
+        MAIL_DRIVER = smtp
+        MAIL_HOST = ${{ secrets.PLAYGROUND_MAIL_HOST }}
+        MAIL_PORT = 587
+        MAIL_USERNAME = ${{ secrets.PLAYGROUND_MAIL_USERNAME }}
+        MAIL_PASSWORD = ${{ secrets.PLAYGROUND_MAIL_PASSWORD }}
+        MAIL_ENCRYPTION = tls
+        MAIL_FROM_ADDRESS = ${{ secrets.PLAYGROUND_MAIL_FROM_ADDRESS }}
+        MAIL_FROM_NAME = "${APP_NAME}"
 
-        HASH_KEY_SALT=1234567890123456
-        HASH_KEY_METHOD=AES-256-CBC
-        HASH_KEY_ALGO=sha256
+        # hash
+        HASH_KEY_SALT = ${{ secrets.PLAYGROUND_HASH_KEY_SALT }}
+        HASH_KEY_METHOD = ${{ secrets.PLAYGROUND_HASH_KEY_METHOD }}
+        HASH_KEY_ALGO = ${{ secrets.PLAYGROUND_HASH_KEY_ALGO }}
 
-        JWT_CLIENT_ID = in.co.rollingarray.api.playground.knowledgen
-        JWT_SERVER_ID = 8888:localhost
-        JWT_EXPIRE_IN_SECONDS = 604800
+        # token
+        JWT_CLIENT_ID = ${{ secrets.PLAYGROUND_JWT_CLIENT_ID }}
+        JWT_SERVER_ID = ${{ secrets.PLAYGROUND_JWT_SERVER_ID }}
+        JWT_EXPIRE_IN_SECONDS = ${{ secrets.PLAYGROUND_JWT_EXPIRE_IN_SECONDS }}
         
         EOF
       working-directory: ./api
