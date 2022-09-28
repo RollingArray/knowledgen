@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Interfaces\CoreSubjectAreaTagAnalysisServiceInterface;
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
@@ -16,6 +17,8 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      * @var mixed
      */
     protected $returnDataStructureServiceInterface;
+
+    protected $coreSubjectAreaTagAnalysisServiceInterface;
     
     /**
      * __construct
@@ -24,10 +27,12 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      */
     public function __construct(
 		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
-        CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface
+        CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
+        CoreSubjectAreaTagAnalysisServiceInterface $coreSubjectAreaTagAnalysisServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
         $this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
+        $this->coreSubjectAreaTagAnalysisServiceInterface = $coreSubjectAreaTagAnalysisServiceInterface;
 	}
   
     
@@ -113,6 +118,7 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         $tempRows['assignments_score_analysis'] = $this->getAssignmentsScoreAnalysis($sessions);
         $tempRows['course_content_coverage_over_time'] = $this->getCourseContentCoverageOverTime($sessions);
         $tempRows['course_content_time_coverage_over_time'] = $this->getCourseContentTimeCoverageOverTime($sessions);
+        $tempRows['core_subject_area_tag_analysis'] = $this->coreSubjectAreaTagAnalysisServiceInterface->getAllSubjectAreaTagAnalysis($userId);
         return $tempRows;
     }
 

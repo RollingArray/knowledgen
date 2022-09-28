@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Interfaces\CoreSubjectAreaTagAnalysisServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,20 @@ class CourseMaterialArticleAssignmentController extends Controller
 	 * @var mixed
 	 */
 	protected $jwtAuthServiceInterface;
-
+	
+	/**
+	 * courseMaterialAssignmentResultServiceInterface
+	 *
+	 * @var mixed
+	 */
 	protected $courseMaterialAssignmentResultServiceInterface;
+	
+	/**
+	 * coreSubjectAreaTagAnalysisServiceInterface
+	 *
+	 * @var mixed
+	 */
+	protected $coreSubjectAreaTagAnalysisServiceInterface;
 			
 	/**
 	 * __construct
@@ -26,10 +39,12 @@ class CourseMaterialArticleAssignmentController extends Controller
 	 */
 	public function __construct(
 		JWTAuthServiceInterface $jwtAuthServiceInterface,
-		CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface
+		CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface,
+		CoreSubjectAreaTagAnalysisServiceInterface $coreSubjectAreaTagAnalysisServiceInterface
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
 		$this->courseMaterialAssignmentResultServiceInterface = $courseMaterialAssignmentResultServiceInterface;
+		$this->coreSubjectAreaTagAnalysisServiceInterface = $coreSubjectAreaTagAnalysisServiceInterface;
 
 	}
 
@@ -87,6 +102,8 @@ class CourseMaterialArticleAssignmentController extends Controller
             );
         }
 
+		
+
 		//creating a new model
         $model = new CourseMaterialArticleAssignmentResultModel();
 
@@ -101,11 +118,17 @@ class CourseMaterialArticleAssignmentController extends Controller
 		//saving the model to database
         $model->save();
 
+		// analyze tags if available
+		if($request->input('core_subject_area_tag_analysis')){
+			$this->coreSubjectAreaTagAnalysisServiceInterface->incrementOrUpdateAnalysis($request->input('core_subject_area_tag_analysis'), $userId);
+		}
+
 		// get assignment leader board
 		$model['assignment_leader_board'] = $this->courseMaterialAssignmentResultServiceInterface->getAssignmentLeaderBoard(
 			$request->input('article_id'), 
 			$userId
 		);
+		
 
 		// get all session time for the assignment
 		$model['session_time'] = $this->courseMaterialAssignmentResultServiceInterface->getAllSessionTime(
