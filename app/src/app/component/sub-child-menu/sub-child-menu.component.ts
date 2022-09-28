@@ -245,9 +245,9 @@ export class SubChildMenuComponent extends BaseViewComponent implements OnInit
 			articleTitle: '',
 			articleSummery: '',
 			articleStatus: ArticleStatusTypeEnum.PREVIEW,
-			articleCompletionReward: 100,
-			articleCompletionTime: 60,
-			articleAllowedIteration: 1,
+			articleCompletionReward: 0,
+			articleCompletionTime: 0,
+			articleAllowedIteration: -1,
 			operationType: OperationsEnum.CREATE
 		}
 

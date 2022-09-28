@@ -66,14 +66,14 @@
 		>
 			<ion-buttons slot="end">
 				<edit-button
-					(click)="editParentMenu(eachMenu)"
+					(click)="onParentMenuAction(eachMenu, operationsEnum.EDIT)"
 					*ngIf="
 						(loggedInUserId$ | async) ===
 						(courseMaterialOwner$ | async)
 					"
 				></edit-button>
 				<delete-button
-					(click)="deleteParentMenu(eachMenu)"
+					(click)="onParentMenuAction(eachMenu, operationsEnum.DELETE)"
 					*ngIf="
 						(loggedInUserId$ | async) ===
 						(courseMaterialOwner$ | async)

@@ -286,9 +286,9 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 			articleTitle: '',
 			articleSummery: '',
 			articleStatus: ArticleStatusTypeEnum.PREVIEW,
-			articleCompletionReward: 100,
-			articleCompletionTime: 60,
-			articleAllowedIteration: 1,
+			articleCompletionReward: 0,
+			articleCompletionTime: 0,
+			articleAllowedIteration: -1,
 			operationType: OperationsEnum.CREATE
 		}
 
@@ -327,65 +327,15 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	 * Edits parent menu
 	 * @param eachMenu 
 	 */
-	public editParentMenu(eachMenu: ParentMenuModel)
+	public onParentMenuAction(eachMenu: ParentMenuModel, operationsEnum: OperationsEnum)
 	{
 		const parentMenuModel: ParentMenuModel = {
 			...eachMenu,
-			operationType: OperationsEnum.EDIT
+			operationType: operationsEnum
 		}
 
-		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.EDIT);
+		this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, operationsEnum);
 
 		this.openCrudCourseMaterialType();
-	}
-
-	/**
-	 * Deletes parent menu
-	 * @param eachMenu 
-	 */
-	public deleteParentMenu(eachMenu: ParentMenuModel)
-	{
-		this.translateService
-			.get([
-				'actionAlert.delete',
-				'actionAlert.deleteMenu',
-				'option.yes',
-				'option.no',
-			]).pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data =>
-			{
-
-				const alert = await this.alertController.create({
-					header: `${data['actionAlert.delete']}`,
-					subHeader: data['actionAlert.deleteMenu'],
-					cssClass: 'custom-alert',
-					mode: 'md',
-					buttons: [
-						{
-							cssClass: 'ok-button ',
-							text: data['option.yes'],
-							handler: (_) =>
-							{
-								const parentMenuModel: ParentMenuModel = {
-									...eachMenu,
-									operationType: OperationsEnum.DELETE
-								}
-
-								this.courseMaterialMenuStateFacade.actUponParentMenu(parentMenuModel, OperationsEnum.DELETE);
-
-								this.openCrudCourseMaterialType();
-							}
-						},
-						{
-							cssClass: 'cancel-button',
-							text: data['option.no'],
-							handler: () =>
-							{
-							}
-						}
-					]
-				});
-				await alert.present();
-			});
 	}
 }

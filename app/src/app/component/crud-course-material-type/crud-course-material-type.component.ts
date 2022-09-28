@@ -550,7 +550,6 @@ export class CrudCourseMaterialTypeComponent
 
 		//find menu type and if the operation is delete, submit the data
 		this.initiateDeleteOperation();
-		
 	}
 
 	/**
@@ -612,6 +611,47 @@ export class CrudCourseMaterialTypeComponent
 		 }
 	 }
  
+	/**
+	 * Checks if want to delete
+	 */
+	private checkIfWantToDelete()
+	{
+		this.translateService
+			.get([
+				'actionAlert.delete',
+				'actionAlert.deleteMenu',
+				'option.yes',
+				'option.no',
+			]).pipe(takeUntil(this.unsubscribe))
+			.subscribe(async data =>
+			{
+
+				const alert = await this.alertController.create({
+					header: `${data['actionAlert.delete']}`,
+					subHeader: data['actionAlert.deleteMenu'],
+					cssClass: 'custom-alert',
+					mode: 'md',
+					buttons: [
+						{
+							cssClass: 'ok-button ',
+							text: data['option.yes'],
+							handler: (_) =>
+							{
+								this.submit();
+							}
+						},
+						{
+							cssClass: 'cancel-button',
+							text: data['option.no'],
+							handler: () =>
+							{
+							}
+						}
+					]
+				});
+				await alert.present();
+			});
+	}
 	 /**
 	  * Initiates delete operation
 	  */
@@ -623,14 +663,14 @@ export class CrudCourseMaterialTypeComponent
  
 				 if (this._parentMenuModel.operationType === OperationsEnum.DELETE)
 				 {
-					 this.submit();
+					 this.checkIfWantToDelete();
 				 }
 				 break;
 			 case MenuTypeEnum.CHILD_MENU:
  
 				 if (this._childMenuModel.operationType === OperationsEnum.DELETE)
 				 {
-					 this.submit();
+					 this.checkIfWantToDelete();
 				 }
 				 break;
  
@@ -638,7 +678,7 @@ export class CrudCourseMaterialTypeComponent
  
 				 if (this._subChildMenuModel.operationType === OperationsEnum.DELETE)
 				 {
-					 this.submit();
+					 this.checkIfWantToDelete();
 				 }
 				 break;
  

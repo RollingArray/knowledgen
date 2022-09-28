@@ -209,21 +209,23 @@ export class CourseMaterialMenuStateEffects
 													}
 												}
 											}
-										)
+									)
+									
+									return [
+										COURSE_MATERIAL_MENU_ACTIONS.LOADING_GENERATED_MENU(
+											{
+												payloadCourseMaterial: courseMaterial,
+												payloadParentMenu: parentMenus,
+												payloadChildMenu: childMenus,
+												payloadSubChildMenu: subChildMenus
+	
+											}),
+										COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: storableArticle })
+									];
 
 								}
 
-								return [
-									COURSE_MATERIAL_MENU_ACTIONS.LOADING_GENERATED_MENU(
-										{
-											payloadCourseMaterial: courseMaterial,
-											payloadParentMenu: parentMenus,
-											payloadChildMenu: childMenus,
-											payloadSubChildMenu: subChildMenus
-
-										}),
-									COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: storableArticle })
-								];
+								
 							}
 
 

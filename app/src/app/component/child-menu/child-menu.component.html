@@ -40,11 +40,11 @@
 	<ion-toolbar *ngIf="isMaterialOwner" mode="ios">
 		<ion-buttons slot="end">
 			<edit-button
-				(click)="editChildMenu(eachMenu)"
+				(click)="onChildMenuAction(eachMenu, operationsEnum.EDIT)"
 				*ngIf="isMaterialOwner"
 			></edit-button>
 			<delete-button
-				(click)="deleteChildMenu(eachMenu)"
+				(click)="onChildMenuAction(eachMenu, operationsEnum.DELETE)"
 				*ngIf="isMaterialOwner"
 			>
 			</delete-button>
