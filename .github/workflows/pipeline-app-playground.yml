@@ -1,21 +1,21 @@
 #
 # © Rolling Array https://rollingarray.co.in/
 #
-# @summary Deploy KnowledgeN Client app on DEV branch push
+# @summary Deploy KnowledgeN Client app on PLAYGROUND branch push
 # @author code@rollingarray.co.in
 #
 # Created at     : 2021-05-26 10:42:18 
-# Last modified  : 2022-01-31 18:13:06
+# Last modified  : 2022-09-28 17:58:45
 #
 
-name: Deploy KnowledgeN Client app on DEV branch push
+name: Deploy KnowledgeN Client app on PLAYGROUND branch push
 
-on: 
-  push:
-    branches: 
-      - playground
-    paths:
-      - 'app/**'
+# on: 
+#   push:
+#     branches: 
+#       - playground
+#     paths:
+#       - 'app/**'
       
 jobs:
   web-deploy:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: https://knowledgen.dev.rollingarray.co.in/
+      url: https://knowledgen.playground.rollingarray.co.in/
 
     # Start stage
 
@@ -51,8 +51,6 @@ jobs:
       run: npm run build-dev
       working-directory: ./app
 
-    
-
     - name: Directory Permissions
       run: chmod -R 777 ./www/
       working-directory: ./app
@@ -61,8 +59,8 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ftp.rollingarray.co.in
-        username: rolli3oh@knowledgen.dev.rollingarray.co.in
-        password: ;lWJ]cg3J[$N
+        username: rolli3oh@knowledgen.playground.rollingarray.co.in
+        password: C-*S5Ebevs$s
         local-dir: ./app/www/
         server-dir: /
         dangerous-clean-slate: true
