@@ -29,14 +29,14 @@ jobs:
       with:
         args: zip -qq -r api.zip ./api
       
-    - name: Create .env file
+    - name: mv
       run: mv api.zip api/zip
 
-    - name: Create .env file
+    - name: cd
       run: cd
-      working-directory: ./api/zip
+      working-directory: ./api
 
-    - name: Create .env file
+    - name: ls
       run: ls
       working-directory: ./api/zip
     
