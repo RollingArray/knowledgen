@@ -28,6 +28,7 @@ import { NavParams } from '@ionic/angular';
 import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
 import { Observable } from 'rxjs';
 import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
+import { CoreSubjectAreaTagModel } from 'src/app/shared/model/core-subject-area-tag.model';
 
 @Component({
 	selector: 'crud-course-material-assignment-result',
@@ -95,6 +96,11 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	private _spaceRepetitionDay: string;
 
 	/**
+	 * Strength weakness analysis of crud assignment quiz component
+	 */
+	private _strengthWeaknessAnalysis: CoreSubjectAreaTagModel[] = [];
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @public Instance variable								|
@@ -141,90 +147,106 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 * Gets result title
 	 */
 	public resultTitle()
-	 {
- 
-		 let title = '';
- 
-		 if (this._resultType === ResultTypeEnum.SCORE)
-		 {
-			 const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100;
- 
-			 if (resultPercentage >= 0 && resultPercentage <= 30)
-			 {
-				 title = 'pageTitle.resultLow';
-			 }
-			 else if (resultPercentage >= 31 && resultPercentage <= 70)
-			 {
-				 title = 'pageTitle.resultMid';
-			 }
-			 else if (resultPercentage >= 71 && resultPercentage <= 100)
-			 {
-				 title = 'pageTitle.resultTop';
-			 }
-		 }
-		 else if (this._resultType === ResultTypeEnum.TIME)
-		 {
-			 // get article completion time
-			 const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
- 
-			 // get maximum time allowed for each question
-			 const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
- 
-			 // find best active recall time in percentage 
-			 const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
- 
-			 // get number of days for space repetition based on active recall time percentage
-			 let numberOfDays = 0;
- 
-			 // set result title based on percentage
-			 if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
-			 {
-				 title = 'pageTitle.timeL1';
-			 }
-			 else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
-			 {
-				 title = 'pageTitle.timeL2';
-			 }
-			 else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
-			 {
-				 title = 'pageTitle.timeL3';
-			 }
-			 else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
-			 {
-				 title = 'pageTitle.timeL4';
-			 }
-			 else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
-			 {
-				 title = 'pageTitle.timeL4';
-			 }
-			 else if (bestActiveRecallTimePercentage > 100)
-			 {
-				 title = 'pageTitle.timeL6';
-			 }
-		 }
- 
-		 else if (this._resultType === ResultTypeEnum.NONE)
-		 {
-			 //
-		 }
- 
-		 return title;
-	 }
+	{
+
+		let title = '';
+
+		if (this._resultType === ResultTypeEnum.SCORE)
+		{
+			const resultPercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions) * 100;
+
+			if (resultPercentage >= 0 && resultPercentage <= 30)
+			{
+				title = 'pageTitle.resultLow';
+			}
+			else if (resultPercentage >= 31 && resultPercentage <= 70)
+			{
+				title = 'pageTitle.resultMid';
+			}
+			else if (resultPercentage >= 71 && resultPercentage <= 100)
+			{
+				title = 'pageTitle.resultTop';
+			}
+		}
+		else if (this._resultType === ResultTypeEnum.TIME)
+		{
+			// get article completion time
+			const articleCompletionTime = parseInt(this.courseMaterialMenuStateFacade.getSpecificPropertyOfMenu('articleCompletionTime'));
+
+			// get maximum time allowed for each question
+			const eachQuestionAllowedMaxTime = ((articleCompletionTime * 60) / this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfQuestions);
+
+			// find best active recall time in percentage 
+			const bestActiveRecallTimePercentage = (this._courseMaterialAssignmentResult.articleAssignmentTotalNoOfCorrectAnswers / eachQuestionAllowedMaxTime) * 100;
+
+			// get number of days for space repetition based on active recall time percentage
+			let numberOfDays = 0;
+
+			// set result title based on percentage
+			if (bestActiveRecallTimePercentage >= 0 && bestActiveRecallTimePercentage <= 20)
+			{
+				title = 'pageTitle.timeL1';
+			}
+			else if (bestActiveRecallTimePercentage >= 21 && bestActiveRecallTimePercentage <= 40)
+			{
+				title = 'pageTitle.timeL2';
+			}
+			else if (bestActiveRecallTimePercentage >= 41 && bestActiveRecallTimePercentage <= 60)
+			{
+				title = 'pageTitle.timeL3';
+			}
+			else if (bestActiveRecallTimePercentage >= 61 && bestActiveRecallTimePercentage <= 80)
+			{
+				title = 'pageTitle.timeL4';
+			}
+			else if (bestActiveRecallTimePercentage >= 81 && bestActiveRecallTimePercentage <= 100)
+			{
+				title = 'pageTitle.timeL4';
+			}
+			else if (bestActiveRecallTimePercentage > 100)
+			{
+				title = 'pageTitle.timeL6';
+			}
+		}
+
+		else if (this._resultType === ResultTypeEnum.NONE)
+		{
+			//
+		}
+
+		return title;
+	}
 
 	/**
 	 * Sets result type
 	 */
-	 public get resultType()
-	 {
-		 return this._resultType;
-	 }
-	
+	public get resultType()
+	{
+		return this._resultType;
+	}
+
 	/**
 	 * Sets result type
 	 */
 	public set resultType(value: ResultTypeEnum)
 	{
 		this._resultType = value;
+	}
+
+	/**
+	 * Gets strength weakness analysis
+	 */
+	public get strengthWeaknessAnalysis()
+	{
+		return this._strengthWeaknessAnalysis;
+	}
+
+	/**
+	 * Sets strength weakness analysis
+	 */
+	public set strengthWeaknessAnalysis(value: CoreSubjectAreaTagModel[])
+	{
+		this._strengthWeaknessAnalysis = value;
 	}
 
 	/**
@@ -281,13 +303,13 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 
 			// get date for next reversion
 			const millisecondsInADay = 24 * 60 * 60 * 1000;
-			setDate = new Date(Date.now() + numberOfDays * millisecondsInADay); 
+			setDate = new Date(Date.now() + numberOfDays * millisecondsInADay);
 		}
 
 		else if (this._resultType === ResultTypeEnum.NONE)
 		{
 			// set revision for next day
-			setDate = new Date(Date.now() + 1); 
+			setDate = new Date(Date.now() + 1);
 		}
 
 		return setDate.toISOString().split('T')[0];
@@ -321,29 +343,6 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	)
 	{
 		super(injector);
-
-		// get result type
-		this._resultType = this.navParams.get('resultType');
-		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
-		if (this._resultType !== ResultTypeEnum.NONE)
-		{
-			// get act upon curd model from store
-			this.courseMaterialAssignmentStateFacade
-			.operationCourseMaterialAssignment$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(
-				data => this._courseMaterialAssignmentResult = data
-			);
-
-			this.submit();	
-		}
-		else
-		{
-			this._courseMaterialAssignmentResult = {
-				articleAssignmentCompletionTime: this.navParams.get('studyTime')
-			}
-		}
 	}
 
 	/**
@@ -351,7 +350,52 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 */
 	ngOnInit()
 	{
-		//
+		// get result type
+		this._resultType = this.navParams.get('resultType');
+
+		// all tags
+		let allTags: CoreSubjectAreaTagModel[] = this.navParams.get('strengthWeaknessAnalysis') ? this.navParams.get('strengthWeaknessAnalysis') : [];
+		
+		// selected menu article
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+
+		// modal loading indicator
+		this.modalLoadingIndicatorStatus$ = this.rootStateFacade.modalLoadingIndicatorStatus$;
+
+		// get result
+		if (this._resultType !== ResultTypeEnum.NONE)
+		{
+			// get act upon curd model from store
+			this.courseMaterialAssignmentStateFacade
+				.operationCourseMaterialAssignment$
+				.pipe(takeUntil(this.unsubscribe))
+				.subscribe(
+					data =>
+					{
+						this._courseMaterialAssignmentResult = data;
+
+						// if result analysis available
+						if (allTags.length !== 0)
+						{
+							this._strengthWeaknessAnalysis = this.strengthWeaknessAnalysisFromTag(allTags);
+							this._courseMaterialAssignmentResult = {
+								...this._courseMaterialAssignmentResult,
+								coreSubjectAreaTagAnalysis: this._strengthWeaknessAnalysis
+							}
+						}
+					}
+				);
+
+			this.submit();
+		}
+		else
+		{
+			this._courseMaterialAssignmentResult = {
+				articleAssignmentCompletionTime: this.navParams.get('studyTime')
+			}
+		}
+
+
 	}
 
 	/**
@@ -360,6 +404,54 @@ export class CrudCourseMaterialAssignmentResultComponent extends BaseFormCompone
 	 * @Private methods									|
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Descriptions crud course material assignment result component
+	 * @param allTags 
+	 * @returns  
+	 */
+	private strengthWeaknessAnalysisFromTag(allTags: CoreSubjectAreaTagModel[])
+	{
+		let allTagAnalysis: CoreSubjectAreaTagModel[] = [];
+		const uniqueTags = [...new Set(allTags.map((eachSubjectAreaTag: CoreSubjectAreaTagModel) => eachSubjectAreaTag.subjectAreaTagName))];
+		uniqueTags.map((eachTag: string) =>
+		{
+			let tagName = eachTag;
+			let tagId: string;
+			let strongAreaAnalysis = 0, weakAreaAnalysis = 0;
+			allTags.map(eachAnalysis =>
+			{
+				if (eachAnalysis.subjectAreaTagName === tagName && eachAnalysis.isCorrect)
+				{
+					tagId = eachAnalysis.subjectAreaTagId;
+					strongAreaAnalysis++;
+				}
+				else if (eachAnalysis.subjectAreaTagName === tagName && !eachAnalysis.isCorrect)
+				{
+					tagId = eachAnalysis.subjectAreaTagId;
+					weakAreaAnalysis++;
+				}
+			});
+
+			const coreSubjectAreaTagAnalysis: CoreSubjectAreaTagModel = {
+				subjectAreaTagId: tagId,
+				subjectAreaTagName: tagName,
+				weakAreaAnalysis: weakAreaAnalysis,
+				strongAreaAnalysis: strongAreaAnalysis,
+				strongAreaPercentage: parseInt(((strongAreaAnalysis / (strongAreaAnalysis + weakAreaAnalysis)) * 100).toFixed(2))
+			};
+			allTagAnalysis = [
+				...allTagAnalysis,
+				coreSubjectAreaTagAnalysis
+			];
+		});
+
+
+
+
+
+		return allTagAnalysis;
+	}
 
 	/**
 	 * -------------------------------------------------|

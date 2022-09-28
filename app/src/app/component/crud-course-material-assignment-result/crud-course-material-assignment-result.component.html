@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-09-02 21:55:58
+ * Last modified  : 2022-09-28 09:55:47
  */
 -->
 
@@ -172,7 +172,27 @@
 			</ion-item>
 		</ion-card>
 		<!-- total session time -->
-
+		
+		<!-- tag analysis -->
+		<div *ngIf="strengthWeaknessAnalysis.length !== 0">
+			<ion-card>
+				<ion-card-header>
+					<panel-header
+						[panelTitle]="'pageTitle.subjectAreaAnalysis' | translate"
+						[panelIcon]="stringKey.ICON_ANALYSIS"
+					></panel-header>
+					<panel-info
+						[showMoreLess]="true"
+						[title]="'pageSubTitle.subjectAreaAnalysis' | translate"
+						[panelColor]="stringKey.COLOR_WHITE"
+					></panel-info>
+				</ion-card-header>
+				<ion-card-content>
+					<subject-area-analysis-segment [coreSubjectAreaTags]="strengthWeaknessAnalysis"></subject-area-analysis-segment>
+				</ion-card-content>
+			</ion-card>
+		</div>
+		<!-- tag analysis -->
 		<!-- leader board -->
 		<div *ngIf="resultType && resultType === resultTypeEnum.SCORE">
 			<course-material-assignment-leader-board
