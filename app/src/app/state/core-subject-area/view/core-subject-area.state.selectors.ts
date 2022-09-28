@@ -69,7 +69,6 @@ const selectCoreSubjectAreaHasData = createSelector(
 const selectCoreSubjectAreasByCoreSubjectAreaId = (subjectAreaIdId: string) =>
 	createSelector(selectCoreSubjectAreaState, (state) =>
 	{
-		console.log(subjectAreaIdId, state.entities[subjectAreaIdId]);
 		return state.entities[subjectAreaIdId];
 	});
 

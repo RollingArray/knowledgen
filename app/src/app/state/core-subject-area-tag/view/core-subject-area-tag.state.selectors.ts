@@ -69,19 +69,18 @@ const selectCoreSubjectAreaTagHasData = createSelector(
 const selectCoreSubjectAreaTagsByCoreSubjectAreaTagId = (subjectAreaTagId: string) =>
 	createSelector(selectCoreSubjectAreaTagState, (state) =>
 	{
-		console.log(subjectAreaTagId, state.entities[subjectAreaTagId]);
 		return state.entities[subjectAreaTagId];
 	});
 
 /**
  * @description Selectors - If core subject area exist by core subject area id
  */
- const selectIfCoreSubjectAreaTagExistByCoreSubjectAreaTagId = (subjectAreaTagId: string) =>
- createSelector(selectCoreSubjectAreaTagState, (state) =>
- {
-	 
-	 return state.entities[subjectAreaTagId] !== undefined ? true : false ;
- });
+const selectIfCoreSubjectAreaTagExistByCoreSubjectAreaTagId = (subjectAreaTagId: string) =>
+	createSelector(selectCoreSubjectAreaTagState, (state) =>
+	{
+
+		return state.entities[subjectAreaTagId] !== undefined ? true : false;
+	});
 
 /**
  * @description Selectors - Core subject area tags by search key

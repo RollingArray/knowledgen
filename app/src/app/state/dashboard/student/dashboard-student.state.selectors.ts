@@ -10,6 +10,7 @@
  */
 
 import { MemoizedSelector, createFeatureSelector, createSelector } from "@ngrx/store";
+import { CoreSubjectAreaTagModel } from "src/app/shared/model/core-subject-area-tag.model";
 import { DashboardStudentModel } from "src/app/shared/model/dashboard-student.model";
 import { DashboardStudentStateModel } from "./dashboard-student.state.model";
 import { DASHBOARD_STUDENT_FEATURE_KEY } from "./dashboard-student.state.reducer";
@@ -36,9 +37,45 @@ export const hasStudentData: MemoizedSelector<DashboardStudentStateModel, boolea
 );
 
 /**
+ * @description Selectors - Core subject areas
+ */
+ export const selectCoreSubjectAreas: MemoizedSelector<DashboardStudentStateModel, string[]> = createSelector(
+	selectDashboardStudentState,
+	 (dashboardStudentStateModel: DashboardStudentStateModel): string[] =>
+	 {
+		 return [...new Set(dashboardStudentStateModel.coreSubjectAreaTagAnalysis.map((coreSubjectAreaTagModel: CoreSubjectAreaTagModel) => coreSubjectAreaTagModel.subjectAreaName))];	
+	}
+ );
+
+/**
+ * @description Selectors - All analyzed tags by subject area name
+ */
+ export const selectAllAnalyzedTagsBySubjectAreaName = (coreSubjectAreaName: string) => createSelector(
+	selectDashboardStudentState,
+	(dashboardStudentStateModel: DashboardStudentStateModel) =>
+	{
+		let analyzedTags: CoreSubjectAreaTagModel[] = [];
+		dashboardStudentStateModel.coreSubjectAreaTagAnalysis.map(eachAnalysis =>
+		{
+			if (eachAnalysis.subjectAreaName === coreSubjectAreaName)
+			{
+				analyzedTags = [
+					...analyzedTags,
+					eachAnalysis
+				]
+			}
+		})
+		
+		return analyzedTags;
+	}
+);
+
+/**
  * @description export all selectors
  */
 export const DASHBOARD_STUDENT_QUERY_SELECTOR = {
 	selectDashboardStudent,
-	hasStudentData
+	hasStudentData,
+	selectCoreSubjectAreas,
+	selectAllAnalyzedTagsBySubjectAreaName
 };

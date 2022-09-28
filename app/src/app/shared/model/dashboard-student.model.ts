@@ -12,6 +12,7 @@
 
 
 import { BaseModel } from "./base.model"
+import { CoreSubjectAreaTagModel } from "./core-subject-area-tag.model"
 import { UserModel } from "./user.model"
 
 export interface DashboardStudentModel extends BaseModel, UserModel
@@ -65,5 +66,6 @@ export interface DashboardStudentModel extends BaseModel, UserModel
 	courseContentTimeCoverageOverTime: {
 		month: string,
 		contentTimeCoverage: number
-	}[]
+	}[];
+	coreSubjectAreaTagAnalysis?: CoreSubjectAreaTagModel[];
 }

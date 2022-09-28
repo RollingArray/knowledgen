@@ -10,9 +10,14 @@
  */
 
 import { BaseModel } from "./base.model";
+import { CoreSubjectAreaTagModel } from "./core-subject-area-tag.model";
 
 export interface CoreSubjectAreaModel extends BaseModel
 {
 	subjectAreaId?: string;
 	subjectAreaName?: string;
+	subjectAreasTags?: CoreSubjectAreaTagModel[],
+	strongSubjectAreas?: CoreSubjectAreaTagModel[],
+	weakSubjectAreas?: CoreSubjectAreaTagModel[],
+	neutralSubjectAreas?: CoreSubjectAreaTagModel[],
 }

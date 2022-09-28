@@ -43,6 +43,7 @@ const reducer = createReducer(
 		assignmentsScoreAnalysis: action.payload.assignmentsScoreAnalysis,
 		courseContentCoverageOverTime: action.payload.courseContentCoverageOverTime,
 		courseContentTimeCoverageOverTime: action.payload.courseContentTimeCoverageOverTime,
+		coreSubjectAreaTagAnalysis: action.payload.coreSubjectAreaTagAnalysis,
 	})),
 );
 

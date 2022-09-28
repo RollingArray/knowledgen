@@ -12,6 +12,7 @@
 import { OperationsEnum } from "../enum/operations.enum";
 import { ArticleSessionModel } from "./article-session.model";
 import { BaseModel } from "./base.model";
+import { CoreSubjectAreaTagModel } from "./core-subject-area-tag.model";
 import { CourseMaterialAssignmentLeaderBoardModel } from "./course-material-assignment-leader-board.model";
 
 export interface CourseMaterialAssignmentResultModel extends BaseModel
@@ -22,12 +23,13 @@ export interface CourseMaterialAssignmentResultModel extends BaseModel
     articleAssignmentTotalNoOfQuestions?: number;
     articleAssignmentTotalNoOfCorrectAnswers?: number;
     assignmentLeaderBoard?: {
-		  success: boolean,
-		  data: CourseMaterialAssignmentLeaderBoardModel[]
+        success: boolean,
+        data: CourseMaterialAssignmentLeaderBoardModel[]
     }
     sessionTime?: {
-		  success: boolean,
-		  data: ArticleSessionModel
-	  }
+        success: boolean,
+        data: ArticleSessionModel
+    },
+    coreSubjectAreaTagAnalysis?: CoreSubjectAreaTagModel[];
     operationType?: OperationsEnum;
 }

@@ -64,5 +64,6 @@ export const INITIAL_DASHBOARD_STUDENT_STATE: DashboardStudentStateModel = {
         totalPoorScore: 0
     },
     courseContentCoverageOverTime: [],
-    courseContentTimeCoverageOverTime: []
+    courseContentTimeCoverageOverTime: [],
+    coreSubjectAreaTagAnalysis: []
 };

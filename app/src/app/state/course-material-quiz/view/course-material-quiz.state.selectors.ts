@@ -77,7 +77,7 @@ export const selectCourseMaterialArticleHasQuiz = (articleId: string) => createS
 				hasData = true
 			}
 		})
-		
+
 		return hasData;
 	}
 );
@@ -89,7 +89,6 @@ export const selectAllCourseMaterialQuizByArticleId = (articleId: string, ifRand
 	selectCourseMaterialQuizState,
 	(entity) =>
 	{
-		console.log("yes");
 		let courseMaterialQuiz: CourseMaterialQuizModel[] = [];
 		const entityIds = entity.ids;
 		entityIds.map(eachId =>
@@ -103,7 +102,7 @@ export const selectAllCourseMaterialQuizByArticleId = (articleId: string, ifRand
 				]
 			}
 		})
-		
+
 		return ifRandomizeQuizQuestion ? courseMaterialQuiz.sort(() => Math.random() - 0.5) : courseMaterialQuiz;
 	}
 );

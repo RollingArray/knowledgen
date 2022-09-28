@@ -45,6 +45,17 @@ export class DashboardStateFacade
 	 * Determines whether student data$ has
 	 */
 	public hasStudentData$ = this.dashboardStudentStore.select(DASHBOARD_STUDENT_QUERY_SELECTOR.hasStudentData);
+
+	/**
+	 * Core subject areas$ of dashboard state facade
+	 */
+	public coreSubjectAreas$ = this.dashboardStudentStore.select(DASHBOARD_STUDENT_QUERY_SELECTOR.selectCoreSubjectAreas);
+	
+	/**
+	 * All analyzed tags by subject area name$ of dashboard state facade
+	 */
+	public allAnalyzedTagsBySubjectAreaName$ = (coreSubjectAreaName: string) => this.dashboardStudentStore.select(DASHBOARD_STUDENT_QUERY_SELECTOR.selectAllAnalyzedTagsBySubjectAreaName(coreSubjectAreaName));
+	
 	
 	/**
 	 * Requests dashboard student
