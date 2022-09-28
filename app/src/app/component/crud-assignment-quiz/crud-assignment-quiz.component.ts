@@ -20,6 +20,7 @@ import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-ty
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { QuizTypeEnum } from "src/app/shared/enum/quiz-type.enum";
 import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
+import { CoreSubjectAreaTagModel } from "src/app/shared/model/core-subject-area-tag.model";
 import { CourseMaterialAssignmentResultModel } from "src/app/shared/model/course-material-assignment-result.model";
 import { CourseMaterialQuizAnswerModel } from "src/app/shared/model/course-material-quiz-answer.model";
 import { CourseMaterialQuizModel } from "src/app/shared/model/course-material-quiz.model";
@@ -174,6 +175,11 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 * If session available of crud assignment quiz component
 	 */
 	private _ifSessionAvailable = true;
+
+	/**
+	 * Strength weakness analysis of crud assignment quiz component
+	 */
+	private _strengthWeaknessAnalysis: CoreSubjectAreaTagModel[] = [];
 
 	/**
 	 * -------------------------------------------------|
@@ -591,31 +597,55 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 	 */
 	private checkAnswer()
 	{
+		this._strengthWeaknessAnalysis = [];
 		this._submittedAnswer = true;
 		this._courseMaterialQuiz.map(eachCourseMaterialQuiz =>
 		{
+
 			let correctCheck = 0;
 			eachCourseMaterialQuiz.options.map(eachCourseMaterialQuizAnswer =>
 			{
 				if (eachCourseMaterialQuizAnswer.isCorrect === eachCourseMaterialQuizAnswer.isChecked)
 				{
-					correctCheck++
+					correctCheck++;
 				}
 			});
+			
 			if (correctCheck === eachCourseMaterialQuiz.options.length)
 			{
 				eachCourseMaterialQuiz.isCorrectAnswerMapped = true;
 				this._totalScore++;
+				this.addRestToTag(eachCourseMaterialQuiz, true);
 			}
 			else
 			{
 				eachCourseMaterialQuiz.isCorrectAnswerMapped = false;
+				this.addRestToTag(eachCourseMaterialQuiz, false);
 			}
 		});
 
 		// 
 
 	}
+
+	/**
+	 * Adds rest to tag
+	 * @param eachCourseMaterialQuiz 
+	 * @param isCorrect 
+	 */
+	 private addRestToTag(eachCourseMaterialQuiz: CourseMaterialQuizModel, isCorrect: boolean)
+	 {
+		 const eachCorrectTag: CoreSubjectAreaTagModel = {
+			 subjectAreaId: eachCourseMaterialQuiz.subjectAreaId,
+			 subjectAreaTagId: eachCourseMaterialQuiz.subjectAreaTagId,
+			 subjectAreaTagName: eachCourseMaterialQuiz.subjectAreaTagName,
+			 isCorrect: isCorrect
+		 };
+		 this._strengthWeaknessAnalysis = [
+			 ...this._strengthWeaknessAnalysis,
+			 eachCorrectTag
+		 ];
+	 }
 
 	/**
 	 * Adds new assignment result
@@ -645,7 +675,8 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 			cssClass: 'modal-view',
 			backdropDismiss: false,
 			componentProps: {
-				resultType: ResultTypeEnum.SCORE
+				resultType: ResultTypeEnum.SCORE,
+				strengthWeaknessAnalysis: this._strengthWeaknessAnalysis
 			}
 		});
 
