@@ -48,11 +48,11 @@
 						"ngswConfigPath": "ngsw-config.json"
 					},
 					"configurations": {
-						"dev": {
+						"playground": {
 							"fileReplacements": [
 								{
 									"replace": "src/environments/environment.ts",
-									"with": "src/environments/environment.dev.ts"
+									"with": "src/environments/environment.playground.ts"
 								}
 							],
 							"optimization": true,
@@ -105,8 +105,8 @@
 						"browserTarget": "app:build"
 					},
 					"configurations": {
-						"dev": {
-							"browserTarget": "app:build:dev"
+						"playground": {
+							"browserTarget": "app:build:playground"
 						},
 						"production": {
 							"browserTarget": "app:build:production"
@@ -168,8 +168,8 @@
 						"devServerTarget": "app:serve"
 					},
 					"configurations": {
-						"dev": {
-							"devServerTarget": "app:serve:dev"
+						"playground": {
+							"devServerTarget": "app:serve:playground"
 						},
 						"production": {
 							"devServerTarget": "app:serve:production"
@@ -185,8 +185,8 @@
 						"browserTarget": "app:build"
 					},
 					"configurations": {
-						"dev": {
-							"devServerTarget": "app:serve:dev"
+						"playground": {
+							"devServerTarget": "app:serve:playground"
 						},
 						"production": {
 							"browserTarget": "app:build:production"
@@ -200,8 +200,8 @@
 						"devServerTarget": "app:serve"
 					},
 					"configurations": {
-						"dev": {
-							"devServerTarget": "app:serve:dev"
+						"playground": {
+							"devServerTarget": "app:serve:playground"
 						},
 						"production": {
 							"cordovaBuildTarget": "app:ionic-cordova-build:production",
