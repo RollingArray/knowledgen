@@ -5,7 +5,7 @@
 # @author code@rollingarray.co.in
 #
 # Created at     : 2022-09-26 10:42:18 
-# Last modified  : 2022-09-28 14:22:09
+# Last modified  : 2022-09-28 14:25:26
 #
 
 name: Deploy KnowledgeN Server api on PLAYGROUND branch push
@@ -90,21 +90,21 @@ jobs:
     
     - uses: montudor/action-zip@v1
       with:
-        args: zip -qq -r api.zip ./api/
+        args: zip -qq -r ./zip/api.zip ./api/
     
     - name: Create .env file
       run: ls
       working-directory: ./
 
-    # - name: Sync Files
-    #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
-    #   with:
-    #     server: ${{ secrets.PLAYGROUND_FTP_SERVER }}
-    #     username: ${{ secrets.PLAYGROUND_FTP_USERNAME }}
-    #     password: ${{ secrets.PLAYGROUND_FTP_PASSWORD }}
-    #     local-dir: ./api/
-    #     server-dir: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
-    #     dangerous-clean-slate: true
+    - name: Sync Files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ secrets.PLAYGROUND_FTP_SERVER }}
+        username: ${{ secrets.PLAYGROUND_FTP_USERNAME }}
+        password: ${{ secrets.PLAYGROUND_FTP_PASSWORD }}
+        local-dir: ./api/
+        server-dir: ${{ secrets.PLAYGROUND_FTP_DEPLOYMENT_PATH }}
+        dangerous-clean-slate: true
     
     
     

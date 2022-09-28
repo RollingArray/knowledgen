@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CoreSubjectAreaController extends Controller
 {
-  
+   
 	/**
 	 * jwtAuthServiceInterface
 	 *
