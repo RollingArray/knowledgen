@@ -591,7 +591,7 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 
 				const mcqAnswerModel: CourseMaterialQuizAnswerModel = {
 					answerId: this.utilityService.getTempId(),
-					answer: '',
+					answer: '...',
 					isCorrect: false,
 					isChecked: false,
 				}
@@ -665,7 +665,6 @@ export class CrudQuizQuestionComponent extends BaseFormComponent implements OnIn
 
 					courseMaterialQuizOptions = [
 						...courseMaterialQuizOptions,
-
 						option
 					]
 				}
