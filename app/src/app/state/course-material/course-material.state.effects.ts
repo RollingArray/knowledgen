@@ -146,19 +146,11 @@ export class CourseMaterialStateEffects {
 							// if success response
 							if (data.success) {
 								
-								// build new skill object
-								const newCourseMaterial = {
-									...action.payload,
-									courseMaterialId: data.resource.courseMaterialId,
-									subjectAreaId: data.resource.subjectAreaId,
-									subjectAreaName: data.resource.subjectAreaName
-								};
-
 								// find and add the subject area if it does not exist
 								this.findAndAddNewSubjectArea(data.resource);
 
 								// store newly added skill
-								return COURSE_MATERIAL_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL({ payload: newCourseMaterial });
+								return COURSE_MATERIAL_ACTIONS.STORE_NEWLY_ADDED_COURSE_MATERIAL({ payload: data.resource });
 							}
 							// response fail
 							else {
