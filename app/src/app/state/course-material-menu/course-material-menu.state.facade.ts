@@ -52,7 +52,7 @@ export class CourseMaterialMenuStateFacade
 	 * @param parentMenuStore 
 	 * @param childMenuStore 
 	 * @param subChildMenuStore 
-	 * @param menuSelectStateModel 
+	 * @param menuSelectStateStore 
 	 * @param subChildMenuCrudStore 
 	 * @param parentMenuCrudStore 
 	 * @param childMenuCrudStore 
@@ -64,7 +64,7 @@ export class CourseMaterialMenuStateFacade
 		private parentMenuStore: Store<ParentMenuStateModel>,
 		private childMenuStore: Store<ChildMenuStateModel>,
 		private subChildMenuStore: Store<SubChildMenuStateModel>,
-		private menuSelectStateModel: Store<MenuSelectStateModel>,
+		private menuSelectStateStore: Store<MenuSelectStateModel>,
 		private subChildMenuCrudStore: Store<SubChildMenuCrudStateModel>,
 		private parentMenuCrudStore: Store<ParentMenuCrudStateModel>,
 		private childMenuCrudStore: Store<ChildMenuCrudStateModel>,
@@ -101,7 +101,7 @@ export class CourseMaterialMenuStateFacade
 	/**
 	 * Selected menu article$ of course material menu state facade
 	 */
-	public selectedMenuArticle$ = this.menuSelectStateModel.select(MENU_SELECT_QUERY_SELECTOR.selectMenuArticle);
+	public selectedMenuArticle$ = this.menuSelectStateStore.select(MENU_SELECT_QUERY_SELECTOR.selectMenuArticle);
 
 	/**
 	 * Operation sub child menu$ of course material menu state facade
@@ -152,7 +152,7 @@ export class CourseMaterialMenuStateFacade
 	 * Requests course material
 	 * @param courseMaterialModel 
 	 */
-	public requestCourseMaterial(courseMaterialModel: CourseMaterialModel)
+	public requestCourseMaterialMenu(courseMaterialModel: CourseMaterialModel)
 	{
 		this.parentMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.API_REQUEST_MENU({ payload: courseMaterialModel }));
 	}
@@ -293,7 +293,7 @@ export class CourseMaterialMenuStateFacade
 					// pass on
 					else
 					{
-						this.subChildMenuStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: menuSelectModel }));
+						this.menuSelectStateStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.STORE_SELECTED_MENU({ payload: menuSelectModel }));
 					}
 				}
 			)
@@ -358,5 +358,13 @@ export class CourseMaterialMenuStateFacade
 				}
 			});
 		return menuProperty;
+	}
+
+	/**
+	 * Removes selected menu
+	 */
+	public removeSelectedMenu()
+	{
+		this.menuSelectStateStore.dispatch(COURSE_MATERIAL_MENU_ACTIONS.REMOVE_SELECTED_MENU());
 	}
 }

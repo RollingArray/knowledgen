@@ -224,6 +224,13 @@ export class CourseMaterialMenuStateEffects
 									];
 
 								}
+								else
+								{
+									// if no menu found, make previous menu as null
+									return [
+										COURSE_MATERIAL_MENU_ACTIONS.REMOVE_SELECTED_MENU()
+									];
+								}
 
 								
 							}

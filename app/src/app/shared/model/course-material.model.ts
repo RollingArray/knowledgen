@@ -11,6 +11,7 @@
 
 import { BaseModel } from "./base.model";
 import { CoreSubjectAreaModel } from "./core-subject-area.model";
+import { ParentMenuModel } from "./parent-menu.model";
 
 
 export interface CourseMaterialModel extends BaseModel, CoreSubjectAreaModel
@@ -23,4 +24,5 @@ export interface CourseMaterialModel extends BaseModel, CoreSubjectAreaModel
 	courseMaterialProgress?: number;
 	authorFirstName?: string;
 	authorLastName?: string;
+	firstParentArticleId?: ParentMenuModel;
 }

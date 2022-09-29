@@ -67,6 +67,6 @@ export enum CourseMaterialMenuOperationsEnum
 	CRUD_SUCCESS_SUB_CHILD_MENU = '[Course Material Menu] Sub Child Menu CRUD Fail',
 
 	STORE_SELECTED_MENU = '[Course Material Menu] Store Selected Menu Article',
-	
+	REMOVE_SELECTED_MENU = '[Course Material Menu] Delete Selected Menu Article From Store',
 	NOOP = '[Course Material Menu] No Operation',
 }

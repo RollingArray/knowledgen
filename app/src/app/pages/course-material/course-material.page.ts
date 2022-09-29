@@ -434,9 +434,18 @@ export class CourseMaterialPage extends BaseViewComponent implements OnInit, OnD
 	 * Navigates to course material details
 	 * @param courseMaterialId 
 	 */
-	public navigateToCourseMaterialDetails(courseMaterialId: string)
+	public navigateToCourseMaterialDetails(courseMaterial: CourseMaterialModel)
 	{
-		this.router.navigate([courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });
+		this.router.navigate([courseMaterial.courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });
+		if (courseMaterial.firstParentArticleId !== null)
+		{
+			const firstParentArticleId = courseMaterial.firstParentArticleId.parentArticleId;
+			this.router.navigate([courseMaterial.courseMaterialId, 'articles', 'article', firstParentArticleId], { relativeTo: this.activatedRoute });	
+		}
+		else
+		{
+			this.router.navigate([courseMaterial.courseMaterialId, 'articles'], { relativeTo: this.activatedRoute });
+		}
 	}
 
 	/**

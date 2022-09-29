@@ -66,11 +66,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	courseMaterial$!: Observable<CourseMaterialModel>;
 
 	/**
-	 * First parent menu id$ of course material details page
-	 */
-	firstParentMenuId$: Observable<string | number>;
-
-	/**
 	 * Selected article of course material details page
 	 */
 	selectedArticle: string;
@@ -132,36 +127,28 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	 */
 	async ngOnInit()
 	{
-
 		this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 		const courseMaterialId = this.activatedRoute.snapshot.paramMap.get('courseMaterialId');
 		this.studyTimerStatus$ = this.rootStateFacade.studyTimerStatus$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
-		this.firstParentMenuId$ = this.courseMaterialMenuStateFacade.getFirstParentMenuId$;
-
-	}
-
-	/**
-	 * Ions view did enter
-	 */
-	ionViewDidEnter()
-	{
+		
+		// route to article if selected menu is part fo the course material
 		this.selectedMenuArticle$
-			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(menuSelectModel =>
-			{
-				if (menuSelectModel.articleId)
-				{
-
+			 .pipe(takeUntil(this.unsubscribe))
+			 .subscribe(menuSelectModel =>
+			 {
+				 
+				 if (menuSelectModel.articleId && menuSelectModel.courseMaterialId === courseMaterialId)
+				 {
 					this.router.navigate(['article', menuSelectModel.articleId], { relativeTo: this.activatedRoute });
-				}
-				else
-				{
-					///
-				}
-
-			});
+				 }
+				 else
+				 {
+					 ///
+				 }
+ 
+			 });
 	}
 
 	/**

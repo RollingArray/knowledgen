@@ -346,6 +346,15 @@ export const STORE_SELECTED_MENU = createAction(
 );
 
 /**
+ * @description Course Material Menu Action - Delete Selected Menu Article From Store
+ */
+export const REMOVE_SELECTED_MENU = createAction(
+	CourseMaterialMenuOperationsEnum.REMOVE_SELECTED_MENU
+);
+
+
+
+/**
  * @description Course Material Menu Action - No Operation
  */
  export const NOOP = createAction(
@@ -411,5 +420,6 @@ export const COURSE_MATERIAL_MENU_ACTIONS = {
 	CRUD_SUCCESS_SUB_CHILD_MENU,
 	
 	STORE_SELECTED_MENU,
+	REMOVE_SELECTED_MENU,
 	NOOP
 };

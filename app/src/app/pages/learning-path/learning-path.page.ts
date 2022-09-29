@@ -246,11 +246,15 @@ export class LearningPathPage extends BaseViewComponent implements OnInit, OnDes
 
 	/**
 	 * Navigates to learning path details
-	 * @param courseMaterialId 
+	 * @param courseMaterial 
 	 */
-	public navigateToLearningPathDetails(courseMaterialId: string)
+	public navigateToLearningPathDetails(courseMaterial: LearningPathModel)
 	{
-		this.router.navigate([`/go/course/material/${courseMaterialId}/articles`]);
+		if (courseMaterial.firstParentArticleId !== null)
+		{
+			const firstParentArticleId = courseMaterial.firstParentArticleId.parentArticleId;
+			this.router.navigate(['go', 'course', 'material',courseMaterial.courseMaterialId, 'articles', 'article', firstParentArticleId]);	
+		}
 	}
 
 	/**

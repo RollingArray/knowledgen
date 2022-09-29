@@ -62,7 +62,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	/**
 	 * Description  of course material page
 	 */
-	public parentMenuMenu$!: Observable<ParentMenuModel[]>;
+	public parentMenu$!: Observable<ParentMenuModel[]>;
 
 	/**
 	 * Course material owner$ of parent menu component
@@ -155,7 +155,16 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	async ngOnInit()
 	{
 		this.loadingIndicatorStatus$ = this.rootStateFacade.loadingIndicatorStatus$;
-		this.loadData();
+		this._courseMaterialId = this.getCourseMaterialId();
+		this.getCourseMaterialMenu();
+		this.parentMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
+		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);
+		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
+		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._courseMaterialId);
+		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		
+		// Selects menu if article id available from param
+		this.selectMenuOnParamArticle();	
 	}
 	
 	/**
@@ -206,7 +215,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 
 		this.rootStateFacade.startLoading('');
 
-		this.courseMaterialMenuStateFacade.requestCourseMaterial(courseMaterialModel);
+		this.courseMaterialMenuStateFacade.requestCourseMaterialMenu(courseMaterialModel);
 	}
 
 	/**
@@ -258,16 +267,14 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	{
 		this._courseMaterialId = this.getCourseMaterialId();
 		this.getCourseMaterialMenu();
-		this.parentMenuMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
+		this.parentMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(this._courseMaterialId);
 		this.courseMaterialOwner$ = this.courseMaterialStateFacade.courseMaterialOwner$(this._courseMaterialId);
 		this.loggedInUserId$ = this.rootStateFacade.loggedInUserId$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(this._courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 		
 		// Selects menu if article id available from param
-		this.selectMenuOnParamArticle();
-
-		
+		this.selectMenuOnParamArticle();	
 	}
 
 	/**
@@ -276,7 +283,7 @@ export class ParentMenuComponent extends BaseViewComponent implements OnInit
 	public async addNewParentMenu()
 	{
 		let totalNumberOfMenu = 0;
-		this.parentMenuMenu$
+		this.parentMenu$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe(data => totalNumberOfMenu = data.length)
 

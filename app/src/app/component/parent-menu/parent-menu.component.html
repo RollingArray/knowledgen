@@ -28,7 +28,7 @@
 <div *ngIf="!(loadingIndicatorStatus$ | async)">
 	<ion-card
 		class="cursor-pointer"
-		*ngFor="let eachMenu of parentMenuMenu$ | async"
+		*ngFor="let eachMenu of parentMenu$ | async"
 	>
 		<!-- article title -->
 		<ion-item
