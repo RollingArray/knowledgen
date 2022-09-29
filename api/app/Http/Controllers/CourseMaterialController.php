@@ -90,26 +90,12 @@ class CourseMaterialController extends Controller
 			$request->header('UserId')
 		);
 
-		if ($data && $request->header('UserId')) {
-			return $this->jwtAuthServiceInterface->sendBackToClient(
-				$request->header('Auth'), 
-				$request->header('UserId'), 
-				'data', 
-				$data
-			);
-			
-		} else {
-			return response(
-				array(
-					'error' => true,
-					'success' => true,
-					"message" => array(
-						config('messages.apiValidation.verificationCoreWrong')
-					)
-				),
-				400
-			);
-		}
+		return $this->jwtAuthServiceInterface->sendBackToClient(
+			$request->header('Auth'), 
+			$request->header('UserId'), 
+			'data', 
+			$data
+		);
 	}
 	
 		
@@ -219,7 +205,7 @@ class CourseMaterialController extends Controller
 		}
 
         //find model
-		$model = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($request->input('course_material_id'));
+		$model = $this->courseMaterialServiceInterface->getCourseMaterialById($request->input('course_material_id'));
 		
 		//update values to the model
 		$model->course_material_name = $request->input('course_material_name');
@@ -228,7 +214,7 @@ class CourseMaterialController extends Controller
         
         //saving the model to database
         $model->save();
-
+		
 		//find model
 		$model = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($request->input('course_material_id'));
 		
