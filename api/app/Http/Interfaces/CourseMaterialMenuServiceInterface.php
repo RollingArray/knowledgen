@@ -12,6 +12,8 @@ Interface CourseMaterialMenuServiceInterface
 
     public function deleteSubChildMenu($courseMaterialId, $childArticleId, $subChildArticleId);
 
+    public function getFirstPatentMenuForCourseMaterial($courseMaterialId);
+
     public function getSubChildMenuById($courseMaterialId, $subChildArticleId);
 
     public function getChildMenuById($courseMaterialId, $articleId);

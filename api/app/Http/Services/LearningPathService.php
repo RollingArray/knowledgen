@@ -4,6 +4,8 @@ namespace App\Http\Services;
 
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
+use App\Http\Interfaces\CourseMaterialMenuServiceInterface;
+use App\Http\Interfaces\CourseMaterialServiceInterface;
 use App\Http\Interfaces\LearningPathServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
 use App\Http\Interfaces\UsersServiceInterface;
@@ -23,17 +25,21 @@ class LearningPathService implements LearningPathServiceInterface
     protected $courseMaterialAssignmentResultServiceInterface;
 
     protected $usersServiceInterface;
+
+    protected $courseMaterialMenuServiceInterface;
     
     public function __construct(
 		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
         CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
         CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface,
-        UsersServiceInterface $usersServiceInterface
+        UsersServiceInterface $usersServiceInterface,
+        CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
         $this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
         $this->courseMaterialAssignmentResultServiceInterface = $courseMaterialAssignmentResultServiceInterface;
         $this->usersServiceInterface = $usersServiceInterface;
+        $this->courseMaterialMenuServiceInterface = $courseMaterialMenuServiceInterface;
 	}
 
     /**
@@ -81,6 +87,7 @@ class LearningPathService implements LearningPathServiceInterface
         //dd($rows);
         foreach ($rows as $eachData) {
             $courseMaterialId = $eachData->course_material_id;
+            $eachData['firstParentArticleId'] = $this->courseMaterialMenuServiceInterface->getFirstPatentMenuForCourseMaterial($courseMaterialId);
             $courseMaterialProgress = $this->getLearningPathWithProgress($userId, $courseMaterialId);
             $eachData['course_material_progress'] = $courseMaterialProgress;
             $materialAuthor = $this->usersServiceInterface->getUserById($eachData->author_id);

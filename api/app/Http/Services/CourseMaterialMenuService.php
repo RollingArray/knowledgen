@@ -87,6 +87,27 @@ class CourseMaterialMenuService implements CourseMaterialMenuServiceInterface
         
         return $this->returnDataStructureServiceInterface->generateServiceReturnDataStructure($rows);
     }
+
+    /**
+     * Get first patent menu for course material
+     *
+     * @param  mixed $courseMaterialId
+     * @param  mixed $articleId
+     * @return void
+     */
+    public function getFirstPatentMenuForCourseMaterial($courseMaterialId)
+    {
+        return CourseMaterialParentMenuModel::select(
+            'tbl_course_material_parent_menu.parent_article_id'
+            )
+            ->join(
+                'tbl_course_material_article',
+                'tbl_course_material_article.article_id','=','tbl_course_material_parent_menu.parent_article_id'
+            )
+            ->where('tbl_course_material_parent_menu.course_material_id', '=', $courseMaterialId)
+            ->where('tbl_course_material_parent_menu.parent_article_order', '=', 1)
+            ->first();
+    }
     
     /**
      * Get Parent Menu

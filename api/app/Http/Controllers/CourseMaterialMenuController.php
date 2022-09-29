@@ -107,7 +107,7 @@ class CourseMaterialMenuController extends Controller
 	 */
 	public function all(Request $request)
 	{
-		$courseMaterial = $this->courseMaterialServiceInterface->getCourseMaterialById($request->input('course_material_id'));
+		$courseMaterial = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($request->input('course_material_id'));
 
 		$courseMaterialMenu = $this->courseMaterialMenuServiceInterface->getAllMenuForMaterial(
 			$request->input('course_material_id')

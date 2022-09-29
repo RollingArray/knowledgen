@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Http\Interfaces\CourseMaterialMenuServiceInterface;
 use App\Http\Interfaces\CourseMaterialServiceInterface;
 use App\Http\Interfaces\LearningPathServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
@@ -25,24 +26,48 @@ class CourseMaterialService implements CourseMaterialServiceInterface
     protected $learningPathServiceInterface;
     
     /**
+     * courseMaterialMenuServiceInterface
+     *
+     * @var mixed
+     */
+    protected $courseMaterialMenuServiceInterface;
+    
+    /**
      * __construct
      *
      * @return void
      */
     public function __construct(
 		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
-        LearningPathServiceInterface $learningPathServiceInterface
+        LearningPathServiceInterface $learningPathServiceInterface,
+        CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
         $this->learningPathServiceInterface = $learningPathServiceInterface;
+        $this->courseMaterialMenuServiceInterface = $courseMaterialMenuServiceInterface;
 	}
     
     /**
-     * Get all user course materiels
+     * Get all user course materiels with first parent menu
      *
      * @param  mixed $userId
      * @return void
      */
+    public function getAllUserCourseMaterielsWithFirstParentMenu($userId)
+    {
+        $tempRows = array();
+
+        $rows = $this->getAllUserCourseMateriels($userId);
+        
+        foreach ($rows as $eachData) {
+            $courseMaterialId = $eachData->course_material_id;
+            $eachData['firstParentArticleId'] = $this->courseMaterialMenuServiceInterface->getFirstPatentMenuForCourseMaterial($courseMaterialId);
+            $tempRows[] = $eachData;
+        }
+
+        return $tempRows;
+    }
+
     public function getAllUserCourseMateriels($userId)
     {
         return CourseMaterialModel::select(
@@ -90,11 +115,22 @@ class CourseMaterialService implements CourseMaterialServiceInterface
 
         return $this->returnDataStructureServiceInterface->generateServiceReturnDataStructure($tempRows);
     }
+    
+    /**
+     * Get course material by id with first parent menu
+     *
+     * @param  mixed $courseMaterialId
+     * @return void
+     */
+    public function getCourseMaterialByIdWithFirstParentMenu($courseMaterialId)
+    {
+        $row = $this->getCourseMaterialById($courseMaterialId);
+        $row['firstParentArticleId'] = $this->courseMaterialMenuServiceInterface->getFirstPatentMenuForCourseMaterial($courseMaterialId);
+        return $row;
+    }
 
     public function getCourseMaterialById($courseMaterialId)
     {
-        // return CourseMaterialModel::where('course_material_id', $courseMaterialId)
-        //        ->first();
         return CourseMaterialModel::select(
             'tbl_course_material.course_material_id', 
             'tbl_course_material.user_id', 
@@ -148,6 +184,7 @@ class CourseMaterialService implements CourseMaterialServiceInterface
         
         foreach ($rows as $eachData) {
             $courseMaterialId = $eachData->course_material_id;
+            $eachData['firstParentArticleId'] = $this->courseMaterialMenuServiceInterface->getFirstPatentMenuForCourseMaterial($courseMaterialId);
             $eachData['addedToLearningPath'] = $this->learningPathServiceInterface->checkIfCourseMaterialInLearningPath($userId , $courseMaterialId);
             $tempRows[] = $eachData;
         }

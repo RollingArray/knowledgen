@@ -86,7 +86,7 @@ class CourseMaterialController extends Controller
 	 */
 	public function all(Request $request)
 	{
-		$data = $this->courseMaterialServiceInterface->getAllUserCourseMateriels(
+		$data = $this->courseMaterialServiceInterface->getAllUserCourseMaterielsWithFirstParentMenu(
 			$request->header('UserId')
 		);
 
@@ -170,7 +170,7 @@ class CourseMaterialController extends Controller
         $model->save();
 
 		// find model
-		$model = $this->courseMaterialServiceInterface->getCourseMaterialById($courseMaterialId);
+		$model = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($courseMaterialId);
 
 
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
@@ -219,7 +219,7 @@ class CourseMaterialController extends Controller
 		}
 
         //find model
-		$model = $this->courseMaterialServiceInterface->getCourseMaterialById($request->input('course_material_id'));
+		$model = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($request->input('course_material_id'));
 		
 		//update values to the model
 		$model->course_material_name = $request->input('course_material_name');
@@ -230,7 +230,7 @@ class CourseMaterialController extends Controller
         $model->save();
 
 		//find model
-		$model = $this->courseMaterialServiceInterface->getCourseMaterialById($request->input('course_material_id'));
+		$model = $this->courseMaterialServiceInterface->getCourseMaterialByIdWithFirstParentMenu($request->input('course_material_id'));
 		
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
     }

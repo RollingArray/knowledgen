@@ -6,9 +6,13 @@ Interface CourseMaterialServiceInterface
 {
     public function getAllUserCourseMateriels($userId);
 
+    public function getAllUserCourseMaterielsWithFirstParentMenu($userId);
+
     public function getAllUserCourseMaterielsWithLearningPath($userId);
 
     public function getCourseMaterialById($courseMaterialId);
+
+    public function getCourseMaterialByIdWithFirstParentMenu($courseMaterialId);
 
     public function deleteCourseMaterialById($courseMaterialId);
 
