@@ -111,28 +111,17 @@
 <!-- content -->
 
 <!-- content not live message -->
-<ion-card
-	class="card-no-shadow"
+<app-no-data
+	[courseMaterial]="true"
 	*ngIf="
 		(this.courseMaterial$ | async) &&
 		!isMaterialOwner &&
 		!isContentLive &&
 		!(loadingIndicatorStatus$ | async)
 	"
+	[text]="'noData.availableSoonContent' | translate"
 >
-	<p class="text-center">
-		<ion-icon
-			class="font-size-100-px"
-			[src]="stringKey.ICON_NO_DATA"
-		></ion-icon>
-	</p>
-	<ion-text color="dark">
-		<h4 class="text-center">
-			<ion-icon [src]="stringKey.ICON_INFO"></ion-icon>
-			{{ "noData.availableSoonContent" | translate }}
-		</h4>
-	</ion-text>
-</ion-card>
+</app-no-data>
 <!-- content not live message -->
 
 <!-- empty height to get full screen view above timer -->

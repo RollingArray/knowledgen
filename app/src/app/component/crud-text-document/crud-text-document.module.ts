@@ -30,6 +30,7 @@ import { RootStateModule } from 'src/app/state/root/root.state.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
 import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.module';
+import { NoDataModule } from '../no-data/no-data.component.module';
 
 @NgModule({
 	imports: [
@@ -52,7 +53,8 @@ import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.modul
 		RootStateModule,
 		CrudCourseMaterialAssignmentResultModule,
 		ContentLoadingModule,
-		StartStopTimerModule
+		StartStopTimerModule,
+		NoDataModule
 	],
 
 	declarations: [CrudTextDocumentComponent],
