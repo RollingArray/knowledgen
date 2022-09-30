@@ -117,10 +117,13 @@
 		>
 			<ion-item color="none">
 				<ion-icon [src]="stringKey.ICON_UP_ARROW"></ion-icon>
-				<ion-badge>
-					+ {{ (articleSessionAnalysis$ | async).value }} %
-				</ion-badge>
-				&nbsp;{{ "formInfo.sessionIncrease" | translate }}
+				<p>
+					<ion-text color="warning">
+						<b>+ {{ (articleSessionAnalysis$ | async).value }} %</b>
+					</ion-text>
+					&nbsp;{{ "formInfo.sessionIncrease" | translate }}
+				</p>
+				
 			</ion-item>
 		</ion-card>
 
@@ -133,10 +136,12 @@
 		>
 			<ion-item color="none">
 				<ion-icon [src]="stringKey.ICON_DOWN_ARROW"></ion-icon>
-				<ion-badge>
-					- {{ (articleSessionAnalysis$ | async).value }} %
-				</ion-badge>
-				&nbsp;{{ "formInfo.sessionDecreased" | translate }}
+				<p>
+					<ion-text color="warning">
+						- {{ (articleSessionAnalysis$ | async).value }} %
+					</ion-text>
+					&nbsp;{{ "formInfo.sessionDecreased" | translate }}
+				</p>
 			</ion-item>
 		</ion-card>
 
@@ -148,8 +153,10 @@
 			"
 		>
 			<ion-item color="none">
-				<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
-				&nbsp;{{ "formInfo.sessionNeutral" | translate }}
+				<p>
+					<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
+					&nbsp;{{ "formInfo.sessionNeutral" | translate }}
+				</p>
 			</ion-item>
 		</ion-card>
 	</div>
