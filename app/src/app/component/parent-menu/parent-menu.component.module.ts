@@ -24,6 +24,7 @@ import { CommonButtonModule } from '../button/common-button/common-button.compon
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
 import { EditButtonModule } from '../button/edit-button/edit-button.component.module';
 import { DeleteButtonModule } from '../button/delete-button/delete-button.component.module';
+import { NoDataModule } from '../no-data/no-data.component.module';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -39,7 +40,8 @@ import { DeleteButtonModule } from '../button/delete-button/delete-button.compon
 		ContentLoadingModule,
 		CommonButtonModule,
 		EditButtonModule,
-		DeleteButtonModule
+		DeleteButtonModule,
+		NoDataModule
 	],
 
 	declarations: [ParentMenuComponent],

@@ -86,6 +86,11 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 	selectedMenuArticle$: Observable<MenuSelectModel>;
 
 	/**
+	 * Parent menu$ of course material details page
+	 */
+	parentMenu$: Observable<ParentMenuModel[]>;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * Getter & Setters									|
@@ -132,6 +137,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 		this.studyTimerStatus$ = this.rootStateFacade.studyTimerStatus$;
 		this.courseMaterial$ = this.courseMaterialStateFacade.courseMaterialByCourseMaterialId$(courseMaterialId);
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		this.parentMenu$ = this.courseMaterialMenuStateFacade.menuByCourseMaterialId$(courseMaterialId);
 		
 		// route to article if selected menu is part fo the course material
 		this.selectedMenuArticle$

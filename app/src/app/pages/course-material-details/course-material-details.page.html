@@ -87,6 +87,14 @@
 				<ion-grid class="stretch-grid-full" color="dark">
 					<ion-row class="overflow-container background-color-white">
 						<ion-col>
+							<!-- no data -->
+							<app-no-data
+							panelColor="white"
+							[courseMaterial]="true"
+							*ngIf="(parentMenu$ | async).length === 0"
+							[text]="'noData.noTopic' | translate"
+							></app-no-data>
+							<!-- no data -->
 							<!-- dynamic article content -->
 							<router-outlet></router-outlet>
 							<!-- dynamic article content -->

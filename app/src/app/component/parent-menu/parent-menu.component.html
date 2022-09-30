@@ -24,6 +24,15 @@
 </ion-item>
 <!-- content title -->
 
+<!-- no data -->
+<app-no-data
+	panelColor="light"
+	[courseMaterial]="true"
+	*ngIf="(parentMenu$ | async).length === 0"
+	[text]="'noData.noTopic' | translate"
+></app-no-data>
+<!-- no data -->
+
 <!-- menu -->
 <div *ngIf="!(loadingIndicatorStatus$ | async)">
 	<ion-card
