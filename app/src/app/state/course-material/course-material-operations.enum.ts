@@ -27,5 +27,8 @@ export enum CourseMaterialOperationsEnum {
   COURSE_MATERIAL_ADDED_SUCCESS = '[Course Material] Course Material Added Successfully',
   COURSE_MATERIAL_UPDATED_SUCCESS = '[Course Material] Course Material Updated Successfully',
   COURSE_MATERIAL_DELETED_SUCCESS = '[Course Material] Course Material Deleted Successfully',
+
+  STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY = '[Course Material] Store Updated Course MaterialLearning Path Key',
+
   NOOP = '[Course Material] No Operation',
 }

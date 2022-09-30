@@ -17,6 +17,8 @@ import { LearningPathService } from "src/app/shared/service/learning-path.servic
 import { LEARNING_PATH_ACTIONS } from "./learning-path.state.actions";
 import { ToastService } from "src/app/shared/service/toast.service";
 import { RootStateFacade } from "../root/root.state.facade";
+import { CourseMaterialModel } from "src/app/shared/model/course-material.model";
+import { CourseMaterialStateFacade } from "../course-material/course-material.state.facade";
 
 
 @Injectable()
@@ -41,6 +43,7 @@ export class LearningPathStateEffects {
 	constructor(
 		private actions$: Actions,
 		private learningPathService: LearningPathService,
+		private courseMaterialStateFacade: CourseMaterialStateFacade,
 		private toastService: ToastService,
 		private rootStateFacade: RootStateFacade
 	) { }
@@ -101,15 +104,11 @@ export class LearningPathStateEffects {
 							// if success response
 							if (data.success) {
 
-								// build new skill object
-								const courseMaterialId = data.resource.courseMaterialId;
-								const newLearningPath = {
-									...action.payload,
-									courseMaterialId
-								};
+								//Stores updated learning path key
+								this.storeCourseMaterialUpdatedLearningPathKey(action.payload.courseMaterialId, true);
 
 								// store newly added skill
-								return LEARNING_PATH_ACTIONS.LEARNING_PATH_ADDED_SUCCESS();
+								return LEARNING_PATH_ACTIONS.STORE_NEWLY_ADDED_LEARNING_PATH({payload: data.resource});
 							}
 							// response fail
 							else {
@@ -146,6 +145,9 @@ export class LearningPathStateEffects {
 
 							// if success response
 							if (data.success) {
+
+								//Stores updated learning path key
+								this.storeCourseMaterialUpdatedLearningPathKey(action.payload.courseMaterialId, false);
 
 								// remove deleted category from store 
 								return LEARNING_PATH_ACTIONS.REMOVE_LEARNING_PATH_FROM_STORE({ payload: action.payload });
@@ -207,4 +209,19 @@ export class LearningPathStateEffects {
 				map(action => LEARNING_PATH_ACTIONS.LEARNING_PATH_CRUD_SUCCESS()),
 			),
 	);
+
+	/**
+	 * Stores course material updated learning path key
+	 * @param courseMaterialId 
+	 * @param allow 
+	 */
+	private storeCourseMaterialUpdatedLearningPathKey(courseMaterialId: string, allow: boolean)
+	{
+		const learningPathKey: CourseMaterialModel = {
+			courseMaterialId: courseMaterialId,
+			addedToLearningPath: allow
+		};
+
+		this.courseMaterialStateFacade.storeUpdatedLearningPathKey(learningPathKey);
+	}
 }

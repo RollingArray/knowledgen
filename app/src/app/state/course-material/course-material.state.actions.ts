@@ -128,6 +128,15 @@ export const COURSE_MATERIAL_ADDED_SUCCESS = createAction(
 	CourseMaterialOperationsEnum.COURSE_MATERIAL_ADDED_SUCCESS
 );
 
+
+/**
+ * @description Course Material Action - Store Updated Course MaterialLearning Path Key
+ */
+ export const STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY = createAction(
+	CourseMaterialOperationsEnum.STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY,
+	props<{ payload: CourseMaterialModel }>()
+ );
+
 /**
  * @description Course Material Action - No Operation
  */
@@ -154,5 +163,6 @@ export const COURSE_MATERIAL_ACTIONS = {
 	COURSE_MATERIAL_ADDED_SUCCESS,
 	COURSE_MATERIAL_UPDATED_SUCCESS,
 	COURSE_MATERIAL_DELETED_SUCCESS,
+	STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY,
 	NOOP,
 };

@@ -67,6 +67,18 @@ const reducer = createReducer(
 	)),
 
 	/**
+	 * @description Reducer for action - Store Updated object
+	 */
+	 on(COURSE_MATERIAL_ACTIONS.STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY, (state, action) => (
+		courseMaterialAdapter.updateOne({
+			id: action.payload.courseMaterialId ? action.payload.courseMaterialId : '',
+			changes: {
+				addedToLearningPath: action.payload.addedToLearningPath
+			}
+		}, state)
+	)),
+
+	/**
 	 * @description Reducer for action - Remove object From Store
 	 */
 	on(COURSE_MATERIAL_ACTIONS.REMOVE_COURSE_MATERIAL_FROM_STORE, (state, action) => (

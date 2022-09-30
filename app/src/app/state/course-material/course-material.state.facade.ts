@@ -119,4 +119,13 @@ export class CourseMaterialStateFacade
 	{
 		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.ACT_UPON_COURSE_MATERIAL({ payload: courseMaterial, operation: operation }));
 	}
+
+	/**
+	 * Stores updated learning path key
+	 * @param courseMaterial 
+	 */
+	public storeUpdatedLearningPathKey(courseMaterial: CourseMaterialModel)
+	{
+		this.courseMaterialStore.dispatch(COURSE_MATERIAL_ACTIONS.STORE_UPDATED_COURSE_MATERIAL_LEARNING_PATH_KEY({ payload: courseMaterial }));
+	}
 }
