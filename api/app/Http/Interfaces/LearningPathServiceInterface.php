@@ -9,4 +9,6 @@ Interface LearningPathServiceInterface
     public function deleteLearningPath($userId, $courseMaterialId);
 
     public function getLearningPath($userId);
+
+    public function getLearningPathDetailsByMaterial($userId, $courseMaterialId);
 }

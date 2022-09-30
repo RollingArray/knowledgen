@@ -134,6 +134,13 @@ class CourseMaterialLearningPathController extends Controller
 		//saving the model to database
         $model->save();
 
+		// get complete course
+		$model = $this->learningPathServiceInterface->getLearningPathDetailsByMaterial(
+			$request->header('UserId'),
+			$request->input('course_material_id'),
+			
+		);
+
         // return to client
 		return $this->jwtAuthServiceInterface->sendBackToClient($token, $userId, 'resource', $model);
     }

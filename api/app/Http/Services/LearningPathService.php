@@ -100,6 +100,28 @@ class LearningPathService implements LearningPathServiceInterface
     }
 
     /**
+     * Get learning path details by material
+     *
+     * @param  mixed $userId
+     * @param  mixed $courseMaterialId
+     * @return mixed
+     */
+    public function getLearningPathDetailsByMaterial($userId, $courseMaterialId)
+    {
+        $row = $this->getLearningPathCoursesForUserMaterial($userId, $courseMaterialId);
+        $row['firstParentArticleId'] = $this->courseMaterialMenuServiceInterface->getFirstPatentMenuForCourseMaterial($courseMaterialId);
+        $courseMaterialProgress = $this->getLearningPathWithProgress($userId, $courseMaterialId);
+        $row['course_material_progress'] = $courseMaterialProgress;
+        $materialAuthor = $this->usersServiceInterface->getUserById($row->author_id);
+        $row['author_first_name'] = $materialAuthor->user_first_name;
+        $row['author_last_name'] = $materialAuthor->user_last_name;
+
+        return $row;
+    }
+
+    
+
+    /**
      * Get learning path with progress
      *
      * @param  mixed $userId
@@ -165,5 +187,43 @@ class LearningPathService implements LearningPathServiceInterface
 			)
             ->where('tbl_learning_path.user_id', '=', $userId)
 			->get();
+    }
+
+    /**
+     * Get learning path courses for user material
+     *
+     * @param  mixed $userId
+     * @param  mixed $courseMaterialId
+     * @return mixed
+     */
+    public function getLearningPathCoursesForUserMaterial($userId, $courseMaterialId)
+    {
+        return LearningPathModel::select(
+            'tbl_learning_path.course_material_id', 
+            'tbl_learning_path.user_id', 
+            'tbl_course_material.course_material_name', 
+            'tbl_course_material.course_material_description',
+            'tbl_course_material.user_id as author_id',
+            'tbl_course_material.subject_area_id',
+            'tbl_core_subject_area.subject_area_name',
+            'tbl_learning_path.created_at',
+            'tbl_learning_path.updated_at',
+            'tbl_users.user_type'
+            )
+            ->join(
+				'tbl_users',
+				'tbl_learning_path.user_id','=','tbl_users.user_id'
+			)
+            ->join(
+				'tbl_course_material',
+				'tbl_learning_path.course_material_id','=','tbl_course_material.course_material_id'
+			)
+            ->join(
+				'tbl_core_subject_area',
+				'tbl_course_material.subject_area_id','=','tbl_core_subject_area.subject_area_id'
+			)
+            ->where('tbl_learning_path.user_id', '=', $userId)
+            ->where('tbl_learning_path.course_material_id', '=', $courseMaterialId)
+			->first();
     }
 }
