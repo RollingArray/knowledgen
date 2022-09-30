@@ -11,17 +11,18 @@
  * Last modified  : 2022-09-21 20:40:29
  */
  -->
+
 <ion-app>
 	<ion-split-pane contentId="content">
-		<ion-menu contentId="content" type="overlay" color="secondary">
+		<ion-menu contentId="content" type="overlay" color="pitch-dark">
 			<ion-header lines="none" class="ion-no-border">
 				<ion-menu-toggle auto-hide="false">
 					<ion-toolbar color="secondary">
-						<ion-grid color="secondary">
-							<ion-row color="secondary">
-								<ion-col color="secondary">
+						<ion-grid color="pitch-dark">
+							<ion-row color="pitch-dark">
+								<ion-col color="pitch-dark">
 									<ion-icon
-										class="font-size-250-px margin-top-30-px"
+										class="font-size-250-px"
 										[src]="stringKey.IMAGE_ICON"
 									>
 									</ion-icon>
@@ -34,143 +35,125 @@
 
 			<ion-content color="secondary">
 				<ion-menu-toggle auto-hide="false" *ngIf="loadRoute">
-					<ion-card
-						class="cursor-pointer"
-						*ngFor="let p of pages"
-						color="secondary"
-					>
-						<ion-item color="secondary" lines="none">
-							<ion-icon
-								[src]="stringKey.ICON_MENU"
-								slot="start"
-							></ion-icon>
-							<ion-label> {{ p.title | translate }} </ion-label>
-						</ion-item>
-						<ion-menu-toggle auto-hide="false">
-							<div
-								class="cursor-pointer"
-								*ngFor="let eachSubMenu of p.children"
-							>
+					<ion-grid color="pitch-dark">
+						<ion-row *ngIf="loadRoute">
+							<ion-col>
 								<ion-card
-									class="cursor-pointer"
-									*ngIf="checkIfMenuShouldShow(eachSubMenu)"
+									class="padding-10-px"
+									color="semi-dark-gradient"
 								>
-									<div *ngIf="eachSubMenu.url">
-										<ion-item
-											lines="none"
-											[color]="eachSubMenu.isSelected ? 'tertiary' : 'secondary'"
-											(click)="gotoPage(eachSubMenu)"
-											routerDirection="root"
-											routerLinkActive="active"
-										>
-											<ion-icon
-												slot="start"
-												[src]="eachSubMenu.icon"
-											></ion-icon>
-											{{ eachSubMenu.title | translate }}
-										</ion-item>
-									</div>
-									<div *ngIf="eachSubMenu.action">
-										<ion-item
-											lines="none"
-											color="secondary"
-											(click)="gotoAction(eachSubMenu)"
-											routerDirection="root"
-											routerLinkActive="active"
-										>
-											<ion-icon
-												slot="start"
-												[src]="eachSubMenu.icon"
-											></ion-icon>
-											{{ eachSubMenu.title | translate }}
-										</ion-item>
-									</div>
+									<ion-label class="font-size-20-px"
+										>&nbsp; <b>{{loggedInUserName$ | async}}</b>
+									</ion-label>
 								</ion-card>
-							</div>
-						</ion-menu-toggle>
-					</ion-card>
+							</ion-col>
+						</ion-row>
+						<ion-row>
+							<ion-col>
+								<ion-card
+									class="padding-10-px cursor-pointer"
+									color="semi-dark-gradient"
+									(click)="viewProfile()"
+								>
+									<ion-icon
+										size="large"
+										[src]="stringKey.ICON_USER"
+									></ion-icon>
+
+									<ion-label class="segment"
+										>{{stringKey.PROFILE}}
+									</ion-label>
+								</ion-card>
+							</ion-col>
+							<ion-col>
+								<ion-card
+									class="padding-10-px cursor-pointer"
+									color="semi-dark-gradient"
+									(click)="presentLogoutAlertConfirm()"
+								>
+									<ion-icon
+										size="large"
+										[src]="stringKey.ICON_LOGOUT"
+									></ion-icon>
+									<ion-label class="segment"
+										>{{stringKey.LOGOUT}}
+									</ion-label>
+								</ion-card>
+							</ion-col>
+						</ion-row>
+						<ion-row>
+							<ion-col class="text-center">
+								<p>
+									<ion-label
+										>{{ stringKey.VERSION }} :: {{
+										appEnvironment }} {{ appVersion
+										}}</ion-label
+									>
+								</p>
+							</ion-col>
+						</ion-row>
+					</ion-grid>
+					<ion-card
+								class="cursor-pointer"
+								*ngFor="let p of pages"
+								color="secondary"
+							>
+								<ion-item color="secondary" lines="none">
+									<ion-icon
+										[src]="stringKey.ICON_MENU"
+										slot="start"
+									></ion-icon>
+									<ion-label color="white">
+										{{ p.title | translate }}
+									</ion-label>
+								</ion-item>
+								<ion-menu-toggle auto-hide="false">
+									<div
+										class="cursor-pointer"
+										*ngFor="let eachSubMenu of p.children"
+									>
+										<ion-card
+											class="cursor-pointer"
+											*ngIf="checkIfMenuShouldShow(eachSubMenu)"
+										>
+											<div *ngIf="eachSubMenu.url">
+												<ion-item
+													lines="none"
+													[color]="eachSubMenu.isSelected ? 'tertiary' : 'secondary'"
+													(click)="gotoPage(eachSubMenu)"
+													routerDirection="root"
+													routerLinkActive="active"
+												>
+													<ion-icon
+														slot="start"
+														[src]="eachSubMenu.icon"
+													></ion-icon>
+													{{ eachSubMenu.title |
+													translate }}
+												</ion-item>
+											</div>
+											<div *ngIf="eachSubMenu.action">
+												<ion-item
+													lines="none"
+													color="secondary"
+													(click)="gotoAction(eachSubMenu)"
+													routerDirection="root"
+													routerLinkActive="active"
+												>
+													<ion-icon
+														slot="start"
+														[src]="eachSubMenu.icon"
+													></ion-icon>
+													{{ eachSubMenu.title |
+													translate }}
+												</ion-item>
+											</div>
+										</ion-card>
+									</div>
+								</ion-menu-toggle>
+							</ion-card>
 				</ion-menu-toggle>
 			</ion-content>
-			<ion-footer lines="none" class="ion-no-border">
-				<ion-menu-toggle auto-hide="false">
-					<ion-toolbar color="secondary">
-						<ion-card color="primary">
-							<ion-grid color="secondary">
-								<ion-row color="secondary">
-									<ion-col color="secondary">
-										<!-- <ion-button class="font-size-50-px" style="height: 100px; border-radius: 50px;">
-											sss
-										</ion-button> -->
-										<ion-icon
-											*ngIf="(ifUserTeacher$ | async)"
-											class="font-size-100-px"
-											[src]="stringKey.ICON_TEACHER"
-										></ion-icon>
-										<ion-icon
-											*ngIf="(ifUserStudent$ | async)"
-											class="font-size-100-px"
-											[src]="stringKey.ICON_STUDENT"
-										></ion-icon>
-									</ion-col>
-								</ion-row>
-								<ion-row>
-									<ion-col>
-										<h2>{{loggedInUserName$ | async}}</h2>
-									</ion-col>
-								</ion-row>
-							</ion-grid>
-							<ion-grid color="secondary">
-								<ion-row>
-									<ion-col>
-										<ion-card
-											class="padding-10-px cursor-pointer"
-											color="secondary"
-											(click)="viewProfile()"
-										>
-											<ion-icon
-												size="large"
-												[src]="stringKey.ICON_USER"
-											></ion-icon>
-
-											<ion-label class="segment"
-												>{{'pageTitle.profile' |
-												translate}}
-											</ion-label>
-										</ion-card>
-									</ion-col>
-									<ion-col>
-										<ion-card
-											class="padding-10-px cursor-pointer"
-											color="secondary"
-											(click)="presentLogoutAlertConfirm()"
-										>
-											<ion-icon
-												size="large"
-												[src]="stringKey.ICON_LOGOUT"
-											></ion-icon>
-											<ion-label class="segment"
-												>{{'button.signOut' |
-												translate}}
-											</ion-label>
-										</ion-card>
-									</ion-col>
-								</ion-row>
-								<ion-row>
-									<ion-col class="text-center">
-										<p>
-											<ion-label
-												>{{ stringKey.VERSION }} :: {{
-												appEnvironment }} {{ appVersion
-												}}
-											</ion-label>
-										</p>
-									</ion-col>
-								</ion-row>
-							</ion-grid>
-						</ion-card>
-					</ion-toolbar>
-				</ion-menu-toggle>
-			</ion-footer>
 		</ion-menu>
 		<ion-router-outlet id="content"></ion-router-outlet>
 	</ion-split-pane>
