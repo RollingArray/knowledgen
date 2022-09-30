@@ -26,6 +26,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { ArticleSessionAnalysisModel } from "src/app/shared/model/article-session-analysis.model";
 import { CharacteristicsEnum } from "src/app/shared/enum/characteristics.enum";
 import { DOCUMENT } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
 	selector: 'article-session',
@@ -78,6 +79,11 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	 * -------------------------------------------------|
 	 */
 
+	/**
+	 * Description  of crud assignment quiz component
+	 */
+	@Input() articleId = '';
+	
 	/**
 	 * Description  of crud assignment quiz component
 	 */
@@ -255,7 +261,8 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 		private courseMaterialMenuStateFacade: CourseMaterialMenuStateFacade,
 		private articleSessionStateFacade: ArticleSessionStateFacade,
 		private translateService: TranslateService,
-		@Inject(DOCUMENT) document: Document
+		@Inject(DOCUMENT) document: Document,
+		private activatedRoute: ActivatedRoute
 	)
 	{
 		super(injector);
@@ -269,44 +276,37 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	{
 		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 		this._dataLoading = true;
-		this.selectedMenuArticle$
+		this.hasData$ = this.articleSessionStateFacade.selectArticleSessionHasData$(this.articleId);
+		this.articleSessionAnalysis$ = this.articleSessionStateFacade.selectArticleSessionAnalysis$(this.articleId);
+
+		this.articleSessionStateFacade
+			.selectArticleSessionByArticleId$(this.articleId)
 			.pipe(takeUntil(this.unsubscribe))
-			.subscribe(_selectedMenu =>
+			.subscribe(async articleSession =>
 			{
-				this._selectedMenu = _selectedMenu;
-				this.hasData$ = this.articleSessionStateFacade.selectArticleSessionHasData$(_selectedMenu.articleId);
-				this.articleSessionAnalysis$ = this.articleSessionStateFacade.selectArticleSessionAnalysis$(_selectedMenu.articleId);
+				// if no data, get data over network
+				if (!articleSession)
+				{
+					this.getArticleSession();
+				}
 
-				this.articleSessionStateFacade
-					.selectArticleSessionByArticleId$(_selectedMenu.articleId)
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe(async articleSession =>
-					{
-						// if no data, get data over network
-						if (!articleSession)
-						{
-							this.getArticleSession();
-						}
+				// else build chart
+				else
+				{
+					this._dataLoading = false;
 
-						// else build chart
-						else
-						{
-							this._dataLoading = false;
+					this.buildChartData(articleSession);
 
-							this.buildChartData(articleSession);
+					this.buildChartLabel(articleSession);
 
-							this.buildChartLabel(articleSession);
+					this.buildChartOptions();
 
-							this.buildChartOptions();
+					await this.buildChart();
 
-							await this.buildChart();
+					this.findArticleSessionAvailability(articleSession);
 
-							this.findArticleSessionAvailability(articleSession);
-
-						}
-					})
-			}
-			);
+				}
+			})
 	}
 
 	/**
@@ -477,8 +477,10 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 	private async getArticleSession()
 	{
 		const model: ArticleSessionModel = {
-			articleId: this._selectedMenu.articleId
+			articleId: this.articleId
 		};
+
+		console.log("model ",model.articleId);
 
 		this.articleSessionStateFacade.requestCourseMaterial(model);
 	}

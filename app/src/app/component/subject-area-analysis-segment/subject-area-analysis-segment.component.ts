@@ -90,6 +90,11 @@ export class SubjectAreaAnalysisSegmentComponent extends BaseFormComponent imple
 	 */
 
 	/**
+	 * Description  of subject area analysis segment component
+	 */
+	@Input() modalLayout = false;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
@@ -142,6 +147,7 @@ export class SubjectAreaAnalysisSegmentComponent extends BaseFormComponent imple
 	 * -------------------------------------------------|
 	 */
 
+	
 	/**
 	 * Gets description
 	 */

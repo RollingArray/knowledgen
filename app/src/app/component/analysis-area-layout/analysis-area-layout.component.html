@@ -10,14 +10,14 @@
  */
 -->
 
-<ion-card>
+<div class="margin-top-10-px">
 	<panel-header [panelTitle]="areaName | translate" [panelIcon]="areaIcon"></panel-header>
 	<panel-info panelColor="white" [showMoreLess]="true" [title]="areaInfo | translate"></panel-info>
 
 	<ion-card-content *ngIf="subjectAreas.length == 0">
 		<app-no-data [text]="'noData.noTag' | translate" [courseMaterial]="true"></app-no-data>
 	</ion-card-content>
-	<ion-card-content *ngIf="subjectAreas.length !== 0">
+	<div *ngIf="subjectAreas.length !== 0">
 		<ion-card *ngFor="let eachTagArea of subjectAreas">
 			<ion-card-header>
 				<ion-item lines="none">
@@ -39,5 +39,5 @@
 			>
 			</ion-progress-bar>
 		</ion-card>
-	</ion-card-content>
-</ion-card>
+	</div>
+</div>

@@ -73,9 +73,9 @@ export class ApiUrls
 
 	public static readonly TEACHER_AVAILABILITY_PLANNER_BASE: string = ApiUrls.API_BASE_PATH + "/teacher/availability/planner";
 	public static readonly TEACHER_AVAILABILITY_PLANNER: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER_BASE + "/all";
-	public static readonly TEACHER_AVAILABILITY_PLANNER_ADD: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER + "/add";
-	public static readonly TEACHER_AVAILABILITY_PLANNER_EDIT: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER + "/edit";
-	public static readonly TEACHER_AVAILABILITY_PLANNER_DELETE: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER + "/delete";
+	public static readonly TEACHER_AVAILABILITY_PLANNER_ADD: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER_BASE + "/add";
+	public static readonly TEACHER_AVAILABILITY_PLANNER_EDIT: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER_BASE + "/edit";
+	public static readonly TEACHER_AVAILABILITY_PLANNER_DELETE: string = ApiUrls.TEACHER_AVAILABILITY_PLANNER_BASE + "/delete";
 
 	public static readonly STUDENT_AVAILABILITY_PLANNER_BASE: string = ApiUrls.API_BASE_PATH + "/student/availability/planner";
 	public static readonly STUDENT_AVAILABILITY_PLANNER: string = ApiUrls.STUDENT_AVAILABILITY_PLANNER_BASE + "/all";

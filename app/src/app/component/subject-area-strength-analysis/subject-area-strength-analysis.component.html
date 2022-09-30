@@ -22,21 +22,15 @@
 			[panelColor]="stringKey.COLOR_WHITE"
 		></panel-info>
 	</ion-card-header>
-	<ion-card-content>
-		<ion-card
-			color="light"
-			*ngFor="let eachSubject of coreSubjectAreaAnalysis"
-		>
-			<panel-header
-				panelColor="light"
-				[panelTitle]="eachSubject.subjectAreaName"
-				[panelIcon]="stringKey.ICON_SUBJECT"
-			></panel-header>
-			<ion-card-content>
-				<subject-area-analysis-segment
-					[coreSubjectAreaTags]="eachSubject.subjectAreasTags"
-				></subject-area-analysis-segment>
-			</ion-card-content>
-		</ion-card>
-	</ion-card-content>
+	<div *ngFor="let eachSubject of coreSubjectAreaAnalysis">
+		<panel-header
+			panelColor="light"
+			[panelTitle]="eachSubject.subjectAreaName"
+			[panelIcon]="stringKey.ICON_SUBJECT"
+		></panel-header>
+		<subject-area-analysis-segment
+			[modalLayout]="false"
+			[coreSubjectAreaTags]="eachSubject.subjectAreasTags"
+		></subject-area-analysis-segment>
+	</div>
 </ion-card>

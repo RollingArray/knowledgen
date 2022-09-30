@@ -374,6 +374,11 @@ export class CrudAssignmentQuizComponent extends BaseFormComponent implements On
 		return this._ifSessionAvailable
 	}
 
+	get selectedMenu()
+	{
+		return this.selectedMenu
+	}
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|

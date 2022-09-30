@@ -417,6 +417,10 @@ td:last-child {
 	background-color: var(--ion-color-tertiary) !important;
 }
 
+.background-color-light {
+	background-color: var(--ion-color-light) !important;
+}
+
 /*Variable font size */
 @for $i from 1 through 50 {
 	.font-size-#{$i}-px {

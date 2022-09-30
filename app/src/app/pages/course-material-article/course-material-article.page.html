@@ -13,47 +13,23 @@
 <!-- header -->
 <ion-content #articleView>
 	<!-- article title / summery -->
-	<div
+	<div 
 		#articleTitleView
-		class="article-title"
+		class="margin-top-20-px"
 		*ngIf="
 			(selectedMenuArticle$ | async).articleId &&
 			articleTitle !== 'noData.contentDeleted'
 		"
 	>
 		<!-- article title -->
-		<ion-item lines="none">
-			<ion-thumbnail slot="start">
-				<ion-icon
-					color="primary"
-					[src]="
-						getMenuIcon(
-							(selectedMenuArticle$ | async).courseMaterialType
-						)
-					"
-					class="font-size-50-px"
-				>
-				</ion-icon>
-			</ion-thumbnail>
-			<ion-text color="primary">{{ articleTitle }}</ion-text>
-		</ion-item>
+		<panel-header [panelTitle]="articleTitle" [panelIcon]="getMenuIcon(
+			(selectedMenuArticle$ | async).courseMaterialType
+		)"></panel-header>
 		<!-- article title -->
 
 		<!-- article summery -->
-		<ion-item class="padding-left-20-px">
-			<ion-icon
-				class="font-size-medium"
-				color="medium"
-				[src]="
-						stringKey.ICON_INFO
-					"
-			>
-			</ion-icon>
-			<ion-label color="medium" class="ion-text-wrap font-size-15-px">
-				{{ articleSummery }}
-			</ion-label>
-			<!--  -->
-		</ion-item>
+		<panel-info [title]="articleSummery"></panel-info>
+		
 		<!-- article summery -->
 	</div>
 	<!-- article title / summery -->

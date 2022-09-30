@@ -69,8 +69,10 @@
 				(this.courseMaterial$ | async) &&
 				!isMaterialOwner &&
 				isContentLive &&
+				(selectedMenuArticle$ | async) &&
 				!assignmentSessionInitiated
 			"
+			[articleId] = "(selectedMenuArticle$ | async).articleId"
 			[isMaterialOwner]="isMaterialOwner"
 			[isContentLive]="isContentLive"
 			[courseMaterialTypeId]="courseMaterialTypeIdEnum.FC"

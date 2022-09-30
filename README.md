@@ -4,7 +4,7 @@
 
 Forced to stay indoors with schools being shut down, children became one of the worst sufferers of the pandemic. While many children shifted to digital mode of learning, the less privileged children did not have similar access to technology and their education came to a halt.
  
-While there are many digital learning platforms available in today’s world, but most of them are not so cost effective and need to pay subscriptions. Even if an under privileged children has access to technologies such as smart phones, but they do not have opportunity to interact with the teachers, since most of such study counselling are costly. Before pandamic, the situation was different, since they could get access to the teachers in usual schools.
+While there are many digital learning platforms available in today’s world, but most of them are not so cost effective and need to pay subscriptions. Even if an under privileged children has access to technologies such as smart phones, but they do not have opportunity to interact with the teachers, since most of such study counselling are **costly**. Before pandamic, the situation was different, since they could get access to the teachers in usual schools.
  
 There is a clear gap of volunteers who can come forward for these children’s and provide the necessary guidance they need to grow forward. In such pandemic, the need of the hour is to have an online solution to connect educational volunteers with under privileged children 
 
@@ -19,34 +19,6 @@ Mentors can create open course material, and and mentorship session. While, ment
 |---|---|
 | Client app | [https://github.com/RollingArray/knowledgen/tree/playground/app](https://github.com/RollingArray/knowledgen/tree/playground/app) |
 | Server Api | [https://github.com/RollingArray/knowledgen/tree/playground/api](https://github.com/RollingArray/knowledgen/tree/playground/api) |
-
-> ### :small_red_triangle: Server App
-> Follow below guidelines to setup KnowledgeN app on your Windows/Mac/Linux machine
-> 
-
-> > #### :arrow_forward: Clone Repo
-> > ```
-> > git clone https://github.com/RollingArray/knowledgen
-> > ```
-> 
-
-> > #### :arrow_forward: Install Dependency
-> > ```
-> > cd api/
-> > composer install
-> > ```
-
-> > #### :arrow_forward: DB Migrate
-> > ```
-> > php artisan migrate
-> > ```
-> 
-
-> > #### :arrow_forward: Start server
-> > ```
-> > php artisan serve
-> > **```**
-
 
 **[⬆ back to top](#table-of-contents)**
 

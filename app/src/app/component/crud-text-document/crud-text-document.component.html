@@ -97,8 +97,9 @@
 	<article-session
 		#scroll
 		*ngIf="
-			(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive
+			(this.courseMaterial$ | async) && !isMaterialOwner && isContentLive && (selectedMenuArticle$ | async)
 		"
+		[articleId] = "(selectedMenuArticle$ | async).articleId"
 		[isMaterialOwner]="isMaterialOwner"
 		[isContentLive]="isContentLive"
 		[courseMaterialTypeId]="courseMaterialTypeIdEnum.TD"

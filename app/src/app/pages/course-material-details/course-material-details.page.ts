@@ -144,7 +144,7 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 			 .pipe(takeUntil(this.unsubscribe))
 			 .subscribe(menuSelectModel =>
 			 {
-				 
+				 console.log("menuSelectModel ", menuSelectModel.articleId);
 				 if (menuSelectModel.articleId && menuSelectModel.courseMaterialId === courseMaterialId)
 				 {
 					this.router.navigate(['article', menuSelectModel.articleId], { relativeTo: this.activatedRoute });
