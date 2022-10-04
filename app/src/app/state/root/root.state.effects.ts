@@ -322,10 +322,13 @@ export class RootStateEffects
 							if (data.success)
 							{
 								const userModel: UserModel = {
-									userEmail: action.payload.userEmail,
-									userFirstName: action.payload.userFirstName,
-									userLastName: action.payload.userLastName,
-									userSkills: action.payload.userSkills,
+									userType: data.resource.userType,
+									userId: data.resource.userId,
+									token: data.token,
+									userEmail: data.resource.userEmail,
+									userFirstName: data.resource.userFirstName,
+									userLastName: data.resource.userLastName,
+									userSkills: data.resource.userSkills,
 								};
 
 								// store newly added skill

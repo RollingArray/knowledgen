@@ -18,7 +18,7 @@
 			<ion-button
 				mode="ios"
 				fill="outline"
-				color="dark"
+				color="tertiary"
 				(click)="closeModal()"
 				>{{ stringKey.CLOSE }}</ion-button
 			>
@@ -133,7 +133,8 @@
 											<ion-label position="floating">{{
 												"formInfo.firstName" | translate
 											}}</ion-label>
-											<ion-input
+											<ion-input 
+												[disabled]="!ifFormActive"
 												autocomplete="off"
 												formControlName="userFirstName"
 												type="text"
@@ -171,6 +172,7 @@
 												"formInfo.lastName" | translate
 											}}</ion-label>
 											<ion-input
+												[disabled]="!ifFormActive"
 												autocomplete="off"
 												formControlName="userLastName"
 												type="text"
@@ -222,6 +224,7 @@
 												"formInfo.email" | translate
 											}}</ion-label>
 											<ion-input
+												[disabled]="!ifFormActive"
 												autocomplete="off"
 												formControlName="userEmail"
 												type="text"
@@ -280,6 +283,7 @@
 												"formInfo.subjects" | translate
 											}}</ion-label>
 											<ion-textarea
+												[disabled]="!ifFormActive"
 												rows="6"
 												autocomplete="off"
 												formControlName="userSkills"

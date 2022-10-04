@@ -78,15 +78,7 @@ const reducer = createReducer(
 		loggedInUser: action.payload
 	})),
 
-	/**
-	* Reducer for action - Store Logged in user details
-	*/
-	on(ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS, (state, action) => ({
-		...state,
-		loggedInUser: action.payload
-	})),
-
-	/**
+/**
    * Reducer for action - Update user logged in status
    */
 	on(ROOT_ACTIONS.UPDATE_USER_LOGGED_IN_STATUS, (state, action) => ({
@@ -98,11 +90,8 @@ const reducer = createReducer(
    * Reducer for action - Update user details
    */
 	 on(ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS, (state, action) => ({
-		...state,
-		 userFirstName: action.payload.userFirstName,
-		 userLastName: action.payload.userLastName,
-		 userEmail: action.payload.userEmail,
-		 userSkills: action.payload.userSkills,
+		 ...state,
+		 loggedInUser: action.payload
 	 })),
 	 
 	 /**

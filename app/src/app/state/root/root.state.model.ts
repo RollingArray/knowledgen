@@ -13,6 +13,7 @@ import { LANGUAGE_CODE } from "@angular/fire/compat/auth";
 import { DEFAULT_LANGUAGE } from "@ngx-translate/core";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
 import { UserModel } from "src/app/shared/model/user.model";
 
 /**
@@ -35,6 +36,23 @@ export const INITIAL_ROOT_STATE: RootStateModel = {
 	loadingIndicatorStatus: false,
 	preferredLanguage: ArrayKey.LANGUAGES[0].code,
 	userLoggedInStatus: OperationsEnum.NOT_LOGGED_IN,
-	loggedInUser: {},
+	loggedInUser: {
+		userId : '',
+		userFirstName : '',
+		userLastName : '',
+		userPassword: '',
+		userType: UserTypeEnum.Student,
+		userEmail: '',
+		userSkills: '',
+		inviteUserEmail : '',
+		userSecurityAnswer1 : '',
+		userSecurityAnswer2 : '',
+		userPlatform : '',
+		userLoginType : '',
+		userActivationCode: '',
+		userVerificationCode : '',
+		userPasswordResetCode : '',
+		userCredibilityScore : 0
+	},
 	studyTimerStatus: OperationsEnum.END
 };
