@@ -321,17 +321,10 @@ export class RootStateEffects
 							// if success response
 							if (data.success)
 							{
-								const userModel: UserModel = {
-									userEmail: action.payload.userEmail,
-									userFirstName: action.payload.userFirstName,
-									userLastName: action.payload.userLastName,
-									userSkills: action.payload.userSkills,
-								};
-
 								// store newly added skill
 								return [
-									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE({ payload: userModel }),
-									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS({ payload: userModel }),
+									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS_TO_COOKIE({ payload: data.resource }),
+									ROOT_ACTIONS.STORE_UPDATED_LOGGED_IN_USER_DETAILS({ payload: data.resource }),
 								];
 							}
 							// response fail
