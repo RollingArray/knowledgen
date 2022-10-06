@@ -57,6 +57,11 @@ export class CommonButtonComponent extends BaseViewComponent implements OnInit
 	@Input() expand = 'none';
 
 	/**
+	 * Input  of common button component
+	 */
+	@Input() slot = 'none';
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|

@@ -11,9 +11,15 @@
  */
 -->
 
-<ion-button [color]="color" (click)="onTap()" mode="ios" [expand]="expand">
+<ion-button
+	[color]="color"
+	(click)="onTap()"
+	mode="ios"
+	[expand]="expand"
+	[slot]="slot"
+>
 	<ion-icon [src]="icon"></ion-icon>
 	<ion-text *ngIf="title">
-		&nbsp;&nbsp;<b>{{title}}</b>
+		&nbsp;&nbsp;<b>{{ title }}</b>
 	</ion-text>
 </ion-button>
