@@ -1,13 +1,11 @@
 /**
  * © Rolling Array https://rollingarray.co.in/
  *
- * long description for the file
- *
  * @summary Account verification page
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 14:25:52
- * Last modified  : 2022-08-12 13:02:43
+ * Last modified  : 2022-10-06 19:01:51
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
@@ -244,26 +242,11 @@ export class AccountVerificationComponent
 			{
 				if (status === OperationsEnum.SIGNED_IN_VERIFIED)
 				{
+					this._modalData = {
+						cancelled: false,
+						operationSubmitted: true,
+					};
 					this.dismissModal();
-
-					// check user type
-					this.rootStateFacade.loggedInUserType$
-					.pipe(takeUntil(this.unsubscribe))
-					.subscribe((userType) => {
-						if (userType === UserTypeEnum.Student)
-						{
-							this.router.navigate([
-								this.apiUrls.STUDENT_ROOT_APP_URL_AFTER_AUTH,
-							]);
-						} 
-						
-						else if (userType === UserTypeEnum.Teacher)
-						{
-							this.router.navigate([
-								this.apiUrls.TEACHER_ROOT_APP_URL_AFTER_AUTH,
-							]);
-						}
-					});
 				}
 			});
 	}

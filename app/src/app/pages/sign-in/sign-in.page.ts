@@ -7,16 +7,19 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 17:23:00 
- * Last modified  : 2022-08-02 20:28:15
+ * Last modified  : 2022-10-06 19:00:51
  */
 
 import { Component, OnInit, OnDestroy, Injector } from "@angular/core";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { takeUntil } from "rxjs/operators";
 import { AccountVerificationComponent } from "src/app/component/account-verification/account-verification.component";
 import { BaseFormComponent } from "src/app/component/base/base-form.component";
 import { EventPageEnum } from "src/app/shared/enum/event-page.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
+import { UserTypeEnum } from "src/app/shared/enum/user-type.enum";
+import { ModalData } from "src/app/shared/model/modal-data.model";
 import { UserModel } from "src/app/shared/model/user.model";
 import { AlertService } from "src/app/shared/service/alert.service";
 import { AnalyticsService } from "src/app/shared/service/analytics.service";
@@ -43,6 +46,7 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 	 * @private Instance variable                               |
 	 * -------------------------------------------------|
 	 */
+	private _modalData: ModalData;
 
 
 	/**
@@ -88,7 +92,8 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 		private alertService: AlertService,
 		private analyticsService: AnalyticsService,
 		private rootStateFacade: RootStateFacade,
-		private translateService: TranslateService
+		private translateService: TranslateService,
+		private router: Router,
 	)
 	{
 		super(injector);
@@ -203,7 +208,34 @@ export class SignInPage extends BaseFormComponent implements OnInit, OnDestroy
 
 		modal.onDidDismiss().then((data) =>
 		{
-			//
+			const modalData: ModalData = data.data;
+			if (modalData.cancelled)
+			{
+				// no action required
+			}
+			// user login successfully, redirect to relevant pages
+			else
+			{
+				// check user type
+				this.rootStateFacade.loggedInUserType$
+					.pipe(takeUntil(this.unsubscribe))
+					.subscribe((userType) =>
+					{
+						if (userType === UserTypeEnum.Student)
+						{
+							this.router.navigate([
+								this.apiUrls.STUDENT_ROOT_APP_URL_AFTER_AUTH,
+							]);
+						}
+
+						else if (userType === UserTypeEnum.Teacher)
+						{
+							this.router.navigate([
+								this.apiUrls.TEACHER_ROOT_APP_URL_AFTER_AUTH,
+							]);
+						}
+					});
+			}
 		});
 
 		return await modal.present();

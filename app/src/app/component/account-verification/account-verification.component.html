@@ -2,17 +2,16 @@
 /**
  * © Rolling Array https://rollingarray.co.in/ 
  *
- * long description for the file
- *
  * @summary Account activation page template         
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 14:25:52 
- * Last modified  : 2022-01-31 18:20:41
+ * Last modified  : 2022-10-06 19:44:44
  */
  -->
  <ion-header>
 	<ion-toolbar color="primary">
+		<ion-img class="width-200-px" [src]="stringKey.IMAGE_ICON"></ion-img>
 		<ion-buttons slot="end">
 			<ion-button mode="ios" fill="outline" color="tertiary" (click)="cancelModal()"> 
 				{{ 'button.discard' |
@@ -28,10 +27,6 @@
 				<ion-col align-self-center align-self-center size="12" size-lg="8" size-md="8" size-sm="8" offset-lg="2"
 					offset-md="2" offset-sm="2" lines="none" class="text-center">
 					
-					<!-- app icon -->
-					<ion-icon class="font-size-250-px" [src]="stringKey.IMAGE_ICON"></ion-icon>
-					<!-- app icon -->
-
 					<!-- page title -->
 					<app-page-info-title [title]="'pageTitle.accVerification' | translate"
 						[info]="'pageSubTitle.accVerification' | translate">
@@ -66,6 +61,15 @@
 					</ion-card>
 					<!-- code -->
 
+					<!-- activate -->
+					<ion-toolbar color="none">
+						<ion-button class="footer-button float-right" size="default" color="tertiary" (click)="submit()">
+							<ion-icon [src]="stringKey.ICON_ACTIVATE"></ion-icon>
+							<ion-label>&nbsp; {{ 'button.activate' | translate }} </ion-label>
+						</ion-button>
+					</ion-toolbar>
+					<!-- activate -->
+					
 					<!-- lost verification code -->
 					<ion-card>
 						<ion-item color="secondary" lines="none">
@@ -77,12 +81,7 @@
 					</ion-card>
 					<!-- lost verification code -->
 
-					<!-- activate -->
-					<ion-button class="footer-button float-right" size="default" color="tertiary" (click)="submit()">
-						<ion-icon [src]="stringKey.ICON_ACTIVATE"></ion-icon>
-						<ion-label>&nbsp; {{ 'button.activate' | translate }} </ion-label>
-					</ion-button>
-					<!-- activate -->
+					
 				</ion-col>
 			</ion-row>
 		</ion-grid>

@@ -8,12 +8,12 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-10-31 17:23:00 
- * Last modified  : 2022-09-21 10:15:16
+ * Last modified  : 2022-10-06 19:36:54
  */
  -->
 
-<ion-header>
-	<ion-toolbar color="secondary">
+ <ion-header>
+	<ion-toolbar color="primary">
 		<ion-buttons slot="end">
 			<ion-button
 				mode="ios"
@@ -28,23 +28,18 @@
 </ion-header>
 <ion-content lines="none" color="primary">
 	<div class="identity-image"></div>
-	<form
-		[formGroup]="formGroup"
-		(ngSubmit)="submit()"
-		color="primary"
-		lines="none"
-	>
+	<form [formGroup]="formGroup" color="primary" lines="none">
 		<ion-grid lines="none">
 			<ion-row justify-content-center lines="none">
 				<ion-col
 					align-self-center
 					size="12"
-					size-lg="4"
-					size-md="4"
-					size-sm="4"
-					offset-lg="4"
-					offset-md="4"
-					offset-sm="4"
+					size-lg="6"
+					size-md="6"
+					size-sm="6"
+					offset-lg="3"
+					offset-md="3"
+					offset-sm="3"
 					lines="none"
 					class="text-center"
 				>
@@ -100,6 +95,8 @@
 						</ion-card>
 					</ion-card>
 					<!-- email -->
+
+					<!-- button -->
 					<ion-button
 						class="footer-button float-right"
 						size="default"
@@ -112,7 +109,7 @@
 							>&nbsp; {{ 'button.signIn' | translate }}
 						</ion-label>
 					</ion-button>
-					<!-- email -->
+					<!-- button -->
 				</ion-col>
 			</ion-row>
 		</ion-grid>
