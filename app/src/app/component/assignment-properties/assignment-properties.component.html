@@ -11,17 +11,11 @@
  */
 -->
 
-<ion-card color="light">
-	<ion-grid>
-		<ion-row>
-			<!-- article deration -->
-			<ion-col
-				size-xl="6"
-				size-lg="6"
-				size-md="12"
-				size-sm="12"
-				size-xs="12"
-			>
+<ion-grid>
+	<ion-row>
+		<!-- article deration -->
+		<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+			<ion-card color="light">
 				<ion-grid>
 					<ion-row>
 						<ion-col
@@ -52,17 +46,13 @@
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-			</ion-col>
-			<!-- article deration -->
+			</ion-card>
+		</ion-col>
+		<!-- article deration -->
 
-			<!-- article reward -->
-			<ion-col
-				size-xl="6"
-				size-lg="6"
-				size-md="12"
-				size-sm="12"
-				size-xs="12"
-			>
+		<!-- article reward -->
+		<ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+			<ion-card color="light">
 				<ion-grid>
 					<ion-row>
 						<ion-col
@@ -82,7 +72,10 @@
 									"
 								></panel-info>
 							</ion-card-header>
-							<ion-card-content class="text-center" *ngIf="articleCompletionReward != '0'">
+							<ion-card-content
+								class="text-center"
+								*ngIf="articleCompletionReward != '0'"
+							>
 								<h1>
 									<b>
 										{{ articleCompletionReward }}&nbsp;
@@ -90,20 +83,23 @@
 									</b>
 								</h1>
 							</ion-card-content>
-							<ion-card-content class="text-center" *ngIf="articleCompletionReward == '0'">
+							<ion-card-content
+								class="text-center"
+								*ngIf="articleCompletionReward == '0'"
+							>
 								<h1>
 									<b>
-										{{ "errorMessage.noReward" | translate }}
+										{{
+											"errorMessage.noReward" | translate
+										}}
 									</b>
 								</h1>
 							</ion-card-content>
-
-							
 						</ion-col>
 					</ion-row>
 				</ion-grid>
-			</ion-col>
-			<!-- article reward -->
-		</ion-row>
-	</ion-grid>
-</ion-card>
+			</ion-card>
+		</ion-col>
+		<!-- article reward -->
+	</ion-row>
+</ion-grid>
