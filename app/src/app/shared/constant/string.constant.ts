@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:16:27 
- * Last modified  : 2022-09-22 18:45:59
+ * Last modified  : 2022-10-06 18:27:19
  */
 
 
@@ -691,6 +691,8 @@ export class StringKey {
 	public static readonly ICON_WEAK_EMOJI: string = StringKey.ICON_BASE_PATH + "weak-emoji.svg";
 	public static readonly ICON_STRONG_EMOJI: string = StringKey.ICON_BASE_PATH + "strong-emoji.svg";
 	public static readonly ICON_ANALYSIS: string = StringKey.ICON_BASE_PATH + "analysis.svg";
+	public static readonly ICON_FRONT_CARD: string = StringKey.ICON_BASE_PATH + "front-card.svg";
+	public static readonly ICON_BACK_CARD: string = StringKey.ICON_BASE_PATH + "back-card.svg";
 
 	public static readonly IMAGE_BASE_PATH: string = "assets/images/";
 	public static readonly IMAGE_ICON: string = StringKey.IMAGE_BASE_PATH + "app_icon.svg";

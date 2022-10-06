@@ -85,6 +85,11 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	readonly mediaTypeEnum = MediaTypeEnum;
 
 	/**
+	 * Audio type of crud revision flash card component
+	 */
+	readonly audioType = "audio/mpeg";
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
 	 * @private Instance variable						|
@@ -267,7 +272,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	 */
 	get frontMedia()
 	{
-		return this._frontMedia;
+		return `${this.apiUrls.FILE}${this._frontMedia}`;
 	}
 
 	/**
@@ -291,7 +296,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 	 */
 	get backMedia()
 	{
-		return this._backMedia;
+		return `${this.apiUrls.FILE}${this._backMedia}`;
 	}
 
 	/**
@@ -358,6 +363,8 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 		{
 			this.checkIfWantToDelete();
 		}
+
+
 	}
 
 	/**
@@ -416,6 +423,8 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 		this._frontMediaType = this._courseMaterialFlashCard.frontMediaType;
 		this._backMedia = this._courseMaterialFlashCard.backMedia;
 		this._backMediaType = this._courseMaterialFlashCard.backMediaType;
+
+		console.log(this._frontMedia);
 
 		this.setPassedValueToFrom();
 	}
@@ -644,7 +653,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 				}
 
 
-				const filePath = `${ApiUrls.FILE}${courseMaterialFileModel.fileName}/${courseMaterialFileModel.extension}`;
+				const filePath = `${courseMaterialFileModel.fileName}.${courseMaterialFileModel.extension}`;
 
 				switch (side)
 				{
@@ -709,7 +718,7 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 				}
 
 
-				const filePath = `${ApiUrls.FILE}${courseMaterialFileModel.fileName}/${courseMaterialFileModel.extension}`;
+				const filePath = `${courseMaterialFileModel.fileName}.${courseMaterialFileModel.extension}`;
 
 				switch (side)
 				{

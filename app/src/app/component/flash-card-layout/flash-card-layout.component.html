@@ -1,0 +1,132 @@
+<!--
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Flash card layout component template
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-10-06 17:18:55 
+ * Last modified  : 2022-10-06 18:29:06
+ */
+-->
+
+<ion-toolbar color="primary">
+	<!-- front -->
+	<common-button
+		class="margin-10-px display-block"
+		*ngIf="careView == flashCardViewEnum.FRONT"
+		slot="end"
+		[title]="'button.turnBack' | translate"
+		[icon]="stringKey.ICON_BACK_CARD"
+		[color]="stringKey.COLOR_TERTIARY"
+		(event)="onCardFlipAction()"
+	>
+	</common-button>
+	<!-- front -->
+
+	<!-- back -->
+	<common-button
+		class="float-right margin-10-px"
+		*ngIf="careView == flashCardViewEnum.BACK"
+		[title]="'button.flipFront' | translate"
+		[icon]="stringKey.ICON_FRONT_CARD"
+		[color]="stringKey.COLOR_TERTIARY"
+		(event)="onCardFlipAction()"
+	>
+	</common-button>
+	<!-- back -->
+</ion-toolbar>
+<ion-card-content>
+	<div class="text-center" *ngIf="audioLoading"> 
+		<ion-spinner color="white"></ion-spinner>
+	</div>
+	<!-- audio -->
+	<!-- front -->
+	<div
+		color="none"
+		class="margin-auto card-no-shadow text-center cursor-pointer"
+		*ngIf="
+			!audioLoading &&
+			selectedCard.frontMedia &&
+			selectedCard.frontMediaType === mediaTypeEnum.AUDIO &&
+			careView == flashCardViewEnum.FRONT
+		"
+		(click)="play(selectedCard.frontMedia)"
+	>
+		<ion-icon
+			class="font-color-tertiary font-size-100-px"
+			[src]="stringKey.ICON_START"
+		></ion-icon>
+	</div>
+	<!-- front -->
+
+	<!-- back -->
+	<div
+		color="none"
+		class="margin-auto card-no-shadow text-center cursor-pointer"
+		*ngIf="
+			!audioLoading &&
+			selectedCard.backMedia &&
+			selectedCard.backMediaType === mediaTypeEnum.AUDIO &&
+			careView == flashCardViewEnum.BACK
+		"
+		(click)="play(selectedCard.backMedia)"
+	>
+		<ion-icon
+			class="font-color-tertiary font-size-100-px"
+			[src]="stringKey.ICON_START"
+		></ion-icon>
+	</div>
+	<!-- back -->
+	<!-- audio -->
+
+	<!-- image -->
+	<!-- front -->
+	<image-holder
+		*ngIf="
+			selectedCard.frontMediaType === mediaTypeEnum.IMAGE &&
+			careView == flashCardViewEnum.FRONT
+		"
+		class="flash-card-image"
+		image="{{ apiUrls.FILE + selectedCard.frontMedia }}"
+	>
+	</image-holder>
+	<!-- front -->
+
+	<!-- back -->
+	<image-holder
+		*ngIf="
+			selectedCard.backMediaType === mediaTypeEnum.IMAGE &&
+			careView == flashCardViewEnum.BACK
+		"
+		class="flash-card-image"
+		image="{{ apiUrls.FILE + selectedCard.backMedia }}"
+	>
+	</image-holder>
+	<!-- back -->
+	<!-- image -->
+
+	<!-- text -->
+	<!-- front -->
+	<div
+		*ngIf="careView == flashCardViewEnum.FRONT"
+		class="flash-card-content-text"
+	>
+		<span>
+			{{ selectedCard.frontContent }}
+		</span>
+	</div>
+	<!-- front -->
+
+	<!-- back -->
+	<div
+		*ngIf="careView == flashCardViewEnum.BACK"
+		class="flash-card-content-text"
+	>
+		<span>
+			{{ selectedCard.backContent }}
+		</span>
+	</div>
+	<!-- back -->
+	<!-- text -->
+</ion-card-content>

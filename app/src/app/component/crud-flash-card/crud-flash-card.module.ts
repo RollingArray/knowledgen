@@ -34,6 +34,8 @@ import { ImageHolderModule } from '../image-holder/image-holder.module';
 import { CrudCourseMaterialAssignmentResultModule } from '../crud-course-material-assignment-result/crud-course-material-assignment-result.module';
 import { ContentLoadingModule } from '../content-loading/content-loading.module';
 import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.module';
+import { CommonButtonModule } from '../button/common-button/common-button.component.module';
+import { FlashCardLayoutModule } from '../flash-card-layout/flash-card-layout.module';
 
 @NgModule({
 	imports: [
@@ -60,7 +62,9 @@ import { StartStopTimerModule } from '../start-stop-timer/start-stop-timer.modul
 		CrudRevisionFlashCardModule,
 		ImageHolderModule,
 		ContentLoadingModule,
-		StartStopTimerModule
+		StartStopTimerModule,
+		CommonButtonModule,
+		FlashCardLayoutModule
 	],
 
 	declarations: [CrudFlashCardComponent],

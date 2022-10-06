@@ -170,13 +170,12 @@
 						>
 						</image-holder>
 						<!-- image -->
-
 						<!-- audio -->
 						<audio
 							*ngIf="frontMediaType === mediaTypeEnum.AUDIO"
 							controls
 						>
-							<source [src]="frontMedia" type="audio/wav" />
+							<source [src]="frontMedia" [type]="audioType" />
 						</audio>
 						<!-- audio -->
 
@@ -288,7 +287,7 @@
 							autoplay
 							muted
 						>
-							<source [src]="backMedia" type="audio/wav" />
+							<source [src]="backMedia" [type]="audioType" />
 						</audio>
 						<!-- audio -->
 

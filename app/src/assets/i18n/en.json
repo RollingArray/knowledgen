@@ -42,7 +42,9 @@
 		"changeVisibilityLive": ",Change Visibility To Live",
 		"compareFriends": "Compare Leader Board with your Peer",
 		"showMore": "Show More",
-		"showLess": "Show Less"
+		"showLess": "Show Less",
+		"turnBack": "Turn Back",
+		"flipFront": "Flip Front"
 	},
 	"pageTitle": {
 		"profile": "Profile",
@@ -358,7 +360,7 @@
 		"minimumAnswer": "Minimum 2 answers are required",
 		"minimumCorrectAnswer": "Minimum 1 answer must be correct",
 		"selectAudio": "Record an audio clip",
-		"noReward": "No rewards !! A practice session",
+		"noReward": "No rewards !!",
 		"selectSearchResult" : "Select from the list of searched rsults"
 	},
 	"actionAlert": {

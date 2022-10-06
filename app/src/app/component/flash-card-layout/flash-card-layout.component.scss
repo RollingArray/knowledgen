@@ -1,0 +1,66 @@
+/**
+ * © Rolling Array https://rollingarray.co.in/
+ *
+ * @summary Flash card layout component template style
+ * @author code@rollingarray.co.in
+ *
+ * Created at     : 2022-10-06 17:18:55 
+ * Last modified  : 2022-10-06 17:26:43
+ */
+
+ .flash-card-content-text {
+	margin: 10px auto;
+	font-size: large;
+	text-align: center;
+	height: 40vh;
+	overflow-y: auto;
+	float: left;
+	width: 100%;
+	span {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.flash-card-content-no-image {
+	margin: 10px auto;
+	font-size: large;
+	text-align: center;
+	display: table;
+	height: 40vh;
+	overflow-y: auto;
+	float: left;
+	width: 100%;
+
+	span {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.flash-card-content-with-image {
+	margin: 10px auto;
+	font-size: large;
+	text-align: center;
+	height: 40vh;
+	overflow-y: auto;
+	float: left;
+	width: 100%;
+	span {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+
+.flash-card-image {
+	display: block;
+	margin: auto;
+	width: 100%;
+	border-radius: 5px;
+	border: 1px dashed var(--ion-color-light-gradient);
+}
+
+audio{
+    margin: 16px;
+    width: calc(100% - 32px);
+}

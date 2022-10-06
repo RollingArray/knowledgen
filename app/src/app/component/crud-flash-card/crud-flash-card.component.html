@@ -19,7 +19,9 @@
 <!-- content loading -->
 
 <!-- article owner toolbar -->
-<div *ngIf="(this.courseMaterial$ | async) && !(loadingIndicatorStatus$ | async)">
+<div
+	*ngIf="(this.courseMaterial$ | async) && !(loadingIndicatorStatus$ | async)"
+>
 	<!-- add new question -->
 	<ion-fab
 		slot="fixed"
@@ -72,7 +74,7 @@
 				(selectedMenuArticle$ | async) &&
 				!assignmentSessionInitiated
 			"
-			[articleId] = "(selectedMenuArticle$ | async).articleId"
+			[articleId]="(selectedMenuArticle$ | async).articleId"
 			[isMaterialOwner]="isMaterialOwner"
 			[isContentLive]="isContentLive"
 			[courseMaterialTypeId]="courseMaterialTypeIdEnum.FC"
@@ -97,27 +99,34 @@
 							offset-md="3"
 							offset-sm="3"
 						>
-							<ion-card class="card-no-shadow">
-								<ion-button
+							<!-- next previous -->
+							<ion-toolbar class="card-no-shadow">
+								<common-button
 									*ngIf="cardIndex !== 0"
-									class="float-left"
+									slot="start"
+									[icon]="stringKey.ICON_LEFT_ARROW"
+									[color]="stringKey.COLOR_TERTIARY"
 									(click)="previousCard()"
 								>
-								<ion-icon [src]="stringKey.ICON_LEFT_ARROW"></ion-icon>
-								</ion-button>
-								<ion-button
+								</common-button>
+
+								<common-button
 									*ngIf="
 										cardIndex !==
 										(courseMaterialFlashCard$ | async)
 											.length -
 											1
 									"
-									class="float-right"
+									slot="end"
+									[icon]="stringKey.ICON_RIGHT_ARROW"
+									[color]="stringKey.COLOR_TERTIARY"
 									(click)="nextCard()"
 								>
-									<ion-icon [src]="stringKey.ICON_RIGHT_ARROW"></ion-icon>
-								</ion-button>
-							</ion-card>
+								</common-button>
+							</ion-toolbar>
+							<!-- next previous -->
+
+							<!-- index number -->
 							<ion-card
 								class="text-center margin-10-px card-no-shadow"
 							>
@@ -130,118 +139,57 @@
 									}}
 								</h2>
 							</ion-card>
+							<!-- index number -->
 							<div>
 								<!-- each front -->
 								<ion-card
-									id="{{ 'front ' + selectedCard.cardId }}"
-									(click)="
-										toggleCard(
-											'front ' + selectedCard.cardId,
-											'back ' + selectedCard.cardId,
-											true
-										)
-									"
-									[class]="getClass('front')"
+									id="{{
+										flashCardViewEnum.FRONT +
+											selectedCard.cardId
+									}}"
+									[class]="getClass(flashCardViewEnum.FRONT)"
 									color="primary-gradient"
 									*ngIf="resetFlashCard && selectedCard"
 								>
-									<ion-card-content *ngIf="isMaterialOwner">
-										<!-- image -->
-										<image-holder
-											*ngIf="
-												selectedCard.frontMediaType ===
-												mediaTypeEnum.IMAGE
-											"
-											class="flash-card-image"
-											[image]="selectedCard.frontMedia"
-										>
-										</image-holder>
-										<!-- image -->
-
-										<!-- audio -->
-										<audio
-											*ngIf="
-												selectedCard.frontMediaType ===
-												mediaTypeEnum.AUDIO
-											"
-											controls
-										>
-											<source
-												[src]="selectedCard.frontMedia"
-												type="audio/wav"
-											/>
-										</audio>
-										<!-- audio -->
-										<div
-											[class]="
-												selectedCard.frontMediaType ===
-												mediaTypeEnum.NONE
-													? 'flash-card-content-no-image'
-													: 'flash-card-content-with-image'
-											"
-										>
-											<span>
-												{{ selectedCard.frontContent }}
-											</span>
-										</div>
-									</ion-card-content>
+									<flash-card-layout
+										[selectedCard]="selectedCard"
+										[careView]="flashCardViewEnum.FRONT"
+										(event)="
+											toggleCard(
+												flashCardViewEnum.FRONT +
+													selectedCard.cardId,
+												flashCardViewEnum.BACK +
+													selectedCard.cardId,
+												true
+											)
+										"
+									></flash-card-layout>
 								</ion-card>
 								<!-- each front -->
 
 								<!-- each back -->
 								<ion-card
-									id="{{ 'back ' + selectedCard.cardId }}"
-									(click)="
-										toggleCard(
-											'back ' + selectedCard.cardId,
-											'front ' + selectedCard.cardId,
-											false
-										)
-									"
-									[class]="getClass('back')"
+									id="{{
+										flashCardViewEnum.BACK +
+											selectedCard.cardId
+									}}"
+									[class]="getClass(flashCardViewEnum.BACK)"
 									color="primary-gradient"
 									*ngIf="resetFlashCard && selectedCard"
 								>
-									<ion-card-content *ngIf="isMaterialOwner">
-										<!-- image -->
-										<image-holder
-											*ngIf="
-												selectedCard.backMediaType ===
-												mediaTypeEnum.IMAGE
-											"
-											class="flash-card-image"
-											[image]="selectedCard.backMedia"
-										>
-										</image-holder>
-										<!-- image -->
-
-										<!-- audio -->
-										<audio
-											*ngIf="
-												selectedCard.backMediaType ===
-												mediaTypeEnum.AUDIO
-											"
-											controls
-										>
-											<source
-												[src]="selectedCard.backMedia"
-												type="audio/wav"
-											/>
-										</audio>
-										<!-- audio -->
-										<div
-											[class]="
-												selectedCard.backMediaType ===
-												mediaTypeEnum.NONE
-													? 'flash-card-content-no-image'
-													: 'flash-card-content-with-image'
-											"
-										>
-											<span>
-												{{ selectedCard.backContent }}
-											</span>
-										</div>
-									</ion-card-content>
+									<flash-card-layout
+										[selectedCard]="selectedCard"
+										[careView]="flashCardViewEnum.BACK"
+										(event)="
+											toggleCard(
+												flashCardViewEnum.BACK +
+													selectedCard.cardId,
+												flashCardViewEnum.FRONT +
+													selectedCard.cardId,
+												false
+											)
+										"
+									></flash-card-layout>
 								</ion-card>
 								<!-- each back -->
 
@@ -344,115 +292,47 @@
 				<div>
 					<!-- each front -->
 					<ion-card
-						id="{{ 'front ' + selectedCard.cardId }}"
-						(click)="
-							toggleCard(
-								'front ' + selectedCard.cardId,
-								'back ' + selectedCard.cardId,
-								true
-							)
-						"
+						id="{{ flashCardViewEnum.FRONT + selectedCard.cardId }}"
 						[class]="getClass('front')"
 						color="primary-gradient"
 						*ngIf="resetFlashCard && selectedCard"
 					>
-						<ion-card-content>
-							<!-- image -->
-							<image-holder
-								*ngIf="
-									selectedCard.frontMediaType ===
-									mediaTypeEnum.IMAGE
-								"
-								class="flash-card-image"
-								[image]="selectedCard.frontMedia"
-							>
-							</image-holder>
-							<!-- image -->
-
-							<!-- audio -->
-							<audio
-								*ngIf="
-									selectedCard.frontMediaType ===
-									mediaTypeEnum.AUDIO
-								"
-								controls
-							>
-								<source
-									[src]="selectedCard.frontMedia"
-									type="audio/wav"
-								/>
-							</audio>
-							<!-- audio -->
-							<div
-								[class]="
-									selectedCard.frontMediaType ===
-									mediaTypeEnum.NONE
-										? 'flash-card-content-no-image'
-										: 'flash-card-content-with-image'
-								"
-							>
-								<span>
-									{{ selectedCard.frontContent }}
-								</span>
-							</div>
-						</ion-card-content>
+						<flash-card-layout
+							[selectedCard]="selectedCard"
+							[careView]="flashCardViewEnum.FRONT"
+							(event)="
+								toggleCard(
+									flashCardViewEnum.FRONT +
+										selectedCard.cardId,
+									flashCardViewEnum.BACK +
+										selectedCard.cardId,
+									true
+								)
+							"
+						></flash-card-layout>
 					</ion-card>
 					<!-- each front -->
 
 					<!-- each back -->
 					<ion-card
-						id="{{ 'back ' + selectedCard.cardId }}"
-						(click)="
-							toggleCard(
-								'back ' + selectedCard.cardId,
-								'front ' + selectedCard.cardId,
-								false
-							)
-						"
-						[class]="getClass('back')"
+						id="{{ flashCardViewEnum.BACK + selectedCard.cardId }}"
+						[class]="getClass(flashCardViewEnum.BACK)"
 						color="primary-gradient"
 						*ngIf="resetFlashCard && selectedCard"
 					>
-						<ion-card-content>
-							<!-- image -->
-							<image-holder
-								*ngIf="
-									selectedCard.backMediaType ===
-									mediaTypeEnum.IMAGE
-								"
-								class="flash-card-image"
-								[image]="selectedCard.backMedia"
-							>
-							</image-holder>
-							<!-- image -->
-
-							<!-- audio -->
-							<audio
-								*ngIf="
-									selectedCard.backMediaType ===
-									mediaTypeEnum.AUDIO
-								"
-								controls
-							>
-								<source
-									[src]="selectedCard.backMedia"
-									type="audio/wav"
-								/>
-							</audio>
-							<!-- audio -->
-							<div
-								[class]="
-									selectedCard.backMediaType ===
-									mediaTypeEnum.NONE
-										? 'flash-card-content-no-image'
-										: 'flash-card-content-with-image'
-								"
-							>
-								<span>
-									{{ selectedCard.backContent }}
-								</span>
-							</div>
-						</ion-card-content>
+						<flash-card-layout
+							[selectedCard]="selectedCard"
+							[careView]="flashCardViewEnum.BACK"
+							(event)="
+								toggleCard(
+									flashCardViewEnum.BACK +
+										selectedCard.cardId,
+									flashCardViewEnum.FRONT +
+										selectedCard.cardId,
+									true
+								)
+							"
+						></flash-card-layout>
 					</ion-card>
 					<!-- each back -->
 				</div>

@@ -20,7 +20,7 @@ export class ApiUrls
 	public static readonly API_VERSION: string = "v1";
 	public static readonly API_BASE_PATH: string = ApiUrls.API_ENDPOINT + ApiUrls.API_VERSION;
 	public static readonly RA: string = 'https://rollingarray.co.in/';
-	public static readonly FILE: string = ApiUrls.API_ENDPOINT + "file/";
+	public static readonly FILE: string = ApiUrls.API_ENDPOINT + "upload/";
 	// urls
 	public static readonly USER_BASE: string = ApiUrls.API_BASE_PATH + "/user";
 	public static readonly SIGN_IN: string = ApiUrls.USER_BASE + "/sign/in";

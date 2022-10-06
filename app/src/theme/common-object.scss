@@ -64,8 +64,8 @@ ion-col {
 }
 
 .card-solid-shadow {
-	border: 1px solid var(--ion-color-primary);
-	box-shadow: 15px 15px var(--ion-color-primary);
+	border: 1px solid var(--ion-color-secondary);
+	box-shadow: 15px 15px var(--ion-color-secondary);
 }
 
 .selector {
@@ -396,6 +396,10 @@ td:last-child {
 
 .font-color-medium {
 	color: var(--ion-color-medium) !important;
+}
+
+.font-color-tertiary {
+	color: var(--ion-color-tertiary) !important;
 }
 
 /*font-size*/

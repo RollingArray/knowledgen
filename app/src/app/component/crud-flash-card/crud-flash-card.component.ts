@@ -14,10 +14,12 @@ import { IonContent } from "@ionic/angular";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
 import { ArrayKey } from "src/app/shared/constant/array.constant";
 import { StringKey } from "src/app/shared/constant/string.constant";
 import { CourseMaterialTypeIdEnum } from "src/app/shared/enum/course-material-type-id.enum";
 import { FlashCardActionEnum } from "src/app/shared/enum/flash-card-action.enum";
+import { FlashCardViewEnum } from "src/app/shared/enum/flash-card-view.enum";
 import { MediaTypeEnum } from "src/app/shared/enum/media-type.enum";
 import { OperationsEnum } from "src/app/shared/enum/operations.enum";
 import { ResultTypeEnum } from "src/app/shared/enum/retust-type.enum";
@@ -76,6 +78,21 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	 */
 	readonly mediaTypeEnum = MediaTypeEnum;
 
+	/**
+	 * Flash card view enum of crud flash card component
+	 */
+	readonly flashCardViewEnum = FlashCardViewEnum;
+
+	/**
+	 * Media type enum of crud flash card component
+	 */
+	 readonly apiUrls = ApiUrls;
+
+	/**
+	 * Audio type of crud flash card component
+	 */
+	readonly audioType = "audio/mpeg";
+	
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -735,8 +752,8 @@ export class CrudFlashCardComponent extends BaseFormComponent implements OnInit
 	{
 		if (this._cardFlipped)
 		{
-			const primaryCardId = 'back ' + this._selectedCard.cardId;
-			const secondaryCardId = 'front ' + this._selectedCard.cardId;
+			const primaryCardId = this.flashCardViewEnum.BACK + this._selectedCard.cardId;
+			const secondaryCardId = this.flashCardViewEnum.FRONT + this._selectedCard.cardId;
 			this.toggleCard(primaryCardId, secondaryCardId, false);
 		}
 	}

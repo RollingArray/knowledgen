@@ -42,7 +42,9 @@
 		"changeVisibilityLive": "লাইভের জন্য দৃশ্যমানতা পরিবর্তন করুন",
 		"compareFriends": "আপনার সহকর্মীর সাথে লিডার বোর্ডের তুলনা করুন",
 		"showMore": "আরো দেখুন",
-		"showLess": "প্রদর্শন কম"
+		"showLess": "প্রদর্শন কম",
+		"turnBack": "পেছনে",
+		"flipFront": "সামনে"
 	},
 	"pageTitle": {
 		"profile":"প্রোফাইল",
@@ -357,7 +359,7 @@
 		"minimumAnswer": "ন্যূনতম 2টি উত্তর প্রয়োজন",
 		"minimumCorrectAnswer": "ন্যূনতম ১টি উত্তর সঠিক হতে হবে",
 		"selectAudio": "একটি অডিও ক্লিপ রেকর্ড করুন",
-		"noReward": "কোন পুরস্কার নেই!! একটি অনুশীলন সেশন",
+		"noReward": "কোন পুরস্কার নেই!!",
 		"selectSearchResult" : "অনুসন্ধান করা ফলাফলের তালিকা থেকে নির্বাচন করুন"
 	},
 	"actionAlert": {
