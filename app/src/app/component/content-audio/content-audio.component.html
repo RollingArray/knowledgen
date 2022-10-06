@@ -37,7 +37,7 @@
 	></app-page-info-title>
 
 	<!-- save btn -->
-	<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+	<ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="!timerStarted && timerEnded">
 		<ion-fab-button color="tertiary" (click)="uploadFiles()">
 			<ion-icon [src]="stringKey.ICON_SAVE"></ion-icon>
 		</ion-fab-button>

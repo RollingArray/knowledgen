@@ -45,7 +45,18 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 	 /**
 	  * String key of crud course material component
 	  */
-	 readonly stringKey = StringKey;
+	readonly stringKey = StringKey;
+	
+	/**
+	 * Audio type of content audio component
+	 */
+	readonly audioType = "audio/mpeg";
+
+	/**
+	 * Audio file extension of content audio component
+	 */
+	readonly audioFileExtension = "mp3";
+	
  
 	 /**
 	  * -------------------------------------------------|
@@ -121,6 +132,11 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 	private _timerStarted = false;
 
 	private _timerEnded = false;
+
+	/**
+	 * Time animation request id of audio player component
+	 */
+	 private _timeAnimationRequestId: number;
 
 	/**
 	 * -------------------------------------------------|
@@ -289,8 +305,8 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 	 */
 	public uploadFiles()
 	{
-		this._file = new File([this._audioData], `${new Date().getTime()}.wav`, {
-			type: "audio/x-wav", lastModified: new Date().getTime()
+		this._file = new File([this._audioData], `${new Date().getTime()}.${this.audioFileExtension}`, {
+			type: this.audioType, lastModified: new Date().getTime()
 		});
 
 
@@ -383,6 +399,7 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 	 */
 	private dismissModal()
 	{
+		this.stop();
 		this.modalController.dismiss(this._modalData).then(() =>
 		{
 			//
@@ -441,7 +458,7 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 				stream.getTracks().forEach(function (track) { track.stop() });
 
 				const type = {
-					'type': 'audio/x-wav'
+					'type': this.audioType
 				};
 				this._audioData = new Blob(this._chunks, type);
 				this._chunks = [];
@@ -490,11 +507,15 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 		// get data array
 		const dataArray = new Uint8Array(bufferLength);
 
+
 		// start animate loop to print on screen 
 		const animationLoop = () =>
 		{
 			//Use requestAnimationFrame() to keep looping the drawing function once it has been started
-			requestAnimationFrame(animationLoop);
+			this._timeAnimationRequestId = requestAnimationFrame(animationLoop);
+
+			//Use requestAnimationFrame() to keep looping the drawing function once it has been started
+			//requestAnimationFrame(animationLoop);
 
 			//	grab the time domain data and copy it into our array
 			analyser.getByteTimeDomainData(dataArray);
@@ -504,7 +525,7 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 
 			//Set a line width and stroke color for the wave we will draw, then begin drawing a path
 			canvas.lineWidth = 2;
-			canvas.strokeStyle = 'rgb(200, 200, 200)';
+			canvas.strokeStyle = 'rgb(255, 255, 255)';
 			canvas.beginPath();
 
 			//Determine the width of each segment of the line to be drawn by dividing the canvas width by the array length
@@ -547,5 +568,6 @@ export class ContentAudioComponent extends BaseFormComponent implements OnInit, 
 		this._timerEnded = true;
 		this._recordStared = false;
 		this._mediaRecorder.stop();
+		cancelAnimationFrame(this._timeAnimationRequestId);
 	}
 }
