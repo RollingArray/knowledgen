@@ -7,81 +7,18 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:33:29 
- * Last modified  : 2022-07-13 12:02:11
+ * Last modified  : 2022-10-10 20:26:09
  */
 -->
 
-<ion-segment scrollable="true" mode="ios">
-	<!-- h1..h6 -->
-    <ion-segment-button (click)="triggerCommand('h1')">
-		<ion-icon [src]="stringKey.ICON_H1"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('h2')">
-		<ion-icon [src]="stringKey.ICON_H2"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('h3')">
-		<ion-icon [src]="stringKey.ICON_H3"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('h4')">
-		<ion-icon [src]="stringKey.ICON_H4"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('h5')">
-		<ion-icon [src]="stringKey.ICON_H5"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('h6')">
-		<ion-icon [src]="stringKey.ICON_H6"></ion-icon>
-	</ion-segment-button>
-	<!-- h1..h6 -->
-	
-	<!-- presentation -->
-	<ion-segment-button (click)="triggerCommand('bold')">
-		<ion-icon [src]="stringKey.ICON_BOLD"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('italic')">
-		<ion-icon [src]="stringKey.ICON_ITALIC"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('underline')">
-		<ion-icon [src]="stringKey.ICON_UNDERSCORE"></ion-icon>
-	</ion-segment-button>
-	<!-- presentation -->
-	
-	<!-- list -->
-	<ion-segment-button (click)="triggerCommand('insertUnorderedList')">
-		<ion-icon [src]="stringKey.ICON_UL"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('insertOrderedList')">
-		<ion-icon [src]="stringKey.ICON_OL"></ion-icon>
-	</ion-segment-button>
-	<!-- list -->
-	
-	<!-- alignment -->
-	<ion-segment-button (click)="triggerCommand('justifyLeft')">
-		<ion-icon [src]="stringKey.ICON_J_L"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('justifyCenter')">
-		<ion-icon [src]="stringKey.ICON_J_C"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('justifyRight')">
-		<ion-icon [src]="stringKey.ICON_J_R"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('justifyFull')">
-		<ion-icon [src]="stringKey.ICON_J_F"></ion-icon>
-	</ion-segment-button>
-	<!-- alignment -->
-	
-	<!-- sub -->
-	<ion-segment-button (click)="triggerCommand('subscript')">
-		<ion-icon [src]="stringKey.ICON_SUBSCRIPT"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="triggerCommand('superscript')">
-		<ion-icon [src]="stringKey.ICON_SUPERSCRIPT"></ion-icon>
-	</ion-segment-button>
-	<!-- sub -->
-	
-	<ion-segment-button (click)="insertImage()">
-		<ion-icon [src]="stringKey.ICON_IMAGE"></ion-icon>
-	</ion-segment-button>
-	<ion-segment-button (click)="insertUrl()">
-		<ion-icon [src]="stringKey.ICON_LINK"></ion-icon>
+<ion-segment scrollable="true" mode="ios" [ngModel]="selectedCommand">
+	<ion-segment-button
+		checked="false" 
+		*ngFor="let command of commands"
+		[value]="command.command"
+		(mousedown)="$event.preventDefault()"
+		(click)="executeCommand(command)"
+	>
+		<ion-icon [src]="command.icon"></ion-icon>
 	</ion-segment-button>
 </ion-segment>

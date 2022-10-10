@@ -6,9 +6,27 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-13 11:33:29 
- * Last modified  : 2022-07-13 12:02:03
+ * Last modified  : 2022-10-10 18:15:49
  */
 
- ion-segment{
+ion-segment {
 	height: 50px;
- }
+}
+
+ion-segment-button {
+	--indicator-color: var(--ion-color-tertiary);
+}
+
+/* Material Design styles */
+ion-segment-button.md {
+	--color: #000;
+	--color-checked: var(--ion-color-primary);
+	--indicator-height: 4px;
+}
+
+/* iOS styles */
+ion-segment-button.ios {
+	--color: var(--ion-color-primary);
+	--color-checked: #000;
+	--border-radius: 20px;
+}

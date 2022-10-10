@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-01 18:19:03 
- * Last modified  : 2022-09-01 18:20:14
+ * Last modified  : 2022-10-10 20:33:13
  */
 
 import { DOCUMENT } from "@angular/common";
@@ -423,8 +423,6 @@ export class CrudRevisionFlashCardComponent extends BaseFormComponent implements
 		this._frontMediaType = this._courseMaterialFlashCard.frontMediaType;
 		this._backMedia = this._courseMaterialFlashCard.backMedia;
 		this._backMediaType = this._courseMaterialFlashCard.backMediaType;
-
-		console.log(this._frontMedia);
 
 		this.setPassedValueToFrom();
 	}

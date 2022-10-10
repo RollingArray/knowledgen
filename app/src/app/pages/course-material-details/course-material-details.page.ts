@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-11-25 15:11:50 
- * Last modified  : 2022-09-22 16:59:47
+ * Last modified  : 2022-10-10 20:33:19
  */
 
 import { BaseViewComponent } from 'src/app/component/base/base-view.component';
@@ -144,7 +144,6 @@ export class CourseMaterialDetailsPage extends BaseViewComponent implements OnIn
 			 .pipe(takeUntil(this.unsubscribe))
 			 .subscribe(menuSelectModel =>
 			 {
-				 console.log("menuSelectModel ", menuSelectModel.articleId);
 				 if (menuSelectModel.articleId && menuSelectModel.courseMaterialId === courseMaterialId)
 				 {
 					this.router.navigate(['article', menuSelectModel.articleId], { relativeTo: this.activatedRoute });

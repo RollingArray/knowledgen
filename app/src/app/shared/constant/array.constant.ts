@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-18 19:15:29 
- * Last modified  : 2022-09-21 20:12:29
+ * Last modified  : 2022-10-10 20:30:03
  */
 
 
@@ -14,6 +14,7 @@ import { StringKey } from 'src/app/shared/constant/string.constant';
 import { CourseMaterialTypeIdEnum } from '../enum/course-material-type-id.enum';
 import { UserTypeEnum } from '../enum/user-type.enum';
 import { CourseMaterialTypeModel } from '../model/course-material-type.model';
+import { HtmlCommandModel } from '../model/html-command.model';
 import { LanguageModel } from '../model/language.model';
 import { RouteModel } from '../model/route.model';
 import { SlideModel } from '../model/slide.model';
@@ -1336,7 +1337,161 @@ export class ArrayKey
 		}
 	];
 
+	/**
+	 * Study point guard rails of array key
+	 */
+	public static readonly HTML_COMMANDS: HtmlCommandModel[] = [
+		{
+			command: 'text',
+			icon: StringKey.ICON_TEXT,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false,
+		},
 
+		// <!-- h1..h6 -->
+		{
+			command: 'h1',
+			icon: StringKey.ICON_H1,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'h2',
+			icon: StringKey.ICON_H2,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'h3',
+			icon: StringKey.ICON_H3,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'h4',
+			icon: StringKey.ICON_H4,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'h5',
+			icon: StringKey.ICON_H5,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'h6',
+			icon: StringKey.ICON_H6,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'blockquote',
+			icon: StringKey.ICON_BLOCK,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		// <!-- h1..h6 -->
 
+		// <!-- presentation -->
+		{
+			command: 'bold',
+			icon: StringKey.ICON_BOLD,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'italic',
+			icon: StringKey.ICON_ITALIC,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'underline',
+			icon: StringKey.ICON_UNDERSCORE,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'strikeThrough',
+			icon: StringKey.ICON_STRIKETHROUGH,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false,
+		},
+		// <!-- presentation -->
 
+		// <!-- list -->
+		{
+			command: 'insertUnorderedList',
+			icon: StringKey.ICON_UL,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'insertOrderedList',
+			icon: StringKey.ICON_OL,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		// <!-- list -->
+
+		// <!-- alignment -->
+		{
+			command: 'justifyLeft',
+			icon: StringKey.ICON_J_L,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'justifyCenter',
+			icon: StringKey.ICON_J_C,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'justifyRight',
+			icon: StringKey.ICON_J_R,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'justifyFull',
+			icon: StringKey.ICON_J_F,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		// <!-- alignment -->
+
+		// <!-- sub -->
+		{
+			command: 'subscript',
+			icon: StringKey.ICON_SUBSCRIPT,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		{
+			command: 'superscript',
+			icon: StringKey.ICON_SUPERSCRIPT,
+			ifTriggerCommand: true,
+			ifExplicitCommand: false
+		},
+		// <!-- sub -->
+
+		// 
+		{
+			command: 'insertImage',
+			icon: StringKey.ICON_IMAGE,
+			ifTriggerCommand: false,
+			ifExplicitCommand: true,
+			explicitCommandName: 'insertImage'
+		},
+		{
+			command: 'insertUrl',
+			icon: StringKey.ICON_LINK,
+			ifTriggerCommand: false,
+			ifExplicitCommand: true,
+			explicitCommandName: 'insertUrl'
+		},
+		
+	]
 }

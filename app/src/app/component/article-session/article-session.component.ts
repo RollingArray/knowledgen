@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-04 20:10:12 
- * Last modified  : 2022-09-07 20:52:45
+ * Last modified  : 2022-10-10 20:33:02
  */
 
 import { Component, OnInit, Injector, Input, ViewChild, Inject, EventEmitter, Output } from "@angular/core";
@@ -479,8 +479,6 @@ export class ArticleSessionComponent extends BaseFormComponent implements OnInit
 		const model: ArticleSessionModel = {
 			articleId: this.articleId
 		};
-
-		console.log("model ",model.articleId);
 
 		this.articleSessionStateFacade.requestCourseMaterial(model);
 	}

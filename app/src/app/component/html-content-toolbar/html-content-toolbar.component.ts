@@ -5,30 +5,42 @@
  * @summary Html content toolbar component
  * @author code@rollingarray.co.in
  *
- * Created at     : 2022-07-13 11:33:29 
- * Last modified  : 2022-08-08 13:19:59
+ * Created at     : 2022-07-13 11:33:29
+ * Last modified  : 2022-10-10 20:27:27
  */
 
-import { DOCUMENT } from "@angular/common";
-import { Component, OnInit, Input, Injector, Inject } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
-import { Observable } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { ApiUrls } from "src/app/shared/constant/api-urls.constant";
-import { OperationsEnum } from "src/app/shared/enum/operations.enum";
-import { CourseMaterialFileModel } from "src/app/shared/model/course-material-fle.model";
-import { MenuSelectModel } from "src/app/shared/model/menu-select.model";
-import { ModalData } from "src/app/shared/model/modal-data.model";
-import { CourseMaterialMenuStateFacade } from "src/app/state/course-material-menu/course-material-menu.state.facade";
-import { BaseViewComponent } from "../base/base-view.component";
-import { ContentImageComponent } from "../content-image/content-image.component";
+import { DOCUMENT } from '@angular/common';
+import
+	{
+		Component,
+		OnInit,
+		Input,
+		Injector,
+		Inject,
+		ElementRef,
+		ViewChild,
+	} from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ApiUrls } from 'src/app/shared/constant/api-urls.constant';
+import { OperationsEnum } from 'src/app/shared/enum/operations.enum';
+import { CourseMaterialFileModel } from 'src/app/shared/model/course-material-fle.model';
+import { HtmlCommandModel } from 'src/app/shared/model/html-command.model';
+import { MenuSelectModel } from 'src/app/shared/model/menu-select.model';
+import { ModalData } from 'src/app/shared/model/modal-data.model';
+import { CourseMaterialMenuStateFacade } from 'src/app/state/course-material-menu/course-material-menu.state.facade';
+import { BaseViewComponent } from '../base/base-view.component';
+import { ContentImageComponent } from '../content-image/content-image.component';
 
 @Component({
 	selector: 'html-content-toolbar',
 	templateUrl: './html-content-toolbar.component.html',
 	styleUrls: ['./html-content-toolbar.component.scss'],
 })
-export class HtmlContentToolbarComponent extends BaseViewComponent implements OnInit
+export class HtmlContentToolbarComponent
+	extends BaseViewComponent
+	implements OnInit
 {
 	/**
 	 * -------------------------------------------------|
@@ -37,13 +49,21 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	 * -------------------------------------------------|
 	 */
 
+	readonly commands = this.arrayKey.HTML_COMMANDS;
+
+	private defaultCommand = this.commands[0].command;
 
 	/**
-	  * -------------------------------------------------|
-	  * @description										|
-	  * @input & @output Instance variable								|
-	  * -------------------------------------------------|
-	  */
+	 * -------------------------------------------------|
+	 * @description									|
+	 * @input & @output Instance variable								|
+	 * -------------------------------------------------|
+	 */
+
+	/**
+	 * Input  of crud text document component
+	 */
+	@Input() public editableTextDocument: HTMLDivElement;
 
 	/**
 	 * -------------------------------------------------|
@@ -73,9 +93,16 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	private _modalData: ModalData;
 
 	/**
+	 * Selected command of html content toolbar component
+	 */
+	private _selectedCommand = this.defaultCommand;
+
+	segment = false;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @public Instance variable								|
+	 * @public Instance variable						|
 	 * -------------------------------------------------|
 	 */
 	public selectedMenuArticle$: Observable<MenuSelectModel>;
@@ -83,7 +110,7 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
-	 * @ViewChild Instance variable								|
+	 * @ViewChild Instance variable						|
 	 * -------------------------------------------------|
 	 */
 
@@ -94,6 +121,11 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	 * -------------------------------------------------|
 	 */
 
+	get selectedCommand()
+	{
+		return this._selectedCommand;
+	}
+
 	/**
 	 * -------------------------------------------------|
 	 * @description										|
@@ -103,9 +135,9 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 
 	/**
 	 * Creates an instance of html content toolbar component.
-	 * @param injector 
-	 * @param translateService 
-	 * @param courseMaterialMenuStateFacade 
+	 * @param injector
+	 * @param translateService
+	 * @param courseMaterialMenuStateFacade
 	 */
 	constructor(
 		injector: Injector,
@@ -122,7 +154,8 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	 */
 	ngOnInit()
 	{
-		this.selectedMenuArticle$ = this.courseMaterialMenuStateFacade.selectedMenuArticle$;
+		this.selectedMenuArticle$ =
+			this.courseMaterialMenuStateFacade.selectedMenuArticle$;
 	}
 
 	/**
@@ -134,13 +167,11 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 		{
 			this.selectedMenuArticle$
 				.pipe(takeUntil(this.unsubscribe))
-				.subscribe(_selectedMenu =>
+				.subscribe((_selectedMenu) =>
 				{
 					this._selectedMenu = _selectedMenu;
-				}
-				);
+				});
 		}, 0);
-
 	}
 
 	/**
@@ -150,29 +181,42 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	 * -------------------------------------------------|
 	 */
 
-
 	/**
-	 * -------------------------------------------------|
-	 * @description										|
-	 * @Private methods									|
-	 * -------------------------------------------------|
+	 * Tracks command selection
+	 * @param command 
 	 */
+	 private trackCommandSelection(command: HtmlCommandModel)
+	 {
+		 setTimeout(() =>
+		 {
+			 this._selectedCommand = command.command !== this._selectedCommand ? command.command : this.defaultCommand;
+		 }, 0);
+	 }
 
 	/**
 	 * Triggers command
-	 * @param command 
-	 * @returns  
+	 * @param command
+	 * @returns
 	 */
-	triggerCommand(command: string)
-	{
-		const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre'];
-		if (commands.includes(command))
-		{
-			this.doc.execCommand('formatBlock', false, command);
-			return;
-		}
-		this.doc.execCommand(command, false, null);
-	}
+	 private triggerCommand(command: string)
+	 {
+		 const commands = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'blockquote'];
+		 if (commands.includes(command))
+		 {
+			 this.doc.execCommand('formatBlock', false, command);
+			 return;
+		 }
+		 this.doc.execCommand(command, false, null);
+	 }
+ 
+
+	
+	/**
+	 * -------------------------------------------------|
+	 * @description										|
+	 * @Public methods									|
+	 * -------------------------------------------------|
+	 */
 
 	/**
 	 * Inserts url
@@ -181,22 +225,18 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	{
 		this.saveSelection();
 		this.translateService
-			.get([
-				'actionAlert.link',
-				'option.done',
-				'option.cancel',
-			]).pipe(takeUntil(this.unsubscribe))
-			.subscribe(async data =>
+			.get(['actionAlert.link', 'option.done', 'option.cancel'])
+			.pipe(takeUntil(this.unsubscribe))
+			.subscribe(async (data) =>
 			{
-
 				const alert = await this.alertController.create({
 					header: `${data['actionAlert.link']}`,
 					mode: 'md',
 					inputs: [
 						{
 							name: 'url',
-							type: 'text'
-						}
+							type: 'text',
+						},
 					],
 					buttons: [
 						{
@@ -207,24 +247,32 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 								const range = this.restoreSelection();
 								if (range)
 								{
-									const range = this.doc.getSelection().getRangeAt(0);
-									const line = range.commonAncestorContainer.data;
+									const range = this.doc
+										.getSelection()
+										.getRangeAt(0);
+									const line =
+										range.commonAncestorContainer.data;
 									const startOffset = range.startOffset;
 									const endOffset = range.endOffset;
-									let result = line.slice(startOffset, endOffset);
-									const innerHTML = `<a href=${data.url}>${result}</a>`;
-									this.doc.execCommand('insertHTML', false, innerHTML);
+									let result = line.slice(
+										startOffset,
+										endOffset
+									);
+									const innerHTML = `<a target='blank' href=${data.url}>${result}</a>`;
+									this.doc.execCommand(
+										'insertHTML',
+										false,
+										innerHTML
+									);
 								}
-							}
+							},
 						},
 						{
 							cssClass: 'cancel-button',
 							text: data['option.cancel'],
-							handler: () =>
-							{
-							}
-						}
-					]
+							handler: () => { },
+						},
+					],
 				});
 				await alert.present();
 			});
@@ -241,8 +289,8 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 		const courseMaterialFileModel: CourseMaterialFileModel = {
 			articleId: this._selectedMenu.articleId,
 			courseMaterialId: this._selectedMenu.courseMaterialId,
-			operationType: OperationsEnum.CREATE
-		}
+			operationType: OperationsEnum.CREATE,
+		};
 
 		// open modal
 		const modal = await this.modalController.create({
@@ -250,8 +298,8 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 			cssClass: 'modal-view',
 			backdropDismiss: false,
 			componentProps: {
-				courseMaterialFile: courseMaterialFileModel
-			}
+				courseMaterialFile: courseMaterialFileModel,
+			},
 		});
 
 		// on model dismiss
@@ -265,11 +313,10 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 			{
 				this.restoreSelection();
 				const courseMaterialFileModel: CourseMaterialFileModel = {
-					...this._modalData.returnData
-				}
+					...this._modalData.returnData,
+				};
 
-
-				const filePath = `${ApiUrls.FILE}${courseMaterialFileModel.fileName}/${courseMaterialFileModel.extension}`
+				const filePath = `${ApiUrls.FILE}${courseMaterialFileModel.fileName}.${courseMaterialFileModel.extension}`;
 				this.doc.execCommand('insertImage', false, filePath);
 			}
 		});
@@ -279,11 +326,24 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 	}
 
 	/**
+	 * Inserts url
+	 */
+	 blockquote()
+	 {
+		const innerHTML = `<blockquote>asd</blockquote>`;
+		this.doc.execCommand(
+			'blockquote',
+			false,
+			innerHTML
+		);
+	 }
+	
+	/**
 	 * save selection when the editor is focussed out
 	 */
 	public saveSelection()
 	{
-		if (this.doc.getSelection)
+		if (this.doc.getSelection())
 		{
 			const sel = this.doc.getSelection();
 			if (sel.getRangeAt && sel.rangeCount)
@@ -291,7 +351,7 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 				this._savedSelection = sel.getRangeAt(0);
 				this._selectedText = sel.toString();
 			}
-		} else if (this.doc.getSelection && this.doc.createRange)
+		} else if (this.doc.getSelection() && this.doc.createRange())
 		{
 			this._savedSelection = document.createRange();
 		} else
@@ -313,7 +373,9 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 				sel.removeAllRanges();
 				sel.addRange(this._savedSelection);
 				return true;
-			} else if (this.doc.getSelection /*&& this._savedSelection.select*/)
+			} else if (
+				this.doc.getSelection /*&& this._savedSelection.select*/
+			)
 			{
 				// this._savedSelection.select();
 				return true;
@@ -322,5 +384,25 @@ export class HtmlContentToolbarComponent extends BaseViewComponent implements On
 		{
 			return false;
 		}
+	}
+
+	/**
+	 * Executes command
+	 * @param command 
+	 */
+	public executeCommand(command: HtmlCommandModel)
+	{
+
+		this.trackCommandSelection(command);
+		
+		if (command.ifTriggerCommand)
+		{
+			this.triggerCommand(command.command);
+		}
+		else
+		{
+			this[command.explicitCommandName]();
+		}
+		
 	}
 }
