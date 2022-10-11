@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:14:11
- * Last modified  : 2022-09-21 10:33:33
+ * Last modified  : 2022-10-11 21:11:38
  */
 
 import { takeUntil } from 'rxjs/operators';
@@ -45,6 +45,11 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 */
 
 	/**
+	 * Description  of front page
+	 */
+	private _checkIfUserLoggedIn = false;
+
+	/**
 	 * -------------------------------------------------|
 	 * @description                                     |
 	 * @public Instance variable                        |
@@ -57,6 +62,14 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 * Getter & Setters                                 |
 	 * -------------------------------------------------|
 	 */
+
+	/**
+	 * Gets description
+	 */
+	get checkIfUserLoggedIn()
+	{
+		return this._checkIfUserLoggedIn;
+	}
 
 	/**
 	 * -------------------------------------------------|
@@ -104,11 +117,24 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 	 * on init
 	 */
 	async ngOnInit() {
-		this.rootStateFacade.loggedInUserId$
+		
+	}
+
+	/**
+	 * Ions view did enter
+	 */
+	ionViewDidEnter()
+	{
+		// take a moment to do the check, this will allow the menu of the modules to lazy load
+		setTimeout(() =>
+		{
+			this.rootStateFacade.loggedInUserId$
 			.pipe(takeUntil(this.unsubscribe))
 			.subscribe((userId) => {
+				this._checkIfUserLoggedIn = true;
 				if (userId)
 				{
+					
 					// check user type
 					this.rootStateFacade.loggedInUserType$
 						.pipe(takeUntil(this.unsubscribe))
@@ -131,6 +157,7 @@ export class FrontPage extends BaseViewComponent implements OnInit, OnDestroy {
 					// check intro status, if intro not yet done, add intro
 				}
 			});
+		}, 100);
 	}
 
 	/**

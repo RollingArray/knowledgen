@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-12-26 11:16:28 
- * Last modified  : 2022-09-21 10:13:01
+ * Last modified  : 2022-10-11 21:10:29
  */
  -->
 <ion-content lines="none" color="primary">
@@ -29,6 +29,16 @@
             </ion-col>
             <!-- app tag -->
         </ion-row>
+    </ion-grid>
+    <ion-grid lines="none" *ngIf="!checkIfUserLoggedIn">
+        <ion-row>
+            <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
+            offset-sm="4" lines="none">
+                <content-loading [formContent]="true"></content-loading>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid lines="none" *ngIf="checkIfUserLoggedIn">
         <ion-row>
             <!-- sign up -->
             <ion-col align-self-center size="12" size-lg="4" size-md="4" size-sm="4" offset-lg="4" offset-md="4"
