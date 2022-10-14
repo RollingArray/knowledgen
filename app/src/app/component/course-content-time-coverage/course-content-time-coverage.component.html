@@ -7,23 +7,27 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-09-21 16:58:42
+ * Last modified  : 2022-10-14 10:03:11
  */
 -->
 
-<ion-card >
-	<ion-card-header>
-		<panel-header 
-			[panelTitle]="'pageTitle.courseContentTimeCoverageOverTime' | translate"
-			[panelIcon] = "stringKey.ICON_LINE_CHART"
+<ion-card>
+	<ion-card-header class="padding-left-0-px padding-right-0-px">
+		<panel-header
+			[panelTitle]="
+				'pageTitle.courseContentTimeCoverageOverTime' | translate
+			"
+			[panelIcon]="stringKey.ICON_LINE_CHART"
 		></panel-header>
 		<panel-info
 			[showMoreLess]="true"
-			[title]="'pageSubTitle.courseContentTimeCoverageOverTime' | translate"
+			[title]="
+				'pageSubTitle.courseContentTimeCoverageOverTime' | translate
+			"
 			[panelColor]="stringKey.COLOR_WHITE"
 		></panel-info>
 	</ion-card-header>
 	<ion-card-content>
-		<canvas #chart style="height: 300px;"> </canvas>
+		<canvas #chart style="height: 300px"> </canvas>
 	</ion-card-content>
 </ion-card>

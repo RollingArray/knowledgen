@@ -6,18 +6,24 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-22 20:17:46 
- * Last modified  : 2022-09-22 20:19:15
+ * Last modified  : 2022-10-14 10:03:52
  */
  -->
 <!-- header -->
 <ion-header [appScrollTracker]="scrollArea">
 	<ion-toolbar color="primary">
 		<ion-title>
-			{{ 'pageTitle.availableMentorSession' | translate }}
+			{{ "pageTitle.availableMentorSession" | translate }}
 		</ion-title>
 		<ion-buttons slot="end">
-			<ion-button mode="ios" fill="outline" color="tertiary" (click)="closeModal()"> {{ 'button.close' |
-				translate }}</ion-button>
+			<ion-button
+				mode="ios"
+				fill="outline"
+				color="tertiary"
+				(click)="closeModal()"
+			>
+				{{ "button.close" | translate }}</ion-button
+			>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
@@ -25,25 +31,39 @@
 
 <ion-content lines="none" color="primary" #scrollArea scrollEvents="true">
 	<!-- page title -->
-	<app-page-info-title [title]="'pageTitle.availableMentorSession' | translate " [info]="'pageSubTitle.availableMentorSession' | translate "></app-page-info-title>
+	<app-page-info-title
+		[title]="'pageTitle.availableMentorSession' | translate"
+		[info]="'pageSubTitle.availableMentorSession' | translate"
+	></app-page-info-title>
 
 	<!-- data container -->
 	<ion-grid>
-		<ion-row *ngFor="let eachMatch of (availabilityMatch$ | async)">
+		<ion-row *ngFor="let eachMatch of availabilityMatch$ | async">
 			<ion-col>
 				<!-- each container -->
 				<ion-card color="secondary">
 					<ion-grid class="margin-10-px">
 						<ion-row>
 							<ion-col color="secondary" size="3">
-								<ion-icon class="font-size-100-px" [src]="stringKey.ICON_TEACHER" color="light">
+								<ion-icon
+									class="font-size-100-px"
+									[src]="stringKey.ICON_TEACHER"
+									color="light"
+								>
 								</ion-icon>
 							</ion-col>
 							<ion-col>
-								<ion-card-header>
-									<ion-card-subtitle>{{eachMatch.userEmail}}</ion-card-subtitle>
+								<ion-card-header
+									class="padding-left-0-px padding-right-0-px"
+								>
+									<ion-card-subtitle>{{
+										eachMatch.userEmail
+									}}</ion-card-subtitle>
 									<ion-card-title>
-										<b>{{eachMatch.userFirstName}} {{eachMatch.userLastName}}</b>
+										<b
+											>{{ eachMatch.userFirstName }}
+											{{ eachMatch.userLastName }}</b
+										>
 									</ion-card-title>
 								</ion-card-header>
 							</ion-col>
@@ -51,10 +71,17 @@
 					</ion-grid>
 
 					<ion-card-content>
-						{{eachMatch.userSkills}}
+						{{ eachMatch.userSkills }}
 					</ion-card-content>
-					<ion-card *ngFor="let eachMatchSession of eachMatch.matchedSessions.data">
-						<availability [availabilityPlanner]="eachMatchSession"></availability>
+					<ion-card
+						*ngFor="
+							let eachMatchSession of eachMatch.matchedSessions
+								.data
+						"
+					>
+						<availability
+							[availabilityPlanner]="eachMatchSession"
+						></availability>
 					</ion-card>
 				</ion-card>
 				<!-- each container -->

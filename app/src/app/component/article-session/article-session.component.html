@@ -7,13 +7,14 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-04 20:10:12 
- * Last modified  : 2022-09-07 21:48:46
+ * Last modified  : 2022-10-14 10:02:13
  */
 -->
 
 <ion-card color="light">
 	<!-- header if content text/document -->
 	<ion-card-header
+		class="padding-left-0-px padding-right-0-px"
 		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.TD"
 	>
 		<panel-header
@@ -30,6 +31,7 @@
 
 	<!-- header if content quiz -->
 	<ion-card-header
+		class="padding-left-0-px padding-right-0-px"
 		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.QUIZ"
 	>
 		<panel-header
@@ -46,6 +48,7 @@
 
 	<!-- header if content flash card -->
 	<ion-card-header
+		class="padding-left-0-px padding-right-0-px"
 		*ngIf="courseMaterialTypeId === courseMaterialTypeIdEnum.FC"
 	>
 		<panel-header
@@ -123,7 +126,6 @@
 					</ion-text>
 					&nbsp;{{ "formInfo.sessionIncrease" | translate }}
 				</p>
-				
 			</ion-item>
 		</ion-card>
 
@@ -154,7 +156,9 @@
 		>
 			<ion-item color="none">
 				<p>
-					<ion-icon [src]="stringKey.ICON_BIDIRECTIONAL_ARROW"></ion-icon>
+					<ion-icon
+						[src]="stringKey.ICON_BIDIRECTIONAL_ARROW"
+					></ion-icon>
 					&nbsp;{{ "formInfo.sessionNeutral" | translate }}
 				</p>
 			</ion-item>

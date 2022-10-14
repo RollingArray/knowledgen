@@ -7,7 +7,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-07-27 18:56:56 
- * Last modified  : 2022-09-28 09:55:47
+ * Last modified  : 2022-10-14 10:03:30
  */
 -->
 
@@ -44,11 +44,12 @@
 	<!-- page title -->
 
 	<!-- data loading -->
-	
+
 	<content-loading
 		[formContent]="true"
 		*ngIf="modalLoadingIndicatorStatus$ | async"
-	>s</content-loading>
+		>s</content-loading
+	>
 	<!-- data loading -->
 
 	<!-- data available -->
@@ -172,13 +173,15 @@
 			</ion-item>
 		</ion-card>
 		<!-- total session time -->
-		
+
 		<!-- tag analysis -->
 		<div *ngIf="strengthWeaknessAnalysis.length !== 0">
 			<ion-card>
-				<ion-card-header>
+				<ion-card-header class="padding-left-0-px padding-right-0-px">
 					<panel-header
-						[panelTitle]="'pageTitle.subjectAreaAnalysis' | translate"
+						[panelTitle]="
+							'pageTitle.subjectAreaAnalysis' | translate
+						"
 						[panelIcon]="stringKey.ICON_ANALYSIS"
 					></panel-header>
 					<panel-info
@@ -188,7 +191,10 @@
 					></panel-info>
 				</ion-card-header>
 				<ion-card-content>
-					<subject-area-analysis-segment [modalLayout]="true" [coreSubjectAreaTags]="strengthWeaknessAnalysis"></subject-area-analysis-segment>
+					<subject-area-analysis-segment
+						[modalLayout]="true"
+						[coreSubjectAreaTags]="strengthWeaknessAnalysis"
+					></subject-area-analysis-segment>
 				</ion-card-content>
 			</ion-card>
 		</div>

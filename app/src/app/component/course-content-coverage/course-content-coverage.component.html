@@ -8,15 +8,15 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-08-12 07:40:24 
- * Last modified  : 2022-09-21 17:02:38
+ * Last modified  : 2022-10-14 10:03:05
  */
 -->
 
-<ion-card >
-	<ion-card-header>
-		<panel-header 
+<ion-card>
+	<ion-card-header class="padding-left-0-px padding-right-0-px">
+		<panel-header
 			[panelTitle]="'pageTitle.courseContentCoverageOverTime' | translate"
-			[panelIcon] = "stringKey.ICON_BAR_CHART"
+			[panelIcon]="stringKey.ICON_BAR_CHART"
 		></panel-header>
 		<panel-info
 			[showMoreLess]="true"
@@ -25,6 +25,6 @@
 		></panel-info>
 	</ion-card-header>
 	<ion-card-content>
-		<canvas #chart style="height: 300px;"> </canvas>
+		<canvas #chart style="height: 300px"> </canvas>
 	</ion-card-content>
 </ion-card>

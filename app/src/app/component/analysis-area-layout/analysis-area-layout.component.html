@@ -6,20 +6,30 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2022-09-27 21:29:44 
- * Last modified  : 2022-09-27 21:30:09
+ * Last modified  : 2022-10-14 10:02:03
  */
 -->
 
 <div class="margin-top-10-px">
-	<panel-header [panelTitle]="areaName | translate" [panelIcon]="areaIcon"></panel-header>
-	<panel-info panelColor="white" [showMoreLess]="true" [title]="areaInfo | translate"></panel-info>
+	<panel-header
+		[panelTitle]="areaName | translate"
+		[panelIcon]="areaIcon"
+	></panel-header>
+	<panel-info
+		panelColor="white"
+		[showMoreLess]="true"
+		[title]="areaInfo | translate"
+	></panel-info>
 
 	<ion-card-content *ngIf="subjectAreas.length == 0">
-		<app-no-data [text]="'noData.noTag' | translate" [courseMaterial]="true"></app-no-data>
+		<app-no-data
+			[text]="'noData.noTag' | translate"
+			[courseMaterial]="true"
+		></app-no-data>
 	</ion-card-content>
 	<div *ngIf="subjectAreas.length !== 0">
 		<ion-card *ngFor="let eachTagArea of subjectAreas">
-			<ion-card-header>
+			<ion-card-header class="padding-left-0-px padding-right-0-px">
 				<ion-item lines="none">
 					<ion-label>
 						<ion-icon [src]="stringKey.ICON_TAG"></ion-icon>

@@ -6,7 +6,7 @@
  * @author code@rollingarray.co.in
  *
  * Created at     : 2021-05-01 11:07:12 
- * Last modified  : 2022-09-21 10:02:46
+ * Last modified  : 2022-10-13 21:06:46
  */
 
 /* Change autocomplete styles in WebKit */
@@ -85,6 +85,14 @@ ion-col {
 	width: 80%;
 	margin: 50px auto 0 auto;
 }
+
+// 
+.fixed-size {
+	flex: 0 0 0;
+	padding: 0;
+	margin-right: 0;
+}
+
 /* Table properties*/
 table {
 	border-collapse: collapse;
@@ -217,35 +225,35 @@ td:last-child {
 	margin: 0 !important;
 }
 /*Variable margin left */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.margin-left-#{$i}-px {
 		margin-left: #{$i}px;
 	}
 }
 
 /*Variable margin right */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.margin-right-#{$i}-px {
 		margin-right: #{$i}px;
 	}
 }
 
 /*Variable margin top */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.margin-top-#{$i}-px {
 		margin-top: #{$i}px !important;
 	}
 }
 
 /*Variable margin bottom */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.margin-bottom-#{$i}-px {
 		margin-bottom: #{$i}px;
 	}
 }
 
 /*Variable margin */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.margin-#{$i}-px {
 		margin: #{$i}px;
 	}
@@ -254,32 +262,32 @@ td:last-child {
 
 /*padding */
 /*Variable padding */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.padding-#{$i}-px {
 		padding: #{$i}px;
 	}
 }
 
 /*Variable margin top */
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.padding-top-#{$i}-px {
 		padding-top: #{$i}px;
 	}
 }
 
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.padding-bottom-#{$i}-px {
 		padding-bottom: #{$i}px;
 	}
 }
 
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.padding-left-#{$i}-px {
 		padding-left: #{$i}px;
 	}
 }
 
-@for $i from 1 through 500 {
+@for $i from 0 through 500 {
 	.padding-right-#{$i}-px {
 		padding-right: #{$i}px;
 	}
