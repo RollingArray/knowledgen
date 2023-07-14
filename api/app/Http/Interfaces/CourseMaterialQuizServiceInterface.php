@@ -15,4 +15,6 @@ Interface CourseMaterialQuizServiceInterface
     public function deleteAnswersForQuestion($questionId);
 
     public function deleteQuestion($questionId);
+
+    public function getAllSubjectAreaTagFroCourseMaterial($courseMaterialId);
 }

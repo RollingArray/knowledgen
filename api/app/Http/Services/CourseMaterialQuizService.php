@@ -139,6 +139,32 @@ class CourseMaterialQuizService implements CourseMaterialQuizServiceInterface
     }
 
      /**
+     * Get all subject area tag from course material
+     *
+     * @param  mixed $courseMaterialId
+     * @return void
+     */
+    public function getAllSubjectAreaTagFroCourseMaterial($courseMaterialId)
+    {
+        return CourseMaterialQuizModel::select(
+            'tbl_course_material_quiz.subject_area_tag_id',
+            'tbl_core_subject_area_tag.subject_area_tag_name',
+            'tbl_course_material_quiz.article_id',
+            'tbl_course_material_article.course_material_id'
+            )
+            ->join(
+                'tbl_course_material_article',
+                'tbl_course_material_quiz.article_id','=','tbl_course_material_article.article_id'
+            )
+            ->join(
+                'tbl_core_subject_area_tag',
+                'tbl_course_material_quiz.subject_area_tag_id','=','tbl_core_subject_area_tag.subject_area_tag_id'
+            )
+            ->where('tbl_course_material_article.course_material_id', '=', $courseMaterialId)
+            ->get();
+    }
+
+     /**
      * Delete answers for question
      *
      * @param  mixed $questionId

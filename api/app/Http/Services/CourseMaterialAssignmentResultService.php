@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Http\Interfaces\CoreSubjectAreaTagAnalysisServiceInterface;
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
+use App\Http\Interfaces\CourseMaterialQuizServiceInterface;
 use App\Http\Interfaces\ReturnDataStructureServiceInterface;
 use App\Models\CourseMaterialArticleAssignmentResultModel;
 
@@ -17,8 +18,20 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      * @var mixed
      */
     protected $returnDataStructureServiceInterface;
-
+    
+    /**
+     * coreSubjectAreaTagAnalysisServiceInterface
+     *
+     * @var mixed
+     */
     protected $coreSubjectAreaTagAnalysisServiceInterface;
+    
+    /**
+     * courseMaterialQuizServiceInterface
+     *
+     * @var mixed
+     */
+    protected $courseMaterialQuizServiceInterface;
     
     /**
      * __construct
@@ -28,11 +41,13 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
     public function __construct(
 		ReturnDataStructureServiceInterface $returnDataStructureServiceInterface,
         CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
-        CoreSubjectAreaTagAnalysisServiceInterface $coreSubjectAreaTagAnalysisServiceInterface
+        CoreSubjectAreaTagAnalysisServiceInterface $coreSubjectAreaTagAnalysisServiceInterface,
+        CourseMaterialQuizServiceInterface $courseMaterialQuizServiceInterface
 	) {
 		$this->returnDataStructureServiceInterface = $returnDataStructureServiceInterface;
         $this->courseMaterialArticleServiceInterface = $courseMaterialArticleServiceInterface;
         $this->coreSubjectAreaTagAnalysisServiceInterface = $coreSubjectAreaTagAnalysisServiceInterface;
+        $this->courseMaterialQuizServiceInterface = $courseMaterialQuizServiceInterface;
 	}
   
     
@@ -119,6 +134,26 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
         $tempRows['course_content_coverage_over_time'] = $this->getCourseContentCoverageOverTime($sessions);
         $tempRows['course_content_time_coverage_over_time'] = $this->getCourseContentTimeCoverageOverTime($sessions);
         $tempRows['core_subject_area_tag_analysis'] = $this->coreSubjectAreaTagAnalysisServiceInterface->getAllSubjectAreaTagAnalysis($userId);
+        return $tempRows;
+    }
+
+    /**
+     * Get all session time across
+     *
+     * @param  mixed $userId
+     * @return mixed
+     */
+    public function getCourseMaterialAllSessions($userId, $courseMaterialId){
+        $tempRows = array();
+        $sessions = $this->getCourseMaterialAllStudyAssignmentSessionTimeAcross($userId, $courseMaterialId);
+        $tempRows['study_points'] = $this->getTotalStudyPoints($userId);
+        $tempRows['study_sessions'] = $this->getAllSessionTimeAcross($sessions);
+        $tempRows['session_assignments'] = $this->getAllSessionAssignments($sessions);
+        $tempRows['assignments_score_analysis'] = $this->getAssignmentsScoreAnalysis($sessions);
+        $tempRows['course_content_coverage_over_time'] = $this->getCourseContentCoverageOverTime($sessions);
+        $tempRows['course_content_time_coverage_over_time'] = $this->getCourseContentTimeCoverageOverTime($sessions);
+        $tempRows['core_subject_area_tags'] = $this->courseMaterialQuizServiceInterface->getAllSubjectAreaTagFroCourseMaterial($courseMaterialId);
+
         return $tempRows;
     }
 
@@ -545,6 +580,32 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
                 'tbl_course_material_article.article_id','=','tbl_course_material_article_assignment_result.article_id'
             )
             ->where('tbl_course_material_article_assignment_result.user_id', '=', $userId)
+            ->orderBy('tbl_course_material_article_assignment_result.created_at', 'ASC')
+            ->get();
+    }
+
+    /**
+     * Get course material all study assignment session time across
+     *
+     * @param  mixed $articleId
+     * @param  mixed $userId
+     * @return mixed
+     */
+    private function getCourseMaterialAllStudyAssignmentSessionTimeAcross($userId, $courseMaterialId){
+        return CourseMaterialArticleAssignmentResultModel::select(
+            'tbl_course_material_article_assignment_result.article_id',
+            'tbl_course_material_article_assignment_result.article_assignment_completion_time',
+            'tbl_course_material_article.course_material_type_id',
+            'tbl_course_material_article_assignment_result.article_assignment_total_no_of_questions',
+            'tbl_course_material_article_assignment_result.article_assignment_total_no_of_correct_answers',
+            'tbl_course_material_article_assignment_result.created_at'
+            )
+            ->join(
+                'tbl_course_material_article',
+                'tbl_course_material_article.article_id','=','tbl_course_material_article_assignment_result.article_id'
+            )
+            ->where('tbl_course_material_article_assignment_result.user_id', '=', $userId)
+            ->where('tbl_course_material_article.course_material_id', '=', $courseMaterialId)
             ->orderBy('tbl_course_material_article_assignment_result.created_at', 'ASC')
             ->get();
     }

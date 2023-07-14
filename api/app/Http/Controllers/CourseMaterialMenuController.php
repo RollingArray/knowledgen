@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Interfaces\CourseMaterialArticleServiceInterface;
 use App\Http\Interfaces\CourseMaterialAssignmentResultServiceInterface;
 use App\Http\Interfaces\CourseMaterialMenuServiceInterface;
+use App\Http\Interfaces\CourseMaterialQuizServiceInterface;
 use App\Http\Interfaces\CourseMaterialServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,6 +51,20 @@ class CourseMaterialMenuController extends Controller
 	 * @var mixed
 	 */
 	protected $learningPathServiceInterface;
+	
+	/**
+	 * courseMaterialAssignmentResultServiceInterface
+	 *
+	 * @var mixed
+	 */
+	protected $courseMaterialAssignmentResultServiceInterface;
+	
+	/**
+	 * courseMaterialQuizServiceInterface
+	 *
+	 * @var mixed
+	 */
+	protected $courseMaterialQuizServiceInterface;
 
 	/**
 	 * __construct
@@ -61,7 +76,9 @@ class CourseMaterialMenuController extends Controller
 		CourseMaterialArticleServiceInterface $courseMaterialArticleServiceInterface,
 		CourseMaterialMenuServiceInterface $courseMaterialMenuServiceInterface,
 		CourseMaterialServiceInterface $courseMaterialServiceInterface,
-		LearningPathServiceInterface $learningPathServiceInterface
+		LearningPathServiceInterface $learningPathServiceInterface,
+		CourseMaterialAssignmentResultServiceInterface $courseMaterialAssignmentResultServiceInterface,
+		CourseMaterialQuizServiceInterface $courseMaterialQuizServiceInterface
 
 	) {
 		$this->jwtAuthServiceInterface = $jwtAuthServiceInterface;
@@ -69,6 +86,8 @@ class CourseMaterialMenuController extends Controller
 		$this->courseMaterialMenuServiceInterface = $courseMaterialMenuServiceInterface;
 		$this->courseMaterialServiceInterface = $courseMaterialServiceInterface;
 		$this->learningPathServiceInterface = $learningPathServiceInterface;
+		$this->courseMaterialAssignmentResultServiceInterface = $courseMaterialAssignmentResultServiceInterface;
+		$this->courseMaterialQuizServiceInterface = $courseMaterialQuizServiceInterface;
 	}
 
 	/**
@@ -113,11 +132,17 @@ class CourseMaterialMenuController extends Controller
 			$request->input('course_material_id')
 		);
 
+		$courseMaterialAllSessions = $this->courseMaterialAssignmentResultServiceInterface->getCourseMaterialAllSessions(
+			$request->header('UserId'),
+			$request->input('course_material_id')
+		);
+
 		// ser add to learning path object along with course material
 		$courseMaterial['addedToLearningPath'] = $this->learningPathServiceInterface->checkIfCourseMaterialInLearningPath($request->header('UserId'), $request->input('course_material_id'));
 
 		$data = array(
 			'courseMaterial' => $courseMaterial,
+			'courseMaterialAllSessions' => $courseMaterialAllSessions,
 			'courseMaterialMenu' => $courseMaterialMenu
 		);
 
