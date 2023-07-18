@@ -22,10 +22,22 @@ Mentors can create open course material, and and mentorship session. While, ment
 > > ```
 > 
 
+> > #### :arrow_forward: Install Composer
+> > ```
+> > curl -sS https://getcomposer.org/installer | php 
+> > sudo mv composer.phar /usr/local/bin/composer
+> > sudo composer --version
+
 > > #### :arrow_forward: Install Dependency
 > > ```
 > > cd api/
 > > composer install
+> > ```
+
+> > #### :arrow_forward: Create Database
+> > ```
+> > Go to mysql console
+> > CREATE DATABASE rolli3oh_knowledgen
 > > ```
 
 > > #### :arrow_forward: DB Migrate
