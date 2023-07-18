@@ -32,6 +32,13 @@ class CourseMaterialAssignmentResultService implements CourseMaterialAssignmentR
      * @var mixed
      */
     protected $courseMaterialQuizServiceInterface;
+
+    /**
+     * courseMaterialArticleServiceInterface
+     *
+     * @var mixed
+     */
+    protected $courseMaterialArticleServiceInterface;
     
     /**
      * __construct
